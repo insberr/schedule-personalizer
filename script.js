@@ -94,12 +94,16 @@ const main = Vue.createApp({
 	},
 	mounted() {
 		let data = JSON.parse(localStorage.getItem('data'));
-		if (data === undefined || data === null) return;
-		this.classes = data.classes || this.classes;
-		this.cohort = data.cohort || this.cohort;
-		this.lunch = data.lunch || this.lunch;
-		this.zooms = data.zooms || this.zooms;
-		this.hide = data.hide || this.hide;
+		if (data === undefined || data === null) {
+			console.log('hi, no data');
+		} else {
+			// console.log(data)
+		  this.classes = data.classes || this.classes;
+		  this.cohort = data.cohort || this.cohort;
+		  this.lunch = data.lunch || this.lunch;
+		  this.zooms = data.zooms || this.zooms;
+		  this.hide = data.hide || this.hide;
+		}
 		// console.log(JSON.srtingify(localStorage.getItem('data'));
 		
 		this.getQueries();
@@ -132,25 +136,25 @@ const main = Vue.createApp({
 			
 			if (classes) {
 				let place = classes.split(',');
-				let i = 0;
+				let i = 1;
 				for (let c of place) {
 					if (c === '_') { i++; continue; };
-					this.classes['p' + i + 1] = c;
+					this.classes['p' + i] = c;
 					i++
 					if (i > 5) { break; };
 				}
 			}
 			
 			if (zooms) {
-				let place = classes.split(',');
-				let i = 0;
+				let place = zooms.split(',');
+				let i = 1;
 				for (let c of place) {
 					if (c === '_') { i++; continue; };
-					this.classes['p' + i + 1] = c;
+					this.zooms['p' + i] = c;
 					i++
 					if (i > 5) { break; };
 				}
-				this.classes.padv = (place[5] !== '_' ? place[5] : '')
+				this.zooms.padv = (place[5] !== '_' ? place[5] : '')
 			}
 			
 			if (lunch) { this.lunch = lunch }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<!--
+		Welcome to the code for this website!
+		I am using vuejs 3 and picnic (css)
+	-->
+  <head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Class Schedule Generator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  	<div id="main">
+  		<div>
+  			This schedule generator was kindly created by Jonah Matteson. You're welcome.
+  			<br>
+  			<strong>This is to be used as a guide, please use and triple check the schedules provided by the school. I will keep info here up-to-date with new information as soon as I get it!</strong>
+  		</div>
+  		<div>
+  			<h2>Enter your classes</h2>
+  			<div class="third">
+	  			<label class="stack">
+	  				<span>Period 1</span>
+	  				<input type="text" name="period" v-model="classes.p1" placeholder="ex. Chemistry">
+	  			</label>
+	  			<label class="stack">
+	  				<span>Period 2</span>
+	  				<input type="text" name="period" v-model="classes.p2">
+	  			</label>
+	  			<label class="stack">
+	  				<span>Period 3</span>
+	  				<input type="text" name="period" v-model="classes.p3">
+	  			</label>
+	  			<label class="stack">
+	  				<span>Period 4</span>
+	  				<input type="text" name="period" v-model="classes.p4">
+	  			</label>
+	  			<label class="stack">
+	  				<span>Period 5</span>
+	  				<input type="text" name="period" v-model="classes.p5">
+	  			</label>
+	  		</div>
+  		</div>
+  		<div>
+  			<h2>Which cohort are you in?</h2>
+  			<label>
+  				<input type="radio" name="cohort" value="a" v-model="cohort">
+  				<span class="checkable">Cohort A</span>
+  			</label><br>
+				<label>
+					<input type="radio" name="cohort" value="b" v-model="cohort">
+					<span class="checkable">Cohort B</span>
+				</label><br><br>
+			</div>
+			<div class="hidden">
+				<h2>What lunch do you have</h2>
+				<label>
+					<input type="radio" name="lunch" value="1" v-model="lunch">
+					<span class="checkable">Lunch 1</span>
+				</label>
+				<label>
+					<input type="radio" name="lunch" value="2" v-model="lunch">
+					<span class="checkable">Lunch 2</span>
+				</label>
+			</div>
+			<div>
+				<h2>See your schedule!</h2>
+				<strong>Please note that this information may change. See attached images and links at the bottom of the webpage.</strong>
+				<br><strong>Lunches have not been properly implemented here because the schedule provided by the school says they are to be determined.</strong>
+				<br>
+				<div class="hidden">
+				  <h4>Colors?</h4>
+				  <label>
+					  <input type="radio" name="tbcolors" value="true" v-model="tbcolors">
+					  <span class="checkable">Yes</span>
+				  </label>
+				  <label>
+					  <input type="radio" name="tbcolors" value="false" v-model="tbcolors">
+					  <span class="checkable">No</span>
+				  </label>
+				</div>
+				<br><br><br>
+				<div class="over-x">
+					<table class="tbl warning">
+						<thead>
+							<tr>
+								<th style="background-color: crimson;">Monday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+								<th style="background-color: crimson;">Tuesday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+								<th style="background-color: #222222;">Wednesday - Remote</th>
+								<th style="background-color: #9a9a9a;">Thursday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+								<th style="background-color: #9a9a9a;">Friday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td v-for="day in schedule[cohort]">
+									<span class="hidden">You Will Be {{ day[0].go ? "In Person" : "Remote" }}</span>
+									<table class="tbl tbt primary">
+										<thead>
+										  <tr>
+										  	<th>Class</th>
+										  	<th>Time</th>
+										  </tr>
+									  </thead>
+									  <tbody>
+										  <tr style="border-top: .5px solid gray;" v-for="period in day">
+										  	<td v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</td>
+											  <td class="time" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ period.time }}</td>
+										  </tr>
+									  </tbody>
+								  </table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br><br>
+			<div>
+				<h3>Information</h3>
+				<span>You can find a download to the Cohort A & B schedule, schedules and calenders for next week (March 22 - 26) <a href="https://www.smore.com/5hxmf#w-4007570899" target="_blank" title="smore newsletter, links to the bottom">here on the weekly newsletter (Smore)</a></span>
+	      <br>
+			</div>
+  	</div>
+  	<h2>Site Information</h2>
+		<span>
+			If you are a web developer, you can check out the code <a href="https://replit.com/@insberr/schedule-personalizer#index.html" title="See this sites code here." target="_blank">here</a>.
+      <br>This website does not use cookies, track you, track anyalytics, or store any data you enter.
+		  <br>This is generated entirely in your brower.
+		  <br>All information provided here has been taken from what the school has given through the weekly newsletter emails.
+		</span>
+		<br><br><br>
+    <script src="script.js"></script>
+  </body>
+</html>

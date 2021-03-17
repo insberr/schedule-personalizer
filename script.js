@@ -135,7 +135,7 @@ const main = Vue.createApp({
 				let i = 0;
 				for (let c of place) {
 					if (c === '_') { i++; continue; };
-					this.classes['p' + i] = c;
+					this.classes['p' + i + 1] = c;
 					i++
 					if (i > 5) { break; };
 				}
@@ -146,7 +146,7 @@ const main = Vue.createApp({
 				let i = 0;
 				for (let c of place) {
 					if (c === '_') { i++; continue; };
-					this.classes['p' + i] = c;
+					this.classes['p' + i + 1] = c;
 					i++
 					if (i > 5) { break; };
 				}

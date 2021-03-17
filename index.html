@@ -124,7 +124,7 @@
 									  </thead>
 									  <tbody>
 										  <tr style="border-top: .5px solid gray;" v-for="period in day">
-										  	<td v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</td>
+										  	<td v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} <a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p]">zoom</a></td>
 											  <td class="time" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ period.time }}</td>
 										  </tr>
 									  </tbody>
@@ -149,6 +149,9 @@
 				  <br>This is generated entirely in your brower. The data you enter is saved locally on your browser so when you reload or come back to this site your schedule stays filled in : )
 				  <br>All information provided here has been taken from what the school has given through the weekly newsletter emails.
 				</span>
+				<br>
+				<span>If you are experiencing issues, try clicking this button and reloading the page.</span>
+				<br><button onclick="localStorage.clear()">Reset</button>
 				<br><br><br>
 			</div>
 			<div v-bind:class="{ hidden: !hide }">

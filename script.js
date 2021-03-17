@@ -60,9 +60,18 @@ const wed = [
 const main = Vue.createApp({
 	data() {
 		return {
+			hide: false,
 			tbcolors: true,
 			lunch: 1,
 			cohort: 'a',
+			zooms: {
+				p1: '',
+				p2: '',
+				p3: '',
+				p4: '',
+				p5: '',
+				padv: ''
+			},
 			classes: {
 				p1: '',
 				p2: '',
@@ -80,6 +89,88 @@ const main = Vue.createApp({
 				a: [in1, re1, wed, in2, re2],
 				b: [re1, in1, wed, re2, in2],
 			}
+		}
+	},
+	mounted() {
+		let data = JSON.parse(localStorage.getItem('data'));
+		if (data === undefined || data === null) return;
+		this.classes = data.classes || this.classes;
+		this.cohort = data.cohort || this.cohort;
+		this.lunch = data.lunch || this.lunch;
+		this.zooms = data.zooms || this.zooms;
+		this.hide = data.hide || this.hide;
+		// console.log(JSON.srtingify(localStorage.getItem('data'));
+		
+		this.getQueries();
+		console.log(this.classes)
+	},
+	methods: {
+		save() {
+			let data_new = {
+				classes: this.classes,
+				cohort: this.cohort,
+				lunch: this.lunch,
+				zooms: this.zooms,
+				hide: this.hide
+			};
+			localStorage.setItem('data', JSON.stringify(data_new));
+		},
+		getQueries() {
+			let queries = new URLSearchParams(window.location.search);
+			let hide = queries.get('hide');
+			let cohort = queries.get('cohort');
+			let classes = queries.get('classes');
+			let zooms = queries.get('zooms');
+			let lunch = queries.get('lunch');
+			
+			
+			if (hide) {
+				this.hide = hide;
+			}
+			
+			if (cohort) {
+				this.cohort = cohort;
+			}
+			
+			if (classes) {
+				let place = classes.split(',');
+				let i = 0;
+				for (let c of place) {
+					if (c === '_') { i++; continue; };
+					this.classes['p' + i] = c;
+					i++
+					if (i > 5) { break; };
+				}
+			}
+			
+			if (zooms) {
+				let place = classes.split(',');
+				let i = 0;
+				for (let c of place) {
+					if (c === '_') { i++; continue; };
+					this.classes['p' + i] = c;
+					i++
+					if (i > 5) { break; };
+				}
+				this.classes.padv = (place[5] !== '_' ? place[5] : '')
+			}
+			
+			if (lunch) {
+				this.lunch = lunch
+			}
+			
+			window.history.pushState({}, document.title, "/" + "");
+		}
+	},
+	watch: {
+		lunch() {
+			this.save();
+		},
+		cohort() {
+			this.save();
+		},
+		hide() {
+			this.save();
 		}
 	}
 }).mount('#main');

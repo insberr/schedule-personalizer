@@ -126,13 +126,9 @@ const main = Vue.createApp({
 			let lunch = queries.get('lunch');
 			
 			
-			if (hide) {
-				this.hide = hide;
-			}
+			if (hide) { this.hide = hide }
 			
-			if (cohort) {
-				this.cohort = cohort;
-			}
+			if (cohort) { this.cohort = cohort }
 			
 			if (classes) {
 				let place = classes.split(',');
@@ -157,9 +153,7 @@ const main = Vue.createApp({
 				this.classes.padv = (place[5] !== '_' ? place[5] : '')
 			}
 			
-			if (lunch) {
-				this.lunch = lunch
-			}
+			if (lunch) { this.lunch = lunch }
 			
 			window.history.pushState({}, document.title, "/" + "");
 		}
@@ -177,11 +171,3 @@ const main = Vue.createApp({
 	}
 }).mount('#main');
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker
-      .register("/serviceWorker.js")
-      .then(res => console.log("service worker registered"))
-      .catch(err => console.log("service worker not registered", err));
-  });
-}

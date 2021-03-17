@@ -11,10 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Class Schedule Generator</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+<<<<<<< HEAD:index.html
     
     <meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="green">
 		<meta name="apple-mobile-web-app-title" content="Schedule">
+=======
+		<link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+>>>>>>> 239e2cdfea0215e33b90c5dd4b768cc63ffd7e58:Public/index.html
   </head>
   <body>
   	<div id="main">
@@ -97,9 +102,14 @@
 					</div>
 				</div>
 				<div>
+<<<<<<< HEAD:index.html
 					<button v-bind:class="{ hidden: !hide }" @click="hide = false">Click here to edit</button>
 					<br><span v-bind:class="{ hidden: hide }" @click>Tip: Open this link in Safari: <pre>https://schedule-personalizer.insberr.repl.co?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&hide=true</pre>Then, click the export icon located at the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</span>
 					<br><br><button v-bind:class="{ hidden: hide }" @click="hide = true">Click here to show only the schedule</button>
+=======
+					<span v-bind:class="{ hidden: !hide }" @click="hide = false">Click here to edit</span>
+					<span v-bind:class="{ hidden: hide }" @click="hide = true">Click here to show only the schedule</span>
+>>>>>>> 239e2cdfea0215e33b90c5dd4b768cc63ffd7e58:Public/index.html
 				</div>
 				<br><br><br>
 				<div class="over-x">

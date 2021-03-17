@@ -102,12 +102,9 @@ const main = Vue.createApp({
 		this.hide = data.hide || this.hide;
 		// console.log(JSON.srtingify(localStorage.getItem('data'));
 		
-<<<<<<< HEAD:script.js
 		this.getQueries();
-=======
-		getQueries();
->>>>>>> 239e2cdfea0215e33b90c5dd4b768cc63ffd7e58:Public/script.js
-		console.log(this.classes)
+		// console.log(this.classes)
+		this.save();
 	},
 	methods: {
 		save() {
@@ -120,7 +117,6 @@ const main = Vue.createApp({
 			};
 			localStorage.setItem('data', JSON.stringify(data_new));
 		},
-<<<<<<< HEAD:script.js
 		getQueries() {
 			let queries = new URLSearchParams(window.location.search);
 			let hide = queries.get('hide');
@@ -167,8 +163,6 @@ const main = Vue.createApp({
 			
 			window.history.pushState({}, document.title, "/" + "");
 		}
-=======
->>>>>>> 239e2cdfea0215e33b90c5dd4b768cc63ffd7e58:Public/script.js
 	},
 	watch: {
 		lunch() {
@@ -182,6 +176,7 @@ const main = Vue.createApp({
 		}
 	}
 }).mount('#main');
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
     navigator.serviceWorker
@@ -190,18 +185,3 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.log("service worker not registered", err));
   });
 }
-function getQueries() {
-	let queries = new URLSearchParams(window.location.search);
-	let hide = queries.get('hide');
-	let cohort = queries.get('cohort');
-	let classes = queries.get('classes');
-	let zooms = queries.get('zooms');
-	let lunch = queries.get('lunch');
-	
-	if (hide) { main.hide = hide }
-	if (cohort) { main.cohort = cohort }
-	if (classes) { main.classes = JSON.parse(classes) }
-	if (zooms) { main.zooms = JSON.parse(zooms) }
-	if (lunch) { main.lunch = lunch }
-};
-

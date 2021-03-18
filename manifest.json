@@ -1,0 +1,14 @@
+{
+  "short_name": "Schedule",
+  "name": "Schedule",
+ 	"icons": [
+    {
+      "src":"/calendar.png",
+      "type": "image/png"
+ 	  }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#484848",
+  "theme_color": "#484848",
+  "display": "standalone"
+}

@@ -3,16 +3,25 @@
 	<!--
 		Welcome to the code for this website!
 		I am using vuejs 3 and picnic (css)
+		I put this site together quickly and probaby
+		didnt use the best practices. 
+		Like I say, make it work, then make it look nice
 	-->
   <head>
     <meta charset="utf-8">
     <script src="https://unpkg.com/vue@next"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Class Schedule Generator</title>
+    <title>Personalize Schedule</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/calendar.png">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="/calendar.png">
+    <link rel="apple-touch-startup-image" href="/calendar.png">
+    <meta name="apple-mobile-web-app-title" content="Schedule">
+    <meta name="apple-mobile-web-app-status-bar-style" content="crimson">
   </head>
   <body>
   	<div id="main">
@@ -145,6 +154,9 @@
 				<div class="mb-10">
 					<span>If you are experiencing issues or want to clear what you filled in, click this button</span>
 					<br><button onclick="localStorage.clear(); location.reload(2)">Reset</button>
+				</div>
+				<div class="mb-10">
+					<a style="color: gray; font-size: 12px;" href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar Icon Vectors by Vecteezy</a>
 				</div>
 			</div>
 			<div class="mt-10 mb-10 question" v-if="hide">

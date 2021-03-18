@@ -1,5 +1,4 @@
 
-window.navigator.standalone;
 const in1 = [
 	{ p: 'arr', time: '8:05 - 8:35', go: true },
 	{ p: 'adv', time: '8:35 - 9:05' },

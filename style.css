@@ -30,9 +30,6 @@ body {
 }
 .tbt td {
 	padding: 4px 0 4px 2px;
-	overflow-x: scroll;
-	overflow-y: scroll;
-	text-overflow: scroll;
 }
 
 .bt {

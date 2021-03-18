@@ -115,10 +115,6 @@ const main = Vue.createApp({
 		}
 	},
 	mounted() {
-		if (window.location.hostname === 'schedule-personalizer.insberr.repl.co') {
-			this.repbrows = true;
-		}
-		
 		let data = JSON.parse(localStorage.getItem('data'));
 		if (data === undefined || data === null) {
 			console.log('hi, no data');
@@ -134,9 +130,47 @@ const main = Vue.createApp({
 		
 		this.getQueries();
 		// console.log(this.classes)
+		
+		navigator.clipboard.readText()
+			.then(dt => {
+				let d = {}
+				console.log(dt)
+				try {
+					d = JSON.parse(dt);
+				} catch (err) {
+					this.save();
+					return console.log('error with text');
+				}
+
+				if (d.exists) {
+					this.classes = d.classes || this.classes;
+					this.cohort = d.cohort || this.cohort;
+					this.lunch = d.lunch || this.lunch;
+					this.zooms = d.zooms || this.zooms;
+					this.hide = d.hide || this.hide;
+				}
+			}).catch(err => { console.log(err) });
+
 		this.save();
 	},
 	methods: {
+		copyData() {
+			let copyd = {
+				exists: true,
+				classes: this.classes,
+				cohort: this.cohort,
+				lunch: this.lunch,
+				zooms: this.zooms,
+				hide: this.hide
+			};
+			navigator.clipboard.writeText(JSON.stringify(copyd)).then(function() {
+				/* clipboard successfully set */
+				console.log("copy success")
+			}, function() {
+				/* clipboard write failed */
+				console.log('copy failed')
+			});
+		},
 		save() {
 			let data_new = {
 				classes: this.classes,
@@ -150,12 +184,13 @@ const main = Vue.createApp({
 		},
 		getQueries() {
 			let queries = new URLSearchParams(window.location.search);
+			
+			let copy = queries.get('copy');
 			let hide = queries.get('hide');
 			let cohort = queries.get('cohort');
 			let classes = queries.get('classes');
 			let zooms = queries.get('zooms');
 			let lunch = queries.get('lunch');
-			
 			
 			if (hide) { this.hide = hide }
 			

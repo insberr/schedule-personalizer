@@ -1,7 +1,16 @@
 body {
 	font-family: Arial, Sans-Serif;
-	font-size: 15px;
-	padding: 30px 15px 30px 15px;
+	font-size: 14px;
+	margin: 30px 10px 30px 10px;
+}
+
+.tc {
+	text-align: center;
+	padding: 5px;
+}
+
+.tbt {
+	width: 200px;
 }
 
 .over-x {
@@ -9,15 +18,34 @@ body {
 }
 
 .tbl td {
-	padding: 3px;
+	padding: 0 .5px 0 .5px;
 }
 
 .hidden {
 	display: none;
 }
 
-.tbl.tbt td {
-	padding: 3px;
+.tbt tr {
+	padding: 2px 1px 2px 1px;
+}
+.tbt td {
+	padding: 4px 0 4px 2px;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	text-overflow: scroll;
+}
+
+.bt {
+	border-top: 1px solid black;
+}
+.bl {
+	border-left: 1px solid black;
+}
+.br {
+	border-right: 1px solid black;
+}
+.bb {
+	border-bottom: 1px solid black;
 }
 
 .nocolor table tbody tr td {
@@ -25,7 +53,8 @@ body {
 }
 
 .time {
-	width: 100px;
+	padding-right: 3px!important;
+	text-align: right;
 }
 
 .clas {
@@ -50,4 +79,30 @@ body {
 
 .diss {
 	background-color: #4beb8e;
+}
+
+.crimson {
+	color: crimson;
+}
+
+.question{
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.mb-30 {
+	margin-bottom: 30px;
+}
+
+.mt-10 {
+	margin-top: 10px;
+}
+
+.txt-20 {
+	font-size: 15px;
 }

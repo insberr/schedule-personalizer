@@ -16,116 +16,112 @@
   </head>
   <body>
   	<div id="main">
-  		<div v-bind:class="{ hidden: hide }">
-  			This schedule generator was kindly created by Jonah Matteson. You're welcome.
-  			<br>The info you enter here will be saved locally to your browser so you dont have to fill this in every time
+  		<div class="question" v-if="!hide">
+  			<div v-if="repbrows">
+  				<h4><span class="label warning">Warning</span> <span class="warning">You are using the development version of this site, please use the stable version <a href="https://insberr.github.io/schedule-personalizer" target="_blank">here</a></span></h4>
+  			</div>
+  			<br><br>
+  			<span>This schedule generator was kindly created by Jonah Matteson. You're welcome.</span>
+  			<br><span>The generated schedule is saved locally in your browser.</span>
   			<br>
-  			<strong>This is to be used as a guide, please use and triple check the schedules provided by the school. I will keep info here up-to-date with new information as soon as I get it!</strong>
+  			<strong>Please use and check the schedules provided by the school too! I will keep this updated with new info when I get it!</strong>
   		</div>
-  		<div v-bind:class="{ hidden: hide }">
-  			<h2>Enter your classes</h2>
+  		<div class="question" v-if="!hide">
+  			<h2 class="crimson">Enter your classes</h2>
+  			<span>(Entering the zoom links is optional)</span>
   			<div class="third">
 	  			<label class="stack">
 	  				<span>Period 1</span>
 	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p1" placeholder="ex. Chemistry">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p1" v-bind:placeholder="(classes.p1 ? classes.p1 : 'Period 1') + ' zoom link'">
 	  			</label>
+	  			<br>
 	  			<label class="stack">
 	  				<span>Period 2</span>
 	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p2">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p2" v-bind:placeholder="(classes.p2 ? classes.p2 : 'Period 2') + ' zoom link'">
 	  			</label>
+	  			<br>
 	  			<label class="stack">
 	  				<span>Period 3</span>
 	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p3">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p3" v-bind:placeholder="(classes.p3 ? classes.p3 : 'Period 3') + ' zoom link'">
 	  			</label>
+	  			<br>
 	  			<label class="stack">
 	  				<span>Period 4</span>
 	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p4">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p4" v-bind:placeholder="(classes.p4 ? classes.p4 : 'Period 4') + ' zoom link'">
 	  			</label>
+	  			<br>
 	  			<label class="stack">
 	  				<span>Period 5</span>
 	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p5">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p5" v-bind:placeholder="(classes.p5 ? classes.p5 : 'Period 5') + ' zoom link'">
+	  				<br><br>
 	  				<span>Advisory</span>
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.padv" placeholder="Advisory zoom link">
 	  			</label>
 	  		</div>
-  		</div>
-  		<div v-bind:class="{ hidden: hide }">
-  			<h2>Which cohort are you in?</h2>
+      </div>
+  		<div class="question" v-if="!hide">
+  			<h2 class="crimson">Which cohort are you in?</h2>
   			<label>
   				<input type="radio" name="cohort" value="a" v-model="cohort">
   				<span class="checkable">Cohort A</span>
-  			</label><br>
+  			</label>
+  			<br>
 				<label>
 					<input type="radio" name="cohort" value="b" v-model="cohort">
 					<span class="checkable">Cohort B</span>
-				</label><br><br>
+				</label>
 			</div>
-			<div class="hidden" v-bind:class="{ hidden: hide }">
-				<h2>What lunch do you have</h2>
+			<div class="question" v-if="!hide">
+				<h2 class="crimson">What lunch do you have</h2>
+				<span>Lunches are To Be Determined. I will add the times for them as soon as I know.</span>
+				<br>
 				<label>
 					<input type="radio" name="lunch" value="1" v-model="lunch">
 					<span class="checkable">Lunch 1</span>
 				</label>
+				<br>
 				<label>
 					<input type="radio" name="lunch" value="2" v-model="lunch">
 					<span class="checkable">Lunch 2</span>
 				</label>
 			</div>
-			<div>
-				<div v-bind:class="{ hidden: hide }">
-					<h2>See your schedule!</h2>
-					<strong>Please note that this information may change. See attached images and links at the bottom of the webpage.</strong>
-					<br><strong>Lunches have not been properly implemented here because the schedule provided by the school says they are to be determined.</strong>
-					<br>
-					<div class="hidden">
-					  <h4>Colors?</h4>
-					  <label>
-						  <input type="radio" name="tbcolors" value="true" v-model="tbcolors">
-						  <span class="checkable">Yes</span>
-					  </label>
-					  <label>
-						  <input type="radio" name="tbcolors" value="false" v-model="tbcolors">
-						  <span class="checkable">No</span>
-					  </label>
-					</div>
+			<div class="mb-10">
+				<h2 class="crimson question" v-if="!hide">See your schedule!</h2>
+				<div class="mb-30 question">
+					<button v-if="hide" @click="hide = false">Edit Schedule</button>
+					<div class="mt-10" v-if="!hide" @click>Tip: Open this link in Safari: <pre>https://insberr.github.io/schedule-personalizer?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&lunch={{ lunch }}&hide=true</pre>Then, click the export icon located in the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</div>
+					<button v-if="!hide" @click="hide = true">Show Only The Schedule</button>
 				</div>
-				<div>
-					<button v-bind:class="{ hidden: !hide }" @click="hide = false">Click here to edit</button>
-					<br><span v-bind:class="{ hidden: hide }" @click>Tip: Open this link in Safari: <pre>https://schedule-personalizer.insberr.repl.co?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&hide=true</pre>Then, click the export icon located at the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</span>
-					<br><br><button v-bind:class="{ hidden: hide }" @click="hide = true">Click here to show only the schedule</button>
-				</div>
-				<br><br><br>
-				<div class="over-x">
+				<div class="over-x my-table">
 					<table class="tbl warning">
 						<thead>
 							<tr>
-								<th style="background-color: crimson;">Monday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-								<th style="background-color: crimson;">Tuesday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
-								<th style="background-color: #222222;">Wednesday - Remote</th>
-								<th style="background-color: #9a9a9a;">Thursday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-								<th style="background-color: #9a9a9a;">Friday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+								<th class="tc" style="background-color: crimson;">Monday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+								<th class="tc" style="background-color: crimson;">Tuesday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+								<th class="tc" style="background-color: #222222;">Wednesday - Remote</th>
+								<th class="tc" style="background-color: #9a9a9a;">Thursday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+								<th class="tc" style="background-color: #9a9a9a;">Friday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td v-for="day in schedule[cohort]">
-									<span class="hidden">You Will Be {{ day[0].go ? "In Person" : "Remote" }}</span>
-									<table class="tbl tbt primary">
+									<table class="tbt primary">
 										<thead>
 										  <tr>
-										  	<th>Class</th>
-										  	<th>Time</th>
+										  	<th class="tc">Class</th>
+										  	<th class="tc">Time</th>
 										  </tr>
 									  </thead>
 									  <tbody>
 										  <tr style="border-top: .5px solid gray;" v-for="period in day">
-										  	<td v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} <a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p]" target="_blank">zoom</a></td>
-											  <td class="time" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ period.time }}</td>
+										  	<td v-if="period.l === undefined || period.l === lunch" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} <a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p]" target="_blank">zoom</a></td>
+											  <td v-if="period.l === undefined || period.l === lunch" class="time" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ period.time }}</td>
 										  </tr>
 									  </tbody>
 								  </table>
@@ -135,29 +131,26 @@
 					</table>
 				</div>
 			</div>
-			<br><br>
-			<div v-bind:class="{ hidden: hide }">
-				<h3>Information</h3>
-				<span>You can find a download to the Cohort A & B schedule, schedules and calenders for next week (March 22 - 26) <a href="https://www.smore.com/5hxmf#w-4007570899" target="_blank" title="smore newsletter, links to the bottom">here on the weekly newsletter (Smore)</a></span>
-	      <br>
+			<div class="question mb-10" v-if="!hide">
+				<h2 class="crimson">Information</h2>
+				<span>Downloads to the Cohort A & B schedule and the schedules/calenders for next week (March 22 - 26) are located <a href="https://www.smore.com/5hxmf#w-4007570899" target="_blank" title="smore newsletter, links to the bottom">here on the latest Smore</a></span>
 			</div>
-	  	<div v-bind:class="{ hidden: hide }">
-		  	<h2>Site Information</h2>
-				<span>
+	  	<div class="question mb-10" v-if="!hide">
+		  	<h2 class="crimson">Site Information</h2>
+	      <div class="mb-10">
 					If you are a web developer, you can check out the code <a href="https://replit.com/@insberr/schedule-personalizer#index.html" title="See this sites code here." target="_blank">here</a>.
 		      <br>This website does not use cookies, track you, track anyalytics, or store any data you enter to a server or other external source.
-				  <br>This is generated entirely in your brower. The data you enter is saved locally on your browser so when you reload or come back to this site your schedule stays filled in : )
-				  <br>All information provided here has been taken from what the school has given through the weekly newsletter emails.
-				</span>
-				<br>
-				<span>If you are experiencing issues, try clicking this button and reloading the page.</span>
-				<br><button onclick="localStorage.clear()">Reset</button>
-				<br><br><br>
+				  <br>The schedule is saved locally on your browser so when you come back to this site its still filled in
+				</div>
+				<div class="mb-10">
+					<span>If you are experiencing issues or want to clear what you filled in, click this button</span>
+					<br><button onclick="localStorage.clear(); location.reload(2)">Reset</button>
+				</div>
 			</div>
-			<div v-bind:class="{ hidden: !hide }">
-				<span>Kindly created by Jonah Matteson</span>
+			<div class="mt-10 mb-10 question" v-if="hide">
+				<span class="mt-10">Kindly created by Jonah Matteson</span>
 			</div>
 		</div>
-    <script src="script.js"></script>
   </body>
+  <script src="script.js"></script>
 </html>

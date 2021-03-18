@@ -5,8 +5,13 @@ const in1 = [
 	{ p: 'pass', time: '9:05 - 9:10' },
 	{ p: '1', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
+	
 	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30' },
+	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	
+	{ p: '3', time: '10:45 - 12:30', l: '2' },
+	{ p: 'lnc', time: 'tbd', l: '2' },
+	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '5', time: '12:35 - 2:05' },
 	{ p: 'dism', time: '2:05 - 2:35' }
@@ -17,8 +22,13 @@ const in2 = [
 	{ p: 'pass', time: '9:05 - 9:10' },
 	{ p: '2', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
+	
 	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30' },
+	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	
+	{ p: '3', time: '10:45 - 12:30', l: '2' },
+	{ p: 'lnc', time: 'tbd', l: '2' },
+	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '4', time: '12:35 - 2:05' },
 	{ p: 'dism', time: '2:05 - 2:35' }
@@ -29,8 +39,13 @@ const re1 = [
 	{ p: 'pass', time: '9:05 - 9:10' },
 	{ p: '1', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
+	
 	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30' },
+	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	
+	{ p: '3', time: '10:45 - 12:30', l: '2' },
+	{ p: 'lnc', time: 'tbd', l: '2' },
+	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '5', time: '12:35 - 2:05' },
 	{ p: 'study', time: '2:05 - 2:35' }
@@ -41,8 +56,13 @@ const re2 = [
 	{ p: 'pass', time: '9:05 - 9:10' },
 	{ p: '2', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
+	
 	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30' },
+	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	
+	{ p: '3', time: '10:45 - 12:30', l: '2' },
+	{ p: 'lnc', time: 'tbd', l: '2' },
+	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '4', time: '12:35 - 2:05' },
 	{ p: 'study', time: '2:05 - 2:35' }
@@ -52,18 +72,20 @@ const wed = [
 	{ p: '1', time: '8:50 - 9:35' },
 	{ p: '2', time: '9:40 - 10:25' },
 	{ p: '3', time: '10:30 - 11:15' },
-	{ p: 'lnc', time: '11:20 - 11:50', l: '1' },
+	{ p: 'lnc', time: '11:20 - 11:50' },
 	{ p: '4', time: '11:50 - 12:35' },
 	{ p: '5', time: '12:40 - 1:25' },
-	{ p: 'study', time: '1:30 - 2:35' }
+	{ p: 'study', time: '1:30 - 2:35' },
+	{ p: 'dism', time: '2:35' }
 ];
 
 const main = Vue.createApp({
 	data() {
 		return {
+			repbrows: false,
 			hide: false,
 			tbcolors: true,
-			lunch: 1,
+			lunch: '1',
 			cohort: 'a',
 			zooms: {
 				p1: '',
@@ -93,6 +115,10 @@ const main = Vue.createApp({
 		}
 	},
 	mounted() {
+		if (window.location.hostname === 'schedule-personalizer.insberr.repl.co') {
+			this.repbrows = true;
+		}
+		
 		let data = JSON.parse(localStorage.getItem('data'));
 		if (data === undefined || data === null) {
 			console.log('hi, no data');

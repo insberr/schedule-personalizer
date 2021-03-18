@@ -26,10 +26,9 @@
   <body>
   	<div id="main">
   		<div class="question" v-if="!hide">
-  			<div v-if="repbrows">
-  				<h4><span class="label warning">Warning</span> <span class="warning">You are using the development version of this site, please use the stable version <a href="https://insberr.github.io/schedule-personalizer" target="_blank">here</a></span></h4>
+  			<div class="mb-10">
+  				<h4><span class="label warning">Warning</span> <span class="warning">This site is still in development, but it is stabele for use.</span></h4>
   			</div>
-  			<br><br>
   			<span>This schedule generator was kindly created by Jonah Matteson. You're welcome.</span>
   			<br><span>The generated schedule is saved locally in your browser.</span>
   			<br>
@@ -103,7 +102,7 @@
 				<h2 class="crimson question" v-if="!hide">See your schedule!</h2>
 				<div class="mb-30 question">
 					<button v-if="hide" @click="hide = false">Edit Schedule</button>
-					<div class="mt-10" v-if="!hide" @click>Tip: Open this link in Safari: <pre>https://insberr.github.io/schedule-personalizer?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&lunch={{ lunch }}&hide=true</pre>Then, click the export icon located in the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</div>
+					<div class="mt-10" v-if="!hide" @click>(This isnt working 100% properly at the moment) Tip: Open this link in Safari: <pre>https://insberr.github.io/schedule-personalizer?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&lunch={{ lunch }}&hide=true</pre>Then, click the export icon located in the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</div>
 					<button v-if="!hide" @click="hide = true">Show Only The Schedule</button>
 				</div>
 				<div class="over-x my-table">

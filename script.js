@@ -146,6 +146,7 @@ const main = Vue.createApp({
 				hide: this.hide
 			};
 			localStorage.setItem('data', JSON.stringify(data_new));
+			
 		},
 		getQueries() {
 			let queries = new URLSearchParams(window.location.search);

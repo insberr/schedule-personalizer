@@ -3,13 +3,13 @@
   "name": "Schedule",
  	"icons": [
     {
-      "src": "/calendar.png",
+      "src": "./calendar.png",
       "sizes": "72x72",
       "type": "image/png"
  	  }
   ],
-  "scope": "/schedule-personalizer/",
-  "start_url": "/index.html",
+  "scope": "https://insberr.github.io/schedule-personalizer/"
+  "start_url": "./index.html?hide=true",
   "background_color": "#dc143c",
   "theme_color": "#dc143c",
   "display": "standalone"

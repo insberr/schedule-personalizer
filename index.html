@@ -17,11 +17,8 @@
     <link rel="icon" href="/calendar.png">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="/calendar.png">
-    <link rel="apple-touch-startup-image" href="/calendar.png">
     <meta name="apple-mobile-web-app-title" content="Schedule">
-    <meta name="apple-mobile-web-app-status-bar-style" content="crimson">
   </head>
   <body>
   	<div id="main">
@@ -30,7 +27,7 @@
   				<h4><span class="label warning">Warning</span> <span class="warning">This site is still in development, but it is stabele for use.</span></h4>
   			</div>
   			<span>This schedule generator was kindly created by Jonah Matteson. You're welcome.</span>
-  			<br><span>The generated schedule is saved locally in your browser.</span>
+  			<br><span>The generated schedule is saved locally in your browser. If you want to make this an "app" on your home screen, I reccomend you open this site in Safari, then follow <a href="#make-app">these instructions</a></span>
   			<br>
   			<strong>Please use and check the schedules provided by the school too! I will keep this updated with new info when I get it!</strong>
   		</div>
@@ -100,9 +97,14 @@
 			</div>
 			<div class="mb-10">
 				<h2 class="crimson question" v-if="!hide">See your schedule!</h2>
-				<div class="mb-30 question">
+				<div class="mb-30 question" id="make-app">
 					<button v-if="hide" @click="hide = false">Edit Schedule</button>
-					<div class="mt-10" v-if="!hide" @click>(This isnt working 100% properly at the moment) Tip: Open this link in Safari: <pre>https://insberr.github.io/schedule-personalizer?classes={{ classes.p1 || '_' }},{{ classes.p2 || '_' }},{{ classes.p3 || '_' }},{{ classes.p4 || '_' }},{{ classes.p5 || '_' }}&zooms={{ zooms.p1 || '_' }},{{ zooms.p2 || '_' }},{{ zooms.p3 || '_' }},{{ zooms.p4 || '_' }},{{ zooms.p5 || '_' }},{{ zooms.padv || '_' }}&cohort={{ cohort }}&lunch={{ lunch }}&hide=true</pre>Then, click the export icon located in the top right, and click "Add to Home Screen".<br>This will put an "app" on your homescreen that will open up to this scedule : )</div>
+					<div class="mt-10" v-if="!hide">
+						(This isnt working 100% properly at the moment)
+						You can make this into an "app". First, <a @click="copyData()">click here</a> to copy the info you entered here,
+						<br>Then open this website in Safari. From there, click the export icon in the top right and click the "Add to Home Screen" option.
+						<br>This will put an "app" on your homescreen called "Schedule", open it. What you entered here should automaticly show up there.
+					</div>
 					<button v-if="!hide" @click="hide = true">Show Only The Schedule</button>
 				</div>
 				<div class="over-x my-table">
@@ -162,6 +164,6 @@
 				<span class="mt-10">Kindly created by Jonah Matteson</span>
 			</div>
 		</div>
+		<script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>

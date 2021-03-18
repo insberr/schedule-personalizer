@@ -159,7 +159,7 @@ const main = Vue.createApp({
 			
 			if (lunch) { this.lunch = lunch }
 			
-			window.history.pushState({}, document.title, "/" + "");
+			window.history.pushState({}, document.title, window.location.pathname);
 		}
 	},
 	watch: {

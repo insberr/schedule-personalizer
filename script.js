@@ -131,16 +131,25 @@ const main = Vue.createApp({
 		this.getQueries();
 		// console.log(this.classes)
 		
-		navigator.clipboard.readText().then((dt) => {
-			let d = JSON.parse(dt);
-			if (d.exists) {
-				this.classes = d.classes || this.classes;
-		    this.cohort = d.cohort || this.cohort;
-		    this.lunch = d.lunch || this.lunch;
-		    this.zooms = d.zooms || this.zooms;
-		    this.hide = d.hide || this.hide;
-			}
-		}
+		navigator.clipboard.readText()
+			.then(dt => {
+				let d = {}
+				console.log(dt)
+				try {
+					d = JSON.parse(dt);
+				} catch (err) {
+					this.save();
+					return console.log('error with text');
+				}
+
+				if (d.exists) {
+					this.classes = d.classes || this.classes;
+					this.cohort = d.cohort || this.cohort;
+					this.lunch = d.lunch || this.lunch;
+					this.zooms = d.zooms || this.zooms;
+					this.hide = d.hide || this.hide;
+				}
+			}).catch(err => { console.log(err) });
 
 		this.save();
 	},

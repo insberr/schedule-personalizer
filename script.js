@@ -147,7 +147,7 @@ const main = Vue.createApp({
 		
 		this.getQueries();
 		// console.log(this.classes)
-		
+		this.save();
 		navigator.clipboard.readText()
 			.then(function (dt) {
 				let d = {}
@@ -155,7 +155,6 @@ const main = Vue.createApp({
 				try {
 					d = JSON.parse(dt);
 				} catch (err) {
-					this.save();
 					return console.log('error with text');
 				}
 

@@ -24,44 +24,44 @@
   	<div id="main">
   		<div class="question" v-if="!hide">
   			<div class="mb-10">
-  				<h4><span class="label warning">Warning</span> <span class="warning">This site is still in development, but it is stabele for use.</span></h4>
+  				<h4><span class="label success">YAY</span> <span class="warning">This site is stable for use.</span></h4>
   			</div>
-  			<span>This schedule generator was kindly created by Jonah Matteson. You're welcome.</span>
-  			<br><span>The generated schedule is saved locally in your browser. If you want to make this an "app" on your home screen, I reccomend you open this site in Safari, then follow <a href="#make-app">these instructions</a></span>
+  			<span>This is kindly created by Jonah Matteson. You're welcome.</span>
+  			<br><span>The generated schedule is saved locally in your browser. You can make this an "app" on your iPad homescreen, I reccomend you open this site in Safari, then follow <a href="#make-app">these instructions</a></span>
   			<br>
   			<strong>Please use and check the schedules provided by the school too! I will keep this updated with new info when I get it!</strong>
   		</div>
   		<div class="question" v-if="!hide">
   			<h2 class="crimson">Enter your classes</h2>
-  			<span>(Entering the zoom links is optional)</span>
+  			<span class="mb-10">Entering the Zoom links is optional</span>
   			<div class="third">
 	  			<label class="stack">
 	  				<span>Period 1</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p1" placeholder="ex. Chemistry">
+	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p1" placeholder="Name of 1st pd. class">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p1" v-bind:placeholder="(classes.p1 ? classes.p1 : 'Period 1') + ' zoom link'">
 	  			</label>
 	  			<br>
 	  			<label class="stack">
 	  				<span>Period 2</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p2">
+	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p2" placeholder="Name of 2nd pd. class">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p2" v-bind:placeholder="(classes.p2 ? classes.p2 : 'Period 2') + ' zoom link'">
 	  			</label>
 	  			<br>
 	  			<label class="stack">
 	  				<span>Period 3</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p3">
+	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p3" placeholder="Name of 3rd pd. class">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p3" v-bind:placeholder="(classes.p3 ? classes.p3 : 'Period 3') + ' zoom link'">
 	  			</label>
 	  			<br>
 	  			<label class="stack">
 	  				<span>Period 4</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p4">
+	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p4" placeholder="Name of 4th pd. class">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p4" v-bind:placeholder="(classes.p4 ? classes.p4 : 'Period 4') + ' zoom link'">
 	  			</label>
 	  			<br>
 	  			<label class="stack">
 	  				<span>Period 5</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p5">
+	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p5" placeholder="Name of 5th pd. class">
 	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p5" v-bind:placeholder="(classes.p5 ? classes.p5 : 'Period 5') + ' zoom link'">
 	  				<br><br>
 	  				<span>Advisory</span>
@@ -105,7 +105,7 @@
 				<div class="mb-30 question" id="make-app">
 					<button v-if="hide" @click="hide = false">Edit Schedule</button>
 					<div class="mt-10" v-if="!hide">
-						(This isnt working 100% properly at the moment)
+						(This should work now)
 						You can make this into an "app". First, <a @click="copyData()">click here</a> to copy the info you entered here,
 						<br>Then open this website in Safari, click the export icon in the top right and click "Add to Home Screen".
 						<br>This will put an "app" on your homescreen called "Schedule", open it and paste your clipboard here in that "app": <input style="width: 200px;" type="text" v-model="copy">

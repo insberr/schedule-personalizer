@@ -167,7 +167,7 @@ const main = Vue.createApp({
 				}
 			},
 			function (r) {
-				consoole.log('not supported');
+				console.log('not supported');
 			})
 
 		this.save();

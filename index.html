@@ -17,7 +17,7 @@
     <link rel="icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
+    <link rel="apple-touch-icon" href="/calendar.png">
     <meta name="apple-mobile-web-app-title" content="Schedule">
   </head>
   <body>
@@ -83,16 +83,21 @@
 			</div>
 			<div class="question" v-if="!hide">
 				<h2 class="crimson">What lunch do you have</h2>
-				<span>Lunches are To Be Determined. I will add the times for them as soon as I know.</span>
+				<span>Lunch times have been given, I am currently adding them.</span>
 				<br>
 				<label>
 					<input type="radio" name="lunch" value="1" v-model="lunch">
-					<span class="checkable">Lunch 1</span>
+					<span class="checkable">Lunch A</span>
 				</label>
 				<br>
 				<label>
 					<input type="radio" name="lunch" value="2" v-model="lunch">
-					<span class="checkable">Lunch 2</span>
+					<span class="checkable">Lunch B</span>
+				</label>
+				<br>
+				<label>
+					<input type="radio" name="lunch" value="3" v-model="lunch">
+					<span class="checkable">Lunch C</span>
 				</label>
 			</div>
 			<div class="mb-10">
@@ -102,8 +107,8 @@
 					<div class="mt-10" v-if="!hide">
 						(This isnt working 100% properly at the moment)
 						You can make this into an "app". First, <a @click="copyData()">click here</a> to copy the info you entered here,
-						<br>Then open this website in Safari. From there, click the export icon in the top right and click the "Add to Home Screen" option.
-						<br>This will put an "app" on your homescreen called "Schedule", open it. What you entered here should automaticly show up there.
+						<br>Then open this website in Safari, click the export icon in the top right and click "Add to Home Screen".
+						<br>This will put an "app" on your homescreen called "Schedule", open it and paste your clipboard here in that "app": <input style="width: 200px;" type="text" v-model="copy">
 					</div>
 					<button v-if="!hide" @click="hide = true">Show Only The Schedule</button>
 				</div>

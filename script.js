@@ -6,11 +6,15 @@ const in1 = [
 	{ p: '1', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
 	
-	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	{ p: 'lnc', time: '10:45 - 11:15', l: '1' },
+	{ p: '3', time: '11:20 - 12:30', l: '1' },
 	
-	{ p: '3', time: '10:45 - 12:30', l: '2' },
-	{ p: 'lnc', time: 'tbd', l: '2' },
+	{ p: '3', time: '10:45 - 11:20', l: '2' },
+	{ p: 'lnc', time: '11:20 - 11:50', l: '2' },
+	{ p: '3', time: '11:55 - 12:30', l: '2' },
+
+	{ p: '3', time: '10:45 - 12:00', l: '3' },
+	{ p: 'lnc', time: '12:00 - 12:30', l: '3' },
 	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '5', time: '12:35 - 2:05' },
@@ -23,11 +27,15 @@ const in2 = [
 	{ p: '2', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
 	
-	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	{ p: 'lnc', time: '10:45 - 11:15', l: '1' },
+	{ p: '3', time: '11:20 - 12:30', l: '1' },
 	
-	{ p: '3', time: '10:45 - 12:30', l: '2' },
-	{ p: 'lnc', time: 'tbd', l: '2' },
+	{ p: '3', time: '10:45 - 11:20', l: '2' },
+	{ p: 'lnc', time: '11:20 - 11:50', l: '2' },
+	{ p: '3', time: '11:55 - 12:30', l: '2' },
+
+	{ p: '3', time: '10:45 - 12:00', l: '3' },
+	{ p: 'lnc', time: '12:00 - 12:30', l: '3' },
 	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '4', time: '12:35 - 2:05' },
@@ -40,11 +48,15 @@ const re1 = [
 	{ p: '1', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
 	
-	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	{ p: 'lnc', time: '10:45 - 11:15', l: '1' },
+	{ p: '3', time: '11:20 - 12:30', l: '1' },
 	
-	{ p: '3', time: '10:45 - 12:30', l: '2' },
-	{ p: 'lnc', time: 'tbd', l: '2' },
+	{ p: '3', time: '10:45 - 11:20', l: '2' },
+	{ p: 'lnc', time: '11:20 - 11:50', l: '2' },
+	{ p: '3', time: '11:55 - 12:30', l: '2' },
+
+	{ p: '3', time: '10:45 - 12:00', l: '3' },
+	{ p: 'lnc', time: '12:00 - 12:30', l: '3' },
 	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '5', time: '12:35 - 2:05' },
@@ -57,11 +69,15 @@ const re2 = [
 	{ p: '2', time: '9:10 - 10:40' },
 	{ p: 'pass', time: '10:40 - 10:45' },
 	
-	{ p: 'lnc', time: 'tbd', l: '1' },
-	{ p: '3', time: '10:45 - 12:30', l: '1' },
+	{ p: 'lnc', time: '10:45 - 11:15', l: '1' },
+	{ p: '3', time: '11:20 - 12:30', l: '1' },
 	
-	{ p: '3', time: '10:45 - 12:30', l: '2' },
-	{ p: 'lnc', time: 'tbd', l: '2' },
+	{ p: '3', time: '10:45 - 11:20', l: '2' },
+	{ p: 'lnc', time: '11:20 - 11:50', l: '2' },
+	{ p: '3', time: '11:55 - 12:30', l: '2' },
+
+	{ p: '3', time: '10:45 - 12:00', l: '3' },
+	{ p: 'lnc', time: '12:00 - 12:30', l: '3' },
 	
 	{ p: 'pass', time: '12:30 - 12:35' },
 	{ p: '4', time: '12:35 - 2:05' },
@@ -82,6 +98,7 @@ const wed = [
 const main = Vue.createApp({
 	data() {
 		return {
+			copy: '',
 			repbrows: false,
 			hide: false,
 			tbcolors: true,
@@ -132,7 +149,7 @@ const main = Vue.createApp({
 		// console.log(this.classes)
 		
 		navigator.clipboard.readText()
-			.then(dt => {
+			.then(function (dt) {
 				let d = {}
 				console.log(dt)
 				try {
@@ -149,7 +166,10 @@ const main = Vue.createApp({
 					this.zooms = d.zooms || this.zooms;
 					this.hide = d.hide || this.hide;
 				}
-			}).catch(err => { console.log(err) });
+			},
+			function (r) {
+				consoole.log('not supported');
+			})
 
 		this.save();
 	},
@@ -170,6 +190,7 @@ const main = Vue.createApp({
 				/* clipboard write failed */
 				console.log('copy failed')
 			});
+			// this.copy = JSON.stringify(copyd);
 		},
 		save() {
 			let data_new = {
@@ -180,7 +201,7 @@ const main = Vue.createApp({
 				hide: this.hide
 			};
 			localStorage.setItem('data', JSON.stringify(data_new));
-			
+			// this.copy = JSON.stringify(data_new);
 		},
 		getQueries() {
 			let queries = new URLSearchParams(window.location.search);
@@ -232,6 +253,25 @@ const main = Vue.createApp({
 			this.save();
 		},
 		hide() {
+			this.save();
+		},
+		copy() {
+			let d = {};
+
+			try {
+					d = JSON.parse(this.copy);
+			} catch (err) {
+				this.save();
+				return console.log(err);
+			}
+
+			if (d.exists) {
+				this.classes = d.classes || this.classes;
+				this.cohort = d.cohort || this.cohort;
+				this.lunch = d.lunch || this.lunch;
+				this.zooms = d.zooms || this.zooms;
+				this.hide = d.hide || this.hide;
+			}
 			this.save();
 		}
 	}

@@ -14,6 +14,13 @@
 		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 	<script src="https://unpkg.com/vue@next"></script>
 	<link rel="stylesheet" href="darkmode.css">
+	<!-- small inline style to fix link color in the table -->
+	<style>
+		[data-theme="dark"] td > a {
+			color: #000!important
+		}
+	
+	</style>
 	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Personalize Schedule</title>
@@ -222,10 +229,9 @@
 										<tr class="tbt-tr" style="border-top: .5px solid gray;" v-for="period in day">
 											<td v-if="period.l === undefined || period.l === lunch" class="tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-												{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
-												<a v-if="zooms['p' + period.p]"
-													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
-													target="_blank">zoom</a></td>
+												<a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
+												target="_blank"> {{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</a>
+												<a v-else>{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} </a>
 											<td v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
 												{{ period.time }}</td>

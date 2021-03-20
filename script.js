@@ -542,9 +542,11 @@ window.addEventListener('load', function () {
 function resetTheme() {
 	if (darkMode.checked) {
 		document.body.setAttribute('data-theme', 'dark');
+		localStorage.setItem('darkMode', 'dark');
 		document.getElementById(darkLabel).innerHTML = "Dark";
 	} else {
 		document.body.removeAttribute('data-theme');
+		localStorage.removeItem('darkMode');
 		document.getElementById(darkLabel).innerHTML = "Light";
 	}
 }

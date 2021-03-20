@@ -12,19 +12,6 @@ h2 {
     color: #fff;
 }
 
-.dark {
-	background-color: #222222;
-	color: white;
-}
-
-.dark :is(td) {
-	color: black;
-}
-
-.dark :is(input) {
-	background-color: gray;
-}
-
 
 .nocolor table tbody tr td {
 	background-color: inherit;
@@ -64,3 +51,34 @@ h2 {
 	color: crimson;
 }
 
+/* Dark Theme Colors for stuff */
+[data-theme="dark"] .clas {
+	background-color: #40daf5!important;
+	color: black!important;
+}
+
+
+[data-theme="dark"] .arr {
+	background-color: #fcff5c!important;
+}
+
+[data-theme="dark"] .lunch {
+	background-color: #bbff5c!important;
+}
+
+[data-theme="dark"] .study {
+	background-color: lightgray!important;
+}
+
+[data-theme="dark"] .pass {
+	background-color: #f288c4!important;
+}
+
+[data-theme="dark"] .diss {
+	background-color: #4beb8e!important;
+}
+
+
+[data-theme="dark"] .crimson {
+	color: crimson;
+}

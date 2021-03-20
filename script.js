@@ -97,6 +97,7 @@ const wed = [
 const main = Vue.createApp({
 	data() {
 		return {
+			dark: true,
 			copy: '',
 			repbrows: false,
 			hide: false,
@@ -147,6 +148,7 @@ const main = Vue.createApp({
 		this.getQueries();
 		// console.log(this.classes)
 		this.save();
+		/*
 		navigator.clipboard.readText()
 			.then(function (dt) {
 				let d = {}
@@ -168,7 +170,7 @@ const main = Vue.createApp({
 			function (r) {
 				console.log('not supported');
 			})
-
+		*/
 		this.save();
 	},
 	methods: {

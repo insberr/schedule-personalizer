@@ -4,6 +4,19 @@ body {
 	margin: 10px 10px 30px 10px;
 }
 
+.dark {
+	background-color: #222222;
+	color: white;
+}
+
+.dark :is(td) {
+	color: black;
+}
+
+.dark :is(input) {
+	background-color: gray;
+}
+
 table :is(a) {
 	margin-left: 4px;
 	text-decoration: underline;

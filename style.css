@@ -3,6 +3,9 @@ body {
 	font-size: 14px;
 	margin: 10px 10px 30px 10px;
 }
+h2 {
+	margin-top: 5px;
+}
 .vl {
 	border-left: 6px solid #000000;
 	height: 100%;

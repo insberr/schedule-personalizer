@@ -229,7 +229,7 @@
 									{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
 								</a> <!-- this is a stupid way of doing this -->
 							</div>
-							<div style="float: right line-height: 2;" class="col-auto" v-if="period.l === undefined || period.l === lunch"
+							<div style="float: right; line-height: 2;" class="col-auto" v-if="period.l === undefined || period.l === lunch"
 								v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
 								{{ period.time }}
 							</div>

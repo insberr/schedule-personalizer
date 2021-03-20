@@ -3,7 +3,10 @@ body {
 	font-size: 14px;
 	margin: 10px 10px 30px 10px;
 }
-
+.vl {
+	border-left: 6px solid #000000;
+	height: 100%;
+  }
 .tc {
 	text-align: center;
 	padding: 5px;
@@ -19,6 +22,11 @@ body {
 
 .tbl-td {
 	padding: 0 .5px 0 .5px;
+}
+
+.headertext {
+	font-weight: 900;
+    color: #fff;
 }
 
 .hidden {

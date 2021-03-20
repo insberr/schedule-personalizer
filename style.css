@@ -23,27 +23,27 @@ h2 {
 }
 
 .clas {
-	background-color: #40daf5;
+	background-color: #40daf5!important;
 }
 
 .arr {
-	background-color: #fcff5c;
+	background-color: #fcff5c!important;
 }
 
 .lunch {
-	background-color: #bbff5c;
+	background-color: #bbff5c!important;
 }
 
 .study {
-	background-color: lightgray;
+	background-color: lightgray!important;
 }
 
 .pass {
-	background-color: #f288c4;
+	background-color: #f288c4!important;
 }
 
 .diss {
-	background-color: #4beb8e;
+	background-color: #4beb8e!important;
 }
 
 .crimson {

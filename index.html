@@ -196,47 +196,36 @@
 					The
 					Schedule</button>
 			</div>
-			<div class="container over-x" style="white-space: nowrap;">
-				<div class="row text-center headertext">
-					<div class="col" style="border-radius: 10px 0px 0px 0px; background-color: crimson;">Monday
-					</div>
-					<div class="col" style="background-color: crimson;">Tuesday</div>
-					<div class="col" style="background-color: #222222;">Wednesday</div>
-					<div class="col" style="background-color: #9a9a9a;">Thursday</div>
-					<div class="col" style="border-radius: 0px 10px 0px 0px; background-color: #9a9a9a;">Friday
-					</div>
-				</div>
-				<div class="row  text-center headertext">
-					<div class="col" style="background-color: crimson;">
-						{{ cohort === 'a' ? 'In Person' : 'Remote' }}</div>
-					<div class="col" style="background-color: crimson;">
-						{{ cohort === 'a' ? 'Remote' : 'In Person' }}</div>
-					<div class="col" style="background-color: #222222;">Remote</div>
-					<div class="col" style="background-color: #9a9a9a;">
-						{{ cohort === 'a' ? 'In Person' : 'Remote' }}</div>
-					<div class="col" style="background-color: #9a9a9a;">
-						{{ cohort === 'a' ? 'Remote' : 'In Person' }}</div>
-				</div>
-				<div class="row">
-					<div class="col" v-for="day in schedule[cohort]">
-						<div class="row" v-for="period in day">
-							<div style="border-right:10px; line-height: 2;" class="col"
-								v-if="period.l === undefined || period.l === lunch"
-								v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-								<a style="float: left" v-if="zooms['p' + period.p]"
-									v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</a>
-								<a style="float: left" v-else>
-									{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
-								</a> <!-- this is a stupid way of doing this -->
-							</div>
-							<div style="float: right; line-height: 2;" class="col-auto" v-if="period.l === undefined || period.l === lunch"
-								v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-								{{ period.time }}
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="over-x" style="margin-top: 10px ;">
+				<table class="table">
+					<thead class="headertext">
+						<tr>
+							<th class="tbl-th tc" style="background-color: crimson;">Monday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+							<th class="tbl-th tc" style="background-color: crimson;">Tuesday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+							<th class="tbl-th tc" style="background-color: #222222;">Wednesday - Remote</th>
+							<th class="tbl-th tc" style="background-color: #9a9a9a;">Thursday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+							<th class="tbl-th tc" style="background-color: #9a9a9a;">Friday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="" v-for="day in schedule[cohort]">
+								<div class="" style="border-top: .5px solid gray;" v-for="period in day">
+									<!-- Class Name -->
+									<div v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
+										{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} 
+									</div>
+									<!-- Time -->
+									<div>
+
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
+		</div>
 			<hr>
 			<div class="container text-center">
 				<h3 class="crimson">Schedules Provided By The School</h3>

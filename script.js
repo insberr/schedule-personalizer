@@ -555,4 +555,5 @@ function initTheme() {
 	var darkThemeSelected = localStorage.getItem('darkMode') !== null && localStorage.getItem('darkMode') === 'dark';
 	darkMode.checked = darkThemeSelected;
 	darkThemeSelected ? document.getElementById(darkLabel).innerHTML = "Dark" : document.getElementById(darkLabel).innerHTML = "Light";
+	resetTheme()
 }

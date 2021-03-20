@@ -12,6 +12,19 @@ h2 {
     color: #fff;
 }
 
+.dark {
+	background-color: #222222;
+	color: white;
+}
+
+.dark :is(td) {
+	color: black;
+}
+
+.dark :is(input) {
+	background-color: gray;
+}
+
 
 .nocolor table tbody tr td {
 	background-color: inherit;

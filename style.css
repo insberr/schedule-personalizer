@@ -1,7 +1,24 @@
 body {
 	font-family: Arial, Sans-Serif;
-	font-size: 14px;
+	font-size: 15px;
 	margin: 10px 10px 30px 10px;
+}
+
+table :is(a) {
+	margin-left: 4px;
+	text-decoration: underline;
+}
+
+.tbl-th:first-child {
+	border-radius: 6px 0 0 0;
+}
+
+.tbl-th:last-child {
+	border-radius: 0 6px 0 0;
+}
+
+.tbl-th:only-child{
+	border-radius: 6px 6px 0 0;
 }
 
 .tc {
@@ -10,7 +27,7 @@ body {
 }
 
 .tbt {
-	width: 200px;
+	width: 230px;
 }
 
 .over-x {
@@ -30,7 +47,7 @@ body {
 }
 .tbt-td {
 	width: 50px;
-	padding: 4px 0 4px 2px;
+	padding: 4px 0 4px 4px;
 }
 
 .bt {
@@ -46,13 +63,10 @@ body {
 	border-bottom: 1px solid black;
 }
 
-.nocolor table tbody tr td {
-	background-color: inherit;
-}
-
 .time {
-	padding-right: 3px!important;
+	padding-right: 4px!important;
 	text-align: right;
+	width: 50px;
 }
 
 .clas {

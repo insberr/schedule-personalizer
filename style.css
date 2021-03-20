@@ -17,7 +17,7 @@ body {
 	overflow-x: scroll;
 }
 
-.tbl td {
+.tbl-td {
 	padding: 0 .5px 0 .5px;
 }
 
@@ -25,10 +25,11 @@ body {
 	display: none;
 }
 
-.tbt tr {
+.tbt-tr {
 	padding: 2px 1px 2px 1px;
 }
-.tbt td {
+.tbt-td {
+	width: 50px;
 	padding: 4px 0 4px 2px;
 }
 

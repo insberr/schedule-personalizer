@@ -91,8 +91,7 @@ const wed = [
 	{ p: 'lnc', time: '11:20 - 11:50' },
 	{ p: '4', time: '11:50 - 12:35' },
 	{ p: '5', time: '12:40 - 1:25' },
-	{ p: 'study', time: '1:30 - 2:35' },
-	{ p: 'dism', time: '2:35' }
+	{ p: 'study', time: '1:30 - 2:35' }
 ];
 
 const main = Vue.createApp({
@@ -276,7 +275,9 @@ const main = Vue.createApp({
 	}
 }).mount('#main');
 
+/*
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
  for(let registration of registrations) {
   registration.unregister()
 } })
+*/

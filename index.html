@@ -13,7 +13,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 	<script src="https://unpkg.com/vue@next"></script>
-	<link rel="stylesheet" href="darkmode.css">
+	<link rel="stylesheet" href="darkmode.css"> <!-- TODO: compact style sheet -->
 	<!-- small inline style to fix link color in the table -->
 	<style>
 		[data-theme="dark"] td > a {
@@ -25,23 +25,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Personalize Schedule</title>
 	<link href="style.css" rel="stylesheet" type="text/css" />
-	<link rel="icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
+	<!-- TODO: add more icon meta tags for icons in more places -->
+	<link rel="icon" href="calendar.png">
 
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="apple-touch-icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
+	<link rel="apple-touch-icon" href="calendar.png">
 	<meta name="apple-mobile-web-app-title" content="Schedule">
 </head>
 
 <body>
 	<div class="container" id="main">
 		<div class="question text-center" v-if="!hide">
-			<p>This website is kindly created by Jonah Matteson. You're welcome.</p>
-			<p>
-				This is saved in your browser. You can make this an "app" on your iPad homescreen, I recommend you add
-				it before using this.
-				To do this, open this site in Safari, click export, click "Add to Home Screen" and click add. Go to the
-				"app" named "Schedule" and fill this out there.
-			</p>
+			<h1 class="crimson">Schedule Personallizer</h1>
+			<p><small class="">Created by Jonah Matteson. You're welcome.</small></p>
 			<br>
 			<strong>Please use and check the schedules provided by the school too! I will keep this updated with new
 				info when I get it!</strong>
@@ -185,6 +181,7 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 		<div class="text-center">
 			<h2 class="crimson question" v-if="!hide">See your schedule!</h2>
 			<div class="mb-30 question" id="make-app">
@@ -204,6 +201,7 @@
 					The
 					Schedule</button>
 			</div>
+			<hr>
 			<div class="table-responsive">
 				<table class="table" style="margin-top: 10px;">
 					<thead class="headertext">

@@ -14,12 +14,18 @@
 		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 	<script src="https://unpkg.com/vue@next"></script>
 	<link rel="stylesheet" href="darkmode.css"> <!-- TODO: compact style sheet -->
-	<!-- small inline style to fix link color in the table -->
+	<!-- small inline style to fix link color in the table + margins -->
 	<style>
-		[data-theme="dark"] td > a {
-			color: #000!important
+		[data-theme="dark"] td>a {
+			color: #000 !important
 		}
-	
+
+		tr td {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
 	</style>
 	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -227,9 +233,12 @@
 										<tr class="tbt-tr" style="border-top: .5px solid gray;" v-for="period in day">
 											<td v-if="period.l === undefined || period.l === lunch" class="tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-												<a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
-												target="_blank"> {{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</a>
-												<a v-else>{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} </a>
+												<a v-if="zooms['p' + period.p]"
+													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
+													target="_blank">
+													{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</a>
+												<a v-else>{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
+												</a>
 											<td v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
 												{{ period.time }}</td>
@@ -283,7 +292,8 @@
 					href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar
 					Icon
 					Vectors by Vecteezy</a><br>
-					<span style="color: gray!important; font-size: 12px;" >Restyled by <a style="color: gray!important" href="https://webmsgr.github.io">Wackery</a></span>
+				<span style="color: gray!important; font-size: 12px;">Restyled by <a style="color: gray!important"
+						href="https://webmsgr.github.io">Wackery</a></span>
 			</footer>
 		</div>
 		<hr>
@@ -294,8 +304,9 @@
 				href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar
 				Icon Vectors
 				by Vecteezy</a><br>
-				<span style="color: gray!important; font-size: 12px;" >Restyled by <a style="color: gray!important" href="https://webmsgr.github.io">Wackery</a></span>
-			</footer>
+			<span style="color: gray!important; font-size: 12px;">Restyled by <a style="color: gray!important"
+					href="https://webmsgr.github.io">Wackery</a></span>
+		</footer>
 	</div>
 	<script src="script.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

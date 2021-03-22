@@ -21,10 +21,10 @@
 		}
 
 		tr td {
-			padding-left: 0 !important;
-			padding-right: 0 !important;
-			margin-left: 0 !important;
-			margin-right: 0 !important;
+			padding-left: 2px !important;
+			padding-right: 2px !important;
+			margin-left: 2px !important;
+			margin-right: 2px !important;
 		}
 	</style>
 	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"> -->
@@ -241,7 +241,7 @@
 												</a>
 											<td v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-												{{ period.time }}</td>
+												{{ period.time }}</td>								
 										</tr>
 									</tbody>
 								</table>

@@ -231,17 +231,21 @@
 									</thead>
 									<tbody class="table-hoverac">
 										<tr class="tbt-tr" style="border-top: .5px solid gray;" v-for="period in day">
-											<td style="text-align: left; max-width: 6rem;" v-if="period.l === undefined || period.l === lunch" class="tbt-td text-truncate text-nowrap"
+											<td style="text-align: left; max-width: 6rem;"
+												v-if="period.l === undefined || period.l === lunch"
+												class="tbt-td text-truncate text-nowrap"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
 												<a style="padding-left: 5px;" v-if="zooms['p' + period.p]"
 													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
 													target="_blank">
 													{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}</a>
-												<a style="padding-left: 5px;" style="text-align: left" v-else>{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
+												<a style="padding-left: 5px;" style="text-align: left"
+													v-else>{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
 												</a>
-											<td style="text-align: right; padding-right: 5px;" v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
+											<td style="text-align: right; padding-right: 5px;"
+												v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
 												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
-												{{ period.time }}</td>								
+												{{ period.time }}</td>
 										</tr>
 									</tbody>
 								</table>

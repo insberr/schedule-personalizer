@@ -1,6 +1,6 @@
 body {
 	font-family: Arial, Sans-Serif;
-	font-size: 15px;
+	font-size: 14px;
 	margin: 10px 10px 30px 10px;
 }
 
@@ -15,9 +15,8 @@ body {
 }
 
 .time {
-	padding-right: 4px!important;
+	padding-right: 3px!important;
 	text-align: right;
-	width: 50px;
 }
 
 .crimson {

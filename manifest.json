@@ -8,10 +8,10 @@
       "sizes": "128x128"
     }
   ],
-  "start_url": "/schedule-personalizer?source=pwa",
+  "start_url": "/schedule-personalizer/",
   "background_color": "#DC143C",
   "display": "standalone",
-  "scope": "/schedule-personalizer",
+  "scope": "/schedule-personalizer/",
   "theme_color": "#DC143C",
   "shortcuts": [
   ],

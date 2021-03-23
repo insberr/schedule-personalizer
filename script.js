@@ -507,4 +507,4 @@ function init_ServiceWorker() {
 		});
 	}
 }
-//init_ServiceWorker()
+init_ServiceWorker()

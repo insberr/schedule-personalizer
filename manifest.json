@@ -3,9 +3,14 @@
   "name": "Bethel High School Schedule Personalizer" ,
   "icons": [
     {
-      "src": "/schedule-personalizer/calender.png",
+      "src": "/schedule-personalizer/icons/icon-512.png",
       "type": "image/png",
-      "sizes": "128x128"
+      "sizes": "512x512"
+    },
+    {
+      "src": "/schedule-personalizer/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "start_url": "/schedule-personalizer/",

@@ -40,6 +40,7 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 console.error("Oh crap, we are offline without any cache")
+                return new Response("<strong> Offline </strong>")
             });
 
         }).catch(error => {

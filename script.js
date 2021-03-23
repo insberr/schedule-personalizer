@@ -456,7 +456,14 @@ const main = Vue.createApp({
 			this.save();
 		},
 	},
-	
+	computed: {
+		isPWA: function() {
+			return isPWA()
+		},
+		isInstalled: function () {
+			return localStorage.getItem("installed") !== null && localStorage.getItem("installed") === "true";
+		}
+	}
 }).mount("#main");
 function getPWADisplayMode() {
 	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
@@ -571,10 +578,12 @@ window.addEventListener('appinstalled', () => {
 	hideInstallPromotion();
 	buttonInstall.style.display = "none"
 	document.getElementById("installbutton-container").style.display = "none"
+	document.getElementById("howtomakeapp").style.display = "none"
 	// Clear the deferredPrompt so it can be garbage collected
 	deferredPrompt = null;
 	localStorage.setItem("installed", "true")
 	// Optionally, send analytics event to indicate successful install
+	location.reload()
 	console.log('PWA was installed');
   });
 init_ServiceWorker()

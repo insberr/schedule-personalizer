@@ -2,179 +2,302 @@
 <html>
 	<!--
 		Welcome to the code for this website!
-		I am using vuejs 3 and picnic (css)
+		I am using vuejs 3 and ~~picnic~~ bootstrap (css)
 		I put this site together quickly and probaby
 		didnt use the best practices. 
 		Like I say, make it work, then make it look nice
 	-->
-  <head>
-    <meta charset="utf-8">
-    <script src="https://unpkg.com/vue@next"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Personalize Schedule</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="https://insberr.github.io/schedule-personalizer/calendar.png">
-    <meta name="apple-mobile-web-app-title" content="Schedule">
-  </head>
-  <body>
-  	<div id="main">
-  		<div class="question" v-if="!hide">
-  			<span>This website is kindly created by Jonah Matteson (Student # 367875). You're welcome.</span>
-  			<br><br>
-				<span>
-					This is saved in your browser. You can make this an "app" on your iPad homescreen, I recommend you add it before using this.
-					<br>To do this, open this site in Safari, click export, click "Add to Home Screen" and click add. Go to the "app" named "Schedule" and fill this out there.
-				</span>
-  			<br>
-  			<strong>Please use and check the schedules provided by the school too! I will keep this updated with new info when I get it!</strong>
-  		</div>
-  		<div class="question" v-if="!hide">
-  			<h2 class="crimson">Enter your classes</h2>
-  			<div class="mb-10">Entering the Zoom links is optional, but creates a clickable link here so you dont have to search around canvas every time.</div>
-  			<div class="third">
-	  			<label class="stack">
-	  				<span>Period 1</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p1" placeholder="Name of 1st pd. class">
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p1" v-bind:placeholder="(classes.p1 ? classes.p1 : 'Period 1') + ' zoom link'">
-	  			</label>
-	  			<br>
-	  			<label class="stack">
-	  				<span>Period 2</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p2" placeholder="Name of 2nd pd. class">
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p2" v-bind:placeholder="(classes.p2 ? classes.p2 : 'Period 2') + ' zoom link'">
-	  			</label>
-	  			<br>
-	  			<label class="stack">
-	  				<span>Period 3</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p3" placeholder="Name of 3rd pd. class">
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p3" v-bind:placeholder="(classes.p3 ? classes.p3 : 'Period 3') + ' zoom link'">
-	  			</label>
-	  			<br>
-	  			<label class="stack">
-	  				<span>Period 4</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p4" placeholder="Name of 4th pd. class">
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p4" v-bind:placeholder="(classes.p4 ? classes.p4 : 'Period 4') + ' zoom link'">
-	  			</label>
-	  			<br>
-	  			<label class="stack">
-	  				<span>Period 5</span>
-	  				<input type="text" name="period" oninput="main.save()" v-model="classes.p5" placeholder="Name of 5th pd. class">
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.p5" v-bind:placeholder="(classes.p5 ? classes.p5 : 'Period 5') + ' zoom link'">
-	  				<br><br>
-	  				<span>Advisory</span>
-	  				<input type="text" name="zoom" oninput="main.save()" v-model="zooms.padv" placeholder="Advisory zoom link">
-	  			</label>
-	  		</div>
-      </div>
-  		<div class="question" v-if="!hide">
-  			<h2 class="crimson">Which cohort are you in?</h2>
-  			<label>
-  				<input type="radio" name="cohort" value="a" v-model="cohort">
-  				<span class="checkable">Cohort A</span>
-  			</label>
-  			<br>
-				<label>
-					<input type="radio" name="cohort" value="b" v-model="cohort">
-					<span class="checkable">Cohort B</span>
-				</label>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Personalize Schedule</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+
+		<script src="https://unpkg.com/vue@next"></script>
+
+		<!-- TODO: compact style sheet -->
+		<link rel="stylesheet" href="darkmode.css" />
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic"> -->
+
+		<!-- TODO: add more icon meta tags for icons in more places https://devhints.io/html-meta -->
+		<link rel="icon" href="calendar.png" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon" href="calendar.png" />
+		<meta name="apple-mobile-web-app-title" content="Schedule" />
+	</head>
+
+	<body>
+		<div class="container" id="main">
+			<div class="text-center" v-if="!hide">
+				<h1 class="crimson">Schedule Personalizer</h1>
+
+				<p>
+					<small class="">Created by Jonah Matteson. You're welcome.</small>
+				</p>
+				<br />
+				<strong> Please use and check the schedules provided by the school too! I will keep this updated with new info when I get it! </strong>
 			</div>
-			<div class="question" v-if="!hide">
-				<h2 class="crimson">What lunch do you have?</h2>
-				<label>
-					<input type="radio" name="lunch" value="1" v-model="lunch">
-					<span class="checkable">Lunch A</span>
-				</label>
-				<br>
-				<label>
-					<input type="radio" name="lunch" value="2" v-model="lunch">
-					<span class="checkable">Lunch B</span>
-				</label>
-				<br>
-				<label>
-					<input type="radio" name="lunch" value="3" v-model="lunch">
-					<span class="checkable">Lunch C</span>
-				</label>
+
+			<div class="text-center" v-if="!hide">
+				<h4 class="crimson mt-4">How To Make This An App</h4>
+				<p>
+					I recommend making this an app <strong>before</strong> you fill out this site. <br /><br />
+					<span class="badge bg-success">Directions</span> First, open this site in Safari, click the export button in the top right, click "Add to Home Screen" and click add.
+					<br />
+					This will make an "app" on your homescreen named "Schedule", open it and fill it out.
+				</p>
 			</div>
-			<div class="mb-10">
-				<h2 class="crimson question" v-if="!hide">See your schedule!</h2>
-				<div class="mb-30 question" id="make-app">
-					<div v-if="!hide">
-						To make this into an "app"; First, <a @click="copyData()">click here</a> to copy the info you entered here (If you havent entered anything then you don't have to click that),
-						<br>Next, open this site in Safari, click the export button in the top right, click "Add to Home Screen" and click add.
-						<br>This will make an "app" on your homescreen named "Schedule", open it and paste your clipboard into this text box in the "app": <input style="width: 200px;" type="text" v-model="copy">
+
+			<div v-if="!hide">
+				<h2 class="crimson text-center mt-4">Enter your classes</h2>
+
+				<p class="text-center">Entering the Zoom links is optional, but creates a clickable link here so you don't have to search around canvas every time. </p>
+
+				<div v-for="(cl, i) of classes">
+					<div v-if="i.match(/p\d|adv/g)" class="card mt-4">
+						<div class="card-header"> {{ i.split('p')[1] === 'adv' ? 'Advisory' : 'Period ' + i.split('p')[1] }} </div>
+						<div class="card-body row g-2">
+							<div v-if="i !== 'padv'" class="col-md">
+								<div class="form-floating">
+									<input class="form-control" type="text" name="period" v-bind:id="'cl-' + i" oninput="main.save()" v-model="classes[i]" v-bind:placeholder="'Name of period ' + i.split('p')[1] + ' class'" />
+									<label v-bind:for="'cl-' + i">Name</label>
+								</div>
+							</div>
+							<div class="col-md">
+								<div class="form-floating">
+									<input class="form-control" type="url" name="zoom" v-bind:id="'zoom-' + i" oninput="main.save()" v-model="zooms[i]" v-bind:placeholder="(classes[i] ? classes[i] : 'Period ' + i.split('p')[1]) + ' zoom link'" />
+									<label v-bind:for="'zoom-' + i">Zoom</label>
+								</div>
+							</div>
+						</div>
 					</div>
-					<button v-if="hide" @click="hide = false">Edit Schedule</button>
-					<button class="mt-10" v-if="!hide" @click="hide = true">Show Only The Schedule</button>
 				</div>
-				<div class="over-x my-table">
-					<table class="tbl warning">
-						<thead>
+
+				<!--
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Period 1</span>
+								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p1" placeholder="Name of 1st pd. class" />
+								<span class="input-group-text" id="basic-addon1">Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p1" v-bind:placeholder="(classes.p1 ? classes.p1 : 'Period 1') + ' zoom link'" />
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Period 2</span>
+								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p2" placeholder="Name of 2nd pd. class" />
+								<span class="input-group-text" id="basic-addon1">Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p2" v-bind:placeholder="(classes.p2 ? classes.p2 : 'Period 2') + ' zoom link'" />
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Period 3</span>
+								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p3" placeholder="Name of 3rd pd. class" />
+								<span class="input-group-text" id="basic-addon1">Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p3" v-bind:placeholder="(classes.p3 ? classes.p3 : 'Period 3') + ' zoom link'" />
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Period 4</span>
+								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p4" placeholder="Name of 4th pd. class" />
+								<span class="input-group-text" id="basic-addon1">Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p4" v-bind:placeholder="(classes.p4 ? classes.p4 : 'Period 4') + ' zoom link'" />
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Period 5</span>
+								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p5" placeholder="Name of 5th pd. class" />
+								<span class="input-group-text" id="basic-addon1">Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p5" v-bind:placeholder="(classes.p5 ? classes.p5 : 'Period 5') + ' zoom link'" />
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="container">
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">Advisory Zoom</span>
+								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.padv" placeholder="Advisory Zoom Link" />
+							</div>
+						</div>
+					</li>
+				</ul>
+			-->
+			</div>
+
+			<div class="mt-4 container text-center center" v-if="!hide">
+				<div class="question">
+					<h2 class="crimson mt-5">Which cohort are you in?</h2>
+
+					<div class="form-check">
+						<div class="row">
+							<div class="col"></div>
+							<div class="col-auto">
+								<input type="radio" class="form-check-input" name="cohort" id="cohortA" value="a" v-model="cohort" checked />
+								<label class="form-check-label" for="cohortA" class="checkable">Cohort A</label>
+							</div>
+							<div class="col"></div>
+						</div>
+					</div>
+
+					<div class="form-check mb-4">
+						<div class="row">
+							<div class="col"></div>
+							<div class="col-auto">
+								<input type="radio" class="form-check-input" name="cohort" id="cohortB" value="b" v-model="cohort" />
+								<label class="form-check-label" for="cohortB" class="checkable">Cohort B</label>
+							</div>
+							<div class="col"></div>
+						</div>
+					</div>
+
+					<div class="question">
+						<h2 class="crimson mt-4">What lunch do you have?</h2>
+
+						<div class="form-check">
+							<div class="row">
+								<div class="col"></div>
+								<div class="col-auto">
+									<input type="radio" class="form-check-input" name="lunch" id="lunch1" value="1" v-model="lunch" checked />
+									<label class="form-check-label" for="lunch1" class="checkable">Lunch A</label>
+								</div>
+								<div class="col"></div>
+							</div>
+						</div>
+
+						<div class="form-check">
+							<div class="row">
+								<div class="col"></div>
+								<div class="col-auto">
+									<input type="radio" class="form-check-input" name="lunch" id="lunch2" value="2" v-model="lunch" />
+									<label class="form-check-label" for="lunch2" class="checkable">Lunch B</label>
+								</div>
+								<div class="col"></div>
+							</div>
+						</div>
+
+						<div class="form-check mb-4">
+							<div class="row">
+								<div class="col"></div>
+								<div class="col-auto">
+									<input type="radio" class="form-check-input" name="lunch" id="lunch3" value="3" v-model="lunch" />
+									<label class="form-check-label" for="lunch3" class="checkable">Lunch C</label>
+								</div>
+								<div class="col"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr v-if="!hide" />
+
+			<div class="text-center mb-4">
+				<h2 class="crimson question mt-4" v-if="!hide">See your schedule!</h2>
+				<div>
+					<button type="button" class="mt-2 btn btn-primary" v-if="hide" @click="hide = false">Edit Schedule</button>
+
+					<button type="button" class="mt-4 btn btn-primary" v-if="!hide" @click="hide = true">Show Only The Schedule</button>
+				</div>
+
+				<hr />
+
+				<div class="table-responsive">
+					<table class="table table-borderless" style="margin-top: 10px; min-width: 936px">
+						<thead class="headertext">
 							<tr>
-								<th class="tbl-th tc" style="background-color: crimson;">Monday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-								<th class="tbl-th tc" style="background-color: crimson;">Tuesday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
-								<th class="tbl-th tc" style="background-color: #222222;">Wednesday - Remote</th>
-								<th class="tbl-th tc" style="background-color: #9a9a9a;">Thursday - {{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-								<th class="tbl-th tc" style="background-color: #9a9a9a;">Friday - {{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+								<th class="tbl-th tc" style="background-color: crimson"> Monday<br />{{ cohort === 'a' ? 'In Person' : 'Remote' }} </th>
+								<th class="tbl-th tc" style="background-color: crimson"> Tuesday<br />{{ cohort === 'a' ? 'Remote' : 'In Person' }} </th>
+								<th class="tbl-th tc" style="background-color: #222222"> Wednesday<br />Remote </th>
+								<th class="tbl-th tc" style="background-color: #9a9a9a"> Thursday<br />{{ cohort === 'a' ? 'In Person' : 'Remote' }} </th>
+								<th class="tbl-th tc" style="background-color: #9a9a9a"> Friday<br />{{ cohort === 'a' ? 'Remote' : 'In Person' }} </th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td class="tbl-td" v-for="day in schedule[cohort]">
-									<table class="tbt primary">
-										<thead>
-										  <tr>
-										  	<th class="tc">Class</th>
-										  	<th class="tc">Time</th>
-										  </tr>
-									  </thead>
-									  <tbody>
-										  <tr class="tbt-tr" style="border-top: .5px solid gray;" v-for="period in day">
-										  	<td v-if="period.l === undefined || period.l === lunch" class="tbt-td" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} <a v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]" target="_blank">zoom</a></td>
-											  <td v-if="period.l === undefined || period.l === lunch" class="time tbt-td" v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">{{ period.time }}</td>
-										  </tr>
-									  </tbody>
-								  </table>
+								<td v-for="day in schedule[cohort]">
+									<table class="table table-hover table-borderless">
+										<thead></thead>
+										<tbody>
+											<tr class="tbt-tr" style="border-top: 0.5px solid gray" v-bind:class="{ 'table-primary': (period.p), 'table-danger': (period.p === 'pass'), 'table-light': (period.p === 'lnc'), 'table-secondary': (period.p === 'study'), 'table-warning': (period.p === 'arr'), 'table-success': (period.p === 'dism') }" v-for="period in day">
+												<td style="text-align: left; max-width: 6rem" v-if="period.l === undefined || period.l === lunch" class="tbt-td text-truncate text-nowrap">
+													<a style="padding-left: 5px" v-if="zooms['p' + period.p]" v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]" target="_blank"> {{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} </a>
+													<span style="padding-left: 5px; text-align: left" v-else> {{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }} </span>
+												</td>
+												<td style="text-align: right; padding-right: 5px" v-if="period.l === undefined || period.l === lunch" class="time tbt-td"> {{ period.time }} </td>
+											</tr>
+										</tbody>
+									</table>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="question mt-20">
-				<h3 class="crimson">Schedules Provided By The School</h3>
-				<a href="https://drive.google.com/file/d/1Z5OvBsd2DgT-E8Gg9sWMZ94CEoB1NCZC/view?usp=sharing" target="_blank">Cohort A PDF</a>
-				<br><a href="https://drive.google.com/file/d/1TbPP44NlbFKG-XPWcfDHMokIcj38Iadr/view?usp=sharing" target="_blank">Cohort B PDF</a>
-				<br><a href="https://drive.google.com/file/d/1kQMWvAhth5ZAEdlPuewxal2b1oNJlWnO/view?usp=sharing" target="_blank">March Calendar Schedule Revised (2) PDF</a>
-				<br><a href="https://drive.google.com/file/d/18UAQtzPAg4J0eserXrGNi81obDjTodYe/view?usp=sharing" target="_blank">March 22 & 23 Bell Schedule (1) PDF</a>
+
+			<hr v-if="!hide" />
+			<div class="container text-center">
+				<h3 class="crimson mt-4 mb-3">Schedules Provided By The School</h3>
+				<a href="https://drive.google.com/file/d/1Z5OvBsd2DgT-E8Gg9sWMZ94CEoB1NCZC/view?usp=sharing" target="_blank"> Cohort A PDF </a>
+				<br />
+				<a href="https://drive.google.com/file/d/1TbPP44NlbFKG-XPWcfDHMokIcj38Iadr/view?usp=sharing" target="_blank"> Cohort B PDF </a>
+				<br />
+				<a href="https://drive.google.com/file/d/1kQMWvAhth5ZAEdlPuewxal2b1oNJlWnO/view?usp=sharing" target="_blank">March Calendar Schedule PDF</a>
+				<br />
+				<a href="https://drive.google.com/file/d/18UAQtzPAg4J0eserXrGNi81obDjTodYe/view?usp=sharing" target="_blank">March 22 & 23 Bell Schedule PDF</a>
 			</div>
-			<div class="question mb-10" v-if="!hide">
-				<h2 class="crimson">Information</h2>
+			<div class="container text-center" v-if="!hide">
+				<h4 class="crimson mt-4 mb-2">Information</h4>
 				<a href="https://www.smore.com/1zk7y" target="_blank">March 19th Weekly Newsletter (Smore)</a>
-			</div>
-	  	<div class="question mb-10" v-if="!hide">
-		  	<h2 class="crimson">Site Information</h2>
-	      <div class="mb-10">
-					If you are a web developer, you can check out the code <a href="https://github.com/insberr/schedule-personalizer" title="See this sites code here." target="_blank">here</a>.
-		      <br>This website does not use cookies, track you, track anyalytics, or store any data you enter to a server or other external source.
-				  <br>The schedule is saved locally on your browser so when you come back to this site its still filled in : )
+
+				<h4 class="crimson mt-4 mb-2">Site Information</h4>
+				<p>
+					If you are a web developer, you can check out the code
+					<a href="https://github.com/insberr/schedule-personalizer" title="See this sites code here." target="_blank">here</a>.
+					<br />
+					This website does not use cookies, track you, track analytics, or store any data you enter to a server or other external source.
+					<br />
+					The schedule is saved locally on your browser so when you come back to this site its still filled in : )
+				</p>
+				<p> If you are experiencing issues or want to clear what you filled in, click this button </p>
+				<div type="container">
+					<button type="button" class="btn btn-danger btn-sm" onclick="localStorage.clear(); location.reload(true)"> Reset </button>
 				</div>
-				<div class="mb-10">
-					<span>If you are experiencing issues or want to clear what you filled in, click this button</span>
-					<br><button onclick="localStorage.clear(); location.reload(true)">Reset</button>
-				</div>
-				<div class="mb-10">
-					<a style="color: gray; font-size: 12px;" href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar Icon Vectors by Vecteezy</a>
+			</div>
+			<hr />
+
+			<div class="position-fixed py-2 px-3 bg-dark text-white rounded-pill" style="padding-bottom: 0.2rem !important; bottom: 1rem; left: 1rem">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="darkMode" />
+					<label id="darkModeLabel" for="darkMode">Light</label>
 				</div>
 			</div>
-			<div class="mt-20 mb-10 question" v-if="hide">
-				<span>This website is kindly created by <a href="https://insberr.github.io/" target="_blank">Jonah Matteson</a></span>
-				<br><a style="color: gray; font-size: 12px;" href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar Icon Vectors by Vecteezy</a>
-			</div>
+
+			<footer class="container text-center">
+				<span style="color: gray; font-size: 12px">Website Created by <a style="color: gray !important" href="https://insberr.github.io/" target="_blank">Jonah Matteson</a> (Student # 367875)</span>
+				<br />
+				<span style="color: gray !important; font-size: 12px">Restyled by <a style="color: gray !important" href="https://webmsgr.github.io/">Wackery</a></span>
+				<br />
+				<a style="color: gray; font-size: 12px" href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar Icon Vectors by Vecteezy</a>
+			</footer>
 		</div>
 		<script src="script.js"></script>
-  </body>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+	</body>
 </html>

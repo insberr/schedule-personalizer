@@ -4,76 +4,14 @@ body {
 	margin: 10px 10px 30px 10px;
 }
 
-.dark {
-	background-color: #222222;
-	color: white;
+.headertext {
+	font-weight: 900;
+    color: #fff;
 }
 
-.dark :is(td) {
-	color: black;
-}
-
-.dark :is(input) {
-	background-color: gray;
-}
-
-table :is(a) {
-	margin-left: 4px;
-	text-decoration: underline;
-}
-
-.tbl-th:first-child {
-	border-radius: 6px 0 0 0;
-}
-
-.tbl-th:last-child {
-	border-radius: 0 6px 0 0;
-}
-
-.tbl-th:only-child{
-	border-radius: 6px 6px 0 0;
-}
-
-.tc {
-	text-align: center;
-	padding: 5px;
-}
-
-.tbt {
-	width: 230px;
-}
-
-.over-x {
-	overflow-x: scroll;
-}
-
-.tbl-td {
-	padding: 0 .5px 0 .5px;
-}
-
-.hidden {
-	display: none;
-}
-
-.tbt-tr {
-	padding: 2px 1px 2px 1px;
-}
-.tbt-td {
-	width: 50px;
-	padding: 4px 0 4px 4px;
-}
-
-.bt {
-	border-top: 1px solid black;
-}
-.bl {
-	border-left: 1px solid black;
-}
-.br {
-	border-right: 1px solid black;
-}
-.bb {
-	border-bottom: 1px solid black;
+.card-header {
+	background-color: crimson;
+    color: white;
 }
 
 .time {
@@ -82,60 +20,17 @@ table :is(a) {
 	width: 50px;
 }
 
-.clas {
-	background-color: #40daf5;
-}
-
-.arr {
-	background-color: #fcff5c;
-}
-
-.lunch {
-	background-color: #bbff5c;
-}
-
-.study {
-	background-color: lightgray;
-}
-
-.pass {
-	background-color: #f288c4;
-}
-
-.diss {
-	background-color: #4beb8e;
-}
-
 .crimson {
 	color: crimson;
 }
 
-.question{
-	margin-bottom: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
+td>a {
+	color: crimson !important
 }
 
-.mb-10 {
-	margin-bottom: 10px;
-}
-
-.mb-30 {
-	margin-bottom: 30px;
-}
-
-.mt-10 {
-	margin-top: 10px;
-}
-
-.txt-20 {
-	font-size: 15px;
-}
-
-.mt-30 {
-	margin-top: 30px
-}
-
-.mt-20 {
-	margin-top: 20px
+tr td {
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+	margin-left: 2px !important;
+	margin-right: 2px !important;
 }

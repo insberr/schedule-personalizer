@@ -3,18 +3,15 @@ body {
 	font-size: 14px;
 	margin: 10px 10px 30px 10px;
 }
-h2 {
-	margin-top: 5px;
-}
 
 .headertext {
 	font-weight: 900;
     color: #fff;
 }
 
-
-.nocolor table tbody tr td {
-	background-color: inherit;
+.card-header {
+	background-color: crimson;
+    color: white;
 }
 
 .time {
@@ -26,3 +23,13 @@ h2 {
 	color: crimson;
 }
 
+td>a {
+	color: crimson !important
+}
+
+tr td {
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+	margin-left: 2px !important;
+	margin-right: 2px !important;
+}

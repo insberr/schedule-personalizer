@@ -484,6 +484,7 @@ for(let registration of registrations) {
 registration.unregister()
 } })
 */
+window.darkmodemedia = window.matchMedia("(prefers-color-scheme: dark)")
 
 /* === Dark mode === */
 darkLabel = "darkModeLabel";
@@ -508,22 +509,23 @@ window.addEventListener("load", function () {
 function resetTheme() {
 	if (darkMode.checked) {
 		document.body.setAttribute("data-theme", "dark");
-		localStorage.setItem("darkMode", "dark");
 		document.getElementById(darkLabel).innerHTML = "Dark";
 	} else {
 		document.body.removeAttribute("data-theme");
-		localStorage.removeItem("darkMode");
 		document.getElementById(darkLabel).innerHTML = "Light";
 	}
 }
 
 function initTheme() {
-	var darkThemeSelected = localStorage.getItem("darkMode") !== null && localStorage.getItem("darkMode") === "dark";
+	var darkThemeSelected = darkmodemedia.matches
+	darkmodemedia.addListener(setDark)
+	setDark(darkThemeSelected)
+}
+function setDark(darkThemeSelected) {
 	darkMode.checked = darkThemeSelected;
 	darkThemeSelected ? (document.getElementById(darkLabel).innerHTML = "Dark") : (document.getElementById(darkLabel).innerHTML = "Light");
 	resetTheme();
 }
-
 function init_ServiceWorker() {
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', function () {

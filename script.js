@@ -1,3 +1,5 @@
+
+
 const in1 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
@@ -454,8 +456,21 @@ const main = Vue.createApp({
 			this.save();
 		},
 	},
+	
 }).mount("#main");
+function getPWADisplayMode() {
+	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+	if (document.referrer.startsWith('android-app://')) {
+	  return 'twa';
+	} else if (navigator.standalone || isStandalone) {
+	  return 'standalone';
+	}
+	return 'browser';
 
+}
+function isPWA() {
+	return getPWADisplayMode() != "browser"
+}
 /*
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
 for(let registration of registrations) {
@@ -516,15 +531,7 @@ function init_ServiceWorker() {
 	}
 }
 
-function getPWADisplayMode() {
-	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-	if (document.referrer.startsWith('android-app://')) {
-	  return 'twa';
-	} else if (navigator.standalone || isStandalone) {
-	  return 'standalone';
-	}
-	return 'browser';
-}
+
 
 let deferredPrompt;
 var buttonInstall = document.getElementById("installbutton")

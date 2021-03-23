@@ -212,29 +212,28 @@
 				<table class="table" style="margin-top: 10px;">
 					<thead class="headertext">
 						<tr>
-							<th class="tbl-th tc" style="background-color: crimson;">Monday -
-								{{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-							<th class="tbl-th tc" style="background-color: crimson;">Tuesday -
-								{{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
-							<th class="tbl-th tc" style="background-color: #222222;">Wednesday - Remote</th>
-							<th class="tbl-th tc" style="background-color: #9a9a9a;">Thursday -
-								{{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
-							<th class="tbl-th tc" style="background-color: #9a9a9a;">Friday -
-								{{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+							<th class="tbl-th tc" style="background-color: crimson;">
+								Monday<br>{{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+							<th class="tbl-th tc" style="background-color: crimson;">
+								Tuesday<br>{{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
+							<th class="tbl-th tc" style="background-color: #222222;">Wednesday<br>Remote</th>
+							<th class="tbl-th tc" style="background-color: #9a9a9a;">
+								Thursday<br>{{ cohort === 'a' ? 'In Person' : 'Remote' }}</th>
+							<th class="tbl-th tc" style="background-color: #9a9a9a;">
+								Friday<br>{{ cohort === 'a' ? 'Remote' : 'In Person' }}</th>
 						</tr>
 					</thead>
-					<tbody class="table-hover">
+					<tbody>
 						<tr>
-							<td class="table-responsive" v-for="day in schedule[cohort]">
-								<table class="table">
+							<td v-for="day in schedule[cohort]">
+								<table class="table-hover">
 									<thead>
 									</thead>
-									<tbody class="table-hoverac">
-										<tr class="tbt-tr" style="border-top: .5px solid gray;" v-for="period in day">
+									<tbody>
+										<tr class="tbt-tr" style="border-top: .5px solid gray;" v-bind:class="{ 'table-primary': (period.p), 'table-danger': (period.p === 'pass'), 'table-light': (period.p === 'lnc'), 'table-secondary': (period.p === 'study'), 'table-warning': (period.p === 'arr'), 'table-success': (period.p === 'dism') }" v-for="period in day">
 											<td style="text-align: left; max-width: 6rem;"
 												v-if="period.l === undefined || period.l === lunch"
-												class="tbt-td text-truncate text-nowrap"
-												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
+												class="tbt-td text-truncate text-nowrap">
 												<a style="padding-left: 5px;" v-if="zooms['p' + period.p]"
 													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
 													target="_blank">
@@ -244,8 +243,7 @@
 												</a>
 											</td>
 											<td style="text-align: right; padding-right: 5px;"
-												v-if="period.l === undefined || period.l === lunch" class="time tbt-td"
-												v-bind:class="{ clas: (period.p), pass: (period.p === 'pass'), lunch: (period.p === 'lnc'), study: (period.p === 'study'), arr: (period.p === 'arr'), diss: (period.p === 'dism') }">
+												v-if="period.l === undefined || period.l === lunch" class="time tbt-td">
 												{{ period.time }}
 											</td>
 										</tr>

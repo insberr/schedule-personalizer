@@ -47,7 +47,7 @@ self.addEventListener('fetch', event => {
                 return response;
             }
             console.log('Network request for ', event.request.url);
-            fetch(event.request).then(response => {
+            return fetch(event.request).then(response => {
                 // TODO 5 - Respond with custom 404 page
                 return caches.open(CACHE_NAME).then(cache => {
                     cache.put(event.request.url, response.clone());

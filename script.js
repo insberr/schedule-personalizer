@@ -1,5 +1,4 @@
-const in1 = [
-	{
+const in1 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
 		go: true,
@@ -72,8 +71,7 @@ const in1 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const in2 = [
-	{
+const in2 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
 		go: true,
@@ -146,8 +144,7 @@ const in2 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const re1 = [
-	{
+const re1 = [{
 		p: "study",
 		time: "8:05 - 8:35",
 		go: false,
@@ -220,8 +217,7 @@ const re1 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const re2 = [
-	{
+const re2 = [{
 		p: "study",
 		time: "8:05 - 8:35",
 		go: false,
@@ -294,8 +290,7 @@ const re2 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const wed = [
-	{
+const wed = [{
 		p: "study",
 		time: "8:05 - 8:50",
 		go: false,
@@ -498,3 +493,18 @@ function initTheme() {
 	darkThemeSelected ? (document.getElementById(darkLabel).innerHTML = "Dark") : (document.getElementById(darkLabel).innerHTML = "Light");
 	resetTheme();
 }
+
+function init_ServiceWorker() {
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', function () {
+			navigator.serviceWorker.register('/schedule-personalizer/sw.js').then(function (registration) {
+				// Registration was successful
+				console.log('ServiceWorker registration successful with scope: ', registration.scope);
+			}, function (err) {
+				// registration failed :(
+				console.log('ServiceWorker registration failed: ', err);
+			});
+		});
+	}
+}
+init_ServiceWorker()

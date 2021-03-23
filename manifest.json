@@ -6,7 +6,7 @@
       "src": "/schedule-personalizer/calender.png",
       "type": "image/png",
       "sizes": "128x128"
-    },
+    }
   ],
   "start_url": "/schedule-personalizer?source=pwa",
   "background_color": "#DC143C",

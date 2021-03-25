@@ -1,0 +1,26 @@
+{
+  "short_name": "Schedule",
+  "name": "Schedule Personalizer",
+  "icons": [
+    {
+      "src": "/schedule-personalizer/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/schedule-personalizer/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/schedule-personalizer/",
+  "background_color": "#DC143C",
+  "display": "standalone",
+  "scope": "/schedule-personalizer/",
+  "theme_color": "#DC143C",
+  "shortcuts": [
+  ],
+  "description": "Bethel High School Schedule Personalizer",
+  "screenshots": [
+  ]
+}

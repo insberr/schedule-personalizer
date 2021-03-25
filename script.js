@@ -1,5 +1,6 @@
-const in1 = [
-	{
+
+
+const in1 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
 		go: true,
@@ -72,8 +73,7 @@ const in1 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const in2 = [
-	{
+const in2 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
 		go: true,
@@ -146,8 +146,7 @@ const in2 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const re1 = [
-	{
+const re1 = [{
 		p: "study",
 		time: "8:05 - 8:35",
 		go: false,
@@ -220,8 +219,7 @@ const re1 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const re2 = [
-	{
+const re2 = [{
 		p: "study",
 		time: "8:05 - 8:35",
 		go: false,
@@ -294,8 +292,7 @@ const re2 = [
 		time: "2:05 - 2:35",
 	},
 ];
-const wed = [
-	{
+const wed = [{
 		p: "study",
 		time: "8:05 - 8:50",
 		go: false,
@@ -459,7 +456,29 @@ const main = Vue.createApp({
 			this.save();
 		},
 	},
+	computed: {
+		isPWA: function() {
+			return isPWA()
+		},
+		isInstalled: function () {
+			return localStorage.getItem("installed") !== null && localStorage.getItem("installed") === "true";
+		}
+	}
 }).mount("#main");
+function getPWADisplayMode() {
+	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+	if (document.referrer.startsWith('android-app://')) {
+	  return 'twa';
+	} else if (navigator.standalone || isStandalone) {
+	  return 'standalone';
+	}
+	return 'browser';
+
+}
+
+function isPWA() {
+	return getPWADisplayMode() != "browser";
+}
 
 /*
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -469,7 +488,9 @@ registration.unregister()
 */
 
 /* === Dark mode === */
-darkLabel = "darkModeLabel";
+window.darkmodemedia = window.matchMedia("(prefers-color-scheme: dark)")
+
+var darkLabel = "darkModeLabel";
 window.addEventListener("load", function () {
 	window.darkMode = document.getElementById("darkMode");
 	if (darkMode) {
@@ -478,23 +499,101 @@ window.addEventListener("load", function () {
 			resetTheme();
 		});
 	}
+	if (getPWADisplayMode() != "browser") {
+		localStorage.setItem("installed", "true")
+	}
+	var installed = localStorage.getItem("installed") !== null && localStorage.getItem("installed") === "true";
+	if (installed) {
+		buttonInstall.style.display = "none"
+		document.getElementById("installbutton-container").style.display = "none"
+	}
 });
 
 function resetTheme() {
 	if (darkMode.checked) {
 		document.body.setAttribute("data-theme", "dark");
-		localStorage.setItem("darkMode", "dark");
 		document.getElementById(darkLabel).innerHTML = "Dark";
 	} else {
 		document.body.removeAttribute("data-theme");
-		localStorage.removeItem("darkMode");
 		document.getElementById(darkLabel).innerHTML = "Light";
 	}
 }
 
 function initTheme() {
-	var darkThemeSelected = localStorage.getItem("darkMode") !== null && localStorage.getItem("darkMode") === "dark";
+	var darkThemeSelected = darkmodemedia.matches
+	darkmodemedia.addListener(setDark)
+	setDark(darkThemeSelected)
+}
+
+function setDark(darkThemeSelected) {
 	darkMode.checked = darkThemeSelected;
 	darkThemeSelected ? (document.getElementById(darkLabel).innerHTML = "Dark") : (document.getElementById(darkLabel).innerHTML = "Light");
 	resetTheme();
 }
+
+
+
+function init_ServiceWorker() {
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', function () {
+			navigator.serviceWorker.register('/schedule-personalizer/sw.js').then(function (registration) {
+				// Registration was successful
+				console.log('ServiceWorker registration successful with scope: ', registration.scope);
+			}, function (err) {
+				// registration failed :(
+				console.log('ServiceWorker registration failed: ', err);
+			});
+		});
+	}
+}
+
+let deferredPrompt;
+var buttonInstall = document.getElementById("installbutton");
+
+function showInstallPromotion() {
+	buttonInstall.removeAttribute("disabled");
+	buttonInstall.style.display = "";
+	document.getElementById("installbutton-container").style.display = "block";
+}
+
+function hideInstallPromotion() {
+	buttonInstall.setAttribute("disabled", true);
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+	// Prevent the mini-infobar from appearing on mobile
+	e.preventDefault();
+	// Stash the event so it can be triggered later.
+	deferredPrompt = e;
+	// Update UI notify the user they can install the PWA
+	showInstallPromotion();
+});
+
+buttonInstall.addEventListener('click', async () => {
+	// Hide the app provided install promotion
+	hideInstallPromotion();
+	// Show the install prompt
+	deferredPrompt.prompt();
+	// Wait for the user to respond to the prompt
+	const { outcome } = await deferredPrompt.userChoice;
+	// Optionally, send analytics event with outcome of user choice
+	console.log(`User response to the install prompt: ${outcome}`);
+	// We've used the prompt, and can't use it again, throw it away
+	deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+	// Hide the app-provided install promotion
+	hideInstallPromotion();
+	buttonInstall.style.display = "none";
+	document.getElementById("installbutton-container").style.display = "none";
+	document.getElementById("howtomakeapp").style.display = "none";
+	// Clear the deferredPrompt so it can be garbage collected
+	deferredPrompt = null;
+	localStorage.setItem("installed", "true");
+	// Optionally, send analytics event to indicate successful install
+	location.reload();
+	console.log('PWA was installed');
+});
+
+init_ServiceWorker();

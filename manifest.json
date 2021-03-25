@@ -1,6 +1,6 @@
 {
-  "short_name": "Schedule Personalizer",
-  "name": "Bethel High School Schedule Personalizer" ,
+  "short_name": "Schedule",
+  "name": "Schedule Personalizer",
   "icons": [
     {
       "src": "/schedule-personalizer/icons/icon-512.png",

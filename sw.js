@@ -47,6 +47,7 @@ self.addEventListener('fetch', event => {
             console.error(error)
         }));
 });
+
 self.addEventListener('activate', event => {
     console.log('Activating new service worker...');
 

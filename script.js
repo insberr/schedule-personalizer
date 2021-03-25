@@ -475,19 +475,22 @@ function getPWADisplayMode() {
 	return 'browser';
 
 }
+
 function isPWA() {
-	return getPWADisplayMode() != "browser"
+	return getPWADisplayMode() != "browser";
 }
+
 /*
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
 for(let registration of registrations) {
 registration.unregister()
 } })
 */
-window.darkmodemedia = window.matchMedia("(prefers-color-scheme: dark)")
 
 /* === Dark mode === */
-darkLabel = "darkModeLabel";
+window.darkmodemedia = window.matchMedia("(prefers-color-scheme: dark)")
+
+var darkLabel = "darkModeLabel";
 window.addEventListener("load", function () {
 	window.darkMode = document.getElementById("darkMode");
 	if (darkMode) {
@@ -521,11 +524,15 @@ function initTheme() {
 	darkmodemedia.addListener(setDark)
 	setDark(darkThemeSelected)
 }
+
 function setDark(darkThemeSelected) {
 	darkMode.checked = darkThemeSelected;
 	darkThemeSelected ? (document.getElementById(darkLabel).innerHTML = "Dark") : (document.getElementById(darkLabel).innerHTML = "Light");
 	resetTheme();
 }
+
+
+
 function init_ServiceWorker() {
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', function () {
@@ -540,27 +547,26 @@ function init_ServiceWorker() {
 	}
 }
 
-
-
 let deferredPrompt;
-var buttonInstall = document.getElementById("installbutton")
+var buttonInstall = document.getElementById("installbutton");
 
 function showInstallPromotion() {
-	buttonInstall.removeAttribute("disabled")
-	buttonInstall.style.display = ""
-	document.getElementById("installbutton-container").style.display = "block"
+	buttonInstall.removeAttribute("disabled");
+	buttonInstall.style.display = "";
+	document.getElementById("installbutton-container").style.display = "block";
 }
+
 function hideInstallPromotion() {
-	buttonInstall.setAttribute("disabled",true)
+	buttonInstall.setAttribute("disabled", true);
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI notify the user they can install the PWA
-  showInstallPromotion();
+	// Prevent the mini-infobar from appearing on mobile
+	e.preventDefault();
+	// Stash the event so it can be triggered later.
+	deferredPrompt = e;
+	// Update UI notify the user they can install the PWA
+	showInstallPromotion();
 });
 
 buttonInstall.addEventListener('click', async () => {
@@ -574,18 +580,20 @@ buttonInstall.addEventListener('click', async () => {
 	console.log(`User response to the install prompt: ${outcome}`);
 	// We've used the prompt, and can't use it again, throw it away
 	deferredPrompt = null;
-  });
+});
+
 window.addEventListener('appinstalled', () => {
 	// Hide the app-provided install promotion
 	hideInstallPromotion();
-	buttonInstall.style.display = "none"
-	document.getElementById("installbutton-container").style.display = "none"
-	document.getElementById("howtomakeapp").style.display = "none"
+	buttonInstall.style.display = "none";
+	document.getElementById("installbutton-container").style.display = "none";
+	document.getElementById("howtomakeapp").style.display = "none";
 	// Clear the deferredPrompt so it can be garbage collected
 	deferredPrompt = null;
-	localStorage.setItem("installed", "true")
+	localStorage.setItem("installed", "true");
 	// Optionally, send analytics event to indicate successful install
-	location.reload()
+	location.reload();
 	console.log('PWA was installed');
-  });
-init_ServiceWorker()
+});
+
+init_ServiceWorker();

@@ -48,7 +48,7 @@
 				<h4 class="crimson mt-4">How To Make This An App</h4>
 				<p>
 					I recommend making this an app <strong>before</strong> you fill out this site. <br /><br />
-					<span class="badge bg-success">Directions</span> First, open this site in Safari, click the export
+					<span class="badge bg-success">IOS Directions</span> First, open this site in Safari, click the export
 					button in the top right, click "Add to Home Screen" and click add.
 					<br />
 					This will make an "app" on your homescreen named "Schedule", open it and fill it out.
@@ -56,7 +56,8 @@
 			</div>
 		</div>
 		<div id="installbutton-container" class="text-center" style="display: none;">
-			<p v-show="!hide">Your browser/platform supports installing with this button
+			<p v-show="!hide">
+				<span class="badge bg-success">Desktop Directions</span> Click this button. <strong>This only works on desktop</strong>
 				<div>
 					<button v-show="!hide" id="installbutton" class="btn btn-primary">Install</button>
 				</div>
@@ -93,69 +94,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!--
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Period 1</span>
-								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p1" placeholder="Name of 1st pd. class" />
-								<span class="input-group-text" id="basic-addon1">Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p1" v-bind:placeholder="(classes.p1 ? classes.p1 : 'Period 1') + ' zoom link'" />
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Period 2</span>
-								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p2" placeholder="Name of 2nd pd. class" />
-								<span class="input-group-text" id="basic-addon1">Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p2" v-bind:placeholder="(classes.p2 ? classes.p2 : 'Period 2') + ' zoom link'" />
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Period 3</span>
-								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p3" placeholder="Name of 3rd pd. class" />
-								<span class="input-group-text" id="basic-addon1">Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p3" v-bind:placeholder="(classes.p3 ? classes.p3 : 'Period 3') + ' zoom link'" />
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Period 4</span>
-								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p4" placeholder="Name of 4th pd. class" />
-								<span class="input-group-text" id="basic-addon1">Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p4" v-bind:placeholder="(classes.p4 ? classes.p4 : 'Period 4') + ' zoom link'" />
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Period 5</span>
-								<input type="text" class="form-control" name="period" oninput="main.save()" v-model="classes.p5" placeholder="Name of 5th pd. class" />
-								<span class="input-group-text" id="basic-addon1">Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.p5" v-bind:placeholder="(classes.p5 ? classes.p5 : 'Period 5') + ' zoom link'" />
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="container">
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">Advisory Zoom</span>
-								<input type="text" class="form-control" name="zoom" oninput="main.save()" v-model="zooms.padv" placeholder="Advisory Zoom Link" />
-							</div>
-						</div>
-					</li>
-				</ul>
-			-->
 		</div>
 
 		<div class="mt-4 container text-center center" v-if="!hide">

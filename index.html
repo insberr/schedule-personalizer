@@ -58,9 +58,7 @@
 		<div id="installbutton-container" class="text-center" style="display: none;">
 			<p v-show="!hide">
 				<span class="badge bg-success">Desktop Directions</span> Click this button. <strong>This only works on desktop</strong>
-				<div>
-					<button v-show="!hide" id="installbutton" class="btn btn-primary">Install</button>
-				</div>
+				<button v-show="!hide" id="installbutton" class="btn btn-primary">Install</button>
 			</p>
 		</div>
 		<div v-if="!hide">
@@ -106,24 +104,48 @@
 						<div class="col-auto">
 							<input type="radio" class="form-check-input" name="cohort" id="cohortA" value="a"
 								v-model="cohort" checked />
-							<label class="form-check-label" for="cohortA" class="checkable">Cohort A</label>
+							<label class="form-check-label checkable" for="cohortA">Cohort A</label>
 						</div>
 						<div class="col"></div>
 					</div>
 				</div>
 
-				<div class="form-check mb-4">
+				<div class="form-check">
 					<div class="row">
 						<div class="col"></div>
 						<div class="col-auto">
 							<input type="radio" class="form-check-input" name="cohort" id="cohortB" value="b"
 								v-model="cohort" />
-							<label class="form-check-label" for="cohortB" class="checkable">Cohort B</label>
+							<label class="form-check-label checkable" for="cohortB">Cohort B</label>
 						</div>
 						<div class="col"></div>
 					</div>
 				</div>
 
+        <div class="form-check mb-2">
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-auto">
+							<input type="radio" class="form-check-input" name="cohort" id="cohortT" value="t"
+								v-model="cohort" />
+							<label class="form-check-label checkable" for="cohortT">Teacher</label>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+				
+				<div class="form-check mb-4">
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-auto">
+							<input type="checkbox" class="form-check-input" name="cohort" id="remote" value="false"
+								v-model="full" />
+							<label class="form-check-label checkable" for="remote">Are you full remote?</label>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+				
 				<div class="question">
 					<h2 class="crimson mt-4">What lunch do you have?</h2>
 
@@ -133,7 +155,7 @@
 							<div class="col-auto">
 								<input type="radio" class="form-check-input" name="lunch" id="lunch1" value="1"
 									v-model="lunch" checked />
-								<label class="form-check-label" for="lunch1" class="checkable">Lunch A</label>
+								<label class="form-check-label checkable" for="lunch1">Lunch A</label>
 							</div>
 							<div class="col"></div>
 						</div>
@@ -145,7 +167,7 @@
 							<div class="col-auto">
 								<input type="radio" class="form-check-input" name="lunch" id="lunch2" value="2"
 									v-model="lunch" />
-								<label class="form-check-label" for="lunch2" class="checkable">Lunch B</label>
+								<label class="form-check-label checkable" for="lunch2">Lunch B</label>
 							</div>
 							<div class="col"></div>
 						</div>
@@ -157,7 +179,7 @@
 							<div class="col-auto">
 								<input type="radio" class="form-check-input" name="lunch" id="lunch3" value="3"
 									v-model="lunch" />
-								<label class="form-check-label" for="lunch3" class="checkable">Lunch C</label>
+								<label class="form-check-label checkable" for="lunch3">Lunch C</label>
 							</div>
 							<div class="col"></div>
 						</div>
@@ -185,14 +207,17 @@
 					<thead class="headertext">
 						<tr>
 							<th class="tbl-th tc" style="background-color: crimson">
-								Monday<br />{{ cohort === 'a' ? 'In Person' : 'Remote' }} </th>
+						    Monday<span v-html="goes('m')"></span>
+							</th>
 							<th class="tbl-th tc" style="background-color: crimson">
-								Tuesday<br />{{ cohort === 'a' ? 'Remote' : 'In Person' }} </th>
-							<th class="tbl-th tc" style="background-color: #222222"> Wednesday<br />Remote </th>
+								Tuesday<span v-html="goes('tu')"></span></th>
+							<th class="tbl-th tc" style="background-color: #222222">Wednesday<span v-html="goes('w')"></span></th>
 							<th class="tbl-th tc" style="background-color: #9a9a9a">
-								Thursday<br />{{ cohort === 'a' ? 'In Person' : 'Remote' }} </th>
+								Thursday<span v-html="goes('th')"></span>
+						  </th>
 							<th class="tbl-th tc" style="background-color: #9a9a9a">
-								Friday<br />{{ cohort === 'a' ? 'Remote' : 'In Person' }} </th>
+								Friday<span v-html="goes('f')"></span>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -210,10 +235,10 @@
 												<a style="padding-left: 5px" v-if="zooms['p' + period.p]"
 													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
 													target="_blank">
-													{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
+													{{ perName(period) }}
 												</a>
 												<span style="padding-left: 5px; text-align: left" v-else>
-													{{ classes['p' + period.p] != '' ? classes['p' + period.p] : 'Period ' + period.p }}
+													{{ perName(period) }}
 												</span>
 											</td>
 											<td style="text-align: right; padding-right: 5px"

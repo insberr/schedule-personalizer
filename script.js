@@ -1,5 +1,4 @@
 
-
 const in1 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
@@ -73,6 +72,7 @@ const in1 = [{
 		time: "2:05 - 2:35",
 	},
 ];
+
 const in2 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
@@ -146,6 +146,7 @@ const in2 = [{
 		time: "2:05 - 2:35",
 	},
 ];
+
 const re1 = [{
 		p: "study",
 		time: "8:05 - 8:35",
@@ -219,6 +220,7 @@ const re1 = [{
 		time: "2:05 - 2:35",
 	},
 ];
+
 const re2 = [{
 		p: "study",
 		time: "8:05 - 8:35",
@@ -292,6 +294,7 @@ const re2 = [{
 		time: "2:05 - 2:35",
 	},
 ];
+
 const wed = [{
 		p: "study",
 		time: "8:05 - 8:50",
@@ -330,6 +333,7 @@ const wed = [{
 const main = Vue.createApp({
 	data() {
 		return {
+			full: false,
 			hide: false,
 			lunch: "1",
 			cohort: "a",
@@ -357,22 +361,20 @@ const main = Vue.createApp({
 			schedule: {
 				a: [in1, re1, wed, in2, re2],
 				b: [re1, in1, wed, re2, in2],
+				t: [in1, in1, wed, in2, in2]
 			},
 		};
 	},
 	mounted() {
 		let data = JSON.parse(localStorage.getItem("data"));
-		if (data === undefined || data === null) {
-			console.log("hi, no data");
-		} else {
-			// console.log(data)
+		if (data) {
 			this.classes = data.classes || this.classes;
 			this.cohort = data.cohort || this.cohort;
 			this.lunch = data.lunch || this.lunch;
 			this.zooms = data.zooms || this.zooms;
 			this.hide = data.hide || this.hide;
+			this.full = data.full || this.full;
 		}
-		// console.log(JSON.srtingify(localStorage.getItem('data'));
 
 		this.getQueries();
 		this.save();
@@ -385,6 +387,7 @@ const main = Vue.createApp({
 				lunch: this.lunch,
 				zooms: this.zooms,
 				hide: this.hide,
+				full: this.full,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
@@ -396,7 +399,12 @@ const main = Vue.createApp({
 			let classes = queries.get("classes");
 			let zooms = queries.get("zooms");
 			let lunch = queries.get("lunch");
+			let full = queries.get("full");
 
+      if (full) {
+      	this.full = full;
+      }
+      
 			if (hide) {
 				this.hide = hide;
 			}
@@ -444,6 +452,31 @@ const main = Vue.createApp({
 
 			window.history.pushState({}, document.title, window.location.pathname);
 		},
+		goes(day) {
+			if (this.cohort === 't') {
+				return '';
+			} else if (day === 'w' || this.full) {
+				return '<br>Remote';
+			} else if (this.cohort === 'a') {
+				if (day === 'm' || day === 'th') {
+					return '<br>In Person';
+				} else {
+					return '<br>Remote';
+				}
+			} else if (this.cohort === 'b') {
+				if (day === 'tu' || day === 'f') {
+					return '<br>In Person';
+				} else {
+					return '<br>Remote';
+				}
+			} else {
+				return '<br>Error';
+			}
+		},
+		perName(per) {
+			let pd = this.classes['p' + per.p];
+			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
+		},
 	},
 	watch: {
 		lunch() {
@@ -465,6 +498,7 @@ const main = Vue.createApp({
 		}
 	}
 }).mount("#main");
+
 function getPWADisplayMode() {
 	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 	if (document.referrer.startsWith('android-app://')) {
@@ -473,7 +507,6 @@ function getPWADisplayMode() {
 	  return 'standalone';
 	}
 	return 'browser';
-
 }
 
 function isPWA() {
@@ -488,49 +521,50 @@ registration.unregister()
 */
 
 /* === Dark mode === */
-window.darkmodemedia = window.matchMedia("(prefers-color-scheme: dark)")
+var dark = false;
 
-var darkLabel = "darkModeLabel";
+function toggle_theme() {
+	document.body.setAttribute('data-theme', (dark === false ? 'dark' : ''));
+	document.getElementById("darkModeLabel").innerHTML = (dark === false ? "Dark" : "Light");
+	document.getElementById("darkMode").checked = (dark === false ? true : false);
+	dark = (dark === false ? true : false);
+}
+
+function set_theme() {
+	let matches = window.matchMedia("(prefers-color-scheme: light)").matches;
+
+	dark = (matches === true ? false : true);
+	document.getElementById("darkModeLabel").innerHTML = (matches === true ? "Light" : "Dark");
+	document.body.setAttribute("data-theme", (matches === true ? '' : 'dark'));
+	document.getElementById("darkMode").checked = (matches === true ? false : true);
+}
+
+window
+	.matchMedia("(prefers-color-scheme: light)")
+	.addEventListener("change", (e) => {
+		set_theme();
+	});
+
+document.getElementById("darkMode")
+  .addEventListener("change", function () {
+		toggle_theme();
+  });
+
+set_theme();
+
+
+
 window.addEventListener("load", function () {
-	window.darkMode = document.getElementById("darkMode");
-	if (darkMode) {
-		initTheme();
-		darkMode.addEventListener("change", function () {
-			resetTheme();
-		});
+	if (isPWA()) {
+		localStorage.setItem("installed", true)
 	}
-	if (getPWADisplayMode() != "browser") {
-		localStorage.setItem("installed", "true")
-	}
-	var installed = localStorage.getItem("installed") !== null && localStorage.getItem("installed") === "true";
+	
+	let installed = localStorage.getItem("installed") || false;
 	if (installed) {
-		buttonInstall.style.display = "none"
-		document.getElementById("installbutton-container").style.display = "none"
+		buttonInstall.style.display = "none";
+		document.getElementById("installbutton-container").style.display = "none";
 	}
 });
-
-function resetTheme() {
-	if (darkMode.checked) {
-		document.body.setAttribute("data-theme", "dark");
-		document.getElementById(darkLabel).innerHTML = "Dark";
-	} else {
-		document.body.removeAttribute("data-theme");
-		document.getElementById(darkLabel).innerHTML = "Light";
-	}
-}
-
-function initTheme() {
-	var darkThemeSelected = darkmodemedia.matches
-	darkmodemedia.addListener(setDark)
-	setDark(darkThemeSelected)
-}
-
-function setDark(darkThemeSelected) {
-	darkMode.checked = darkThemeSelected;
-	darkThemeSelected ? (document.getElementById(darkLabel).innerHTML = "Dark") : (document.getElementById(darkLabel).innerHTML = "Light");
-	resetTheme();
-}
-
 
 
 function init_ServiceWorker() {

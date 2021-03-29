@@ -153,7 +153,7 @@ const re1 = [{
 		go: false,
 	},
 	{
-		p: "study",
+		p: "adv",
 		time: "8:35 - 9:05",
 	},
 	{
@@ -227,7 +227,7 @@ const re2 = [{
 		go: false,
 	},
 	{
-		p: "study",
+		p: "adv",
 		time: "8:35 - 9:05",
 	},
 	{

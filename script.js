@@ -306,6 +306,14 @@ const main = Vue.createApp({
 				pstudy: "Study",
 				ppass: "Passing",
 			},
+			rooms: {
+				p1: "",
+				p2: "",
+				p3: "",
+				p4: "",
+				p5: "",
+				padv: "",
+			},
 			schedule: {
 				a: [in1, re1, wed, in2, re2],
 				b: [re1, in1, wed, re2, in2],
@@ -322,6 +330,7 @@ const main = Vue.createApp({
 			this.zooms = data.zooms || this.zooms;
 			this.hide = data.hide || this.hide;
 			this.full = data.full || this.full;
+			this.rooms = data.rooms || this.rooms;
 		}
 		this.save();
 	},
@@ -334,6 +343,7 @@ const main = Vue.createApp({
 				zooms: this.zooms,
 				hide: this.hide,
 				full: this.full,
+				rooms: this.rooms,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
@@ -375,7 +385,7 @@ const main = Vue.createApp({
 		},
 		full() {
 			this.save();
-		},
+		}
 	},
 	computed: {
 		isPWA: function() {
@@ -401,44 +411,10 @@ function isPWA() {
 	return getPWADisplayMode() != "browser";
 }
 
-
-/*
-navigator.serviceWorker.getRegistrations().then(function(registrations) {
-for(let registration of registrations) {
-registration.unregister()
-} })
-*/
-
-/* === Dark mode === */
-var dark = false;
-
-function toggle_theme() {
-	document.body.setAttribute('data-theme', (dark === false ? 'dark' : ''));
-	document.getElementById("darkModeLabel").innerHTML = (dark === false ? "Dark" : "Light");
-	document.getElementById("darkMode").checked = (dark === false ? true : false);
-	dark = (dark === false ? true : false);
-}
-
-function set_theme() {
-	let matches = window.matchMedia("(prefers-color-scheme: light)").matches;
-
-	dark = (matches === true ? false : true);
-	document.getElementById("darkModeLabel").innerHTML = (matches === true ? "Light" : "Dark");
-	document.body.setAttribute("data-theme", (matches === true ? '' : 'dark'));
-	document.getElementById("darkMode").checked = (matches === true ? false : true);
-}
-
-window
-	.matchMedia("(prefers-color-scheme: light)")
-	.addEventListener("change", (e) => {
-		set_theme();
-	});
-
-document.getElementById("darkMode")
-  .addEventListener("change", function () {
-		toggle_theme();
-  });
-set_theme();
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
 
 window.addEventListener("load", function () {
 	if (isPWA()) {

@@ -6,12 +6,7 @@ var urlsToCache = [
     '/schedule-personalizer',
     '/schedule-personalizer/style.css',
     '/schedule-personalizer/script.min.js',
-    '/schedule-personalizer/dist/bootstrap.min.css',
-		'/schedule-personalizer/dist/bootstrap.min.css.map',
-		'/schedule-personalizer/dist/bootstrap.bundle.min.js',
-		'/schedule-personalizer/dist/bootstrap.bundle.min.js.map',
-		'/schedule-personalizer/dist/vue.global.prod.js',
-		'/schedule-personalizer/dist/bootsrtap.dark.min.css'
+    '/schedule-personalizer/darkmode.min.css',
 ];
 
 

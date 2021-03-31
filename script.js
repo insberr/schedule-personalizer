@@ -1,76 +1,24 @@
 
-const in1 = [{
-		p: "arr",
-		time: "8:05 - 8:35",
-		go: true,
-	},
-	{
-		p: "adv",
-		time: "8:35 - 9:05",
-	},
-	{
-		p: "pass",
-		time: "9:05 - 9:10",
-	},
-	{
-		p: "1",
-		time: "9:10 - 10:40",
-	},
-	{
-		p: "pass",
-		time: "10:40 - 10:45",
-	},
+const in1 = [
+	{ p: "arr", time: "8:05 - 8:35" },
+	{ p: "adv", time: "8:35 - 9:05" },
+	{ p: "pass", time: "9:05 - 9:10" },
+	{ p: "1", time: "9:10 - 10:40" },
+	{ p: "pass", time: "10:40 - 10:45" },
 
-	{
-		p: "lnc",
-		time: "10:45 - 11:15",
-		l: "1",
-	},
-	{
-		p: "3",
-		time: "11:20 - 12:30",
-		l: "1",
-	},
+	{ p: "lnc", time: "10:45 - 11:15", l: "1" },
+	{ p: "3", time: "11:20 - 12:30", l: "1" },
 
-	{
-		p: "3",
-		time: "10:45 - 11:20",
-		l: "2",
-	},
-	{
-		p: "lnc",
-		time: "11:20 - 11:50",
-		l: "2",
-	},
-	{
-		p: "3",
-		time: "11:55 - 12:30",
-		l: "2",
-	},
+	{ p: "3", time: "10:45 - 11:20", l: "2" },
+	{ p: "lnc", time: "11:20 - 11:50", l: "2" },
+	{ p: "3", time: "11:55 - 12:30", l: "2" },
 
-	{
-		p: "3",
-		time: "10:45 - 12:00",
-		l: "3",
-	},
-	{
-		p: "lnc",
-		time: "12:00 - 12:30",
-		l: "3",
-	},
+	{ p: "3", time: "10:45 - 12:00", l: "3" },
+	{ p: "lnc",	time: "12:00 - 12:30", l: "3"	},
 
-	{
-		p: "pass",
-		time: "12:30 - 12:35",
-	},
-	{
-		p: "5",
-		time: "12:35 - 2:05",
-	},
-	{
-		p: "dism",
-		time: "2:05 - 2:35",
-	},
+	{ p: "pass", time: "12:30 - 12:35" },
+	{ p: "5", time: "12:35 - 2:05" },
+	{ p: "dism", time: "2:05 - 2:35" },
 ];
 
 const in2 = [{
@@ -361,7 +309,7 @@ const main = Vue.createApp({
 			schedule: {
 				a: [in1, re1, wed, in2, re2],
 				b: [re1, in1, wed, re2, in2],
-				t: [in1, in1, wed, in2, in2]
+				t: [in1, in1, wed, in2, in2],
 			},
 		};
 	},
@@ -375,8 +323,6 @@ const main = Vue.createApp({
 			this.hide = data.hide || this.hide;
 			this.full = data.full || this.full;
 		}
-
-		this.getQueries();
 		this.save();
 	},
 	methods: {
@@ -390,67 +336,6 @@ const main = Vue.createApp({
 				full: this.full,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
-		},
-		getQueries() {
-			let queries = new URLSearchParams(window.location.search);
-
-			let hide = queries.get("hide");
-			let cohort = queries.get("cohort");
-			let classes = queries.get("classes");
-			let zooms = queries.get("zooms");
-			let lunch = queries.get("lunch");
-			let full = queries.get("full");
-
-      if (full) {
-      	this.full = full;
-      }
-      
-			if (hide) {
-				this.hide = hide;
-			}
-
-			if (cohort) {
-				this.cohort = cohort;
-			}
-
-			if (classes) {
-				let place = classes.split(",");
-				let i = 1;
-				for (let c of place) {
-					if (c === "_") {
-						i++;
-						continue;
-					}
-					this.classes["p" + i] = c;
-					i++;
-					if (i > 5) {
-						break;
-					}
-				}
-			}
-
-			if (zooms) {
-				let place = zooms.split(",");
-				let i = 1;
-				for (let c of place) {
-					if (c === "_") {
-						i++;
-						continue;
-					}
-					this.zooms["p" + i] = c;
-					i++;
-					if (i > 5) {
-						break;
-					}
-				}
-				this.zooms.padv = place[5] !== "_" ? place[5] : "";
-			}
-
-			if (lunch) {
-				this.lunch = lunch;
-			}
-
-			window.history.pushState({}, document.title, window.location.pathname);
 		},
 		goes(day) {
 			if (this.cohort === 't') {
@@ -488,6 +373,9 @@ const main = Vue.createApp({
 		hide() {
 			this.save();
 		},
+		full() {
+			this.save();
+		},
 	},
 	computed: {
 		isPWA: function() {
@@ -512,6 +400,7 @@ function getPWADisplayMode() {
 function isPWA() {
 	return getPWADisplayMode() != "browser";
 }
+
 
 /*
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -549,10 +438,7 @@ document.getElementById("darkMode")
   .addEventListener("change", function () {
 		toggle_theme();
   });
-
 set_theme();
-
-
 
 window.addEventListener("load", function () {
 	if (isPWA()) {

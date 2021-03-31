@@ -5,8 +5,13 @@ var CACHE_NAME = 'schedule-personalizer-v1';
 var urlsToCache = [
     '/schedule-personalizer',
     '/schedule-personalizer/style.css',
-    '/schedule-personalizer/script.js',
-    '/schedule-personalizer/darkmode.css'
+    '/schedule-personalizer/script.min.js',
+    '/schedule-personalizer/dist/bootstrap.min.css',
+		'/schedule-personalizer/dist/bootstrap.min.css.map',
+		'/schedule-personalizer/dist/bootstrap.bundle.min.js',
+		'/schedule-personalizer/dist/bootstrap.bundle.min.js.map',
+		'/schedule-personalizer/dist/vue.global.prod.js',
+		'/schedule-personalizer/dist/bootsrtap.dark.min.css'
 ];
 
 
@@ -29,7 +34,7 @@ self.addEventListener('fetch', event => {
         .then(response => {
             console.log('Network request for ', event.request.url);
             return fetch(event.request).then(response => {
-                // TODO 5 - Respond with custom 404 page
+                /* TODO 5 - Respond with custom 404 page */
                 return caches.open(CACHE_NAME).then(cache => {
                     cache.put(event.request.url, response.clone());
                     return response;

@@ -416,6 +416,26 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl)
 })
 
+/* scroll table */
+// get date 
+
+function scroll_to_day(debug) {
+	let day = new Date().getDay();
+	if (debug !== undefined) day = debug;
+	let pos = 0;
+	switch (day) {
+		case 1: { pos = 0; break; }
+		case 2: { pos = 150; break; }
+		case 3: { pos = 325; break; }
+		case 4: { pos = 515; break; }
+		case 5: { pos = 700; break; }
+		default: { break; }
+	}
+	document.getElementById("classes-table").scroll(pos, 0)
+}
+
+scroll_to_day();
+
 window.addEventListener("load", function () {
 	if (isPWA()) {
 		localStorage.setItem("installed", true)

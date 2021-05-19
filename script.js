@@ -1,6 +1,6 @@
 
 const in1 = [
-	{ p: "arr", time: "8:05 - 8:35" },
+	{ we: false, p: "arr", time: "8:05 - 8:35" },
 	{ p: "adv", time: "8:35 - 9:05" },
 	{ p: "pass", time: "9:05 - 9:10" },
 	{ p: "1", time: "9:10 - 10:40" },
@@ -24,7 +24,7 @@ const in1 = [
 const in2 = [{
 		p: "arr",
 		time: "8:05 - 8:35",
-		go: true,
+		we: false,
 	},
 	{
 		p: "adv",
@@ -98,7 +98,7 @@ const in2 = [{
 const re1 = [{
 		p: "study",
 		time: "8:05 - 8:35",
-		go: false,
+		we: false,
 	},
 	{
 		p: "adv",
@@ -172,7 +172,7 @@ const re1 = [{
 const re2 = [{
 		p: "study",
 		time: "8:05 - 8:35",
-		go: false,
+		we: false,
 	},
 	{
 		p: "adv",
@@ -246,7 +246,7 @@ const re2 = [{
 const wed = [{
 		p: "study",
 		time: "8:05 - 8:50",
-		go: false,
+		we: false,
 	},
 	{
 		p: "1",
@@ -278,10 +278,13 @@ const wed = [{
 	},
 ];
 
+const end = [ { we: true } ]
+
 const main = Vue.createApp({
 	data() {
 		return {
 			full: false,
+			day: new Date().getDay(),
 			hide: false,
 			lunch: "1",
 			cohort: "a",
@@ -315,13 +318,13 @@ const main = Vue.createApp({
 				padv: "",
 			},
 			schedule: {
-				a: [in1, re1, wed, in2, re2],
-				b: [re1, in1, wed, re2, in2],
-				t: [in1, in1, wed, in2, in2],
+				a: [end, in1, re1, wed, in2, re2, end],
+				b: [end, re1, in1, wed, re2, in2, end],
+				t: [end, in1, in1, wed, in2, in2, end],
 			},
 		};
 	},
-	mounted() {
+	created() {
 		let data = JSON.parse(localStorage.getItem("data"));
 		if (data) {
 			this.classes = data.classes || this.classes;
@@ -333,6 +336,12 @@ const main = Vue.createApp({
 			this.rooms = data.rooms || this.rooms;
 		}
 		this.save();
+		
+	},
+	mounted() {
+		this.$nextTick(function () {
+		  document.getElementById('loading').className = "d-none";
+		});
 	},
 	methods: {
 		save() {
@@ -350,16 +359,16 @@ const main = Vue.createApp({
 		goes(day) {
 			if (this.cohort === 't') {
 				return '';
-			} else if (day === 'w' || this.full) {
+			} else if (day === 'w' || day === 3 || this.full) {
 				return '<br>Remote';
 			} else if (this.cohort === 'a') {
-				if (day === 'm' || day === 'th') {
+				if (day === 'm' || day === 1 || day === 'th') {
 					return '<br>In Person';
 				} else {
 					return '<br>Remote';
 				}
 			} else if (this.cohort === 'b') {
-				if (day === 'tu' || day === 'f') {
+				if (day === 'tu' || day === 2 || day === 'f') {
 					return '<br>In Person';
 				} else {
 					return '<br>Remote';
@@ -416,25 +425,6 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl)
 })
 
-/* scroll table */
-// get date 
-
-function scroll_to_day(debug) {
-	let day = new Date().getDay();
-	if (debug !== undefined) day = debug;
-	let pos = 0;
-	switch (day) {
-		case 1: { pos = 0; break; }
-		case 2: { pos = 150; break; }
-		case 3: { pos = 325; break; }
-		case 4: { pos = 515; break; }
-		case 5: { pos = 700; break; }
-		default: { break; }
-	}
-	document.getElementById("classes-table").scroll(pos, 0)
-}
-
-scroll_to_day();
 
 window.addEventListener("load", function () {
 	if (isPWA()) {

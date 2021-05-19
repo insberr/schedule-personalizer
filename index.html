@@ -37,7 +37,13 @@
 </head>
 
 <body>
-	<div class="container" id="main">
+	<div id="loading" class="container d-flex justify-content-center">
+		<div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
+	<div class="container" id="main" v-cloak>
 		<div class="text-center" v-if="!hide">
 			<h1 class="crimson">Schedule Personalizer</h1>
 			<p>
@@ -229,9 +235,35 @@
 					Show Only The Schedule
 				</button>
 			</div>
-
+      
 			<div id="classes-table" class="mt-4 table-responsive">
-				<table class="table table-borderless" style="margin-top: 10px; min-width: 936px">
+				<!-- table for just the day -->
+				<table class="d-xs-block d-sm-none table">
+					<thead>
+						<tr>
+							<th v-bind:class="{ 'bgcrimson': (day === 1 || day === 2), 'bgsilver': (day === 4 || day === 5) }" colspan="4">{{ new Date().toLocaleString('en-us', {weekday: 'long'}) }} - {{ goes(day).replace('<br>', '') }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="per in schedule[cohort][day]" :class="{ 'tblue': (per.p), 'twhite': (per.p === 'pass' || per.p === 'study'), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr') }">
+							<td v-if="per.l === undefined || per.l === lunch" class="text-left">
+								{{ perName(per) }}
+							</td>
+							<td v-if="per.l === undefined || per.l === lunch">
+								{{ per.time }}
+							</td>
+							<td v-if="per.l === undefined || per.l === lunch">
+							  <a>zoom</a>
+							</td>
+							<td v-if="per.l === undefined || per.l === lunch">
+								{{ rooms['p' + per.p] ? 'Room ' + rooms['p' + per.p] : 'No room' }}
+							</td>
+						</tr>
+					</tbody>
+					
+				</table>
+				
+				<table class="d-none d-sm-block table table-borderless" style="margin-top: 10px; min-width: 936px">
 					<thead class="headertext">
 						<tr>
 							<th class="tbl-th tc" style="background-color: crimson">
@@ -253,35 +285,37 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td v-for="day in schedule[cohort]">
-								<table class="table table-hover table-borderless">
-									<thead></thead>
-									<tbody>
-										<tr
-										  class="tbt-tr" style="border-top: 0.5px solid gray"
-											v-bind:class="{ 'table-primary': (period.p), 'table-danger': (period.p === 'pass'), 'table-light': (period.p === 'lnc'), 'table-secondary': (period.p === 'study'), 'table-warning': (period.p === 'arr'), 'table-success': (period.p === 'dism') }"
-											v-for="period in day"
-											tabindex="0" data-bs-trigger="focus" data-bs-toggle="popover" title="Info" v-bind:data-bs-content="'Room: ' + (rooms['p' + period.p] !== undefined && rooms['p' + period.p] !== '' ? rooms['p' + period.p] : 'No Room Number')">
-											<td style="text-align: left; max-width: 6rem"
-												v-if="period.l === undefined || period.l === lunch"
-												class="tbt-td text-truncate text-nowrap">
-												<a style="padding-left: 5px" v-if="zooms['p' + period.p]"
-													v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
-													target="_blank">
-													{{ perName(period) }}
-												</a>
-												<span style="padding-left: 5px; text-align: left" v-else>
-													{{ perName(period) }}
-												</span>
-											</td>
-											<td style="text-align: right; padding-right: 5px"
-												v-if="period.l === undefined || period.l === lunch" class="time tbt-td">
-												{{ period.time }}
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
+							<template v-for="day in schedule[cohort]">
+								<td v-if="day[0].we === false">
+									<table class="table table-hover table-borderless">
+										<thead></thead>
+										<tbody>
+											<tr
+												class="tbt-tr" style="border-top: 0.5px solid gray"
+												v-bind:class="{ 'tblue': (period.p), 'twhite': (period.p === 'pass' || period.p === 'study'), 'tgreen': (period.p === 'lnc' || period.p === 'dism'), 'tyellow': (period.p === 'arr') }"
+												v-for="period in day"
+												tabindex="0" data-bs-trigger="focus" data-bs-toggle="popover" title="Info" v-bind:data-bs-content="'Room: ' + (rooms['p' + period.p] !== undefined && rooms['p' + period.p] !== '' ? rooms['p' + period.p] : 'No Room Number')">
+												<td style="text-align: left; max-width: 6rem"
+													v-if="period.l === undefined || period.l === lunch"
+													class="tbt-td text-truncate text-nowrap">
+													<a style="padding-left: 5px" v-if="zooms['p' + period.p]"
+														v-bind:href="zooms['p' + period.p].startsWith('https://') ? zooms['p' + period.p] : 'https://' + zooms['p' + period.p]"
+														target="_blank">
+														{{ perName(period) }}
+													</a>
+													<span style="padding-left: 5px; text-align: left" v-else>
+														{{ perName(period) }}
+													</span>
+												</td>
+												<td style="text-align: right; padding-right: 5px"
+													v-if="period.l === undefined || period.l === lunch" class="time tbt-td">
+													{{ period.time }}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</template>
 						</tr>
 					</tbody>
 				</table>
@@ -346,7 +380,7 @@
 		</footer>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-	<script src="script.min.js"></script>
+	<script src="script.js"></script>
 </body>
 
 </html>

@@ -23,6 +23,14 @@ body {
 	color: crimson;
 }
 
+.bgcrimson {
+	background-color: rgba(220, 20, 60, 0.411)!important;
+}
+
+.bgsilver {
+	background-color: #9a9a9a4f!important;
+}
+
 td>a {
 	color: crimson !important
 }
@@ -36,4 +44,70 @@ tr td {
 
 .popover-header {
 	background-color: crimson;
+}
+
+
+.tblue {
+	color: black;
+	background-color: #afefff;
+}
+
+.tgreen {
+	color: black;
+	background-color: #c1ffba!important;
+}
+
+.tyellow {
+	color: black;
+	background-color: #ffffbf!important;
+}
+
+.twhite {
+	color: inherit;
+	background-color: transparent!important;
+}
+
+.ttred {
+	color: black;
+	background-color: #ffdfbf!important;
+}
+
+.tc {
+	width: 15rem;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+#main {
+  animation: fadeIn 5s;
+  -webkit-animation: fadeIn 5s;
+  -moz-animation: fadeIn 5s;
+  -o-animation: fadeIn 5s;
+  -ms-animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }

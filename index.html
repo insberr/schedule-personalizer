@@ -2,7 +2,7 @@
 <html>
 <!--
 		Welcome to the code for this website!
-		I am using vuejs 3 and bootstrap (css)
+		I am using vuejs 3 and bootstrap 5 (css)
 		I put this site together quickly and probaby
 		didnt use the best practices. 
 		Like I say, make it work, then make it look nice
@@ -37,12 +37,12 @@
 </head>
 
 <body>
-	<div id="loading" class="container d-flex justify-content-center">
-		<div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+	<div id="loading">
+		<div class="spinner-border text-danger" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
 	</div>
-
+	
 	<div class="container" id="main" v-cloak>
 		<div class="text-center" v-if="!hide">
 			<h1 class="crimson">Schedule Personalizer</h1>
@@ -247,16 +247,22 @@
 					<tbody>
 						<tr v-for="per in schedule[cohort][day]" :class="{ 'tblue': (per.p), 'twhite': (per.p === 'pass' || per.p === 'study'), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr') }">
 							<td v-if="per.l === undefined || per.l === lunch" class="text-left">
-								{{ perName(per) }}
+									{{ perName(per) }}
 							</td>
 							<td v-if="per.l === undefined || per.l === lunch">
 								{{ per.time }}
 							</td>
 							<td v-if="per.l === undefined || per.l === lunch">
-							  <a>zoom</a>
+								<span v-if="per.p === 'study' || per.p === 'lnc'">---</span>
+							  <a v-else v-bind:href="zooms['p' + per.p] ? (zooms['p' + per.p].startsWith('https://') ? zooms['p' + per.p] : 'https://' + zooms['p' + per.p]) : ''" target="_blank">
+							  	{{ zooms['p' + per.p] ? 'Zoom' : 'No link' }}
+							  </a>
 							</td>
 							<td v-if="per.l === undefined || per.l === lunch">
-								{{ rooms['p' + per.p] ? 'Room ' + rooms['p' + per.p] : 'No room' }}
+								<span v-if="per.p === 'study' || per.p === 'lnc'">---</span>
+								<span v-else>
+								  {{ rooms['p' + per.p] ? 'Room ' + rooms['p' + per.p] : 'No room' }}
+							  </span>
 							</td>
 						</tr>
 					</tbody>
@@ -330,37 +336,36 @@
 			<br>
 			<a href="https://drive.google.com/file/d/1Z5OvBsd2DgT-E8Gg9sWMZ94CEoB1NCZC/view?usp=sharing"
 				target="_blank">
-				Cohort A PDF </a>
+				Cohort A PDF
+			</a>
 			<br />
 			<a href="https://drive.google.com/file/d/1TbPP44NlbFKG-XPWcfDHMokIcj38Iadr/view?usp=sharing"
 				target="_blank">
-				Cohort B PDF </a>
+				Cohort B PDF
+			</a>
 			<br />
-			<a href="https://drive.google.com/file/d/1kQMWvAhth5ZAEdlPuewxal2b1oNJlWnO/view?usp=sharing"
-				target="_blank">March Calendar Schedule PDF</a>
-			<br>
-			<a href="https://www.smore.com/mscdp" target="_blank">March 26th Newsletter (Smore)</a>
-
+      <div v-if="!hide">
 			<h4 class="crimson mt-4 mb-2">Site Information</h4>
 			<p>
-				If you are a web developer, you can see the code
+				For the web devs, you can see the code
 				<a href="https://github.com/insberr/schedule-personalizer" title="See this sites code here."
 					target="_blank">here</a>.
 				<br />
-				This website does not use tracking cookies, analytics, or store the data you enter to a server.
+				This website does not use tracking, analytics, or store the data you enter to a server.
 				<br />
 				This is saved in your browser using localStorage so you come back to this site still filled in : )
 			</p>
-			<p>A handy Reset button if you want to quickly clear what you entered</p>
+			<p>Reset button, if you want to quickly clear what you entered</p>
 			<div type="container mb-4">
 				<button type="button" class="btn btn-danger btn-sm"
 					onclick="localStorage.clear(); location.reload(true)">
 					Reset</button>
 			</div>
+			</div>
 		</div>
-		<hr />
 
 		<footer class="container text-center">
+			<hr />
 			<div class="row justify-content-center">
 				<span class="col" style="color: gray !important; font-size: 12px">
 					Restyled by
@@ -369,8 +374,13 @@
 					</a>
 				</span>
 
-			  <span class="col-5" style="color: gray; font-size: 12px">Website Created by <a style="color: gray !important"
-					href="https://insberr.github.io/" target="_blank">Jonah Matteson</a> (Student # 367875)</span>
+			  <span class="col-5" style="color: gray; font-size: 12px">
+			  	Created by
+			  	<a style="color: gray !important"
+					href="https://insberr.github.io/" target="_blank">
+			  		Jonah Matteson
+			  	</a>
+			  </span>
 	
 			  
 			  <a class="col" style="color: gray; font-size: 12px" href="https://www.vecteezy.com/free-vector/calendar-icon">Calendar
@@ -380,7 +390,7 @@
 		</footer>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-	<script src="script.js"></script>
+	<script src="script.min.js"></script>
 </body>
 
 </html>

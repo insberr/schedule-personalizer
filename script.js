@@ -362,13 +362,13 @@ const main = Vue.createApp({
 			} else if (day === 'w' || day === 3 || this.full) {
 				return '<br>Remote';
 			} else if (this.cohort === 'a') {
-				if (day === 'm' || day === 1 || day === 'th') {
+				if ((day === 'm' || day === 1) || (day === 'th' || day === 4)) {
 					return '<br>In Person';
 				} else {
 					return '<br>Remote';
 				}
 			} else if (this.cohort === 'b') {
-				if (day === 'tu' || day === 2 || day === 'f') {
+				if ((day === 'tu' || day === 2) || (day === 'f' || day === 5)) {
 					return '<br>In Person';
 				} else {
 					return '<br>Remote';

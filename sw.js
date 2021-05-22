@@ -7,6 +7,15 @@ var urlsToCache = [
     '/schedule-personalizer/style.css',
     '/schedule-personalizer/script.min.js',
     '/schedule-personalizer/darkmode.min.css',
+		'/schedule-personalizer/splashscreens/ipad_splash.png',
+		'/schedule-personalizer/splashscreens/ipadpro1_splash.png',
+		'/schedule-personalizer/splashscreens/ipadpro2_splash.png',
+		'/schedule-personalizer/splashscreens/ipadpro3_splash.png',
+		'/schedule-personalizer/splashscreens/iphone6_splash.png',
+		'/schedule-personalizer/splashscreens/iphoneplus_splash.png',
+		'/schedule-personalizer/splashscreens/iphonex_splash.png',
+		'/schedule-personalizer/splashscreens/iphonexr_splash.png',
+		'/schedule-personalizer/splashscreens/iphonexsmax_splash.png',
 ];
 
 

@@ -21,49 +21,18 @@ const in1 = [
 	{ p: "dism", time: "2:05 - 2:35" },
 ];
 
-const in2 = [{
-		p: "arr",
-		time: "8:05 - 8:35",
-		we: false,
-	},
-	{
-		p: "adv",
-		time: "8:35 - 9:05",
-	},
-	{
-		p: "pass",
-		time: "9:05 - 9:10",
-	},
-	{
-		p: "2",
-		time: "9:10 - 10:40",
-	},
-	{
-		p: "pass",
-		time: "10:40 - 10:45",
-	},
+const in2 = [
+	{ p: "arr", time: "8:05 - 8:35", we: false },
+	{ p: "adv", time: "8:35 - 9:05" },
+	{ p: "pass", time: "9:05 - 9:10" },
+	{ p: "2", time: "9:10 - 10:40" },
+	{ p: "pass", time: "10:40 - 10:45" },
 
-	{
-		p: "lnc",
-		time: "10:45 - 11:15",
-		l: "1",
-	},
-	{
-		p: "3",
-		time: "11:20 - 12:30",
-		l: "1",
-	},
+	{ p: "lnc", time: "10:45 - 11:15", l: "1" },
+	{ p: "3", time: "11:20 - 12:30", l: "1" },
 
-	{
-		p: "3",
-		time: "10:45 - 11:20",
-		l: "2",
-	},
-	{
-		p: "lnc",
-		time: "11:20 - 11:50",
-		l: "2",
-	},
+	{ p: "3", time: "10:45 - 11:20", l: "2" },
+	{ p: "lnc", time: "11:20 - 11:50", l: "2" },
 	{
 		p: "3",
 		time: "11:55 - 12:30",
@@ -95,7 +64,8 @@ const in2 = [{
 	},
 ];
 
-const re1 = [{
+const re1 = [
+	{
 		p: "study",
 		time: "8:05 - 8:35",
 		we: false,
@@ -285,6 +255,7 @@ const main = Vue.createApp({
 		return {
 			full: false,
 			day: new Date().getDay(),
+			configMenuOpen: false,
 			hide: false,
 			lunch: "1",
 			cohort: "a",
@@ -356,6 +327,29 @@ const main = Vue.createApp({
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
+		going() {
+			if (this.cohort === 't') return true;
+			if (this.full) return false;
+			if (this.day === 3) return false;
+
+			if (this.cohort === 'a') {
+				if (this.day === 1) return true;
+				if (this.day === 2) return false;
+				if (this.day === 4) return true;
+				if (this.day === 5) return false;
+			}
+
+			if (this.day === 1) return false;
+			if (this.day === 2) return true;
+			if (this.day === 4) return false;
+			if (this.day === 5) return true;
+
+			if (this.day === 0 || this.day === 6) return false;
+		},
+		dayName() {
+			var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			return days[this.day];
+		},
 		goes(day) {
 			if (this.cohort === 't') {
 				return '';
@@ -381,6 +375,9 @@ const main = Vue.createApp({
 			let pd = this.classes['p' + per.p];
 			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
 		},
+		config() {
+			this.configMenuOpen = !this.configMenuOpen;
+		},
 	},
 	watch: {
 		lunch() {
@@ -405,6 +402,25 @@ const main = Vue.createApp({
 		}
 	}
 }).mount("#main");
+
+
+/*
+  Refresh the data and ui when the site becomes visible. This helps to avoid date/time issues
+*/
+function visibilityListener() {
+  switch(document.visibilityState) {
+    case "hidden":
+      break;
+    case "visible":
+      main.day = new Date().getDay();
+      main.configMenuOpen = false;
+      break;
+  }
+}
+
+document.addEventListener("visibilitychange", visibilityListener);
+
+
 
 function getPWADisplayMode() {
 	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;

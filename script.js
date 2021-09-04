@@ -1,79 +1,252 @@
-const noadv = [
-	{ p: "zero", time: "6:35 - 7:30" },
-	{ p: "1", time: "7:35 - 8:45" },
-	{ p: "2", time: "8:50 - 9:55" },
+const noadv = [{
+		p: "zero",
+		time: "6:35 - 7:30"
+	},
+	{
+		p: "1",
+		time: "7:35 - 8:45"
+	},
+	{
+		p: "2",
+		time: "8:50 - 9:55"
+	},
 
 	// p 3 and lunch
-	{ p: "lnc", time: "9:55 - 10:25", l: "1" },
-	{ p: "3", time: "10:30 - 11:40", l: "1" },
+	{
+		p: "lnc",
+		time: "9:55 - 10:25",
+		l: "1"
+	},
+	{
+		p: "3",
+		time: "10:30 - 11:40",
+		l: "1"
+	},
 
-	{ p: "3", time: "10:00 - 10:30", l: "2" },
-	{ p: "lnc", time: "10:30 - 11:00", l: "2" },
-	{ p: "3", time: "11:05 - 11:40", l: "2" },
+	{
+		p: "3",
+		time: "10:00 - 10:30",
+		l: "2"
+	},
+	{
+		p: "lnc",
+		time: "10:30 - 11:00",
+		l: "2"
+	},
+	{
+		p: "3",
+		time: "11:05 - 11:40",
+		l: "2"
+	},
 
-	{ p: "3", time: "10:00 - 11:10", l: "3" },
-	{ p: "lnc",	time: "11:10 - 11:40", l: "3"	},
+	{
+		p: "3",
+		time: "10:00 - 11:10",
+		l: "3"
+	},
+	{
+		p: "lnc",
+		time: "11:10 - 11:40",
+		l: "3"
+	},
 
-	{ p: "4", time: "11:45 - 12:55" },
-	{ p: "5", time: "1:00 - 2:05" },
-	{ p: "dism", time: "2:05 - 2:10" }
+	{
+		p: "4",
+		time: "11:45 - 12:55"
+	},
+	{
+		p: "5",
+		time: "1:00 - 2:05"
+	},
+	{
+		p: "dism",
+		time: "2:05 - 2:10"
+	}
 ]
 
-const adv = [
-	{ p: "zero", time: "6:35 - 7:30" },
-	{ p: "1", time: "7:35 - 8:45" },
-	{ p: "2", time: "8:50 - 9:55" },
+const adv = [{
+		p: "zero",
+		time: "6:35 - 7:30"
+	},
+	{
+		p: "1",
+		time: "7:35 - 8:45"
+	},
+	{
+		p: "2",
+		time: "8:50 - 9:55"
+	},
 
 	// p 3 and lunch
-	{ p: "lnc", time: "9:55 - 10:25", l: "1" },
-	{ p: "3", time: "10:30 - 11:40", l: "1" },
+	{
+		p: "lnc",
+		time: "9:55 - 10:25",
+		l: "1"
+	},
+	{
+		p: "3",
+		time: "10:30 - 11:40",
+		l: "1"
+	},
 
-	{ p: "3", time: "10:00 - 10:30", l: "2" },
-	{ p: "lnc", time: "10:30 - 11:00", l: "2" },
-	{ p: "3", time: "11:05 - 11:40", l: "2" },
+	{
+		p: "3",
+		time: "10:00 - 10:30",
+		l: "2"
+	},
+	{
+		p: "lnc",
+		time: "10:30 - 11:00",
+		l: "2"
+	},
+	{
+		p: "3",
+		time: "11:05 - 11:40",
+		l: "2"
+	},
 
-	{ p: "3", time: "10:00 - 11:10", l: "3" },
-	{ p: "lnc",	time: "11:10 - 11:40", l: "3"	},
+	{
+		p: "3",
+		time: "10:00 - 11:10",
+		l: "3"
+	},
+	{
+		p: "lnc",
+		time: "11:10 - 11:40",
+		l: "3"
+	},
 
-	{ p: "4", time: "11:45 - 12:55" },
-	{ p: "5", time: "1:00 - 2:05" },
-	{ p: "dism", time: "2:05 - 2:10" }
+	{
+		p: "4",
+		time: "11:45 - 12:55"
+	},
+	{
+		p: "5",
+		time: "1:00 - 2:05"
+	},
+	{
+		p: "dism",
+		time: "2:05 - 2:10"
+	}
 ]
 
-const in1 = [
-	{ we: false, p: "arr", time: "8:05 - 8:35" },
-	{ p: "adv", time: "8:35 - 9:05" },
-	{ p: "pass", time: "9:05 - 9:10" },
-	{ p: "1", time: "9:10 - 10:40" },
-	{ p: "pass", time: "10:40 - 10:45" },
+const in1 = [{
+		we: false,
+		p: "arr",
+		time: "8:05 - 8:35"
+	},
+	{
+		p: "adv",
+		time: "8:35 - 9:05"
+	},
+	{
+		p: "pass",
+		time: "9:05 - 9:10"
+	},
+	{
+		p: "1",
+		time: "9:10 - 10:40"
+	},
+	{
+		p: "pass",
+		time: "10:40 - 10:45"
+	},
 
-	{ p: "lnc", time: "10:45 - 11:15", l: "1" },
-	{ p: "3", time: "11:20 - 12:30", l: "1" },
+	{
+		p: "lnc",
+		time: "10:45 - 11:15",
+		l: "1"
+	},
+	{
+		p: "3",
+		time: "11:20 - 12:30",
+		l: "1"
+	},
 
-	{ p: "3", time: "10:45 - 11:20", l: "2" },
-	{ p: "lnc", time: "11:20 - 11:50", l: "2" },
-	{ p: "3", time: "11:55 - 12:30", l: "2" },
+	{
+		p: "3",
+		time: "10:45 - 11:20",
+		l: "2"
+	},
+	{
+		p: "lnc",
+		time: "11:20 - 11:50",
+		l: "2"
+	},
+	{
+		p: "3",
+		time: "11:55 - 12:30",
+		l: "2"
+	},
 
-	{ p: "3", time: "10:45 - 12:00", l: "3" },
-	{ p: "lnc",	time: "12:00 - 12:30", l: "3"	},
+	{
+		p: "3",
+		time: "10:45 - 12:00",
+		l: "3"
+	},
+	{
+		p: "lnc",
+		time: "12:00 - 12:30",
+		l: "3"
+	},
 
-	{ p: "pass", time: "12:30 - 12:35" },
-	{ p: "5", time: "12:35 - 2:05" },
-	{ p: "dism", time: "2:05 - 2:35" },
+	{
+		p: "pass",
+		time: "12:30 - 12:35"
+	},
+	{
+		p: "5",
+		time: "12:35 - 2:05"
+	},
+	{
+		p: "dism",
+		time: "2:05 - 2:35"
+	},
 ];
 
-const in2 = [
-	{ p: "arr", time: "8:05 - 8:35", we: false },
-	{ p: "adv", time: "8:35 - 9:05" },
-	{ p: "pass", time: "9:05 - 9:10" },
-	{ p: "2", time: "9:10 - 10:40" },
-	{ p: "pass", time: "10:40 - 10:45" },
+const in2 = [{
+		p: "arr",
+		time: "8:05 - 8:35",
+		we: false
+	},
+	{
+		p: "adv",
+		time: "8:35 - 9:05"
+	},
+	{
+		p: "pass",
+		time: "9:05 - 9:10"
+	},
+	{
+		p: "2",
+		time: "9:10 - 10:40"
+	},
+	{
+		p: "pass",
+		time: "10:40 - 10:45"
+	},
 
-	{ p: "lnc", time: "10:45 - 11:15", l: "1" },
-	{ p: "3", time: "11:20 - 12:30", l: "1" },
+	{
+		p: "lnc",
+		time: "10:45 - 11:15",
+		l: "1"
+	},
+	{
+		p: "3",
+		time: "11:20 - 12:30",
+		l: "1"
+	},
 
-	{ p: "3", time: "10:45 - 11:20", l: "2" },
-	{ p: "lnc", time: "11:20 - 11:50", l: "2" },
+	{
+		p: "3",
+		time: "10:45 - 11:20",
+		l: "2"
+	},
+	{
+		p: "lnc",
+		time: "11:20 - 11:50",
+		l: "2"
+	},
 	{
 		p: "3",
 		time: "11:55 - 12:30",
@@ -105,8 +278,7 @@ const in2 = [
 	},
 ];
 
-const re1 = [
-	{
+const re1 = [{
 		p: "study",
 		time: "8:05 - 8:35",
 		we: false,
@@ -289,18 +461,21 @@ const wed = [{
 	},
 ];
 
-const end = [ { we: true } ]
+const end = [{
+	we: true
+}]
 
 const main = Vue.createApp({
 	data() {
 		return {
-		  setup: {
+			setup: {
 				init: true,
-			  step: 1,
-			  importMethod: "a",
+				step: 1,
+				importMethod: "a",
 				studentVue: {
 					username: "",
 					password: "",
+					token: ""
 				},
 				done: false,
 			},
@@ -310,7 +485,7 @@ const main = Vue.createApp({
 			hide: false,
 			lunch: "1",
 			cohort: "normal",
-      zooms: {
+			zooms: {
 				p1: "",
 				p2: "",
 				p3: "",
@@ -355,25 +530,25 @@ const main = Vue.createApp({
 
 			// cohort (remote)
 			// this.cohort = data.cohort || this.cohort;
-			
+
 			this.lunch = data.lunch || this.lunch;
-			
+
 			// zooms (remote)
 			// this.zooms = data.zooms || this.zooms;
-			
+
 			this.hide = data.hide || this.hide;
 
 			// full remote
 			// this.full = data.full || this.full;
-			
+
 			this.rooms = data.rooms || this.rooms;
 		}
 		this.save();
-		
+
 	},
 	mounted() {
 		this.$nextTick(function () {
-		  document.getElementById('loading').className = "d-none";
+			document.getElementById('loading').className = "d-none";
 		});
 	},
 	methods: {
@@ -391,7 +566,7 @@ const main = Vue.createApp({
 		},
 		going() {
 			return true;
-		/*
+			/*
 			if (this.cohort === 't') return true;
 			if (this.full) return false;
 			if (this.day === 3) return false;
@@ -417,7 +592,7 @@ const main = Vue.createApp({
 		},
 		goes(day) {
 			return '';
-		/*
+			/*
 			if (this.cohort === 't') {
 				return '';
 			} else if (day === 'w' || day === 3 || this.full) {
@@ -451,21 +626,92 @@ const main = Vue.createApp({
 		},
 		studentVueLogin() {
 			console.log("logging in")
-			fetch('https://schedule-vue.insberr.repl.co/login', {
-		    method: 'POST',
-		    headers: {
-			    'Content-Type': 'application/json',
-					'Access-Control-Allow-Origin': '*'
-		    },
-		    body: JSON.stringify({
-			    username: this.setup.studentVue.username,
-			    password: this.setup.studentVue.password,
-		    })
-			})
-		  .then((res) => { res.json() })
-		    .then((json) => { console.log(json) })
-		    // .catch((err) => { console.log("Error: " + err) });
-    },
+			fetch('https://stvapi.herokuapp.com/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username: this.setup.studentVue.username,
+						password: this.setup.studentVue.password,
+						portal: 'wa-beth-psv.edupoint.com' // might be a good idea to ask for this from the user?
+					})
+				})
+				.then((res) => res.json()).then((json) => {
+					console.log(json)
+					if (json["code"] == "ERROR") {
+						// uh oh something went wrong!
+						console.error("ERROR FROM API! " + json["content"]["error"]);
+					} else {
+						// we good! 
+						// request the student schedule/data
+						fetch("https://stvapi.herokuapp.com/get_student_info", {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token: json.content.token
+							})
+						}).then((res) => res.json()).then((json) => {
+							console.log("student_info:")
+							console.log(json)
+						})
+						// todo: use a loop to get all 3 terms, im lazy and its late
+						fetch("https://stvapi.herokuapp.com/get_schedule", {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token: json.content.token
+							})
+						}).then((res) => res.json()).then((json) => {
+							console.log("schedule t1:")
+							console.log(json)
+						})
+						fetch("https://stvapi.herokuapp.com/get_schedule", {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token: json.content.token,
+								term: 1
+							})
+						}).then((res) => res.json()).then((json) => {
+							console.log("schedule t2:")
+							console.log(json)
+						})
+						fetch("https://stvapi.herokuapp.com/get_schedule", {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token: json.content.token,
+								term: 2
+							})
+						}).then((res) => res.json()).then((json) => {
+							console.log("schedule t3:")
+							console.log(json)
+						})
+
+						// then we log out
+						fetch("https://stvapi.herokuapp.com/logout", {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token: json.content.token
+							})
+						})
+
+					}
+				})
+			// .catch((err) => { console.log("Error: " + err) });
+		},
 	},
 	watch: {
 		lunch() {
@@ -482,7 +728,7 @@ const main = Vue.createApp({
 		}
 	},
 	computed: {
-		isPWA: function() {
+		isPWA: function () {
 			return isPWA()
 		},
 		isInstalled: function () {
@@ -496,14 +742,14 @@ const main = Vue.createApp({
   Refresh the data and ui when the site becomes visible. This helps to avoid date/time issues
 */
 function visibilityListener() {
-  switch(document.visibilityState) {
-    case "hidden":
-      break;
-    case "visible":
-      main.day = new Date().getDay();
-      main.configMenuOpen = false;
-      break;
-  }
+	switch (document.visibilityState) {
+		case "hidden":
+			break;
+		case "visible":
+			main.day = new Date().getDay();
+			main.configMenuOpen = false;
+			break;
+	}
 }
 
 document.addEventListener("visibilitychange", visibilityListener);
@@ -513,9 +759,9 @@ document.addEventListener("visibilitychange", visibilityListener);
 function getPWADisplayMode() {
 	const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 	if (document.referrer.startsWith('android-app://')) {
-	  return 'twa';
+		return 'twa';
 	} else if (navigator.standalone || isStandalone) {
-	  return 'standalone';
+		return 'standalone';
 	}
 	return 'browser';
 }
@@ -526,7 +772,7 @@ function isPWA() {
 
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
+	return new bootstrap.Popover(popoverTriggerEl)
 })
 
 
@@ -534,7 +780,7 @@ window.addEventListener("load", function () {
 	if (isPWA()) {
 		localStorage.setItem("installed", true)
 	}
-	
+
 	let installed = localStorage.getItem("installed") || false;
 	if (installed) {
 		buttonInstall.style.display = "none";
@@ -585,7 +831,9 @@ buttonInstall.addEventListener('click', async () => {
 	// Show the install prompt
 	deferredPrompt.prompt();
 	// Wait for the user to respond to the prompt
-	const { outcome } = await deferredPrompt.userChoice;
+	const {
+		outcome
+	} = await deferredPrompt.userChoice;
 	// Optionally, send analytics event with outcome of user choice
 	console.log(`User response to the install prompt: ${outcome}`);
 	// We've used the prompt, and can't use it again, throw it away

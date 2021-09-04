@@ -46,25 +46,27 @@ tr td {
 	background-color: crimson;
 }
 
-
 .tblue {
-	color: black;
-	background-color: #afefff;
+	background-color: #00e1ff99;
 }
 
 .tgreen {
 	color: black;
-	background-color: #c1ffba!important;
+	background-color: #83fd7899!important;
 }
 
 .tyellow {
 	color: black;
-	background-color: #ffffbf!important;
+	background-color: #ffffbf99!important;
 }
 
 .twhite {
 	color: inherit;
 	background-color: transparent!important;
+}
+
+.tgray {
+	background-color: #383838;
 }
 
 .ttred {

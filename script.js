@@ -1,3 +1,44 @@
+const noadv = [
+	{ p: "zero", time: "6:35 - 7:30" },
+	{ p: "1", time: "7:35 - 8:45" },
+	{ p: "2", time: "8:50 - 9:55" },
+
+	// p 3 and lunch
+	{ p: "lnc", time: "9:55 - 10:25", l: "1" },
+	{ p: "3", time: "10:30 - 11:40", l: "1" },
+
+	{ p: "3", time: "10:00 - 10:30", l: "2" },
+	{ p: "lnc", time: "10:30 - 11:00", l: "2" },
+	{ p: "3", time: "11:05 - 11:40", l: "2" },
+
+	{ p: "3", time: "10:00 - 11:10", l: "3" },
+	{ p: "lnc",	time: "11:10 - 11:40", l: "3"	},
+
+	{ p: "4", time: "11:45 - 12:55" },
+	{ p: "5", time: "1:00 - 2:05" },
+	{ p: "dism", time: "2:05 - 2:10" }
+]
+
+const adv = [
+	{ p: "zero", time: "6:35 - 7:30" },
+	{ p: "1", time: "7:35 - 8:45" },
+	{ p: "2", time: "8:50 - 9:55" },
+
+	// p 3 and lunch
+	{ p: "lnc", time: "9:55 - 10:25", l: "1" },
+	{ p: "3", time: "10:30 - 11:40", l: "1" },
+
+	{ p: "3", time: "10:00 - 10:30", l: "2" },
+	{ p: "lnc", time: "10:30 - 11:00", l: "2" },
+	{ p: "3", time: "11:05 - 11:40", l: "2" },
+
+	{ p: "3", time: "10:00 - 11:10", l: "3" },
+	{ p: "lnc",	time: "11:10 - 11:40", l: "3"	},
+
+	{ p: "4", time: "11:45 - 12:55" },
+	{ p: "5", time: "1:00 - 2:05" },
+	{ p: "dism", time: "2:05 - 2:10" }
+]
 
 const in1 = [
 	{ we: false, p: "arr", time: "8:05 - 8:35" },
@@ -253,13 +294,23 @@ const end = [ { we: true } ]
 const main = Vue.createApp({
 	data() {
 		return {
+		  setup: {
+				init: true,
+			  step: 1,
+			  importMethod: "a",
+				studentVue: {
+					username: "",
+					password: "",
+				},
+				done: false,
+			},
 			full: false,
 			day: new Date().getDay(),
 			configMenuOpen: false,
 			hide: false,
 			lunch: "1",
-			cohort: "a",
-			zooms: {
+			cohort: "normal",
+      zooms: {
 				p1: "",
 				p2: "",
 				p3: "",
@@ -279,6 +330,7 @@ const main = Vue.createApp({
 				pdism: "Dismissal",
 				pstudy: "Study",
 				ppass: "Passing",
+				pzero: "0 Hour"
 			},
 			rooms: {
 				p1: "",
@@ -289,9 +341,10 @@ const main = Vue.createApp({
 				padv: "",
 			},
 			schedule: {
-				a: [end, in1, re1, wed, in2, re2, end],
-				b: [end, re1, in1, wed, re2, in2, end],
-				t: [end, in1, in1, wed, in2, in2, end],
+				normal: [end, noadv, adv, noadv, adv, noadv, end],
+				// a: [end, in1, re1, wed, in2, re2, end],
+				// b: [end, re1, in1, wed, re2, in2, end],
+				// t: [end, in1, in1, wed, in2, in2, end],
 			},
 		};
 	},
@@ -299,11 +352,20 @@ const main = Vue.createApp({
 		let data = JSON.parse(localStorage.getItem("data"));
 		if (data) {
 			this.classes = data.classes || this.classes;
-			this.cohort = data.cohort || this.cohort;
+
+			// cohort (remote)
+			// this.cohort = data.cohort || this.cohort;
+			
 			this.lunch = data.lunch || this.lunch;
-			this.zooms = data.zooms || this.zooms;
+			
+			// zooms (remote)
+			// this.zooms = data.zooms || this.zooms;
+			
 			this.hide = data.hide || this.hide;
-			this.full = data.full || this.full;
+
+			// full remote
+			// this.full = data.full || this.full;
+			
 			this.rooms = data.rooms || this.rooms;
 		}
 		this.save();
@@ -328,6 +390,8 @@ const main = Vue.createApp({
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
 		going() {
+			return true;
+		/*
 			if (this.cohort === 't') return true;
 			if (this.full) return false;
 			if (this.day === 3) return false;
@@ -345,12 +409,15 @@ const main = Vue.createApp({
 			if (this.day === 5) return true;
 
 			if (this.day === 0 || this.day === 6) return false;
+    */
 		},
 		dayName() {
 			var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 			return days[this.day];
 		},
 		goes(day) {
+			return '';
+		/*
 			if (this.cohort === 't') {
 				return '';
 			} else if (day === 'w' || day === 3 || this.full) {
@@ -370,14 +437,35 @@ const main = Vue.createApp({
 			} else {
 				return '<br>Error';
 			}
+    */
 		},
 		perName(per) {
 			let pd = this.classes['p' + per.p];
-			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
+			return pd;
+
+			// full remote
+			// return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
 		},
 		config() {
 			this.configMenuOpen = !this.configMenuOpen;
 		},
+		studentVueLogin() {
+			console.log("logging in")
+			fetch('https://schedule-vue.insberr.repl.co/login', {
+		    method: 'POST',
+		    headers: {
+			    'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*'
+		    },
+		    body: JSON.stringify({
+			    username: this.setup.studentVue.username,
+			    password: this.setup.studentVue.password,
+		    })
+			})
+		  .then((res) => { res.json() })
+		    .then((json) => { console.log(json) })
+		    // .catch((err) => { console.log("Error: " + err) });
+    },
 	},
 	watch: {
 		lunch() {

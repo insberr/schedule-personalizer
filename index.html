@@ -75,7 +75,6 @@
 	
 	<div class="container" id="main" v-cloak>
 		<div v-show="!configMenuOpen && setup.init">
-			<h1>Setup</h1>
 			<span>Step {{ setup.step }}</span>
 			
 			<div v-if="setup.step === 1">
@@ -117,10 +116,12 @@
 						</div>
 					</div>
 					
-				</div>			</div>
+				</div>
+			</div>
+			
 			<div v-if="setup.step === 2">
 				<div v-if="setup.importMethod === 'a'">
-					<span>Login To StudentVue</span>
+					<h2 class="crimson">Login To StudentVue</h2>
 					<div>
 						<div class="form-floating">
 							<input class="form-control" type="text" name="studentVue" id="studentVueUsername"
@@ -136,10 +137,21 @@
 					</div>
 					<br>
 					<button class="btn btn-primary" @click="studentVueLogin()">Login</button>
+					
 				</div>
 			</div>
+
+			<div v-if="setup.step === 3">
+				<div v-if="setup.importMethod === 'a'">
+					<h3>Is this you?</h3>
+					<span>Name: {{ setup.studentVue.name }}</span>
+				  <br><span>Id: {{ setup.studentVue.permID }}</span>
+					<b c=
+				</div>
+			</div>
+
 			<br>
-			<button class="btn btn-primary" @click="(setup.step > 1 ? setup.step-- : setup.step = 1)">Back</button>
+			<button class="btn btn-primary" v-bind:class="{ 'btn-disabled': (setup.step === 1) }" @click="(setup.step > 1 ? setup.step-- : setup.step = 1)">Back</button>
 			<button v-if="!setup.done" class="btn btn-primary" @click="setup.step++">Next</button>
       <br>
 			<span>Debug</span>
@@ -378,7 +390,7 @@
 													v-bind:class="{ 'tblue': (period.p), 'twhite': (period.p === 'pass' || period.p === 'study'), 'tgreen': (period.p === 'lnc' || period.p === 'dism'), 'tyellow': (period.p === 'arr') }"
 													v-for="period in day"
 													tabindex="0" data-bs-trigger="focus" data-bs-toggle="popover" title="Info" v-bind:data-bs-content="'Room: ' + (rooms['p' + period.p] !== undefined && rooms['p' + period.p] !== '' ? rooms['p' + period.p] : 'No Room Number')">
-													<td style="text-align: left; max-width: 6rem"
+													<td style="text-align: /left; max-width: 6rem"
 														v-if="period.l === undefined || period.l === lunch"
 														class="tbt-td text-truncate text-nowrap">
 														<a style="padding-left: 5px" v-if="zooms['p' + period.p]"

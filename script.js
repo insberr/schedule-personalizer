@@ -144,7 +144,9 @@ const main = Vue.createApp({
 				studentVue: {
 					username: "",
 					password: "",
-					token: ""
+					token: "",
+					name: "",
+					permID: 000000,
 				},
 				done: false,
 			},
@@ -323,6 +325,8 @@ const main = Vue.createApp({
 								token: json.content.token
 							})
 						}).then((res) => res.json()).then((json) => {
+							this.setup.studentVue.name = json.content.FormattedName;
+							this.setup.studentVue.permID = json.content.PermID;
 							console.log("student_info:")
 							console.log(json)
 						})

@@ -214,7 +214,7 @@ const main = Vue.createApp({
 	created() {
 		let data = JSON.parse(localStorage.getItem("data"));
 
-		if (data.classes.pzero === undefined) {
+		if (data.classes['pzero'] === undefined) {
 			this.save();
 			data = JSON.parse(localStorage.getItem("data"));
 		}
@@ -261,8 +261,8 @@ const main = Vue.createApp({
 				hide: this.hide,
 				full: this.full,
 				rooms: this.rooms,
-				password: this.studentVue.password,
-				username: this.studentVue.username,
+				password: this.setup.studentVue.password,
+				username: this.setup.studentVue.username,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},

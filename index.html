@@ -123,6 +123,12 @@
 								@keyup.enter="studentVueLogin()" />
 							<label for="studentVuePassword">Password</label>
 						</div>
+
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe" value="false"
+								v-model="setup.studentVue.rememberMe" />
+							<label class="form-check-label checkable" for="rememberMe">Remember Me?</label>
+						</div>
 					</div>
 					<br>
 					<div v-bind:class="{ 'visually-hidden': (setup.loginError === '') }" class="mt-1">
@@ -448,6 +454,9 @@
 
 				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" @click="resetSetup(); setup.init = true">
 					Edit
+				</button>
+				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" v-bind:class="{ 'disabled': setup.loggingIn }" @click="studentVueLogin(); resetSetup();">
+					Refresh {{ setup.loggingIn ? '...' : '' }}
 				</button>
 				<button type="button" class="btn btn-danger btn-sm mt-4" @click="resetSite()">
 					Reset

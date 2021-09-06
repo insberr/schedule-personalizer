@@ -157,6 +157,8 @@ const main = Vue.createApp({
 				step: 1,
 				importMethod: "a",
 				studentVue: {
+					lastLogin: "",
+					rememberMe: false,
 					username: "",
 					password: "",
 					name: "",
@@ -209,10 +211,18 @@ const main = Vue.createApp({
 				// b: [end, re1, in1, wed, re2, in2, end],
 				// t: [end, in1, in1, wed, in2, in2, end],
 			},
+			version: 2,
 		};
 	},
 	created() {
 		let data = JSON.parse(localStorage.getItem("data"));
+
+		if (data && data.version !== this.version) {
+			localStorage.setItem('data-v' + (data.version || 1), JSON.stringify(data));
+			this.save();
+			console.log('reset data due to a newer data version')
+			return;
+		}
 
 		if (data) {
 			this.classes = data.classes || this.classes;
@@ -236,6 +246,9 @@ const main = Vue.createApp({
 
 			this.setup.studentVue.password = data.password || "";
 			this.setup.studentVue.username = data.username || "";
+
+			this.setup.studentVue.rememberMe = data.rememberMe || false;
+			this.setup.studentVue.lastLogin = data.lastLogin || new Date();
 		}
 		this.save();
 
@@ -258,6 +271,9 @@ const main = Vue.createApp({
 				rooms: this.rooms,
 				password: this.setup.studentVue.password,
 				username: this.setup.studentVue.username,
+				lastLogin: this.setup.studentVue.lastLogin,
+				rememberMe: this.setup.studentVue.rememberMe,
+				version: this.version,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
@@ -319,6 +335,7 @@ const main = Vue.createApp({
 		},
 		studentVueLogin() {
 			console.log("logging in")
+
 			this.setup.loggingIn = true;
 
 			fetch('https://bhsdb.wackery.com/api/validate', {
@@ -394,6 +411,8 @@ const main = Vue.createApp({
 					}
 				})
 			// .catch((err) => { console.log("Error: " + err) });
+
+			main.setup.studentVue.lastLogin = new Date();
 		},
 		setupDone() {
 			this.setup.init = false;
@@ -406,7 +425,7 @@ const main = Vue.createApp({
 			this.setup.loggingIn = false;
 		},
 		resetSite() {
-			localStorage.setItem('data', "{}");
+			localStorage.removeItem('data');
 			location.reload();
 		}
 	},
@@ -442,6 +461,19 @@ main.$.appContext.config.errorHandler = (err, vm, info) => {
 	}
 	console.log(err + vm + info);
 }
+
+if (main.setup.studentVue.rememberMe && main.setup.studentVue.username !== '' && main.setup.studentVue.password !== '') {
+	let lastLoginTime = new Date(main.setup.studentVue.lastLogin);
+	let now = new Date();
+
+	// if the last login was more than a day ago, login again
+	console.log(now.getTime() - lastLoginTime.getTime())
+	if (now.getTime() - lastLoginTime.getTime() > 86400000) {
+		main.studentVueLogin();
+		main.resetSetup();
+	}
+}
+
 /*
   Refresh the data and ui when the site becomes visible. This helps to avoid date/time issues
 */

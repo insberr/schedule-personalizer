@@ -314,7 +314,7 @@ const main = Vue.createApp({
 			// full remote
 			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
 		},
-		config() {
+		configMenu() {
 			this.configMenuOpen = !this.configMenuOpen;
 		},
 		studentVueLogin() {
@@ -437,7 +437,7 @@ const main = Vue.createApp({
 main.config.errorHandler = (err, vm, info) => {
 	if (JSON.parse(localStorage.getItem('data')) !== {}) {
 		localStorage.setItem('data', '{ }');
-	location.reload();
+		location.reload();
 	}
 	console.log(err + vm + info);
 }
@@ -479,15 +479,11 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 })
 
 
+var buttonInstall = document.getElementById("installbutton");
+
 window.addEventListener("load", function () {
 	if (isPWA()) {
 		localStorage.setItem("installed", true)
-	}
-
-	let installed = localStorage.getItem("installed") || false;
-	if (installed) {
-		buttonInstall.style.display = "none";
-		document.getElementById("installbutton-container").style.display = "none";
 	}
 });
 
@@ -506,51 +502,10 @@ function init_ServiceWorker() {
 	}
 }
 
-let deferredPrompt;
-var buttonInstall = document.getElementById("installbutton");
-
-function showInstallPromotion() {
-	buttonInstall.removeAttribute("disabled");
-	buttonInstall.style.display = "";
-	document.getElementById("installbutton-container").style.display = "block";
-}
-
-function hideInstallPromotion() {
-	buttonInstall.setAttribute("disabled", true);
-}
-
-window.addEventListener('beforeinstallprompt', (e) => {
-	// Prevent the mini-infobar from appearing on mobile
-	e.preventDefault();
-	// Stash the event so it can be triggered later.
-	deferredPrompt = e;
-	// Update UI notify the user they can install the PWA
-	showInstallPromotion();
-});
-
-buttonInstall.addEventListener('click', async () => {
-	// Hide the app provided install promotion
-	hideInstallPromotion();
-	// Show the install prompt
-	deferredPrompt.prompt();
-	// Wait for the user to respond to the prompt
-	const {
-		outcome
-	} = await deferredPrompt.userChoice;
-	// Optionally, send analytics event with outcome of user choice
-	console.log(`User response to the install prompt: ${outcome}`);
-	// We've used the prompt, and can't use it again, throw it away
-	deferredPrompt = null;
-});
-
 window.addEventListener('appinstalled', () => {
 	// Hide the app-provided install promotion
-	hideInstallPromotion();
-	buttonInstall.style.display = "none";
-	document.getElementById("installbutton-container").style.display = "none";
 	document.getElementById("howtomakeapp").style.display = "none";
 	// Clear the deferredPrompt so it can be garbage collected
-	deferredPrompt = null;
 	localStorage.setItem("installed", "true");
 	// Optionally, send analytics event to indicate successful install
 	location.reload();

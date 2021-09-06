@@ -475,7 +475,7 @@
 
 		<div v-show="configMenuOpen">
 			<p>Working progress advanced config menu.</p>
-			<button type="button" class="btn btn-danger btn-sm" @click="config()">Close</button>
+			<button type="button" class="btn btn-danger btn-sm" @click="configMenu()">Close</button>
 			<br>
 			<button type="button" class="btn btn-primary btn-sm" onclick="location.reload(true)">Force
 				reload</button>
@@ -494,13 +494,6 @@
 					Screen" and click add.
 					<br />
 					This will make an app on your homescreen named "Schedule", open it and fill it out.
-				</p>
-			</div>
-			<div id="installbutton-container" class="text-center" style="display: none;">
-				<p v-show="!hide">
-					<span class="badge bg-success">Desktop Directions</span>
-					Click this button. <strong>This only works on desktop!</strong>
-					<br><button v-show="!hide" id="installbutton" class="btn btn-primary">Install</button>
 				</p>
 			</div>
 		</div>
@@ -538,7 +531,7 @@
 				</div>
 
 				<div class="row mb-2">
-					<span style="color: gray; font-size: 12px" @click="config()">
+					<span style="color: gray; font-size: 12px" @click="configMenu()">
 						More
 					</span>
 				</div>

@@ -1,7 +1,7 @@
 // service worker moment
 // copied from https://developers.google.com/web/fundamentals/primers/service-workers
 
-var CACHE_NAME = 'schedule-personalizer-v1';
+var CACHE_NAME = 'schedule-personalizer-v2';
 var urlsToCache = [
     '/schedule-personalizer',
     '/schedule-personalizer/style.css',

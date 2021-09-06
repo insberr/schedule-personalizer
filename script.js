@@ -214,11 +214,6 @@ const main = Vue.createApp({
 	created() {
 		let data = JSON.parse(localStorage.getItem("data"));
 
-		if (data.classes['pzero'] === undefined) {
-			this.save();
-			data = JSON.parse(localStorage.getItem("data"));
-		}
-
 		if (data) {
 			this.classes = data.classes || this.classes;
 
@@ -439,7 +434,13 @@ const main = Vue.createApp({
 	}
 }).mount("#main");
 
-
+main.config.errorHandler = (err, vm, info) => {
+	if (JSON.parse(localStorage.getItem('data')) !== {}) {
+		localStorage.setItem('data', '{ }');
+	location.reload();
+	}
+	console.log(err + vm + info);
+}
 /*
   Refresh the data and ui when the site becomes visible. This helps to avoid date/time issues
 */

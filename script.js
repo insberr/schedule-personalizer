@@ -1,4 +1,5 @@
-const noadv = [{
+const noadv = [
+	{
 		p: "zero",
 		time: "6:35 - 7:30"
 	},
@@ -64,75 +65,89 @@ const noadv = [{
 	}
 ]
 
-const adv = [{
+const adv = [
+	{
 		p: "zero",
 		time: "6:35 - 7:30"
 	},
 	{
+		p: "adv",
+		time: "7:35 - 8:05"
+	},
+	{
 		p: "1",
-		time: "7:35 - 8:45"
+		time: "8:10 - 9:05"
 	},
 	{
 		p: "2",
-		time: "8:50 - 9:55"
+		time: "9:10 - 10:10"
 	},
 
 	// p 3 and lunch
 	{
 		p: "lnc",
-		time: "9:55 - 10:25",
+		time: "10:10 - 10:40",
 		l: "1"
 	},
 	{
 		p: "3",
-		time: "10:30 - 11:40",
+		time: "10:45 - 11:55",
 		l: "1"
 	},
 
 	{
 		p: "3",
-		time: "10:00 - 10:30",
+		time: "10:15 - 10:45",
 		l: "2"
 	},
 	{
 		p: "lnc",
-		time: "10:30 - 11:00",
+		time: "10:45 - 11:15",
 		l: "2"
 	},
 	{
 		p: "3",
-		time: "11:05 - 11:40",
+		time: "11:20 - 11:55",
 		l: "2"
 	},
 
 	{
 		p: "3",
-		time: "10:00 - 11:10",
+		time: "10:15 - 11:25",
 		l: "3"
 	},
 	{
 		p: "lnc",
-		time: "11:10 - 11:40",
+		time: "11:25 - 11:55",
 		l: "3"
 	},
 
 	{
 		p: "4",
-		time: "11:45 - 12:55"
+		time: "12:00 - 1:00"
 	},
 	{
 		p: "5",
-		time: "1:00 - 2:05"
+		time: "1:05 - 2:05"
 	},
 	{
 		p: "dism",
 		time: "2:05 - 2:10"
 	}
-]
+];
 
 const end = [{
 	we: true
 }]
+
+function toTitleCase(text) {
+	if (typeof text !== 'string') {
+		return text;
+	} else {
+		let newText = text.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+		return newText.replace('Ela', 'ELA').replace('Us', 'US');
+	}
+}
 
 const main = Vue.createApp({
 	data() {
@@ -144,16 +159,16 @@ const main = Vue.createApp({
 				studentVue: {
 					username: "",
 					password: "",
-					token: "",
 					name: "",
-					permID: 000000,
+					permID: 0,
 				},
-				done: false,
+				loggingIn: false,
+				loginError: "",
 			},
 			full: false,
 			day: new Date().getDay(),
 			configMenuOpen: false,
-			hide: false,
+			hide: true,
 			lunch: "1",
 			cohort: "normal",
 			zooms: {
@@ -163,6 +178,7 @@ const main = Vue.createApp({
 				p4: "",
 				p5: "",
 				padv: "",
+				pzero: "",
 			},
 			classes: {
 				p1: "",
@@ -185,6 +201,7 @@ const main = Vue.createApp({
 				p4: "",
 				p5: "",
 				padv: "",
+				pzero: "",
 			},
 			schedule: {
 				normal: [end, noadv, adv, noadv, adv, noadv, end],
@@ -200,19 +217,21 @@ const main = Vue.createApp({
 			this.classes = data.classes || this.classes;
 
 			// cohort (remote)
-			// this.cohort = data.cohort || this.cohort;
+			this.cohort = data.cohort || this.cohort;
 
 			this.lunch = data.lunch || this.lunch;
 
 			// zooms (remote)
-			// this.zooms = data.zooms || this.zooms;
+			this.zooms = data.zooms || this.zooms;
 
-			this.hide = data.hide || this.hide;
+			this.hide = (data.hide !== undefined ? data.hide : this.hide);
 
 			// full remote
-			// this.full = data.full || this.full;
+			this.full = data.full || this.full;
 
 			this.rooms = data.rooms || this.rooms;
+
+			this.setup.init = (data.init !== undefined ? data.init : this.setup.init);
 		}
 		this.save();
 
@@ -225,6 +244,7 @@ const main = Vue.createApp({
 	methods: {
 		save() {
 			let data_new = {
+				init: this.setup.init,
 				classes: this.classes,
 				cohort: this.cohort,
 				lunch: this.lunch,
@@ -236,8 +256,6 @@ const main = Vue.createApp({
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},
 		going() {
-			return true;
-			/*
 			if (this.cohort === 't') return true;
 			if (this.full) return false;
 			if (this.day === 3) return false;
@@ -255,14 +273,12 @@ const main = Vue.createApp({
 			if (this.day === 5) return true;
 
 			if (this.day === 0 || this.day === 6) return false;
-    */
 		},
 		dayName() {
 			var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 			return days[this.day];
 		},
 		goes(day) {
-			return '';
 			/*
 			if (this.cohort === 't') {
 				return '';
@@ -283,108 +299,110 @@ const main = Vue.createApp({
 			} else {
 				return '<br>Error';
 			}
-    */
+	*/
 		},
 		perName(per) {
 			let pd = this.classes['p' + per.p];
-			return pd;
+			// return pd;
 
 			// full remote
-			// return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
+			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
 		},
 		config() {
 			this.configMenuOpen = !this.configMenuOpen;
 		},
 		studentVueLogin() {
 			console.log("logging in")
-			fetch('https://stvapi.herokuapp.com/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						username: this.setup.studentVue.username,
-						password: this.setup.studentVue.password,
-						portal: 'wa-beth-psv.edupoint.com' // might be a good idea to ask for this from the user?
-					})
+			this.setup.loggingIn = true;
+
+			fetch('https://bhsdb.wackery.com/api/validate', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username: this.setup.studentVue.username,
+					password: this.setup.studentVue.password
 				})
+			})
 				.then((res) => res.json()).then((json) => {
 					console.log(json)
 					if (json["code"] == "ERROR") {
 						// uh oh something went wrong!
 						console.error("ERROR FROM API! " + json["content"]["error"]);
+
+						main.setup.loginError = json["content"]["error"];
+						main.setup.loggingIn = false;
 					} else {
+						if (main.setup.loginError !== '') {
+							main.setup.loginError = "";
+						}
+
 						// we good! 
 						// request the student schedule/data
-						fetch("https://stvapi.herokuapp.com/get_student_info", {
+						fetch("https://bhsdb.wackery.com/api/get_student_info", {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json'
 							},
 							body: JSON.stringify({
-								token: json.content.token
+								username: this.setup.studentVue.username,
+								password: this.setup.studentVue.password
 							})
 						}).then((res) => res.json()).then((json) => {
-							this.setup.studentVue.name = json.content.FormattedName;
-							this.setup.studentVue.permID = json.content.PermID;
+							main.setup.studentVue.name = json.content.FormattedName;
+							main.setup.studentVue.permID = json.content.PermID;
 							console.log("student_info:")
 							console.log(json)
+
+							main.setup.step++;
 						})
 						// todo: use a loop to get all 3 terms, im lazy and its late
-						fetch("https://stvapi.herokuapp.com/get_schedule", {
+						fetch("https://bhsdb.wackery.com/api/get_schedule", {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json'
 							},
 							body: JSON.stringify({
-								token: json.content.token
+								username: this.setup.studentVue.username,
+								password: this.setup.studentVue.password
 							})
 						}).then((res) => res.json()).then((json) => {
+							for (let classPD of json.content.ClassLists.ClassListing) {
+								if (classPD.Period === 8) {
+									// advisory, add that here
+									main.rooms['padv'] = toTitleCase(classPD.RoomName);
+									continue;
+								}
+
+								main.classes['p' + classPD.Period] = toTitleCase(classPD.CourseTitle);
+								main.rooms['p' + classPD.Period] = toTitleCase(classPD.RoomName);
+							}
+
+							main.save();
+
 							console.log("schedule t1:")
 							console.log(json)
-						})
-						fetch("https://stvapi.herokuapp.com/get_schedule", {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({
-								token: json.content.token,
-								term: 1
-							})
-						}).then((res) => res.json()).then((json) => {
-							console.log("schedule t2:")
-							console.log(json)
-						})
-						fetch("https://stvapi.herokuapp.com/get_schedule", {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({
-								token: json.content.token,
-								term: 2
-							})
-						}).then((res) => res.json()).then((json) => {
-							console.log("schedule t3:")
-							console.log(json)
-						})
-
-						// then we log out
-						fetch("https://stvapi.herokuapp.com/logout", {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({
-								token: json.content.token
-							})
 						})
 
 					}
 				})
 			// .catch((err) => { console.log("Error: " + err) });
 		},
+		setupDone() {
+			this.setup.init = false;
+			this.save();
+			this.resetSetup();
+		},
+		resetSetup() {
+			this.setup.step = 1;
+			this.setup.importMethod = 'a';
+			this.setup.loggingIn = false;
+		},
+		resetSite() {
+			localStorage.setItem('data', "{}");
+			location.reload();
+		}
 	},
 	watch: {
 		lunch() {

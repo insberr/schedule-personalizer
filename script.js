@@ -213,6 +213,12 @@ const main = Vue.createApp({
 	},
 	created() {
 		let data = JSON.parse(localStorage.getItem("data"));
+
+		if (data.classes.pzero === undefined) {
+			this.save();
+			data = JSON.parse(localStorage.getItem("data"));
+		}
+
 		if (data) {
 			this.classes = data.classes || this.classes;
 
@@ -232,6 +238,9 @@ const main = Vue.createApp({
 			this.rooms = data.rooms || this.rooms;
 
 			this.setup.init = (data.init !== undefined ? data.init : this.setup.init);
+
+			this.setup.studentVue.password = data.password || "";
+			this.setup.studentVue.username = data.username || "";
 		}
 		this.save();
 
@@ -252,6 +261,8 @@ const main = Vue.createApp({
 				hide: this.hide,
 				full: this.full,
 				rooms: this.rooms,
+				password: this.studentVue.password,
+				username: this.studentVue.username,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
 		},

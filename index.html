@@ -443,12 +443,22 @@
 			</div>
 
 			<div class="container text-center">
+				
 				<div class="row">
+					<div class="col"></div>
+					<button type="button" v-bind:class="{ 'disabled': day === 0 }" class="btn btn-primary btn-sm mt-4 me-3 col" @click="day--">
+						🡨
+					</button>
 					<a class="col"
 						href="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
 						target="_blank">
 						School Map
 					</a>
+					<button type="button" v-bind:class="{ 'disabled': day === 6 }" class="btn btn-danger btn-sm mt-4 col" @click="day++">
+						🡪
+					</button>
+					<div class="col"></div>
+	
 
 				</div>
 

@@ -218,7 +218,7 @@ const main = Vue.createApp({
 			this.classes = data.classes || this.classes;
 
 			// cohort (remote)
-			this.cohort = data.cohort || this.cohort;
+			this.cohort = 'normal' // data.cohort || this.cohort;
 
 			this.lunch = data.lunch || this.lunch;
 
@@ -434,10 +434,11 @@ const main = Vue.createApp({
 	}
 }).mount("#main");
 
-main.config.errorHandler = (err, vm, info) => {
+main.$.appContext.config.errorHandler = (err, vm, info) => {
 	if (JSON.parse(localStorage.getItem('data')) !== {}) {
 		localStorage.setItem('data', '{ }');
-		location.reload();
+		console.log('localstorage cleared to try fixing the problem')
+		
 	}
 	console.log(err + vm + info);
 }

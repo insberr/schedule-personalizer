@@ -473,6 +473,14 @@ const main = Vue.createApp({
 
 			main.setup.studentVue.lastLogin = new Date();
 		},
+		updateLunch(teacherlastname) {
+			teacherlastname = teacherlastname.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+			if (teacherlastname in lunches) {
+				this.lunch = lunches[teacherlastname].toString()
+				return true
+			}
+			return false
+		},
 		setupDone() {
 			this.setup.init = false;
 			this.save();

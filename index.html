@@ -47,7 +47,7 @@
 
 	<div class="container" id="main" v-cloak>
 		<div v-show="!configMenuOpen && setup.init">
-			<span>Step {{ setup.step }} of 3</span>
+			<span>Step {{ setup.step }}</span>
 
 			<div v-if="setup.step === 1">
 				<div>
@@ -75,11 +75,11 @@
 					</div>
 				</div>
 
-				<button class="btn btn-danger mt-4" @click="setup.step++">Next</button>
+				<button class="btn btn-danger mt-4" @click='setup.importMethod === "c" ? setup.step = 3 : setup.step++'>Next</button>
 
 			</div>
 
-			<div v-if="setup.step === 2">
+			<div v-if="setup.step === 3">
 				<div>
 					<h2 class="crimson text-center mt-4">Which Lunch Do You Have</h2>
 					<div class="form-check">
@@ -101,13 +101,12 @@
 					</div>
 
 				</div>
-				<button class="btn btn-secondary mt-4 me-2" @click="setup.step--">Back</button>
+				<button class="btn btn-secondary mt-4 me-2" @click='setup.importMethod === "a" ? setup.step-- : setup.step = 1'>Back</button>
 				<button class="btn btn-danger mt-4"
-					@click="(setup.importMethod === 'c' ? setupDone() : setup.step++)">{{ setup.importMethod === 'c' ?
-					"Done" : "Next" }}</button>
+					@click="setupDone()">Done</button>
 			</div>
 
-			<div v-if="setup.step === 3">
+			<div v-if="setup.step === 2">
 				<div v-if="setup.importMethod === 'a'">
 					<h2 class="crimson text-center mt-4">Login To StudentVue</h2>
 					<div>
@@ -141,6 +140,24 @@
 						role="status">
 						<span class="visually-hidden">Loading...</span>
 					</div>
+					<!-- modal for pop up -->
+					<div class="modal fade" id="isthisyou" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="isthisyoulabel" aria-hidden="true">
+						<div class="modal-dialog">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="isthisyoulabel">Is this you?</h5>
+							</div>
+							<div class="modal-body" id="bodytext">
+								<span>Name: {{ setup.studentVue.name }}</span>
+								<br><span>Id: {{ setup.studentVue.permID }}</span>
+							</div>
+							<div class="modal-footer">
+							  <button type="button" id="gamerno" class="btn btn-danger">NO</button>
+							  <button type="button" id="gameryes" class="btn btn-success">YES</button>
+							</div>
+						  </div>
+						</div>
+					  </div>
 				</div>
 
 				<div v-if="setup.importMethod === 'b'">
@@ -186,20 +203,7 @@
 					</div>
 
 					<button class="btn btn-secondary mt-3 me-2" @click="setup.step--">Back</button>
-					<button id="studentVueLoginButton" class="btn btn-danger mt-3" @click="setupDone()">Done</button>
-				</div>
-			</div>
-
-			<div v-if="setup.step === 4">
-				<div v-if="setup.importMethod === 'a'">
-					<h2 class="crimson text-center mt-4">Is this you?</h2>
-					<div>
-						<span>Name: {{ setup.studentVue.name }}</span>
-						<br><span>Id: {{ setup.studentVue.permID }}</span>
-					</div>
-					<button class="btn btn-secondary mt-4 me-2"
-						@click="setup.step--; setup.loggingIn = false; setup.studentVue.password = ''; setup.studentVue.username = ''">No</button>
-					<button class="btn btn-danger mt-4" @click="setupDone()">Yes</button>
+					<button id="studentVueLoginButton" class="btn btn-danger mt-3" @click="setup.step = 3">Done</button>
 				</div>
 			</div>
 		</div>
@@ -561,7 +565,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
-	<script src="script.min.js"></script>
+	<script src="script.js"></script>
 </body>
 
 </html>

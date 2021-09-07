@@ -168,7 +168,14 @@ const lunches = { // prob messed up somewhere, please double check
 	reisch: 2,
 	iverson: 2,
 	jolly: 2,
-	morford: 2
+	morford: 2,
+	snedigar: 2,
+	snow: 2,
+	parker: 2,
+	southworth: 2,
+	stern: 2,
+	taylor30: 2, // why
+	wood: 2
 	
 }
 const end = [{

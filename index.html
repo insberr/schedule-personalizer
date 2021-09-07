@@ -79,33 +79,6 @@
 
 			</div>
 
-			<div v-if="setup.step === 3">
-				<div>
-					<h2 class="crimson text-center mt-4">Which Lunch Do You Have</h2>
-					<div class="form-check">
-						<input type="radio" class="form-check-input" name="lunch" id="lunch1" value="1" v-model="lunch"
-							checked />
-						<label class="form-check-label checkable" for="lunch1">Lunch 1</label>
-					</div>
-
-					<div class="form-check">
-						<input type="radio" class="form-check-input" name="lunch" id="lunch2" value="2"
-							v-model="lunch" />
-						<label class="form-check-label checkable" for="lunch2">Lunch 2</label>
-					</div>
-
-					<div class="form-check mb-4">
-						<input type="radio" class="form-check-input" name="lunch" id="lunch3" value="3"
-							v-model="lunch" />
-						<label class="form-check-label checkable" for="lunch3">Lunch 3</label>
-					</div>
-
-				</div>
-				<button class="btn btn-secondary mt-4 me-2" @click='setup.importMethod === "a" ? setup.step-- : setup.step = 1'>Back</button>
-				<button class="btn btn-danger mt-4"
-					@click="setupDone()">Done</button>
-			</div>
-
 			<div v-if="setup.step === 2">
 				<div v-if="setup.importMethod === 'a'">
 					<h2 class="crimson text-center mt-4">Login To StudentVue</h2>
@@ -201,10 +174,35 @@
 							</div>
 						</div>
 					</div>
-
 					<button class="btn btn-secondary mt-3 me-2" @click="setup.step--">Back</button>
 					<button id="studentVueLoginButton" class="btn btn-danger mt-3" @click="setup.step = 3">Done</button>
+				</div>	
+			</div>
+			<div v-if="setup.step === 3">
+				<div>
+					<h2 class="crimson text-center mt-4">Which Lunch Do You Have</h2>
+					<div class="form-check">
+						<input type="radio" class="form-check-input" name="lunch" id="lunch1" value="1" v-model="lunch"
+							checked />
+						<label class="form-check-label checkable" for="lunch1">Lunch 1</label>
+					</div>
+
+					<div class="form-check">
+						<input type="radio" class="form-check-input" name="lunch" id="lunch2" value="2"
+							v-model="lunch" />
+						<label class="form-check-label checkable" for="lunch2">Lunch 2</label>
+					</div>
+
+					<div class="form-check mb-4">
+						<input type="radio" class="form-check-input" name="lunch" id="lunch3" value="3"
+							v-model="lunch" />
+						<label class="form-check-label checkable" for="lunch3">Lunch 3</label>
+					</div>
+
 				</div>
+				<button class="btn btn-secondary mt-4 me-2" @click='setup.importMethod === "a" ? setup.step-- : setup.step = 1'>Back</button>
+				<button class="btn btn-danger mt-4"
+					@click="setupDone()">Done</button>
 			</div>
 		</div>
 

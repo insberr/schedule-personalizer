@@ -467,8 +467,11 @@
 				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" @click="resetSetup(); setup.init = true">
 					Edit
 				</button>
-				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" v-bind:class="{ 'disabled': setup.loggingIn }" @click="studentVueLogin(); resetSetup();">
-					Refresh {{ setup.loggingIn ? '...' : '' }}
+				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" v-bind:class="{ 'disabled': setup.loggingIn || setup.studentVue.username === ''}" @click="studentVueLogin();">
+					Refresh 
+					<div v-if="setup.loggingIn" class="spinner-border spinner-border-sm text-danger" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 				</button>
 				<button type="button" class="btn btn-danger btn-sm mt-4" @click="resetSite()">
 					Reset

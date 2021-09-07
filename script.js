@@ -505,6 +505,10 @@ const main = Vue.createApp({
 		},
 		openModel() {
 			return new Promise((resolve, reject) => {
+				if (!main.setup.init) {
+					resolve();
+					return;
+				}
 				var gamerpopup = new bootstrap.Modal(document.getElementById('isthisyou'), {backdrop: 'static', keyboard: false, focus: true});
 				document.getElementById("gamerno").onclick = function () {
 					gamerpopup.hide();

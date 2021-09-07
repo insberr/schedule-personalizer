@@ -174,8 +174,25 @@ const lunches = { // prob messed up somewhere, please double check
 	parker: 2,
 	southworth: 2,
 	stern: 2,
-	taylor30: 2, // why
-	wood: 2
+	taylor30: 2, // why "Taylor 30"
+	wood: 2,
+	brokaw: 3,
+	dansereau: 3,
+	rfowler: 3, // "R. Fowler"
+	haegele: 3,
+	hamilton: 3,
+	hubeek: 3,
+	lantz: 3,
+	newchoir: 3, // "New Choir"
+	misely: 3,
+	morrison: 3,
+	rath: 3,
+	rexus: 3,
+	shoot: 3,
+	stumpf: 3,
+	thorn: 3,
+	wetherington: 3,
+	apostilldes: 3	
 	
 }
 const end = [{

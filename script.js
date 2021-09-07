@@ -135,7 +135,42 @@ const adv = [
 		time: "2:05 - 2:10"
 	}
 ];
-
+const lunches = { // prob messed up somewhere, please double check
+	allen: 1,
+	bland: 1,
+	brendible: 1,
+	doyle: 1,
+	gibbs: 1,
+	guevarra: 1,
+	howard: 1,
+	cain: 1,
+	knox: 1,
+	loiselle: 1,
+	sorierro: 1,
+	pike: 1,
+	ridgeway: 1,
+	saffle: 1,
+	schultzwetherington: 1, // name contains a - "schultz-wetherington"
+	schwoch: 1,
+	vallier: 1,
+	wilson: 1,
+	anderson: 2,
+	barnette: 2,
+	beatty: 2,
+	beckwith: 2,
+	iddins: 2,
+	cambra: 2,
+	carrell: 2,
+	estrada: 2,
+	kfowler: 2, // name contains a . and a space, "K. Fowler"
+	gladfeather: 2,
+	kober: 2,
+	reisch: 2,
+	iverson: 2,
+	jolly: 2,
+	morford: 2
+	
+}
 const end = [{
 	we: true
 }]

@@ -236,6 +236,8 @@ const events = {
 	}
 }
 
+const api_url = "https://stapi.wackery.workers.dev/api"
+
 let t = new Date().setDate(8)
 function toTitleCase(text) {
 	if (typeof text !== 'string') {
@@ -500,7 +502,7 @@ const main = Vue.createApp({
 
 						// we good! 
 						// request the student schedule/data
-						fetch("https://bhsdb.wackery.com/api/get_student_info", {
+						fetch(api_url+"/get_student_info", {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json'
@@ -520,7 +522,7 @@ const main = Vue.createApp({
 							// display model
 							this.openModel().then(() => {
 								// todo: use a loop to get all 3 terms, im lazy and its late
-								fetch("https://bhsdb.wackery.com/api/get_schedule", {
+								fetch(api_url+"/get_schedule", {
 									method: 'POST',
 									headers: {
 										'Content-Type': 'application/json'

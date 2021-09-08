@@ -24,16 +24,18 @@ body {
 }
 
 .bgcrimson {
-	background-color: rgba(220, 20, 60, 0.411)!important;
+	background-color: rgba(220, 20, 60, 0.836)!important;
 }
 
 .bgsilver {
-	background-color: #9a9a9a4f!important;
+	background-color: #818181da!important;
 }
 
+/*
 td>a {
 	color: crimson !important
 }
+*/
 
 tr td {
 	padding-left: 2px !important;
@@ -47,17 +49,21 @@ tr td {
 }
 
 .tblue {
-	background-color: #00e1ff99;
+	background-color: #00e1ffc9;
+}
+
+.t3rdblue {
+	background-color: #00b0c7c9;
 }
 
 .tgreen {
 	color: black;
-	background-color: #83fd7899!important;
+	background-color: #83fd78c9!important;
 }
 
 .tyellow {
 	color: black;
-	background-color: #ffffbf99!important;
+	background-color: #ffffbfc9!important;
 }
 
 .twhite {

@@ -1,138 +1,143 @@
 const noadv = [{
-		p: "zero",
-		time: "6:35 - 7:30"
-	},
-	{
-		p: "1",
-		time: "7:35 - 8:45"
-	},
-	{
-		p: "2",
-		time: "8:50 - 9:55"
-	},
+	p: "zero",
+	time: "6:35 - 7:30"
+},
+{
+	p: "1",
+	time: "7:35 - 8:45"
+},
+{
+	p: "2",
+	time: "8:50 - 9:55"
+},
 
-	// p 3 and lunch
-	{
-		p: "lnc",
-		time: "9:55 - 10:25",
-		l: "1"
-	},
-	{
-		p: "3",
-		time: "10:30 - 11:40",
-		l: "1"
-	},
+// p 3 and lunch
+{
+	p: "lnc",
+	time: "9:55 - 10:25",
+	l: "1"
+},
+{
+	p: "3",
+	time: "10:30 - 11:40",
+	l: "1"
+},
 
-	{
-		p: "3",
-		time: "10:00 - 10:30",
-		l: "2"
-	},
-	{
-		p: "lnc",
-		time: "10:30 - 11:00",
-		l: "2"
-	},
-	{
-		p: "3",
-		time: "11:05 - 11:40",
-		l: "2"
-	},
+{
+	p: "3",
+	time: "10:00 - 10:30",
+	l: "2"
+},
+{
+	p: "lnc",
+	time: "10:30 - 11:00",
+	l: "2"
+},
+{
+	p: "3",
+	time: "11:05 - 11:40",
+	l: "2"
+},
 
-	{
-		p: "3",
-		time: "10:00 - 11:10",
-		l: "3"
-	},
-	{
-		p: "lnc",
-		time: "11:10 - 11:40",
-		l: "3"
-	},
+{
+	p: "3",
+	time: "10:00 - 11:10",
+	l: "3"
+},
+{
+	p: "lnc",
+	time: "11:10 - 11:40",
+	l: "3"
+},
 
-	{
-		p: "4",
-		time: "11:45 - 12:55"
-	},
-	{
-		p: "5",
-		time: "1:00 - 2:05"
-	},
-	{
-		p: "dism",
-		time: "2:05 - 2:10"
-	}
+{
+	p: "4",
+	time: "11:45 - 12:55"
+},
+{
+	p: "5",
+	time: "1:00 - 2:05"
+},
+{
+	p: "dism",
+	time: "2:05 - 2:10"
+}
 ]
 
 const adv = [{
-		p: "zero",
-		time: "6:35 - 7:30"
-	},
-	{
-		p: "adv",
-		time: "7:35 - 8:05"
-	},
-	{
-		p: "1",
-		time: "8:10 - 9:05"
-	},
-	{
-		p: "2",
-		time: "9:10 - 10:10"
-	},
+	p: "zero",
+	time: "6:35 - 7:30"
+},
+{
+	p: "adv",
+	time: "7:35 - 8:05"
+},
+{
+	p: "1",
+	time: "8:10 - 9:05"
+},
+{
+	p: "2",
+	time: "9:10 - 10:10"
+},
 
-	// p 3 and lunch
-	{
-		p: "lnc",
-		time: "10:10 - 10:40",
-		l: "1"
-	},
-	{
-		p: "3",
-		time: "10:45 - 11:55",
-		l: "1"
-	},
+// p 3 and lunch
+{
+	p: "lnc",
+	time: "10:10 - 10:40",
+	l: "1"
+},
+{
+	p: "3",
+	time: "10:45 - 11:55",
+	l: "1"
+},
 
-	{
-		p: "3",
-		time: "10:15 - 10:45",
-		l: "2"
-	},
-	{
-		p: "lnc",
-		time: "10:45 - 11:15",
-		l: "2"
-	},
-	{
-		p: "3",
-		time: "11:20 - 11:55",
-		l: "2"
-	},
+{
+	p: "3",
+	time: "10:15 - 10:45",
+	l: "2"
+},
+{
+	p: "lnc",
+	time: "10:45 - 11:15",
+	l: "2"
+},
+{
+	p: "3",
+	time: "11:20 - 11:55",
+	l: "2"
+},
 
-	{
-		p: "3",
-		time: "10:15 - 11:25",
-		l: "3"
-	},
-	{
-		p: "lnc",
-		time: "11:25 - 11:55",
-		l: "3"
-	},
+{
+	p: "3",
+	time: "10:15 - 11:25",
+	l: "3"
+},
+{
+	p: "lnc",
+	time: "11:25 - 11:55",
+	l: "3"
+},
 
-	{
-		p: "4",
-		time: "12:00 - 1:00"
-	},
-	{
-		p: "5",
-		time: "1:05 - 2:05"
-	},
-	{
-		p: "dism",
-		time: "2:05 - 2:10"
-	}
+{
+	p: "4",
+	time: "12:00 - 1:00"
+},
+{
+	p: "5",
+	time: "1:05 - 2:05"
+},
+{
+	p: "dism",
+	time: "2:05 - 2:10"
+}
 ];
+
+const lateStart = [
+	{ p: "", time: "" }
+];
+
 const lunches = { // lunch, these are teacher ids that identify teachers within the district.
 	"1522F63C-385F-4A8F-B89D-3E6F46012FE3": 1,
 	"E2899865-11A1-4C45-A63B-25BFBE878157": 1,
@@ -192,10 +197,46 @@ const lunches = { // lunch, these are teacher ids that identify teachers within 
 	"E597CBAA-D3C7-4C74-B0B3-9DAAAE85CCF2": 3,
 	"02E56D4C-FFAD-4A44-A7B9-9927CB1B2787": 3
 }
-const end = [{
-	we: true
-}]
 
+const end = [
+	{
+		we: true
+	},
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend Silly!' },
+];
+
+/* 
+	REMEMBER Months 0 - 11
+			Days 1 - 30/31 (F Febuary has 29 days or something)
+*/
+const events = {
+	8: {
+		8: {
+			details: "Modified schedule; First week of school, Advisory schedule for this week",
+			schedule: adv
+		},
+		9: {
+			details: "Modified schedule; First week of school, Advisory schedule for this week",
+			schedule: adv
+		},
+		10: {
+			details: "Modified schedule; First week of school, Advisory schedule for this week",
+			schedule: adv
+		},
+		13: {
+			details: "Modified schedule; 5th day of school, Advisory schedule for today",
+			schedule: adv
+		}
+	}
+}
+
+let t = new Date().setDate(8)
 function toTitleCase(text) {
 	if (typeof text !== 'string') {
 		return text;
@@ -228,6 +269,7 @@ const main = Vue.createApp({
 			},
 			full: false,
 			day: new Date().getDay(),
+			dayChanged: false,
 			configMenuOpen: false,
 			hide: true,
 			lunch: "1",
@@ -264,12 +306,39 @@ const main = Vue.createApp({
 				padv: "",
 				pzero: "",
 			},
+			teachers: {
+				p1: {
+					name: "",
+					email: "",
+				},
+				p2: {
+					name: "",
+					email: "",
+				},
+				p3: {
+					name: "",
+					email: "",
+				},
+				p4: {
+					name: "",
+					email: "",
+				},
+				p5: {
+					name: "",
+					email: "",
+				},
+				padv: {
+					name: "",
+					email: "",
+				},
+			},
 			schedule: {
 				normal: [end, noadv, adv, noadv, adv, noadv, end],
 				// a: [end, in1, re1, wed, in2, re2, end],
 				// b: [end, re1, in1, wed, re2, in2, end],
 				// t: [end, in1, in1, wed, in2, in2, end],
 			},
+			scheduleEvent: null,
 			version: 2,
 		};
 	},
@@ -301,6 +370,8 @@ const main = Vue.createApp({
 
 			this.rooms = data.rooms || this.rooms;
 
+			this.teachers = data.teachers || this.teachers;
+
 			this.setup.init = (data.init !== undefined ? data.init : this.setup.init);
 
 			this.setup.studentVue.password = data.password || "";
@@ -310,6 +381,8 @@ const main = Vue.createApp({
 			this.setup.studentVue.lastLogin = data.lastLogin || new Date();
 		}
 		this.save();
+
+		this.scheduleEventCheck();
 
 	},
 	mounted() {
@@ -332,6 +405,7 @@ const main = Vue.createApp({
 				username: this.setup.studentVue.username,
 				lastLogin: this.setup.studentVue.lastLogin,
 				rememberMe: this.setup.studentVue.rememberMe,
+				teachers: this.teachers,
 				version: this.version,
 			};
 			localStorage.setItem("data", JSON.stringify(data_new));
@@ -389,6 +463,10 @@ const main = Vue.createApp({
 			// full remote
 			return per.p === 'arr' && this.full ? 'Study' : per.p === 'dism' && this.full ? 'Study' : pd === '' ? 'Period ' + per.p : pd;
 		},
+		perTeacher(per) {
+			if (per.p === 'arr' || per.p === 'dism' || per.p === 'zero' || per.p === 'lnc' || per.p === 'study') return '';
+			return this.teachers['p' + per.p];
+		},
 		configMenu() {
 			this.configMenuOpen = !this.configMenuOpen;
 		},
@@ -398,15 +476,15 @@ const main = Vue.createApp({
 			this.setup.loggingIn = true;
 
 			fetch('https://bhsdb.wackery.com/api/validate', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						username: this.setup.studentVue.username,
-						password: this.setup.studentVue.password
-					})
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username: this.setup.studentVue.username,
+					password: this.setup.studentVue.password
 				})
+			})
 				.then((res) => res.json()).then((json) => {
 					console.log(json)
 					if (json["code"] == "ERROR") {
@@ -456,6 +534,8 @@ const main = Vue.createApp({
 										if (classPD.Period === 8) {
 											// advisory, add that here
 											main.rooms['padv'] = toTitleCase(classPD.RoomName);
+											main.teachers['padv'].name = toTitleCase(classPD.Teacher);
+											main.teachers['padv'].email = classPD.TeacherEmail.toLowerCase();
 											continue;
 										}
 										if (classPD.Period === 3) {
@@ -463,6 +543,9 @@ const main = Vue.createApp({
 										}
 										main.classes['p' + classPD.Period] = toTitleCase(classPD.CourseTitle);
 										main.rooms['p' + classPD.Period] = toTitleCase(classPD.RoomName);
+
+										main.teachers['p' + classPD.Period].name = toTitleCase(classPD.Teacher);
+										main.teachers['p' + classPD.Period].email = classPD.TeacherEmail.toLowerCase();
 									}
 
 									this.runLunchDetect();
@@ -472,7 +555,7 @@ const main = Vue.createApp({
 									this.setup.loggingIn = false;
 
 								})
-							},() => {
+							}, () => {
 								// user said no to prompt
 								this.setup.loggingIn = false;
 							})
@@ -509,7 +592,7 @@ const main = Vue.createApp({
 					resolve();
 					return;
 				}
-				var gamerpopup = new bootstrap.Modal(document.getElementById('isthisyou'), {backdrop: 'static', keyboard: false, focus: true});
+				var gamerpopup = new bootstrap.Modal(document.getElementById('isthisyou'), { backdrop: 'static', keyboard: false, focus: true });
 				document.getElementById("gamerno").onclick = function () {
 					gamerpopup.hide();
 					reject();
@@ -534,7 +617,22 @@ const main = Vue.createApp({
 		resetSite() {
 			localStorage.removeItem('data');
 			location.reload();
-		}
+		},
+		scheduleEventCheck() {
+			let month = new Date().getMonth();
+			let date = new Date().getDate();
+
+			if (events[month] !== undefined && events[month][date + (this.day - new Date().getDay())] !== undefined) {
+				this.scheduleEvent = events[month][date + (this.day - new Date().getDay())];
+				this.schedule[this.cohort][this.day] = events[month][date + (this.day - new Date().getDay())].schedule;
+			} else {
+				this.scheduleEvent = null;
+			}
+		},
+		currentLookingAtDay() {
+			let date = new Date(new Date().setDate(new Date().getDate() + (this.day - new Date().getDay())));
+			return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ((new Date().getDay() === this.day && this.dayChanged) ? ' - Today' : '');
+		},
 	},
 	watch: {
 		lunch() {
@@ -548,6 +646,10 @@ const main = Vue.createApp({
 		},
 		full() {
 			this.save();
+		},
+		day() {
+			this.scheduleEventCheck();
+			this.dayChanged = true;
 		}
 	},
 	computed: {

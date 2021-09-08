@@ -16,9 +16,9 @@
 	<!--
 	<script src="https://unpkg.com/vue@next"></script>
 	-->
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/vue@3.0.10/dist/vue.global.prod.js"></script>
-	
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -75,7 +75,8 @@
 					</div>
 				</div>
 
-				<button class="btn btn-danger mt-4" @click='setup.importMethod === "c" ? setup.step = 3 : setup.step++'>Next</button>
+				<button class="btn btn-danger mt-4"
+					@click='setup.importMethod === "c" ? setupDone() : setup.step++'>Next</button>
 
 			</div>
 
@@ -97,8 +98,8 @@
 						</div>
 
 						<div class="form-check">
-							<input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe" value="false"
-								v-model="setup.studentVue.rememberMe" />
+							<input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe"
+								value="false" v-model="setup.studentVue.rememberMe" />
 							<label class="form-check-label checkable" for="rememberMe">Remember Me?</label>
 						</div>
 					</div>
@@ -114,23 +115,24 @@
 						<span class="visually-hidden">Loading...</span>
 					</div>
 					<!-- modal for pop up -->
-					<div class="modal fade" id="isthisyou" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="isthisyoulabel" aria-hidden="true">
+					<div class="modal fade" id="isthisyou" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="isthisyoulabel" aria-hidden="true">
 						<div class="modal-dialog">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="isthisyoulabel">Is this you?</h5>
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="isthisyoulabel">Is this you?</h5>
+								</div>
+								<div class="modal-body" id="bodytext">
+									<span>Name: {{ setup.studentVue.name }}</span>
+									<br><span>Id: {{ setup.studentVue.permID }}</span>
+								</div>
+								<div class="modal-footer">
+									<button type="button" id="gamerno" class="btn btn-danger">NO</button>
+									<button type="button" id="gameryes" class="btn btn-success">YES</button>
+								</div>
 							</div>
-							<div class="modal-body" id="bodytext">
-								<span>Name: {{ setup.studentVue.name }}</span>
-								<br><span>Id: {{ setup.studentVue.permID }}</span>
-							</div>
-							<div class="modal-footer">
-							  <button type="button" id="gamerno" class="btn btn-danger">NO</button>
-							  <button type="button" id="gameryes" class="btn btn-success">YES</button>
-							</div>
-						  </div>
 						</div>
-					  </div>
+					</div>
 				</div>
 
 				<div v-if="setup.importMethod === 'b'">
@@ -170,13 +172,29 @@
 											<label v-bind:for="'room-' + i">Room #</label>
 										</div>
 									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input class="form-control" type="text" name="teacherName" v-bind:id="'teacherName-' + i"
+												oninput="main.save()" v-model="teachers[i].name"
+												v-bind:placeholder="'Teacher name for ' + (classes[i] ? classes[i] : 'Period ' + i.split('p')[1])" />
+											<label v-bind:for="'teacherName-' + i">Teacher Name</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input class="form-control" type="text" name="teacherEmail" v-bind:id="'teacherEmail-' + i"
+												oninput="main.save()" v-model="teachers[i].email"
+												v-bind:placeholder="'Teacher email for ' + (classes[i] ? classes[i] : 'Period ' + i.split('p')[1])" />
+											<label v-bind:for="'teacherEmail-' + i">Teacher Email</label>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<button class="btn btn-secondary mt-3 me-2" @click="setup.step--">Back</button>
 					<button id="studentVueLoginButton" class="btn btn-danger mt-3" @click="setup.step = 3">Done</button>
-				</div>	
+				</div>
 			</div>
 			<div v-if="setup.step === 3">
 				<div>
@@ -200,9 +218,9 @@
 					</div>
 
 				</div>
-				<button class="btn btn-secondary mt-4 me-2" @click='setup.importMethod === "a" ? setup.step-- : setup.step = 1'>Back</button>
-				<button class="btn btn-danger mt-4"
-					@click="setupDone()">Done</button>
+				<button class="btn btn-secondary mt-4 me-2"
+					@click='setup.importMethod === "a" ? setup.step-- : setup.step = 1'>Back</button>
+				<button class="btn btn-danger mt-4" @click="setupDone()">Done</button>
 			</div>
 		</div>
 
@@ -342,23 +360,28 @@
 							<tr>
 								<th v-bind:class="{ 'bgcrimson': (day === 1 || day === 3 || day === 5), 'bgsilver': (day === 2 || day === 4) }"
 									colspan="4">
-									{{ dayName(day) }}
+									{{ dayName(day) + ' - ' + currentLookingAtDay() }}
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr v-for="per in schedule[cohort][day]"
-								:class="{ 'tblue': (per.p), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr' || per.p === 'zero') }">
-								<td v-if='per.we === true'>
-									Its the weekend silly!
+								:class="{ 'tblue': (per.p), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr' || per.p === 'zero'), 't3rdblue': (per.p === '3') }">
+								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
+									{{ per.time }}
 								</td>
+
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)"
 									class="text-left">
 									{{ perName(per) }}
 								</td>
+								
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
-									{{ per.time }}
+									<a  v-bind:href="'mailto:' + perTeacher(per).email">
+										{{ perTeacher(per).name }}
+									</a>
 								</td>
+
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
 									<span
 										v-if="per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero'"></span>
@@ -370,6 +393,9 @@
 						</tbody>
 
 					</table>
+					<div class="mt-1" v-show="scheduleEvent !== null">
+						<strong>{{ scheduleEvent !== null ? scheduleEvent.details : '' }}</strong>
+					</div>
 					<!-- hidden because not remote -->
 					<table v-if="false" class="d-none d-sm-block table table-borderless"
 						style="margin-top: 10px; min-width: 936px">
@@ -444,38 +470,51 @@
 				</div>
 			</div>
 
-			<div class="container text-center">
-				
+			<div class="container text-center position-absolute bottom-0 start-50 translate-middle mb-md-5 mb-lg-5" style="margin-bottom: 5rem;">
 				<div class="row">
-					<div class="col"></div>
-					<button type="button" v-bind:class="{ 'disabled': day === 0 }" class="btn btn-primary btn-sm mt-4 me-3 col" @click="day--">
-						←
-					</button>
-					<a class="col"
+					<a class="mt-2 col"
 						href="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
 						target="_blank">
 						School Map
 					</a>
-					<button type="button" v-bind:class="{ 'disabled': day === 6 }" class="btn btn-danger btn-sm mt-4 col" @click="day++">
-						→
-					</button>
-					<div class="col"></div>
-	
-
 				</div>
 
-				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" @click="resetSetup(); setup.init = true">
-					Edit
-				</button>
-				<button type="button" class="btn btn-primary btn-sm mt-4 me-3" v-bind:class="{ 'disabled': setup.loggingIn || setup.studentVue.username === ''}" @click="studentVueLogin();">
-					Refresh 
-					<div v-if="setup.loggingIn" class="spinner-border spinner-border-sm text-danger" role="status">
-					<span class="visually-hidden">Loading...</span>
+				<div class="container">
+					<div class="row row-cols-7">
+						<div class="col-md"></div>
+						<button type="button" v-bind:class="{ 'disabled': day === 0 }"
+							class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col" @click="day--">
+							←
+						</button>
+
+						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
+							@click="resetSetup(); setup.init = true">
+							Edit
+						</button>
+
+						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
+							v-bind:class="{ 'disabled': setup.loggingIn || setup.studentVue.username === ''}"
+							@click="studentVueLogin();">
+							Refresh
+							<div v-if="setup.loggingIn" class="spinner-border spinner-border-sm text-danger"
+								role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</button>
+
+						<button type="button" class="btn btn-danger btn-sm mt-md-2 mt-4 me-3 col" @click="resetSite()">
+							Reset
+						</button>
+
+
+						<button type="button" v-bind:class="{ 'disabled': day === 6 }"
+							class="btn btn-danger btn-sm mt-md-2 mt-4 col" @click="day++">
+							→
+						</button>
+						<div class="col-md"></div>
+					</div>
 				</div>
-				</button>
-				<button type="button" class="btn btn-danger btn-sm mt-4" @click="resetSite()">
-					Reset
-				</button>
+
 
 				<div v-show="!hide" class="mt-4">
 					<h4 class="crimson mt-4 mb-2">Site Information</h4>
@@ -498,17 +537,21 @@
 			</div>
 		</div>
 
-		<div v-show="configMenuOpen">
-			<p>Working progress advanced config menu.</p>
-			<button type="button" class="btn btn-danger btn-sm" @click="configMenu()">Close</button>
-			<br>
-			<button type="button" class="btn btn-primary btn-sm" onclick="location.reload(true)">Force
-				reload</button>
-			<br>
-			Edit day <input type="range" max="5" v-model="day">
-			<br>
-			<br>
-			<br>
+		<div class="container" v-show="configMenuOpen">
+			<div>
+				<p>Working progress advanced config menu.</p>
+				<button type="button" class="btn btn-danger btn-sm" @click="configMenu()">Close Menu</button>
+				<br>
+				<button type="button" class="btn btn-primary btn-sm" onclick="location.reload(true)">
+					Force reload
+				</button>
+				<br>
+				<label for="changeDay" class="form-label">Change day</label>
+				<input type="range" class="form-range" v-model="day" min="0" max="6" step="1" id="changeDay">
+				<br>
+				<br>
+				<br>
+			</div>
 			<div id="howtomakeapp" v-show="!isPWA">
 				<h4 class="crimson mt-4">How To Make This An App</h4>
 				<p>
@@ -521,47 +564,54 @@
 					This will make an app on your homescreen named "Schedule", open it and fill it out.
 				</p>
 			</div>
+			<div class="container">
+				<h3 class="crimson">Debug info</h3>
+				<div class="mt-2">
+					<strong>Save Version: {{ version }}</strong>
+				</div>
+				<div class="mt-2">
+					<strong>Day: {{ day }}</strong>
+				</div>
+				<div class="mt-2">
+					<strong>Stay Logged In: {{ setup.studentVue.rememberMe }}</strong>
+				</div>
+			</div>
 		</div>
 
-		<footer class="mt-5">
+		<div v-show="!setup.init && setup.step !== 2" class="container position-absolute bottom-0 start-50 translate-middle-x mb-3">
 			<hr>
-			<div class="text-center col">
-				<div class="row mb-2">
-					<span style="color: gray !important; font-size: 12px">
-						Restyled by
-						<a style="color: gray !important; font-size: 12px" href="https://webmsgr.github.io/"
+			<div class="row text-center">
+				<div class="col-sm-1 col-md-4">
+					<span style="color: gray !important; font-size: 10px">
+						Created by
+						<a style="color: gray !important; font-size: 10px" href="https://insberr.github.io/"
+							target="_blank">
+							Jonah Matteson
+						</a>
+						and
+						<a style="color: gray !important; font-size: 10px" href="https://webmsgr.github.io/"
 							target="_blank">
 							Wackery
 						</a>
 					</span>
 				</div>
 
-				<div class="row mb-2">
-					<span style="color: gray !important; font-size: 12px">
-						Created by
-						<a style="color: gray !important; font-size: 12px" href="https://insberr.github.io/"
-							target="_blank">
-							Jonah Matteson
-						</a>
-					</span>
-				</div>
-
-				<div class="row mb-2">
-					<span style="color: gray !important; font-size: 12px">
-						<a style="color: gray !important; font-size: 12px"
+				<div class="col-sm-1 col-md-4">
+					<span style="color: gray !important; font-size: 10px">
+						<a style="color: gray !important; font-size: 10px"
 							href="https://www.vecteezy.com/free-vector/calendar-icon" target="_blank">
-							Calendar Icon Vector by Vecteezy
+							Calendar Icon from Vecteezy
 						</a>
 					</span>
 				</div>
 
-				<div class="row mb-2">
-					<span style="color: gray; font-size: 12px" @click="configMenu()">
+				<div class="col-sm-1 col-md-4">
+					<button class="btn btn-secondary btn-sm" @click="configMenu()">
 						More
-					</span>
+					</button>
 				</div>
 			</div>
-		</footer>
+		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

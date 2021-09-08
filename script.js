@@ -477,7 +477,7 @@ const main = Vue.createApp({
 
 			this.setup.loggingIn = true;
 
-			fetch('https://bhsdb.wackery.com/api/validate', {
+			fetch(api_url+'/validate', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

@@ -236,7 +236,7 @@ const events = {
 	}
 }
 
-const api_url = "https://stapi.wackery.workers.dev/api"
+const api_url = "https://bhsdb.wackery.com/api"
 
 let t = new Date().setDate(8)
 function toTitleCase(text) {

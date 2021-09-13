@@ -174,16 +174,18 @@
 									</div>
 									<div class="col-md">
 										<div class="form-floating">
-											<input class="form-control" type="text" name="teacherName" v-bind:id="'teacherName-' + i"
-												oninput="main.save()" v-model="teachers[i].name"
+											<input class="form-control" type="text" name="teacherName"
+												v-bind:id="'teacherName-' + i" oninput="main.save()"
+												v-model="teachers[i].name"
 												v-bind:placeholder="'Teacher name for ' + (classes[i] ? classes[i] : 'Period ' + i.split('p')[1])" />
 											<label v-bind:for="'teacherName-' + i">Teacher Name</label>
 										</div>
 									</div>
 									<div class="col-md">
 										<div class="form-floating">
-											<input class="form-control" type="text" name="teacherEmail" v-bind:id="'teacherEmail-' + i"
-												oninput="main.save()" v-model="teachers[i].email"
+											<input class="form-control" type="text" name="teacherEmail"
+												v-bind:id="'teacherEmail-' + i" oninput="main.save()"
+												v-model="teachers[i].email"
 												v-bind:placeholder="'Teacher email for ' + (classes[i] ? classes[i] : 'Period ' + i.split('p')[1])" />
 											<label v-bind:for="'teacherEmail-' + i">Teacher Email</label>
 										</div>
@@ -374,10 +376,15 @@
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)"
 									class="text-left">
 									{{ perName(per) }}
+									<br>
+									<a v-bind:href="'mailto:' + perTeacher(per).email" class="d-sm-none">
+										{{ perTeacher(per).name }}
+									</a>
 								</td>
-								
-								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
-									<a  v-bind:href="'mailto:' + perTeacher(per).email">
+
+								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)"
+									class="d-none d-sm-table-cell">
+									<a v-bind:href="'mailto:' + perTeacher(per).email">
 										{{ perTeacher(per).name }}
 									</a>
 								</td>
@@ -470,7 +477,8 @@
 				</div>
 			</div>
 
-			<div class="container text-center position-absolute bottom-0 start-50 translate-middle mb-md-5 mb-lg-5" style="margin-bottom: 5rem;">
+			<div class="container text-center position-absolute bottom-0 start-50 translate-middle mb-md-5 mb-lg-5"
+				style="margin-bottom: 3rem;">
 				<div class="row">
 					<a class="mt-2 col"
 						href="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
@@ -492,18 +500,8 @@
 							Edit
 						</button>
 
-						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
-							v-bind:class="{ 'disabled': setup.loggingIn || setup.studentVue.username === ''}"
-							@click="studentVueLogin();">
-							Refresh
-							<div v-if="setup.loggingIn" class="spinner-border spinner-border-sm text-danger"
-								role="status">
-								<span class="visually-hidden">Loading...</span>
-							</div>
-						</button>
-
-						<button type="button" class="btn btn-danger btn-sm mt-md-2 mt-4 me-3 col" @click="resetSite()">
-							Reset
+						<button class="btn btn-secondary btn-sm mt-md-2 mt-4 me-3 col" @click="configMenu()">
+							More
 						</button>
 
 
@@ -578,7 +576,8 @@
 			</div>
 		</div>
 
-		<div v-show="!setup.init && setup.step !== 2" class="container position-absolute bottom-0 start-50 translate-middle-x mb-3">
+		<div v-show="!setup.init && setup.step !== 2"
+			class="container position-absolute bottom-0 start-50 translate-middle-x mb-3">
 			<hr>
 			<div class="row text-center">
 				<div class="col-sm-1 col-md-4">
@@ -603,12 +602,6 @@
 							Calendar Icon from Vecteezy
 						</a>
 					</span>
-				</div>
-
-				<div class="col-sm-1 col-md-4">
-					<button class="btn btn-secondary btn-sm" @click="configMenu()">
-						More
-					</button>
 				</div>
 			</div>
 		</div>

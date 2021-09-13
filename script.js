@@ -219,12 +219,6 @@ const end = [
 		we: true
 	},
 	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
-	{ p: 'study', time: 'Its The Weekend Silly!' },
 ];
 
 /* 

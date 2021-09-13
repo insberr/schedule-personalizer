@@ -49,6 +49,18 @@
 		<div v-show="!configMenuOpen && setup.init">
 			<span>Step {{ setup.step }} of 3</span>
 
+			<div class="card mt-2" id="howtomakeapp" v-show="!isPWA">
+				<div class="card-header">
+					Make This An App
+				</div>
+
+				<div class="card-body">
+					<span class="badge bg-success">IOS Directions</span>
+					Open this site in Safari, click the export button in the top right, click "Add to Home
+					Screen" and click add.
+				</div>
+			</div>
+
 			<div v-if="setup.step === 1">
 				<div>
 					<h2 class="crimson text-center mt-4">How would you like to import your schedule?</h2>
@@ -226,7 +238,7 @@
 			</div>
 		</div>
 
-		<div v-show="!configMenuOpen && !setup.init">
+		<div class="mb-5 mb-sm-0" v-show="!configMenuOpen && !setup.init">
 			<div class="text-center" v-if="!hide">
 				<p>
 					<small>Created by Jonah Matteson. You're welcome.</small>
@@ -358,10 +370,11 @@
 				<div v-if='day !== 0 || day !== 6' id="classes-table" class="mt-4 table-responsive">
 					<!-- table for just the day -->
 					<table class="table">
-						<thead>
-							<tr>
-								<th v-bind:class="{ 'bgcrimson': (day === 1 || day === 3 || day === 5), 'bgsilver': (day === 2 || day === 4) }"
-									colspan="4">
+						<thead
+							v-bind:class="{ 'bdcrimson': (day === 1 || day === 3 || day === 5), 'bdsilver': (day === 2 || day === 4) }">
+							<tr
+								v-bind:class="{ 'bgcrimson': (day === 1 || day === 3 || day === 5), 'bgsilver': (day === 2 || day === 4) }">
+								<th colspan="4">
 									{{ dayName(day) + ' - ' + currentLookingAtDay() }}
 								</th>
 							</tr>
@@ -477,16 +490,8 @@
 				</div>
 			</div>
 
-			<div class="container text-center position-absolute bottom-0 start-50 translate-middle mb-md-5 mb-lg-5"
-				style="margin-bottom: 3rem;">
-				<div class="row">
-					<a class="mt-2 col"
-						href="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
-						target="_blank">
-						School Map
-					</a>
-				</div>
-
+			<div class="container text-center position-fixed bottom-0 start-50 translate-middle mb-md-5"
+				style="margin-bottom: 2.5rem;">
 				<div class="container">
 					<div class="row row-cols-7">
 						<div class="col-md"></div>
@@ -498,6 +503,11 @@
 						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
 							@click="resetSetup(); setup.init = true">
 							Edit
+						</button>
+
+						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
+							onClick="window.open('https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing')">
+							Map
 						</button>
 
 						<button class="btn btn-secondary btn-sm mt-md-2 mt-4 me-3 col" @click="configMenu()">
@@ -536,33 +546,24 @@
 		</div>
 
 		<div class="container" v-show="configMenuOpen">
-			<div>
-				<p>Working progress advanced config menu.</p>
-				<button type="button" class="btn btn-danger btn-sm" @click="configMenu()">Close Menu</button>
-				<br>
-				<button type="button" class="btn btn-primary btn-sm" onclick="location.reload(true)">
-					Force reload
-				</button>
-				<br>
+			<button type="button" class="btn btn-danger btn-sm mt-1" @click="configMenu()">Close Menu</button>
+
+			<div class="mt-4">
+				<h4 class="crimson">General</h4>
+				<div class="row mt-3">
+					<button type="button" class="btn btn-primary btn-sm me-3 col" onclick="location.reload(true)">
+						Force reload
+					</button>
+					<button type="button" class="btn btn-danger btn-sm col" @click="resetSite()">
+						Reset Site
+					</button>
+				</div>
+
 				<label for="changeDay" class="form-label">Change day</label>
-				<input type="range" class="form-range" v-model="day" min=0 max=6 step="1" id="changeDay">
-				<br>
-				<br>
-				<br>
+				<input type="range" class="form-range" v-model="day" min=0 max=6 step=1 id="changeDay">
 			</div>
-			<div id="howtomakeapp" v-show="!isPWA">
-				<h4 class="crimson mt-4">How To Make This An App</h4>
-				<p>
-					I recommend making this an app <strong>before</strong> you fill out this site.
-					<br /><br />
-					<span class="badge bg-success">IOS Directions</span>
-					Open this site in Safari, click the export button in the top right, click "Add to Home
-					Screen" and click add.
-					<br />
-					This will make an app on your homescreen named "Schedule", open it and fill it out.
-				</p>
-			</div>
-			<div class="container">
+
+			<div class="mt-4">
 				<h3 class="crimson">Debug info</h3>
 				<div class="mt-2">
 					<strong>Save Version: {{ version }}</strong>
@@ -573,21 +574,24 @@
 				<div class="mt-2">
 					<strong>Stay Logged In: {{ setup.studentVue.rememberMe }}</strong>
 				</div>
+				<div class="mt-2">
+					<strong>Last Login: {{ new Date(setup.studentVue.lastLogin).toLocaleString() }} ({{
+						setup.studentVue.lastLogin }})</strong>
+				</div>
 			</div>
 		</div>
 
 		<div v-show="!setup.init && setup.step !== 2"
-			class="container position-absolute bottom-0 start-50 translate-middle-x mb-3">
+			class="container position-fixed bottom-0 start-50 translate-middle-x mb-3">
 			<hr>
 			<div class="row text-center">
-				<div class="col-sm-1 col-md-4">
+				<div class="col">
 					<span style="color: gray !important; font-size: 10px">
 						Created by
 						<a style="color: gray !important; font-size: 10px" href="https://insberr.github.io/"
 							target="_blank">
-							Jonah Matteson
-						</a>
-						and
+							Jonah
+						</a> and
 						<a style="color: gray !important; font-size: 10px" href="https://wackery.com/?s=sp"
 							target="_blank">
 							Wackery
@@ -595,13 +599,11 @@
 					</span>
 				</div>
 
-				<div class="col-sm-1 col-md-4">
-					<span style="color: gray !important; font-size: 10px">
-						<a style="color: gray !important; font-size: 10px"
-							href="https://www.vecteezy.com/free-vector/calendar-icon" target="_blank">
-							Calendar Icon from Vecteezy
-						</a>
-					</span>
+				<div class="col">
+					<a style="color: gray !important; font-size: 10px"
+						href="https://www.vecteezy.com/free-vector/calendar-icon" target="_blank">
+						Calendar Icon from Vecteezy
+					</a>
 				</div>
 			</div>
 		</div>

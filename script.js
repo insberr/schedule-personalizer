@@ -658,6 +658,14 @@ const main = Vue.createApp({
 			if (typeof this.day === 'string') {
 				this.day = parseInt(this.day);
 			}
+
+			if (this.day < 0) {
+				this.day = 0;
+			}
+
+			if (this.day > 6) {
+				this.day = 6;
+			}
 		}
 	},
 	computed: {

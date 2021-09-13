@@ -135,7 +135,23 @@ const adv = [{
 ];
 
 const lateStart = [
-	{ p: "", time: "" }
+	{ p: "arr", time: "8:15 - 8:30" },
+	{ p: "1", time: "8:35 - 9:25" },
+	{ p: "2", time: "9:30 - 10:25" },
+
+	{ p: "lnc", time: "10:25 - 10:55", l: "1" },
+	{ p: "3", time: "11:00 - 12:10", l: "1" },
+
+	{ p: "3", time: "10:30 - 11:00", l: "2" },
+	{ p: "lnc", time: "11:00 - 11:30", l: "2" },
+	{ p: "3", time: "11:35 - 12:10", l: "2" },
+
+	{ p: "3", time: "10:30 - 11:40", l: "3" },
+	{ p: "lnc", time: "11:40 - 12:10", l: "3" },
+
+	{ p: "4", time: "12:15 - 1:10" },
+	{ p: "5", time: "1:15 - 2:05" },
+	{ p: "dism", time: "2:05 - 2:10" }
 ];
 
 const lunches = { // lunch, these are teacher ids that identify teachers within the district.
@@ -217,21 +233,13 @@ const end = [
 */
 const events = {
 	8: {
-		8: {
-			details: "Modified schedule; First week of school, Advisory schedule for this week",
-			schedule: adv
-		},
-		9: {
-			details: "Modified schedule; First week of school, Advisory schedule for this week",
-			schedule: adv
-		},
-		10: {
-			details: "Modified schedule; First week of school, Advisory schedule for this week",
-			schedule: adv
-		},
 		13: {
 			details: "Modified schedule; 5th day of school, Advisory schedule for today",
 			schedule: adv
+		},
+		15: {
+			details: "1 hour late start",
+			schedule: lateStart
 		}
 	}
 }
@@ -477,7 +485,7 @@ const main = Vue.createApp({
 
 			this.setup.loggingIn = true;
 
-			fetch(api_url+'/validate', {
+			fetch(api_url + '/validate', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -502,7 +510,7 @@ const main = Vue.createApp({
 
 						// we good! 
 						// request the student schedule/data
-						fetch(api_url+"/get_student_info", {
+						fetch(api_url + "/get_student_info", {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json'
@@ -522,7 +530,7 @@ const main = Vue.createApp({
 							// display model
 							this.openModel().then(() => {
 								// todo: use a loop to get all 3 terms, im lazy and its late
-								fetch(api_url+"/get_schedule", {
+								fetch(api_url + "/get_schedule", {
 									method: 'POST',
 									headers: {
 										'Content-Type': 'application/json'
@@ -652,6 +660,10 @@ const main = Vue.createApp({
 		day() {
 			this.scheduleEventCheck();
 			this.dayChanged = true;
+
+			if (typeof this.day === 'string') {
+				this.day = parseInt(this.day);
+			}
 		}
 	},
 	computed: {

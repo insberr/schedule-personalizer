@@ -505,7 +505,9 @@
 							Edit
 						</button>
 
-						<form class="mt-md-2 mt-4 col" action="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing" method="get" target="_blank">
+						<form class="mt-md-2 mt-4 col"
+							action="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
+							method="get" target="_blank">
 							<button type="submit" class="btn btn-primary btn-sm w-100">
 								Map
 							</button>
@@ -555,8 +557,13 @@
 					<button type="button" class="btn btn-primary btn-sm me-3 col" onclick="location.reload(true)">
 						Force reload
 					</button>
-					<button type="button" class="btn btn-primary btn-sm me-3 col" onclick="location.reload(true)">
-						Force Fetch Schedule From StudentVue
+					<button type="button" class="btn btn-primary btn-sm me-3 col"
+						v-bind:class="{ 'disabled': setup.loggingIn || setup.studentVue.username === ''}"
+						@click="studentVueLogin();">
+						Reload Schedule
+						<div v-if="setup.loggingIn" class="spinner-border spinner-border-sm text-danger" role="status">
+							<span class="visually-hidden">Loading...</span>
+						</div>
 					</button>
 					<button type="button" class="btn btn-danger btn-sm col" @click="resetSite()">
 						Reset Site

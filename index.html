@@ -500,15 +500,16 @@
 							←
 						</button>
 
-						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
+						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 col"
 							@click="resetSetup(); setup.init = true">
 							Edit
 						</button>
 
-						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col"
-							onClick="window.open('https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing')">
-							Map
-						</button>
+						<form class="mt-md-2 mt-4 col" action="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing" method="get" target="_blank">
+							<button type="submit" class="btn btn-primary btn-sm w-100">
+								Map
+							</button>
+						</form>
 
 						<button class="btn btn-secondary btn-sm mt-md-2 mt-4 me-3 col" @click="configMenu()">
 							More
@@ -553,6 +554,9 @@
 				<div class="row mt-3">
 					<button type="button" class="btn btn-primary btn-sm me-3 col" onclick="location.reload(true)">
 						Force reload
+					</button>
+					<button type="button" class="btn btn-primary btn-sm me-3 col" onclick="location.reload(true)">
+						Force Fetch Schedule From StudentVue
 					</button>
 					<button type="button" class="btn btn-danger btn-sm col" @click="resetSite()">
 						Reset Site

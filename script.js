@@ -154,6 +154,11 @@ const lateStart = [
 	{ p: "dism", time: "2:05 - 2:10" }
 ];
 
+const earlyDismissal = [
+	{ we: true },
+	{ p: 'study', time: 'Early dismissal schedule not added' }
+]
+
 const lunches = { // lunch, these are teacher ids that identify teachers within the district.
 	"1522F63C-385F-4A8F-B89D-3E6F46012FE3": 1,
 	"E2899865-11A1-4C45-A63B-25BFBE878157": 1,
@@ -214,6 +219,11 @@ const lunches = { // lunch, these are teacher ids that identify teachers within 
 	"02E56D4C-FFAD-4A44-A7B9-9927CB1B2787": 3
 }
 
+const noSchool = [
+	{ we: true },
+	{ p: 'study', time: 'Theres no school today Silly!' }
+]
+
 const end = [
 	{
 		we: true
@@ -225,16 +235,60 @@ const end = [
 	REMEMBER Months 0 - 11
 			Days 1 - 30/31 (F Febuary has 29 days or something)
 */
+
+/*
+	events: {
+		month: {
+			day: {
+				details: "",
+				schedule: []
+			}
+		}
+	}
+*/
 const events = {
 	8: {
-		13: {
-			details: "Modified schedule; 5th day of school, Advisory schedule for today",
-			schedule: adv
+		24: {
+			details: "No school for students",
+			schedule: noSchool
 		},
-		15: {
+		29: {
 			details: "1 hour late start",
-			schedule: lateStart
+			schedule: lateStart,
 		}
+	},
+	9: {
+		// late start on the 6th and 13th
+		6: {
+			details: "1 hour late start",
+			schedule: lateStart,
+		},
+		13: {
+			details: "1 hour late start",
+			schedule: lateStart,
+		},
+		21: {
+			details: "Early dismissal (K-12)",
+			schedule: earlyDismissal
+		},
+		// no school on the 22nd
+		22: {
+			details: "No school for students",
+			schedule: noSchool
+		},
+		// early dismissal 27-29 (6-12)
+		27: {
+			details: "Early dismissal (6-12)",
+			schedule: earlyDismissal
+		},
+		28: {
+			details: "Early dismissal (6-12)",
+			schedule: earlyDismissal
+		},
+		29: {
+			details: "Early dismissal (6-12)",
+			schedule: earlyDismissal
+		},
 	}
 }
 

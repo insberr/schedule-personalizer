@@ -589,14 +589,14 @@ const main = Vue.createApp({
 									})
 								}).then((res) => res.json()).then((json) => {
 									for (let classPD of json.content.ClassLists.ClassListing) {
-										if (classPD.Period === 8) {
+										if (classPD.Period == 8) {
 											// advisory, add that here
 											main.rooms['padv'] = toTitleCase(classPD.RoomName);
 											main.teachers['padv'].name = toTitleCase(classPD.Teacher);
 											main.teachers['padv'].email = classPD.TeacherEmail.toLowerCase();
 											continue;
 										}
-										if (classPD.Period === 3) {
+										if (classPD.Period == 3) {
 											this.setup.studentVue.lunchid = classPD.TeacherStaffGU
 										}
 										main.classes['p' + classPD.Period] = toTitleCase(classPD.CourseTitle);

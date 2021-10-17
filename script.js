@@ -154,11 +154,6 @@ const lateStart = [
 	{ p: "dism", time: "2:05 - 2:10" }
 ];
 
-const earlyDismissal = [
-	{ we: true },
-	{ p: 'study', time: 'Early dismissal schedule not added' }
-]
-
 const lunches = { // lunch, these are teacher ids that identify teachers within the district.
 	"1522F63C-385F-4A8F-B89D-3E6F46012FE3": 1,
 	"E2899865-11A1-4C45-A63B-25BFBE878157": 1,
@@ -231,6 +226,39 @@ const end = [
 	{ p: 'study', time: 'Its The Weekend Silly!' },
 ];
 
+const earlyDismissal1 = [
+	{ p: 'zero', time: '6:35 - 7:30' },
+	{ p: '1', time: '7:35 - 7:50' },
+	{ p: '2', time: '7:55 - 8:25' },
+	{ p: '3', time: '8:30 - 9:00' },
+	{ p: '4', time: '9:05 - 9:30' },
+	{ p: '5', time: '9:35 - 10:05' },
+	{ p: 'dism', time: '10:05 - 10:10' }
+]
+
+const earlyDismissal2 = [
+	{ p: 'zero', time: '6:35 - 7:30' },
+	{ p: 'adv', time: '7:35 - 9:15' },
+	{ p: '1', time: '9:20 - 10:05' },
+	{ p: 'dism', time: '10:05 - 10:10' }
+]
+
+const earlyDismissal3 = [
+	{ p: 'zero', time: '6:35 - 7:30' },
+	{ p: 'adv', time: '7:35 - 8:50' },
+	{ p: '2', time: '8:55 - 9:30' },
+	{ p: '3', time: '9:35 - 10:05' },
+	{ p: 'dism', time: '10:05 - 10:10' }
+]
+
+const earlyDismissal4 = [
+	{ p: 'zero', time: '6:35 - 7:30' },
+	{ p: 'adv', time: '7:35 - 8:45' },
+	{ p: '4', time: '8:50 - 9:25' },
+	{ p: '5', time: '9:30 - 10:05' },
+	{ p: 'dism', time: '10:05 - 10:10' }
+]
+
 /* 
 	REMEMBER Months 0 - 11
 			Days 1 - 30/31 (F Febuary has 29 days or something)
@@ -247,29 +275,10 @@ const end = [
 	}
 */
 const events = {
-	8: {
-		24: {
-			details: "No school for students",
-			schedule: noSchool
-		},
-		29: {
-			details: "1 hour late start",
-			schedule: lateStart,
-		}
-	},
 	9: {
-		// late start on the 6th and 13th
-		6: {
-			details: "1 hour late start",
-			schedule: lateStart,
-		},
-		13: {
-			details: "1 hour late start",
-			schedule: lateStart,
-		},
 		21: {
 			details: "Early dismissal (K-12)",
-			schedule: earlyDismissal
+			schedule: earlyDismissal1
 		},
 		// no school on the 22nd
 		22: {
@@ -279,15 +288,15 @@ const events = {
 		// early dismissal 27-29 (6-12)
 		27: {
 			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal
+			schedule: earlyDismissal2
 		},
 		28: {
 			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal
+			schedule: earlyDismissal3
 		},
 		29: {
 			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal
+			schedule: earlyDismissal4
 		},
 	}
 }
@@ -327,6 +336,7 @@ const main = Vue.createApp({
 			},
 			full: false,
 			day: new Date().getDay(),
+			week: 0, // I was going to make it so you can view future weeks too, but im too lazy to code it lol
 			dayChanged: false,
 			configMenuOpen: false,
 			hide: true,
@@ -391,6 +401,7 @@ const main = Vue.createApp({
 				},
 			},
 			schedule: {
+				normal_default: [end, noadv, adv, noadv, adv, noadv, end],
 				normal: [end, noadv, adv, noadv, adv, noadv, end],
 				// a: [end, in1, re1, wed, in2, re2, end],
 				// b: [end, re1, in1, wed, re2, in2, end],
@@ -680,16 +691,17 @@ const main = Vue.createApp({
 			let month = new Date().getMonth();
 			let date = new Date().getDate();
 
-			if (events[month] !== undefined && events[month][date + (this.day - new Date().getDay())] !== undefined) {
-				this.scheduleEvent = events[month][date + (this.day - new Date().getDay())];
-				this.schedule[this.cohort][this.day] = events[month][date + (this.day - new Date().getDay())].schedule;
+			if (events[month] !== undefined && events[month][date + ((this.day + (this.week * 7)) - new Date().getDay())] !== undefined) {
+				this.scheduleEvent = events[month][date + ((this.day + (this.week * 7)) - new Date().getDay())];
+				this.schedule[this.cohort][this.day] = events[month][date + ((this.day + (this.week * 7)) - new Date().getDay())].schedule;
 			} else {
 				this.scheduleEvent = null;
+				this.schedule[this.cohort] = [...this.schedule[this.cohort + "_default"]];
 			}
 		},
 		currentLookingAtDay() {
-			let date = new Date(new Date().setDate(new Date().getDate() + (this.day - new Date().getDay())));
-			return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ((new Date().getDay() === this.day && this.dayChanged) ? ' - Today' : '');
+			let date = new Date(new Date().setDate(new Date().getDate() + ((this.day + (this.week * 7)) - new Date().getDay())));
+			return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ((new Date().getDay() === (this.day + (this.week * 7)) && this.dayChanged) ? ' - Today' : '');
 		},
 	},
 	watch: {
@@ -714,12 +726,20 @@ const main = Vue.createApp({
 			}
 
 			if (this.day < 0) {
-				this.day = 0;
+				if (this.week > 0) {
+					this.day = 6;
+					this.week--;
+				} else {
+					this.day = 0;
+				}
 			}
 
 			if (this.day > 6) {
-				this.day = 6;
+				this.day = 0;
+				this.week++;
 			}
+
+			this.scheduleEventCheck();
 		}
 	},
 	computed: {

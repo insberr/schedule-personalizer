@@ -367,6 +367,40 @@
 			<div class="text-center mb-4">
 				<h2 class="crimson question mt-4" v-if="!hide">See your schedule!</h2>
 
+				<div class="container">
+					<div class="row row-cols-7">
+						<div class="col-md"></div>
+						<button type="button" v-bind:class="{ 'disabled': (day === 0 && week === 0) }"
+							class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col" @click="day--">
+							←
+						</button>
+
+						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 col"
+							@click="resetSetup(); setup.init = true">
+							Edit
+						</button>
+
+						<form class="mt-md-2 mt-4 col"
+							action="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
+							method="get" target="_blank">
+							<button type="submit" class="btn btn-primary btn-sm w-100">
+								Map
+							</button>
+						</form>
+
+						<button class="btn btn-secondary btn-sm mt-md-2 mt-4 me-3 col" @click="configMenu()">
+							More
+						</button>
+
+
+						<button type="button" v-bind:class="{ 'disabled': day === 7 }"
+							class="btn btn-danger btn-sm mt-md-2 mt-4 col" @click="day++">
+							→
+						</button>
+						<div class="col-md"></div>
+					</div>
+				</div>
+
 				<div v-if='day !== 0 || day !== 6' id="classes-table" class="mt-4 table-responsive">
 					<!-- table for just the day -->
 					<table class="table">
@@ -492,39 +526,6 @@
 
 			<div class="container text-center position-fixed bottom-0 start-50 translate-middle mb-md-5"
 				style="margin-bottom: 2.5rem;">
-				<div class="container">
-					<div class="row row-cols-7">
-						<div class="col-md"></div>
-						<button type="button" v-bind:class="{ 'disabled': day === 0 }"
-							class="btn btn-primary btn-sm mt-md-2 mt-4 me-3 col" @click="day--">
-							←
-						</button>
-
-						<button type="button" class="btn btn-primary btn-sm mt-md-2 mt-4 col"
-							@click="resetSetup(); setup.init = true">
-							Edit
-						</button>
-
-						<form class="mt-md-2 mt-4 col"
-							action="https://drive.google.com/file/d/1vihv_W7pswT1Mwmi5_L4H5KD3UBbr2Io/view?usp=sharing"
-							method="get" target="_blank">
-							<button type="submit" class="btn btn-primary btn-sm w-100">
-								Map
-							</button>
-						</form>
-
-						<button class="btn btn-secondary btn-sm mt-md-2 mt-4 me-3 col" @click="configMenu()">
-							More
-						</button>
-
-
-						<button type="button" v-bind:class="{ 'disabled': day === 6 }"
-							class="btn btn-danger btn-sm mt-md-2 mt-4 col" @click="day++">
-							→
-						</button>
-						<div class="col-md"></div>
-					</div>
-				</div>
 
 
 				<div v-show="!hide" class="mt-4">

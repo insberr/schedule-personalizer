@@ -752,7 +752,6 @@ const main = Vue.createApp({
 	}
 }).mount("#main");
 
-
 main.$.appContext.config.errorHandler = (err, vm, info) => {
 	if (JSON.parse(localStorage.getItem('data')) !== {}) {
 		localStorage.setItem('data', '{ }');

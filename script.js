@@ -216,14 +216,14 @@ const lunches = { // lunch, these are teacher ids that identify teachers within 
 
 const noSchool = [
 	{ we: true },
-	{ p: 'study', time: 'Theres no school today Silly!' }
+	{ p: 'study', time: 'Theres no school today, Silly!' }
 ]
 
 const end = [
 	{
 		we: true
 	},
-	{ p: 'study', time: 'Its The Weekend Silly!' },
+	{ p: 'study', time: 'Its The Weekend, Silly!' },
 ];
 
 const earlyDismissal1 = [

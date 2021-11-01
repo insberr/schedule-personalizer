@@ -274,29 +274,31 @@ const earlyDismissal4 = [
 		}
 	}
 */
+
+const eventLateStartDay = {
+	details: "1 Hour Late Start",
+	schedule: lateStart,
+}
+
 const events = {
-	9: {
-		21: {
-			details: "Early dismissal (K-12)",
-			schedule: earlyDismissal1
+	10: {
+		3: eventLateStartDay,
+		11: {
+			details: "Veterans Day – No School",
+			schedule: noSchool,
 		},
-		// no school on the 22nd
-		22: {
-			details: "No school for students",
-			schedule: noSchool
+		17: eventLateStartDay,
+		24: {
+			details: "Thanksgiving Break - No School",
+			schedule: noSchool,
 		},
-		// early dismissal 27-29 (6-12)
-		27: {
-			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal2
+		25: {
+			details: "Thanksgiving Break - No School",
+			schedule: noSchool,
 		},
-		28: {
-			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal3
-		},
-		29: {
-			details: "Early dismissal (6-12)",
-			schedule: earlyDismissal4
+		26: {
+			details: "Thanksgiving Break - No School",
+			schedule: noSchool,
 		},
 	}
 }

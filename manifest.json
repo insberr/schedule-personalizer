@@ -14,7 +14,7 @@
     }
   ],
   "start_url": "/schedule-personalizer/",
-  "background_color": "#DC143C",
+  "background_color": "#1c1c1c",
   "display": "standalone",
   "scope": "/schedule-personalizer/",
   "theme_color": "#DC143C",

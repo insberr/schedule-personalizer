@@ -284,8 +284,13 @@ const events = {
 	10: {
 		3: eventLateStartDay,
 		9: {
-			details: "2 Hour Late Start - Due to power outages",
-			schedule: [ { p: "1", time: "Today's schedule will be added soon" }, ],
+			details: "School Canceled - Due to power outages",
+			schedule: [
+				{
+					we: true
+				},
+				{ p: 'study', time: 'No school today, you better study for that quiz : )' },
+			],
 		},
 		11: {
 			details: "Veterans Day – No School",

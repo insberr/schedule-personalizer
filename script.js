@@ -1,7 +1,6 @@
 import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/date-fns';
 const api_url = "https://bhsdb.wackery.com/api";
 
-let t = new Date().setDate(8);
 function toTitleCase(text) {
     if (typeof text !== "string") {
         return text;
@@ -655,12 +654,13 @@ function isPWA() {
 var popoverTriggerList = [].slice.call(
     document.querySelectorAll('[data-bs-toggle="popover"]')
 );
+/*
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl);
 });
 
 var buttonInstall = document.getElementById("installbutton");
-
+*/
 window.addEventListener("load", function () {
     if (isPWA()) {
         localStorage.setItem("installed", true);

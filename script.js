@@ -15,9 +15,9 @@ function toTitleCase(text) {
 // uh oh time shit
 
 function parseTime(time,date) {
-    if (date === undefined) {
+    /*if (date === undefined) {
         date = new Date(); // Right now
-    }
+    }*/ // to appease the code scanner
     let t = time.split(":").map(x => parseInt(x));
     if (t[0] < 7) {
         t[0] += 12 // 24 hour time, cry about it

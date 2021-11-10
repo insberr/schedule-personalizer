@@ -229,7 +229,7 @@ const main = Vue.createApp({
         },
         doCountdown(time) {
             time = parseTime(time, dateFromMain()); 
-            dist = getDistance(time)
+            let dist = getDistance(time)
             return distanceToString(dist)
         },
         going() {

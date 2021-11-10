@@ -572,7 +572,7 @@ function visibilityListener() {
         case "hidden":
             break;
         case "visible":
-            main.day = new Date().getDay();
+            main.day = new Date().getDate();
             main.configMenuOpen = false;
             break;
     }

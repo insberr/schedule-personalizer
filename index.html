@@ -446,37 +446,6 @@
 						<strong>{{ scheduleEvent !== null ? scheduleEvent.details : '' }}</strong>
 					</div>
 
-					<div class="modal fade" id="classModel" data-bs-backdrop="static" data-bs-keyboard="false"
-						tabindex="-1" aria-labelledby="classModelLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="classModelLabel">{{ classModel !== null ? perName(classModel) : "" }}</h5>
-								</div>
-								<div class="modal-body" id="bodytext">
-									<!-- other calss infor -->
-									<strong>Teacher: </strong>
-									<span>
-										{{ classModel !== null ?  perTeacher(classModel).name : "-" }}
-									</span>
-									<br>
-									<strong>Email: </strong>
-									<span>
-										<a v-bind:href="'mailto:' + (classModel !== null ? perTeacher(classModel).email : '')">
-											{{ classModel !== null ? perTeacher(classModel).email : "-" }}
-										</a>
-									</span>
-									<br>
-									<strong>Room: </strong>
-									<span>{{ classModel !== null ? (rooms['p' + classModel.p] ? rooms['p' + classModel.p] : '-') : "-" }}</span>
-								</div>
-								<div class="modal-footer">
-									<button type="button" id="classModelButtonOk" class="btn btn-danger">Ok</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<!-- hidden because not remote -->
 					<table v-if="false" class="d-none d-sm-block table table-borderless"
 						style="margin-top: 10px; min-width: 936px">
@@ -539,6 +508,39 @@
 						</tbody>
 					</table>
 				</div>
+
+				<div class="modal fade" id="classModel" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="classModelLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="classModelLabel">{{ classModel !== null ? perName(classModel) : "" }}</h5>
+							</div>
+							<div class="modal-body" id="bodytext">
+								<!-- other calss infor -->
+								<strong>Teacher: </strong>
+								<span>
+									{{ classModel !== null ?  perTeacher(classModel).name : "-" }}
+								</span>
+								<br>
+								<strong>Email: </strong>
+								<span>
+									<a v-bind:href="'mailto:' + (classModel !== null ? perTeacher(classModel).email : '')">
+										{{ classModel !== null ? perTeacher(classModel).email : "-" }}
+									</a>
+								</span>
+								<br>
+								<strong>Room: </strong>
+								<span>{{ classModel !== null ? (rooms['p' + classModel.p] ? rooms['p' + classModel.p] : '-') : "-" }}</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="classModelButtonOk" class="btn btn-danger">Ok</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+					
 				<!-- hidden because not remote -->
 				<div v-if="false">
 					<button type="button" class="mt-2 btn btn-primary" v-show="hide" @click="hide = false">

@@ -1,6 +1,6 @@
+import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/pin/date-fns@v2.25.0-afU7qHImK3sVEDiJRpTD/mode=imports,min/optimized/date-fns.js';
 const api_url = "https://bhsdb.wackery.com/api";
 
-let t = new Date().setDate(8);
 function toTitleCase(text) {
     if (typeof text !== "string") {
         return text;
@@ -11,6 +11,45 @@ function toTitleCase(text) {
         return newText.replace("Ela", "ELA").replace("Us", "US");
     }
 }
+
+// uh oh time shit
+
+function parseTime(time,date) {
+    /*if (date === undefined) {
+        date = new Date(); // Right now
+    }*/ // to appease the code scanner
+    let t = time.split(":").map(x => parseInt(x));
+    if (t[0] < 7) {
+        t[0] += 12 // 24 hour time, cry about it
+    }
+    date.setHours(t[0]);
+    date.setMinutes(t[1]);
+    date.setSeconds(0);
+    return date
+}
+
+function distanceToString(distance) {
+    let durat = formatDuration(distance, {
+        format: ["days","hours","minutes","seconds"]
+    })
+    return (durat == "" ? "-" : durat + " left"); 
+}
+
+function dateFromMain() {
+    return new Date(main.year, main.month, main.day);   
+}
+
+function getDistance(endtime) {
+    if (isAfter(new Date(), endtime)) {
+        return { seconds: 0 }
+    }
+    return intervalToDuration({
+        start: new Date(),
+        end: endtime
+    })
+}
+
+// thank god thats over
 
 const main = Vue.createApp({
     data() {
@@ -30,6 +69,12 @@ const main = Vue.createApp({
                 },
                 loggingIn: false,
                 loginError: "",
+            },
+            countdowns: {
+                "start": -1,
+                "end": -1,
+                "cstart": "0",
+                "cend": "0"
             },
             full: false,
 			// week: new Date().getDay(),
@@ -185,6 +230,11 @@ const main = Vue.createApp({
                 version: this.version,
             };
             localStorage.setItem("data", JSON.stringify(data_new));
+        },
+        doCountdown(time) {
+            time = parseTime(time, dateFromMain()); 
+            let dist = getDistance(time)
+            return distanceToString(dist)
         },
         going() {
 			let weekDay = new Date(this.year, this.month, this.day).getDay();
@@ -442,13 +492,22 @@ const main = Vue.createApp({
 		openClassModel(per) {
 			if (per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero') return;
 			this.classModel = per;
-
+            let starti = setInterval(() => { 
+                this.countdowns.cstart = this.doCountdown(per.time.split(' - ')[0]);
+            },1000);
+            let endi = setInterval(() => { 
+                this.countdowns.cend = this.doCountdown(per.time.split(' - ')[1]);
+            }, 1000);
+            this.countdowns.cstart = this.doCountdown(per.time.split(' - ')[0]);
+            this.countdowns.cend = this.doCountdown(per.time.split(' - ')[1]);
 			let classModel = new bootstrap.Modal(
 				document.getElementById("classModel"),
 				{ backdrop: "static", keyboard: false, focus: true }
 			);
 
-			document.getElementById("classModelButtonOk").onclick = function () {
+			document.getElementById("classModelButtonOk").onclick = () => {
+                clearInterval(starti)
+                clearInterval(endi)
 				classModel.hide();
 			};
 
@@ -541,10 +600,6 @@ const main = Vue.createApp({
 }).mount("#main");
 
 main.$.appContext.config.errorHandler = (err, vm, info) => {
-    if (JSON.parse(localStorage.getItem("data")) !== {}) {
-        localStorage.setItem("data", "{ }");
-        console.log("localstorage cleared to try fixing the problem");
-    }
     console.log(err + info);
 };
 
@@ -595,16 +650,17 @@ function getPWADisplayMode() {
 function isPWA() {
     return getPWADisplayMode() != "browser";
 }
-
+/*
 var popoverTriggerList = [].slice.call(
     document.querySelectorAll('[data-bs-toggle="popover"]')
 );
+
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl);
 });
 
 var buttonInstall = document.getElementById("installbutton");
-
+*/
 window.addEventListener("load", function () {
     if (isPWA()) {
         localStorage.setItem("installed", true);

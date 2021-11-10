@@ -1,4 +1,4 @@
-import { intervalToDuration, formatDuration } from 'https://cdn.skypack.dev/date-fns';
+import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/date-fns';
 const api_url = "https://bhsdb.wackery.com/api";
 
 let t = new Date().setDate(8);
@@ -30,10 +30,10 @@ function parseTime(time,date) {
 }
 
 function distanceToString(distance) {
-
-    return formatDuration(distance, {
+    let durat = formatDuration(distance, {
         format: ["days","hours","minutes","seconds"]
     })
+    return (durat == "" ? "-" : durat + " left"); 
 }
 
 function dateFromMain() {
@@ -41,6 +41,9 @@ function dateFromMain() {
 }
 
 function getDistance(endtime) {
+    if (isAfter(new Date(), endtime)) {
+        return { seconds: 0 }
+    }
     return intervalToDuration({
         start: new Date(),
         end: endtime

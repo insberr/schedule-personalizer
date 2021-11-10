@@ -1,4 +1,4 @@
-import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/date-fns';
+import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/pin/date-fns@v2.25.0-afU7qHImK3sVEDiJRpTD/mode=imports,min/optimized/date-fns.js';
 const api_url = "https://bhsdb.wackery.com/api";
 
 function toTitleCase(text) {

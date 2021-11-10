@@ -532,6 +532,10 @@
 								<br>
 								<strong>Room: </strong>
 								<span>{{ classModel !== null ? (rooms['p' + classModel.p] ? rooms['p' + classModel.p] : '-') : "-" }}</span>
+								<br><strong>Time until begins: </strong>
+								<span> {{ countdowns.cstart }} </span>
+								<br><strong>Time until ends: </strong>
+								<span> {{ countdowns.cend }} </span>
 							</div>
 							<div class="modal-footer">
 								<button type="button" id="classModelButtonOk" class="btn btn-danger">Ok</button>

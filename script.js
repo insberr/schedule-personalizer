@@ -1,4 +1,9 @@
-import { intervalToDuration, formatDuration, isAfter } from 'https://cdn.skypack.dev/pin/date-fns@v2.25.0-afU7qHImK3sVEDiJRpTD/mode=imports,min/optimized/date-fns.js';
+import {
+    intervalToDuration,
+    formatDuration,
+    isAfter,
+} from "https://cdn.skypack.dev/pin/date-fns@v2.25.0-afU7qHImK3sVEDiJRpTD/mode=imports,min/optimized/date-fns.js";
+
 const api_url = "https://bhsdb.wackery.com/api";
 
 function toTitleCase(text) {
@@ -14,39 +19,39 @@ function toTitleCase(text) {
 
 // uh oh time shit
 
-function parseTime(time,date) {
+function parseTime(time, date) {
     /*if (date === undefined) {
         date = new Date(); // Right now
     }*/ // to appease the code scanner
-    let t = time.split(":").map(x => parseInt(x));
+    let t = time.split(":").map((x) => parseInt(x));
     if (t[0] < 7) {
-        t[0] += 12 // 24 hour time, cry about it
+        t[0] += 12; // 24 hour time, cry about it
     }
     date.setHours(t[0]);
     date.setMinutes(t[1]);
     date.setSeconds(0);
-    return date
+    return date;
 }
 
 function distanceToString(distance) {
     let durat = formatDuration(distance, {
-        format: ["days","hours","minutes","seconds"]
-    })
-    return (durat == "" ? "-" : durat + " left"); 
+        format: ["days", "hours", "minutes", "seconds"],
+    });
+    return durat == "" ? "-" : durat + " left";
 }
 
 function dateFromMain() {
-    return new Date(main.year, main.month, main.day);   
+    return new Date(main.year, main.month, main.day);
 }
 
 function getDistance(endtime) {
     if (isAfter(new Date(), endtime)) {
-        return { seconds: 0 }
+        return { seconds: 0 };
     }
     return intervalToDuration({
         start: new Date(),
-        end: endtime
-    })
+        end: endtime,
+    });
 }
 
 // thank god thats over
@@ -71,19 +76,33 @@ const main = Vue.createApp({
                 loginError: "",
             },
             countdowns: {
-                "start": -1,
-                "end": -1,
-                "cstart": "0",
-                "cend": "0"
+                start: -1,
+                end: -1,
+                cstart: "0",
+                cend: "0",
+            },
+            trimesters: {
+                t1: {
+                    start: new Date("September 7, 2021"),
+                    schedule: [],
+                },
+                t2: {
+                    start: new Date("December 8, 2021"),
+                    schedule: [],
+                },
+                t3: {
+                    start: new Date("March 25, 2022"),
+                    schedule: [],
+                },
             },
             full: false,
-			// week: new Date().getDay(),
+            // week: new Date().getDay(),
             day: new Date().getDate(),
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             dayChanged: false,
             configMenuOpen: false,
-			classModel: null,
+            classModel: null,
             hide: true,
             lunch: "1",
             cohort: "normal",
@@ -153,7 +172,7 @@ const main = Vue.createApp({
                 // t: [end, in1, in1, wed, in2, in2, end],
             },
             scheduleEvent: null,
-            version: 2,
+            version: 3,
         };
     },
     created() {
@@ -197,10 +216,17 @@ const main = Vue.createApp({
 
             this.setup.studentVue.rememberMe = data.rememberMe || false;
             this.setup.studentVue.lastLogin = data.lastLogin || new Date();
+
+            this.trimesters.t1.schedule = data.trimesters.t1 || [];
+            this.trimesters.t2.schedule = data.trimesters.t2 || [];
+            this.trimesters.t3.schedule = data.trimesters.t3 || [];
         }
         this.save();
 
         this.scheduleEventCheck();
+        this.setClassesFromTerm(
+            this.getTermForDate(new Date(this.year, this.month, this.day))
+        );
 
         // main.week =
         //    Math.floor(main.daysInMonth(main.month, main.year) / 7) -
@@ -228,24 +254,29 @@ const main = Vue.createApp({
                 rememberMe: this.setup.studentVue.rememberMe,
                 teachers: this.teachers,
                 version: this.version,
+                trimesters: {
+                    t1: this.trimesters.t1.schedule,
+                    t2: this.trimesters.t2.schedule,
+                    t3: this.trimesters.t3.schedule,
+                }
             };
             localStorage.setItem("data", JSON.stringify(data_new));
         },
         doCountdown(time) {
-            time = parseTime(time, dateFromMain()); 
-            let dist = getDistance(time)
-            return distanceToString(dist)
+            time = parseTime(time, dateFromMain());
+            let dist = getDistance(time);
+            return distanceToString(dist);
         },
         going() {
-			let weekDay = new Date(this.year, this.month, this.day).getDay();
+            let weekDay = new Date(this.year, this.month, this.day).getDay();
             if (this.cohort === "t") return true;
             if (this.full) return false;
-			
-			if (this.schedule[this.cohort][this.weekDay]?.going === undefined) {
-				return true;
-			}
-			
-			return this.schedule[this.cohort][this.weekDay].going;
+
+            if (this.schedule[this.cohort][this.weekDay]?.going === undefined) {
+                return true;
+            }
+
+            return this.schedule[this.cohort][this.weekDay].going;
         },
         dayName() {
             var days = [
@@ -296,7 +327,7 @@ const main = Vue.createApp({
                 : pd;
         },
         perTeacher(per) {
-			if (per === undefined) return "error getting teacher";
+            if (per === undefined) return "error getting teacher";
             if (
                 per.p === "arr" ||
                 per.p === "dism" ||
@@ -309,6 +340,17 @@ const main = Vue.createApp({
         },
         configMenu() {
             this.configMenuOpen = !this.configMenuOpen;
+        },
+        getTermForDate(date) {
+            if (date < this.trimesters.t3.start) {
+                if (date < this.trimesters.t2.start) {
+                    return 1;
+                }
+                // else t2
+                return 2;
+            }
+            // else t3
+            return 3;
         },
         studentVueLogin() {
             console.log("logging in");
@@ -364,77 +406,47 @@ const main = Vue.createApp({
                             })
                             .then(() => {
                                 // display model
-                                this.openModel().then(
-                                    () => {
+                                this.openModel().then(async () => {
                                         // todo: use a loop to get all 3 terms, im lazy and its late
-                                        fetch(api_url + "/get_schedule", {
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type":
-                                                    "application/json",
-                                            },
-                                            body: JSON.stringify({
-                                                username:
-                                                    this.setup.studentVue
-                                                        .username,
-                                                password:
-                                                    this.setup.studentVue
-                                                        .password,
-                                            }),
-                                        })
-                                            .then((res) => res.json())
-                                            .then((json) => {
-                                                for (let classPD of json.content
-                                                    .ClassLists.ClassListing) {
-                                                    if (classPD.Period == 8) {
-                                                        // advisory, add that here
-                                                        main.rooms["padv"] =
-                                                            toTitleCase(
-                                                                classPD.RoomName
-                                                            );
-                                                        main.teachers[
-                                                            "padv"
-                                                        ].name = toTitleCase(
-                                                            classPD.Teacher
-                                                        );
-                                                        main.teachers[
-                                                            "padv"
-                                                        ].email =
-                                                            classPD.TeacherEmail.toLowerCase();
-                                                        continue;
-                                                    }
-                                                    if (classPD.Period == 3) {
-                                                        this.setup.studentVue.lunchid =
-                                                            classPD.TeacherStaffGU;
-                                                    }
-                                                    main.classes[
-                                                        "p" + classPD.Period
-                                                    ] = toTitleCase(
-                                                        classPD.CourseTitle
-                                                    );
-                                                    main.rooms[
-                                                        "p" + classPD.Period
-                                                    ] = toTitleCase(
-                                                        classPD.RoomName
-                                                    );
 
-                                                    main.teachers[
-                                                        "p" + classPD.Period
-                                                    ].name = toTitleCase(
-                                                        classPD.Teacher
-                                                    );
-                                                    main.teachers[
-                                                        "p" + classPD.Period
-                                                    ].email =
-                                                        classPD.TeacherEmail.toLowerCase();
-                                                }
+                                        for await (let i of [0, 1, 2]) {
+                                            await fetch(api_url + "/get_schedule", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                    username:
+                                                        this.setup.studentVue
+                                                            .username,
+                                                    password:
+                                                        this.setup.studentVue
+                                                            .password,
+                                                    term: i,
+                                                }),
+                                            })
+                                                .then((res) => res.json())
+                                                .then((json) => {
+                                                    this.trimesters[
+                                                        "t" + (i + 1)
+                                                    ].schedule =
+                                                        json.content.ClassLists.ClassListing;
 
-                                                this.runLunchDetect();
-                                                main.save();
-                                                console.log("schedule t1:");
-                                                console.log(json);
-                                                this.setup.loggingIn = false;
-                                            });
+                                                    main.save();
+                                                    console.log(
+                                                        "schedule t" + i + ":"
+                                                    );
+                                                    console.log(json);
+                                                });
+                                        }
+
+                                        this.setup.loggingIn = false;
+                                        this.runLunchDetect();
+                                        this.setClassesFromTerm(
+                                            this.getTermForDate(new Date(this.year, this.month, this.day))
+                                        );
+                                        this.setupDone();
                                     },
                                     () => {
                                         // user said no to prompt
@@ -447,6 +459,42 @@ const main = Vue.createApp({
             // .catch((err) => { console.log("Error: " + err) });
 
             main.setup.studentVue.lastLogin = new Date();
+
+        },
+        setClassesFromTerm(term) {
+            if (this.trimesters["t" + term].schedule.length === 0) {
+                console.log("error getting classes for the term");
+                return;
+            }
+
+            for (let classPD of this.trimesters["t" + term].schedule) {
+                if (classPD.Period == 8) {
+                    // advisory, add that here
+                    this.rooms["padv"] = toTitleCase(classPD.RoomName);
+                    this.teachers["padv"].name = toTitleCase(classPD.Teacher);
+                    this.teachers["padv"].email =
+                        classPD.TeacherEmail.toLowerCase();
+                    continue;
+                }
+                if (classPD.Period == 3) {
+                    this.setup.studentVue.lunchid = classPD.TeacherStaffGU;
+                }
+                this.classes["p" + classPD.Period] = toTitleCase(
+                    classPD.CourseTitle
+                );
+                this.rooms["p" + classPD.Period] = toTitleCase(
+                    classPD.RoomName
+                );
+
+                this.teachers["p" + classPD.Period].name = toTitleCase(
+                    classPD.Teacher
+                );
+                this.teachers["p" + classPD.Period].email =
+                    classPD.TeacherEmail.toLowerCase();
+            }
+
+            this.runLunchDetect();
+            this.save();
         },
         updateLunch(teacherid) {
             if (teacherid in lunches) {
@@ -459,7 +507,7 @@ const main = Vue.createApp({
             if (this.setup.studentVue.lunchid != "") {
                 if (this.updateLunch(this.setup.studentVue.lunchid)) {
                     console.log("Lunch was detected sucessfully");
-                    this.setupDone();
+                    // this.setupDone();
                 } else {
                     console.log("Lunch was not found! displaying prompt");
                     main.setup.step++;
@@ -489,30 +537,41 @@ const main = Vue.createApp({
                 gamerpopup.show();
             }); // please refactor i dont do promises
         },
-		openClassModel(per) {
-			if (per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero') return;
-			this.classModel = per;
-            let starti = setInterval(() => { 
-                this.countdowns.cstart = this.doCountdown(per.time.split(' - ')[0]);
-            },1000);
-            let endi = setInterval(() => { 
-                this.countdowns.cend = this.doCountdown(per.time.split(' - ')[1]);
+        openClassModel(per) {
+            if (
+                per.p === "study" ||
+                per.p === "lnc" ||
+                per.p === "arr" ||
+                per.p === "dism" ||
+                per.p === "zero"
+            )
+                return;
+            this.classModel = per;
+            let starti = setInterval(() => {
+                this.countdowns.cstart = this.doCountdown(
+                    per.time.split(" - ")[0]
+                );
             }, 1000);
-            this.countdowns.cstart = this.doCountdown(per.time.split(' - ')[0]);
-            this.countdowns.cend = this.doCountdown(per.time.split(' - ')[1]);
-			let classModel = new bootstrap.Modal(
-				document.getElementById("classModel"),
-				{ backdrop: "static", keyboard: false, focus: true }
-			);
+            let endi = setInterval(() => {
+                this.countdowns.cend = this.doCountdown(
+                    per.time.split(" - ")[1]
+                );
+            }, 1000);
+            this.countdowns.cstart = this.doCountdown(per.time.split(" - ")[0]);
+            this.countdowns.cend = this.doCountdown(per.time.split(" - ")[1]);
+            let classModel = new bootstrap.Modal(
+                document.getElementById("classModel"),
+                { backdrop: "static", keyboard: false, focus: true }
+            );
 
-			document.getElementById("classModelButtonOk").onclick = () => {
-                clearInterval(starti)
-                clearInterval(endi)
-				classModel.hide();
-			};
+            document.getElementById("classModelButtonOk").onclick = () => {
+                clearInterval(starti);
+                clearInterval(endi);
+                classModel.hide();
+            };
 
-			classModel.show();
-		},
+            classModel.show();
+        },
         setupDone() {
             this.setup.init = false;
             this.save();
@@ -529,16 +588,36 @@ const main = Vue.createApp({
         },
         scheduleEventCheck() {
             // return an event, if any
-            this.scheduleEvent = getEventFor(this.day, this.month, this.year, this.cohort);
+            this.scheduleEvent = getEventFor(
+                this.day,
+                this.month,
+                this.year,
+                this.cohort
+            );
 
-			if (this.scheduleEvent === null) {
-				return this.schedule[this.cohort] = [...this.schedule[this.cohort + "_default"]];
-			}
+            if (this.scheduleEvent === null) {
+                return (this.schedule[this.cohort] = [
+                    ...this.schedule[this.cohort + "_default"],
+                ]);
+            }
 
-			this.schedule[this.cohort][new Date(this.year, this.month, this.day).getDay()] = this.scheduleEvent.schedule;
+            this.schedule[this.cohort][
+                new Date(this.year, this.month, this.day).getDay()
+            ] = this.scheduleEvent.schedule;
         },
         currentLookingAtDay() {
-			return (this.month + 1) + "/" + this.day + "/" + this.year + (compareDates(this.year, this.month, this.day) && this.dayChanged ? " - Today" : "");
+            return (
+                this.month +
+                1 +
+                "/" +
+                this.day +
+                "/" +
+                this.year +
+                (compareDates(this.year, this.month, this.day) &&
+                this.dayChanged
+                    ? " - Today"
+                    : "")
+            );
         },
         daysInMonth(month, year) {
             return new Date(year, month, 0).getDate();
@@ -560,27 +639,31 @@ const main = Vue.createApp({
         day() {
             this.dayChanged = true;
 
-			if (this.daysInMonth(this.year, this.month + 1) < this.day) {
-				this.day = 1;
-				this.month++;
+            if (this.daysInMonth(this.year, this.month + 1) < this.day) {
+                this.day = 1;
+                this.month++;
 
-				if (this.month > 11) {
-					this.month = 0;
-					this.year++;
-				}
-			}
+                if (this.month > 11) {
+                    this.month = 0;
+                    this.year++;
+                }
+            }
 
-			if (this.day < 1) {
-				this.day = this.daysInMonth(this.year, this.month);
-				this.month--;
+            if (this.day < 1) {
+                this.day = this.daysInMonth(this.year, this.month);
+                this.month--;
 
-				if (this.month < 0) {
-					this.month = 11;
-					this.year--;
-				}
-			}
+                if (this.month < 0) {
+                    this.month = 11;
+                    this.year--;
+                }
+            }
 
-			this.scheduleEventCheck();
+            this.scheduleEventCheck();
+
+            this.setClassesFromTerm(
+                this.getTermForDate(new Date(this.year, this.month, main.day))
+            );
         },
     },
     computed: {
@@ -593,9 +676,9 @@ const main = Vue.createApp({
                 localStorage.getItem("installed") === "true"
             );
         },
-		week: function () {
-			return new Date(this.year, this.month, this.day).getDay();
-		},
+        week: function () {
+            return new Date(this.year, this.month, this.day).getDay();
+        },
     },
 }).mount("#main");
 

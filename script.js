@@ -185,7 +185,8 @@ const main = Vue.createApp({
             );
             this.save();
             console.log("reset data due to a newer data version");
-            return;
+
+            // return;
         }
 
         if (data) {
@@ -217,9 +218,13 @@ const main = Vue.createApp({
             this.setup.studentVue.rememberMe = data.rememberMe || false;
             this.setup.studentVue.lastLogin = data.lastLogin || new Date();
 
-            this.trimesters.t1.schedule = data.trimesters.t1 || [];
-            this.trimesters.t2.schedule = data.trimesters.t2 || [];
-            this.trimesters.t3.schedule = data.trimesters.t3 || [];
+            if (data.trimesters !== undefined) {
+                this.trimesters.t1.schedule = data.trimesters.t1 || [];
+                this.trimesters.t2.schedule = data.trimesters.t2 || [];
+                this.trimesters.t3.schedule = data.trimesters.t3 || [];
+            } else {
+                this.studentVueLogin();
+            }
         }
         this.save();
 

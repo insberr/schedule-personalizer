@@ -303,11 +303,69 @@ const events = {
             },
         },
         11: {
-            placeholder: "december events not added yet",
+            1: eventLateStartDay,
+            8: {
+                details: "No School",
+                schedule: noSchool,
+            },
+            15: eventLateStartDay,
+            // 20th - 31st is No School - Winter Break
+            20: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            21: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            22: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            23: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            24: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            27: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            28: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            29: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            30: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
+            31: {
+                details: "Winter Break - No School",
+                schedule: noSchool,
+            },
         },
     },
     2022: {
-        placeholder: "no events added",
+        0: {
+            5: eventLateStartDay,
+            12: eventLateStartDay,
+            17: {
+                details: "Martin Luther King, Jr. Day - No School",
+                schedule: noSchool,
+            },
+            19: eventLateStartDay,
+            26: {
+                details: "No School",
+                schedule: noSchool,
+            },
+        }
     },
 };
 

@@ -407,7 +407,7 @@ const main = Vue.createApp({
                             .then(() => {
                                 // display model
                                 this.openModel().then(async () => {
-                                        // todo: use a loop to get all 3 terms, im lazy and its late
+                                        // todo: make the api actuall return the trimester for 'term'
 
                                         for await (let i of [0, 1, 2]) {
                                             await fetch(api_url + "/get_schedule", {

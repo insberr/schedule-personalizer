@@ -37,12 +37,12 @@
 </head>
 
 <body>
-	<div id="loading">
-		<span>Loading</span>
+	<div id="loading" class="d-flex align-items-center justify-content-center">
+		<div>Loading</div>
 		<div class="spinner-border text-danger" role="status">
 			<span class="visually-hidden">Loading...</span>
 		</div>
-	</div>
+</div>
 
 	<div class="container" id="main" v-cloak>
 		<div v-show="!configMenuOpen && setup.init">

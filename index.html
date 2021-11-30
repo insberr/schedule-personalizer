@@ -613,6 +613,11 @@
 					<strong>Day: {{ day }}</strong>
 				</div>
 				<div class="mt-2">
+					<strong>Month: {{ month }}</strong>
+					<br>
+					<strong>Days in month: {{ daysInMonth(year, month + 1) }}</strong>
+				</div>
+				<div class="mt-2">
 					<strong>Stay Logged In: {{ setup.studentVue.rememberMe }}</strong>
 				</div>
 				<div class="mt-2">

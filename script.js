@@ -656,7 +656,7 @@ const main = Vue.createApp({
 
             if (this.day < 1) {
                 this.month--;
-                this.day = this.daysInMonth(this.year, this.month + 1);
+                this.day = this.daysInMonth(this.year, this.month);
 
                 if (this.month < 0) {
                     this.month = 11;

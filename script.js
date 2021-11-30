@@ -624,7 +624,7 @@ const main = Vue.createApp({
                     : "")
             );
         },
-        daysInMonth(month, year) {
+        daysInMonth(year, month) {
             return new Date(year, month, 0).getDate();
         },
     },

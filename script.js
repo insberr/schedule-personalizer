@@ -716,6 +716,8 @@ function visibilityListener() {
             break;
         case "visible":
             main.day = new Date().getDate();
+            main.month = new Date().getMonth();
+            main.year = new Date().getFullYear();
             main.configMenuOpen = false;
             break;
     }

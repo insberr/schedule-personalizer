@@ -157,6 +157,16 @@ const lateStart = [
     { p: "dism", time: "2:05 - 2:10" },
 ];
 
+const earlyDismissal = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "1", time: "7:35 - 8:00" },
+    { p: "2", time: "8:05 - 8:30" },
+    { p: "3", time: "8:35 - 9:00" },
+    { p: "4", time: "9:05 - 9:30" },
+    { p: "5", time: "9:35 - 10:05" },
+    { p: "dism", time: "10:05 - 10:10" },
+];
+
 const lunches = {
     // lunch, these are teacher ids that identify teachers within the district.
     "1522F63C-385F-4A8F-B89D-3E6F46012FE3": 1,
@@ -305,6 +315,10 @@ const events = {
         },
         11: {
             1: eventLateStartDay,
+            7: {
+                details: "End of Trimester 1 - Early Dismissal (6-12)",
+                schedule: earlyDismissal,
+            },
             8: {
                 details: "No School",
                 schedule: noSchool,

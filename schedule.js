@@ -345,6 +345,28 @@ const events = {
                 details: "No School",
                 schedule: noSchool,
             },
+					14: {
+						details: "Icy Roads - 2 Hour Delay",
+						schedule: [
+    { p: "arr", time: "9:15 - 9:30" },
+    { p: "1", time: "9:35 - 10:15" },
+    { p: "2", time: "10:20 - 11:00" },
+
+    { p: "lnc", time: "11:00 - 11:30", l: "1" },
+    { p: "3", time: "11:35 - 12:35", l: "1" },
+
+    { p: "3", time: "11:05 - 11:30", l: "2" },
+    { p: "lnc", time: "11:30 - 12:00", l: "2" },
+    { p: "3", time: "12:05 - 12:35", l: "2" },
+
+    { p: "3", time: "11:05 - 12:05", l: "3" },
+    { p: "lnc", time: "12:05 - 12:35", l: "3" },
+
+    { p: "4", time: "12:40 - 1:20" },
+    { p: "5", time: "1:25 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" },
+],
+					},
             15: eventLateStartDay,
             // 20th - 31st is No School - Winter Break
             20: {

@@ -368,6 +368,10 @@ const events = {
 ],
 					},
             15: eventLateStartDay,
+					17: {
+						details: "For some reason its advisory today",
+						schedule: adv,
+					},
             // 20th - 31st is No School - Winter Break
             20: {
                 details: "Winter Break - No School",

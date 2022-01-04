@@ -423,6 +423,10 @@ const events = {
 		details: "Icy Roads - 2 Hr delay",
                 schedule: twohr,
 	},
+	    4: {
+		details: "Icy Roads - 2 Hr delay",
+                schedule: twohr,
+	    },
             5: eventLateStartDay,
             12: eventLateStartDay,
             17: {

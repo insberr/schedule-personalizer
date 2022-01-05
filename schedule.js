@@ -427,7 +427,8 @@ const events = {
 		details: "Icy Roads - 2 Hr delay",
                 schedule: twohr,
 	    },
-            5: eventLateStartDay,
+            // 5: eventLateStartDay,
+					5: { schedule: twohr, details: "Ice and Stuff - 2 Hour Delay" },
             12: eventLateStartDay,
             17: {
                 details: "Martin Luther King, Jr. Day - No School",

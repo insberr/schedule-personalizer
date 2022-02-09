@@ -605,10 +605,11 @@ const main = Vue.createApp({
                     ...this.schedule[this.cohort + "_default"],
                 ]);
             }
-
-            this.schedule[this.cohort][
-                new Date(this.year, this.month, this.day).getDay()
-            ] = this.scheduleEvent.schedule;
+			if (this.scheduleEvent.schedule !== "normal") { 
+				this.schedule[this.cohort][
+					new Date(this.year, this.month, this.day).getDay()
+				] = this.scheduleEvent.schedule;
+			}
         },
         currentLookingAtDay() {
             return (

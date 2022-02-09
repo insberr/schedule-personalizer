@@ -418,28 +418,55 @@ const events = {
         },
     },
     2022: {
-        0: {
-	3: {
-		details: "Icy Roads - 2 Hr delay",
-                schedule: twohr,
-	},
-	    4: {
-		details: "Icy Roads - 2 Hr delay",
-                schedule: twohr,
-	    },
-            // 5: eventLateStartDay,
-					5: { schedule: twohr, details: "Ice and Stuff - 2 Hour Delay" },
+	    0: {
+		    3: {
+			details: "Icy Roads - 2 Hr delay",
+                	schedule: twohr,
+		   	},
+	    	4: {
+			details: "Icy Roads - 2 Hr delay",
+                	schedule: twohr,
+	    	},
+            	// 5: eventLateStartDay,
+			5: { schedule: twohr, details: "Ice and Stuff - 2 Hour Delay" },
             12: eventLateStartDay,
             17: {
-                details: "Martin Luther King, Jr. Day - No School",
-                schedule: noSchool,
+				details: "Martin Luther King, Jr. Day - No School",
+				schedule: noSchool,
             },
-            19: eventLateStartDay,
-            26: {
-                details: "No School",
-                schedule: noSchool,
-            },
-        }
+	    	19: eventLateStartDay,
+	    	26: {
+				details: "No School",
+				schedule: noSchool,
+	    	},
+        },
+		1: {
+			9: eventLateStartDay,
+			16: eventLateStartDay,
+			21: { details: "President's Day - No School", schedule: noSchool },
+			22: { details: "Waiver Day #2 - No School", schedule: noSchool },
+		},
+		2: {
+			2: eventLateStartDay,
+			9: eventLateStartDay,
+			18: { details: "PD Day #3 - No School", schedule: noSchool },
+			24: { details: "Elem/MS/HS Grade Prep – Early Dismissal (K-12)", schedule: earlyDismissal },
+			// 28: { details: "Elem Conference Week – Early Dismissal (K-5)", /* schedule:  normal */ },
+			// 29: { details: "Elem Conference Week – Early Dismissal (K-5)", /* schedule:  normal */ },
+			30: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
+			31: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
+		},
+		3: {
+			1: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
+			6: eventLateStartDay,
+			11: { details: "Spring Break - No School", schedule: noSchool, },
+			12: { details: "Spring Break - No School", schedule: noSchool, },
+			13: { details: "Spring Break - No School", schedule: noSchool, },
+			14: { details: "Spring Break - No School", schedule: noSchool, },
+			15: { details: "Spring Break - No School", schedule: noSchool, },
+			20: eventLateStartDay,
+			27: eventLateStartDay,
+		}
     },
 };
 

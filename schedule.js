@@ -1,4 +1,3 @@
-
 const noadv = [
     {
         p: "zero",
@@ -208,8 +207,9 @@ let twohr = [
 
     { p: "4", time: "12:40 - 1:20" },
     { p: "5", time: "1:25 - 2:05" },
-    { p: "dism", time: "2:05 - 2:10" }
-	]
+    { p: "dism", time: "2:05 - 2:10" },
+];
+
 let lunchraw = [
     [
         "E2899865-11A1-4C45-A63B-25BFBE878157", // BLAND
@@ -280,17 +280,17 @@ let lunchraw = [
         "8D601451-1F29-44C4-9F33-B40659143F33", // STERN
         "F315657A-F3F1-459E-ABE8-003D4D3ECF81", // THORN
         "05CB9140-0555-459A-8EF4-906E4CC765FA", // WETHERINGTON
+    ],
+];
 
-    ]
-]
-function generateLunches(lraw) { 
-    let out = {}
+function generateLunches(lraw) {
+    let out = {};
     lraw.forEach((l, i) => {
-        l.forEach(p => { 
-            out[p] = i+1
-        })
-    })
-    return out
+        l.forEach((p) => {
+            out[p] = i + 1;
+        });
+    });
+    return out;
 }
 const lunches = generateLunches(lunchraw);
 
@@ -389,15 +389,15 @@ const events = {
                 details: "No School",
                 schedule: noSchool,
             },
-					14: {
-						details: "Icy Roads - 2 Hour Delay",
-						schedule: twohr
-					},
+            14: {
+                details: "Icy Roads - 2 Hour Delay",
+                schedule: twohr,
+            },
             15: eventLateStartDay,
-					17: {
-						details: "For some reason its advisory today",
-						schedule: adv,
-					},
+            17: {
+                details: "For some reason its advisory today",
+                schedule: adv,
+            },
             // 20th - 31st is No School - Winter Break
             20: {
                 details: "Winter Break - No School",
@@ -442,55 +442,73 @@ const events = {
         },
     },
     2022: {
-	    0: {
-		    3: {
-			details: "Icy Roads - 2 Hr delay",
-                	schedule: twohr,
-		   	},
-	    	4: {
-			details: "Icy Roads - 2 Hr delay",
-                	schedule: twohr,
-	    	},
-            	// 5: eventLateStartDay,
-			5: { schedule: twohr, details: "Ice and Stuff - 2 Hour Delay" },
+        0: {
+            3: {
+                details: "Icy Roads - 2 Hr delay",
+                schedule: twohr,
+            },
+            4: {
+                details: "Icy Roads - 2 Hr delay",
+                schedule: twohr,
+            },
+            // 5: eventLateStartDay,
+            5: { schedule: twohr, details: "Ice and Stuff - 2 Hour Delay" },
             12: eventLateStartDay,
             17: {
-				details: "Martin Luther King, Jr. Day - No School",
-				schedule: noSchool,
+                details: "Martin Luther King, Jr. Day - No School",
+                schedule: noSchool,
             },
-	    	19: eventLateStartDay,
-	    	26: {
-				details: "No School",
-				schedule: noSchool,
-	    	},
+            19: eventLateStartDay,
+            26: {
+                details: "No School",
+                schedule: noSchool,
+            },
         },
-		1: {
-			9: eventLateStartDay,
-			16: eventLateStartDay,
-			21: { details: "President's Day - No School", schedule: noSchool },
-			22: { details: "Waiver Day #2 - No School", schedule: noSchool },
-		},
-		2: {
-			2: eventLateStartDay,
-			9: eventLateStartDay,
-			18: { details: "PD Day #3 - No School", schedule: noSchool },
-			24: { details: "Elem/MS/HS Grade Prep – Early Dismissal (K-12)", schedule: earlyDismissal },
-			28: { details: "Elem Conference Week – Early Dismissal (K-5)", schedule: "normal" },
-			29: { details: "Elem Conference Week – Early Dismissal (K-5)", schedule: "normal" },
-			30: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_1  },
-			31: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_2  },
-		},
-		3: {
-			1: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_3  },
-			6: eventLateStartDay,
-			11: { details: "Spring Break - No School", schedule: noSchool, },
-			12: { details: "Spring Break - No School", schedule: noSchool, },
-			13: { details: "Spring Break - No School", schedule: noSchool, },
-			14: { details: "Spring Break - No School", schedule: noSchool, },
-			15: { details: "Spring Break - No School", schedule: noSchool, },
-			20: eventLateStartDay,
-			27: eventLateStartDay,
-		}
+        1: {
+            9: eventLateStartDay,
+            16: eventLateStartDay,
+            21: { details: "President's Day - No School", schedule: noSchool },
+            22: { details: "Waiver Day #2 - No School", schedule: noSchool },
+        },
+        2: {
+            2: eventLateStartDay,
+            9: eventLateStartDay,
+            18: { details: "PD Day #3 - No School", schedule: noSchool },
+            24: {
+                details: "Elem/MS/HS Grade Prep – Early Dismissal (K-12)",
+                schedule: earlyDismissal,
+            },
+            28: {
+                details: "Elem Conference Week – Early Dismissal (K-5)",
+                schedule: "normal",
+            },
+            29: {
+                details: "Elem Conference Week – Early Dismissal (K-5)",
+                schedule: "normal",
+            },
+            30: {
+                details: "Secondary Conferences – Early Dismissal (K-12)",
+                schedule: earlyDismissalT3_1,
+            },
+            31: {
+                details: "Secondary Conferences – Early Dismissal (K-12)",
+                schedule: earlyDismissalT3_2,
+            },
+        },
+        3: {
+            1: {
+                details: "Secondary Conferences – Early Dismissal (K-12)",
+                schedule: earlyDismissalT3_3,
+            },
+            6: eventLateStartDay,
+            11: { details: "Spring Break - No School", schedule: noSchool },
+            12: { details: "Spring Break - No School", schedule: noSchool },
+            13: { details: "Spring Break - No School", schedule: noSchool },
+            14: { details: "Spring Break - No School", schedule: noSchool },
+            15: { details: "Spring Break - No School", schedule: noSchool },
+            20: eventLateStartDay,
+            27: eventLateStartDay,
+        },
     },
 };
 
@@ -513,5 +531,9 @@ function compareDates(year, month, day) {
     let currentDate = new Date();
     let compareDate = new Date(year, month, day);
 
-    return ((currentDate.getDate() === compareDate.getDate()) && (currentDate.getMonth() === compareDate.getMonth()) && (currentDate.getFullYear() === compareDate.getFullYear()))
+    return (
+        currentDate.getDate() === compareDate.getDate() &&
+        currentDate.getMonth() === compareDate.getMonth() &&
+        currentDate.getFullYear() === compareDate.getFullYear()
+    );
 }

@@ -167,6 +167,30 @@ const earlyDismissal = [
     { p: "dism", time: "10:05 - 10:10" },
 ];
 
+// March 30 - April 1
+const earlyDismissalT3_1 = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "adv", time: "7:35 - 8:45" },
+    { p: "1", time: "8:50 - 10:05" },
+    { p: "dism", time: "10:05 - 10:10" },
+];
+
+const earlyDismissalT3_2 = [
+    { p: "arr", time: "7:15 - 7:30" },
+    { p: "2", time: "7:35 - 8:45" },
+    { p: "3", time: "8:50 - 10:05" },
+    { p: "dism", time: "10:05 - 10:10" },
+];
+
+const earlyDismissalT3_3 = [
+    { p: "arr", time: "7:15 - 7:30" },
+    { p: "4", time: "7:35 - 8:45" },
+    { p: "5", time: "8:50 - 10:05" },
+    { p: "dism", time: "10:05 - 10:10" },
+];
+
+/*  ----  end  ----  */
+
 let twohr = [
     { p: "arr", time: "9:15 - 9:30" },
     { p: "1", time: "9:35 - 10:15" },
@@ -453,11 +477,11 @@ const events = {
 			24: { details: "Elem/MS/HS Grade Prep – Early Dismissal (K-12)", schedule: earlyDismissal },
 			28: { details: "Elem Conference Week – Early Dismissal (K-5)", schedule: "normal" },
 			29: { details: "Elem Conference Week – Early Dismissal (K-5)", schedule: "normal" },
-			30: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
-			31: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
+			30: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_1  },
+			31: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_2  },
 		},
 		3: {
-			1: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissal  },
+			1: { details: "Secondary Conferences – Early Dismissal (K-12)", schedule: earlyDismissalT3_3  },
 			6: eventLateStartDay,
 			11: { details: "Spring Break - No School", schedule: noSchool, },
 			12: { details: "Spring Break - No School", schedule: noSchool, },

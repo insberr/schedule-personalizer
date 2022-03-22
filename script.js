@@ -436,7 +436,7 @@ const main = Vue.createApp({
                                                     this.trimesters[
                                                         "t" + (i + 1)
                                                     ].schedule =
-                                                        json.content.ClassLists.ClassListing;
+                                                        json.content.StudentClassSchedule.ClassLists.ClassListing; // undo this after i fix api
 
                                                     main.save();
                                                     console.log(

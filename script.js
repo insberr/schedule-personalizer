@@ -4,7 +4,7 @@
 //    isAfter,
 //} from "https://cdn.skypack.dev/pin/date-fns@v2.25.0-afU7qHImK3sVEDiJRpTD/mode=imports,min/optimized/date-fns.js";
 
-const api_url = "https://bhsdb.wackery.com/api";
+const api_url = "https://studentvue.wackery.com/";
 
 function toTitleCase(text) {
     if (typeof text !== "string") {

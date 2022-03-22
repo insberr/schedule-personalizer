@@ -365,7 +365,7 @@ const main = Vue.createApp({
             fetch(api_url + "/validate", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "text/plain",
                 },
                 body: JSON.stringify({
                     username: this.setup.studentVue.username,
@@ -393,7 +393,7 @@ const main = Vue.createApp({
                         fetch(api_url + "/get_student_info", {
                             method: "POST",
                             headers: {
-                                "Content-Type": "application/json",
+                                "Content-Type": "text/plain",
                             },
                             body: JSON.stringify({
                                 username: this.setup.studentVue.username,
@@ -419,7 +419,7 @@ const main = Vue.createApp({
                                                 method: "POST",
                                                 headers: {
                                                     "Content-Type":
-                                                        "application/json",
+                                                        "text/plain",
                                                 },
                                                 body: JSON.stringify({
                                                     username:

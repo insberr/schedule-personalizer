@@ -357,12 +357,12 @@ const main = Vue.createApp({
             // else t3
             return 3;
         },
-        studentVueLogin() {
+        async studentVueLogin() {
             console.log("logging in");
 
             this.setup.loggingIn = true;
 
-            fetch(api_url + "/validate", {
+            await fetch(api_url + "/validate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "text/plain",
@@ -372,99 +372,131 @@ const main = Vue.createApp({
                     password: this.setup.studentVue.password,
                 }),
             })
-                .then((res) => res.json())
-                .then((json) => {
-                    console.log(json);
-                    if (json["code"] == "ERROR") {
-                        // uh oh something went wrong!
-                        console.error(
-                            "ERROR FROM API! " + json["content"]["error"]
-                        );
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json);
+                if (json["code"] == "ERROR") {
+                    // uh oh something went wrong!
+                    console.error("ERROR FROM API! " + json["content"]["error"]);
 
-                        main.setup.loginError = json["content"]["error"];
-                        main.setup.loggingIn = false;
-                    } else {
-                        if (main.setup.loginError !== "") {
-                            main.setup.loginError = "";
-                        }
+                    main.setup.loginError = json["content"]["error"];
+                    main.setup.loggingIn = false;
+                    return;
+                }
+            });
+            
+            if (main.setup.loginError !== "") {
+                main.setup.loginError = "";
+            }
+            
+            // we good!
+            // request the student schedule/data
+            await fetch(api_url + "/get_student_info", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain",
+                },
+                body: JSON.stringify({
+                    username: this.setup.studentVue.username,
+                    password: this.setup.studentVue.password,
+                }),
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                main.setup.studentVue.name = json.content.FormattedName;
+                main.setup.studentVue.permID = json.content.PermID;
 
-                        // we good!
-                        // request the student schedule/data
-                        fetch(api_url + "/get_student_info", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "text/plain",
-                            },
-                            body: JSON.stringify({
-                                username: this.setup.studentVue.username,
-                                password: this.setup.studentVue.password,
-                            }),
-                        })
-                            .then((res) => res.json())
-                            .then((json) => {
-                                main.setup.studentVue.name =
-                                    json.content.FormattedName;
-                                main.setup.studentVue.permID =
-                                    json.content.PermID;
-                                console.log("student_info:");
-                                console.log(json);
-                            })
-                            .then(() => {
-                                // display model
-                                this.openModel().then(async () => {
-                                        // todo: make the api actuall return the trimester for 'term'
+                console.log("student_info:");
+                console.log(json);
+            });
 
-                                        for await (let i of [0, 1, 2]) {
-                                            await fetch(api_url + "/get_schedule", {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type":
-                                                        "text/plain",
-                                                },
-                                                body: JSON.stringify({
-                                                    username:
-                                                        this.setup.studentVue
-                                                            .username,
-                                                    password:
-                                                        this.setup.studentVue
-                                                            .password,
-                                                    term: i,
-                                                }),
-                                            })
-                                                .then((res) => res.json())
-                                                .then((json) => {
-                                                    this.trimesters[
-                                                        "t" + (i + 1)
-                                                    ].schedule =
-                                                        json.content.StudentClassSchedule.ClassLists.ClassListing; // undo this after i fix api
+            // display model
+            let promptAnswer = true;
+            await this.openModel().then(() => {
+                /* user said yes */ 
+                promptAnswer = true;
+            }, () => {
+                /* user said no */
+                promptAnswer = false;
+            });
 
-                                                    main.save();
-                                                    console.log(
-                                                        "schedule t" + i + ":"
-                                                    );
-                                                    console.log(json);
-                                                });
-                                        }
+            if (promptAnswer === false) {
+                main.setup.loggingIn = false;
+                return;
+            }
 
-                                        this.setup.loggingIn = false;
-                                        this.runLunchDetect();
-                                        this.setClassesFromTerm(
-                                            this.getTermForDate(new Date(this.year, this.month, this.day))
-                                        );
-                                        this.setupDone();
-                                    },
-                                    () => {
-                                        // user said no to prompt
-                                        this.setup.loggingIn = false;
-                                    }
-                                );
-                            });
-                    }
-                });
-            // .catch((err) => { console.log("Error: " + err) });
+            await fetch(api_url + "/get_all_schedules", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain",
+                },
+                body: JSON.stringify({
+                    username: this.setup.studentVue.username,
+                    password: this.setup.studentVue.password,
+                }),
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                console.log("all_schedules:");
+                console.log(json);
+
+                for (let [index,term] of json.content.ClassLists.entries()) {
+                    main.trimesters["t" + (index + 1)].schedule = term;
+                }
+
+                // main.trimesters["t" + (i + 1)].schedule = json.content.ClassLists[i]
+            });
+
+            main.save();
+
+            main.setup.loggingIn = false;
+            main.runLunchDetect();
+            main.setClassesFromTerm(
+                main.getTermForDate(new Date(main.year, main.month, main.day))
+            );
+            main.setupDone();
 
             main.setup.studentVue.lastLogin = new Date();
+            
+            /*
+            for await (let i of [0, 1, 2]) {
+                await fetch(api_url + "/get_schedule", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "text/plain",
+                    },
+                    body: JSON.stringify({
+                        username:
+                            this.setup.studentVue
+                                .username,
+                        password:
+                            this.setup.studentVue
+                                .password,
+                        term: i,
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((json) => {
+                        this.trimesters["t" + (i + 1)].schedule = json.content.ClassLists; // undo this after i fix api
 
+                        main.save();
+                        console.log(
+                            "schedule t" + i + ":"
+                        );
+                        console.log(json);
+                    });
+            }
+            
+
+            //},
+            //                    
+            //                );
+            //            });
+            //        
+            //    });
+            // .catch((err) => { console.log("Error: " + err) });
+            */
         },
         setClassesFromTerm(term) {
             if (this.trimesters["t" + term].schedule.length === 0) {

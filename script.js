@@ -129,6 +129,20 @@ const main = Vue.createApp({
                 ppass: "Passing",
                 pzero: "0 Hour",
             },
+            _defaultClasses: {
+                p1: "",
+                p2: "",
+                p3: "",
+                p4: "",
+                p5: "",
+                padv: "Advisory",
+                plnc: "Lunch",
+                parr: "Arrival",
+                pdism: "Dismissal",
+                pstudy: "Study",
+                ppass: "Passing",
+                pzero: "0 Hour",
+            },
             rooms: {
                 p1: "",
                 p2: "",
@@ -172,6 +186,7 @@ const main = Vue.createApp({
                 // t: [end, in1, in1, wed, in2, in2, end],
             },
             scheduleEvent: null,
+            showScheduleInfo: true,
             version: 3,
         };
     },
@@ -320,6 +335,9 @@ const main = Vue.createApp({
         },
         perName(per) {
             let pd = this.classes["p" + per.p];
+            if (this.showScheduleInfo === false) {
+                pd = this._defaultClasses["p" + per.p];
+            }
             // return pd;
 
             // full remote
@@ -703,6 +721,10 @@ const main = Vue.createApp({
                 this.getTermForDate(new Date(this.year, this.month, main.day))
             );
         },
+        showScheduleInfo() {
+            // toggle the schedule info being shown and hidden
+            
+        }
     },
     computed: {
         isPWA: function () {

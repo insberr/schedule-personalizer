@@ -425,7 +425,7 @@
 
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)"
 									class="d-none d-sm-table-cell">
-									<a v-bind:href="'mailto:' + perTeacher(per).email">
+									<a v-show="showScheduleInfo === true" v-bind:href="'mailto:' + perTeacher(per).email">
 										{{ perTeacher(per).name }}
 									</a>
 								</td>
@@ -433,7 +433,7 @@
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
 									<span
 										v-if="per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero'"></span>
-									<span v-else>
+									<span v-else v-show="showScheduleInfo === true">
 										{{ rooms['p' + per.p] ? 'R ' + rooms['p' + per.p] : '' }}
 									</span>
 								</td>
@@ -623,6 +623,11 @@
 				<div class="mt-2">
 					<strong>Last Login: {{ new Date(setup.studentVue.lastLogin).toLocaleString() }} ({{
 						setup.studentVue.lastLogin }})</strong>
+				</div>
+				<div class="mt-2">
+					<!-- toggle schedule showing info -->
+					<strong>Show Schedule Info: {{ showScheduleInfo }}</strong>
+					<button type="button" class="btn btn-primary btn-sm" @click="showScheduleInfo = !showScheduleInfo">toggle</button>
 				</div>
 			</div>
 		</div>

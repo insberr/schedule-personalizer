@@ -756,7 +756,9 @@ if (
 
     // if the last login was more than a day ago, login again
     console.log(now.getTime() - lastLoginTime.getTime());
-    if (now.getTime() - lastLoginTime.getTime() > 86400000) {
+    // 1 hour: 3600000
+    // 24 hours: 86400000
+    if (now.getTime() - lastLoginTime.getTime() > 3600000) { // currently 1 hour
         main.studentVueLogin();
         main.resetSetup();
     }

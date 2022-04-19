@@ -210,6 +210,26 @@ let twohr = [
     { p: "dism", time: "2:05 - 2:10" },
 ];
 
+const fuckedUpJuniorCareerDay = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "1", time: "7:35 - 8:35" },
+    { p: "2", time: "8:40 - 9:30" },
+
+    { p: "lnc", time: "10:25 - 10:55", l: "1" },
+    { p: "3", time: "11:30 - 121:10", l: "1" },
+
+    { p: "3", time: "10:30 - 11:00", l: "2" },
+    { p: "lnc", time: "11:00 - 11:30", l: "2" },
+    { p: "3", time: "11:35 - 12:10", l: "2" },
+
+    { p: "3", time: "10:30 - 11:40", l: "3" },
+    { p: "lnc", time: "11:40 - 12:10", l: "3" },
+
+    { p: "4", time: "12:15 - 1:10" },
+    { p: "5", time: "1:15 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" },
+];
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -516,7 +536,9 @@ const events = {
             13: { details: "Spring Break - No School", schedule: noSchool },
             14: { details: "Spring Break - No School", schedule: noSchool },
             15: { details: "Spring Break - No School", schedule: noSchool },
+            19: { details: "Junior Career Day", schedule: fuckedUpJuniorCareerDay },
             20: eventLateStartDay,
+            21: { details: "Normal Schedule Because School Hates Us", schedule: noadv },
             27: eventLateStartDay,
         },
     },

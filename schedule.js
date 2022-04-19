@@ -212,8 +212,9 @@ let twohr = [
 
 const fuckedUpJuniorCareerDay = [
     { p: "zero", time: "6:35 - 7:30" },
-    { p: "1", time: "7:35 - 8:35" },
-    { p: "2", time: "8:40 - 9:30" },
+    { p: "adv", time: "7:35 - 8:35" },
+    { p: "1", time: "8:40 - 9:30" },
+    { p: "2", time: "9:35 - 10:25" },
 
     { p: "lnc", time: "10:25 - 10:55", l: "1" },
     { p: "3", time: "11:30 - 121:10", l: "1" },

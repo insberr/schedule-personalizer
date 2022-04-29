@@ -595,7 +595,6 @@ const main = Vue.createApp({
         openClassModel(per) {
             if (
                 per.p === "study" ||
-                per.p === "lnc" ||
                 per.p === "arr" ||
                 per.p === "dism" ||
                 per.p === "zero"

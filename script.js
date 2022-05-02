@@ -187,7 +187,41 @@ const main = Vue.createApp({
             },
             scheduleEvent: null,
             showScheduleInfo: true,
-            version: 3,
+            _default_customizations: {
+                colors: {
+                    currentClass: "",
+                    pzero: "",
+                    padv:"",
+                    pclass: "",
+                    plnc: "",
+                    pdism: "",
+                    parr: "",
+                    pstudy: "",
+                    normalDay: "",
+                    advisoryDay: "",
+                    background: "",
+                    tableFont: "",
+                },
+                theme: "system",
+            },
+            customizations: {
+                colors: {
+                    currentClass: "",
+                    pzero: "",
+                    padv:"",
+                    pclass: "",
+                    plnc: "",
+                    pdism: "",
+                    parr: "",
+                    pstudy: "",
+                    normalDay: "",
+                    advisoryDay: "",
+                    background: "",
+                    tableFont: "",
+                },
+                theme: "system",
+            },
+            version: 4,
         };
     },
     created() {
@@ -240,6 +274,8 @@ const main = Vue.createApp({
             } else {
                 this.studentVueLogin();
             }
+
+            this.customizations = data.customizations || this._default_customizations;
         }
         this.save();
 

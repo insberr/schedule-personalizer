@@ -1,7 +1,6 @@
-import { createRoot }from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import App from "./App";
-import * as bootstrap from 'bootstrap'; // load bootstrap js
 
 if (process.env.NODE_ENV == "production") {
     if (navigator.serviceWorker) {
@@ -9,5 +8,9 @@ if (process.env.NODE_ENV == "production") {
     }
 }
 const app = document.getElementById("app");
-const root = createRoot(app!)
+if (!app) {
+    console.error("What the fuck? theres no app element? wtf?");
+    throw new Error("God is dead and we have killed him");
+}
+const root = createRoot(app)
 root.render(<StrictMode><App /></StrictMode>);

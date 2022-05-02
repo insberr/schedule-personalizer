@@ -542,6 +542,29 @@ const events = {
             21: { details: "Normal Schedule Because School Hates Us", schedule: noadv },
             27: eventLateStartDay,
         },
+        /*
+        month 4:
+        4, 11, 18 are late start days
+        6 is a Pep Assembly - Schedule Unknown
+        30 is no school
+
+        month 5:
+        1 is late start
+        23 last day of school
+        */
+        4: {
+            2: { details: "Spirit Day - Marvel Monday", schedule: "normal" },
+            3: { details: "Spirit Day - BBQ Dads vs Soccer Moms", schedule: "normal" },
+            4: { details: "1 Hour Late Start & Spirit Day - Adam Sandler Day", schedule: lateStart },
+            5: { details: "Spirit Day - Country vs Country Club", schedule: "normal" },
+            6: { details: "Spirit Day - Bison Out! & Pep Assembly - Schedule Unknown", schedule: "normal" },
+            11: eventLateStartDay,
+            18: eventLateStartDay,
+        },
+        5: {
+            1: eventLateStartDay,
+            23: { details: "Last Day of School - Schedule Unknown", schedule: "normal" },
+        }
     },
 };
 

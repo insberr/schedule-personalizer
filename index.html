@@ -517,20 +517,22 @@
 							</div>
 							<div class="modal-body" id="bodytext">
 								<!-- other calss infor -->
-								<strong>Teacher: </strong>
-								<span>
-									{{ classModel !== null ?  perTeacher(classModel).name : "-" }}
-								</span>
-								<br>
-								<strong v-if="classModel?.p !== 'lnc'">Email: </strong>
-								<span v-if="classModel?.p !== 'lnc'">
-									<a v-bind:href="'mailto:' + (classModel !== null ? perTeacher(classModel).email : '')">
-										{{ classModel !== null ? perTeacher(classModel).email : "-" }}
-									</a>
-								</span>
-								<br>
-								<strong v-if="classModel?.p !== 'lnc'">Room: </strong>
-								<span v-if="classModel?.p !== 'lnc'">{{ classModel !== null ? (rooms['p' + classModel.p] ? rooms['p' + classModel.p] : '-') : "-" }}</span>
+								<div v-if="classModel?.p !== 'lnc'">
+									<strong>Teacher: </strong>
+									<span>
+										{{ classModel !== null ?  perTeacher(classModel).name : "-" }}
+									</span>
+									<br>
+									<strong>Email: </strong>
+									<span>
+										<a v-bind:href="'mailto:' + (classModel !== null ? perTeacher(classModel).email : '')">
+											{{ classModel !== null ? perTeacher(classModel).email : "-" }}
+										</a>
+									</span>
+									<br>
+									<strong>Room: </strong>
+									<span>{{ classModel !== null ? (rooms['p' + classModel.p] ? rooms['p' + classModel.p] : '-') : "-" }}</span>
+								</div>
 								<br><strong>Time until begins: </strong>
 								<span> {{ countdowns.cstart }} </span>
 								<br><strong>Time until ends: </strong>

@@ -1,4 +1,11 @@
-// service worker goes here.
-// maybe use workbox?
-// gotta somehow get manifest info into here
-// long term goal
+import { precacheAndRoute } from 'workbox-precaching';
+
+type preCacheManifestEntry = {
+    url: string;
+    revision: string
+}
+
+// @ts-ignore
+const manifest: preCacheManifestEntry[] = self.__precacheManifest
+
+precacheAndRoute(manifest); // yoo fucking caching

@@ -1,9 +1,13 @@
-import ReactDOM from "react-dom";
+import { createRoot }from "react-dom/client";
+import { StrictMode } from "react";
 import App from "./App";
 import * as bootstrap from 'bootstrap'; // load bootstrap js
-if (navigator.serviceWorker) {
-    navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url))
-}
 
+if (process.env.NODE_ENV == "production") {
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url),{type: 'module'})
+    }
+}
 const app = document.getElementById("app");
-ReactDOM.render(<App />, app);
+const root = createRoot(app!)
+root.render(<StrictMode><App /></StrictMode>);

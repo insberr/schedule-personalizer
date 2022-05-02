@@ -1,8 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 // Include any default variable overrides here (though functions won't be available)
 // see the sass section in each bootstrap module
 
+// some stuff from another site
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+
+$body-bg: #4b5563;
+$body-color: #fafafa;
+$font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+
+@import "npm:bootstrap/scss/bootstrap";
 
 //other styles go here

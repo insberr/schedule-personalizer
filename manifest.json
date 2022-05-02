@@ -18,9 +18,5 @@
   "display": "standalone",
   "scope": "/schedule-personalizer/",
   "theme_color": "#DC143C",
-  "shortcuts": [
-  ],
-  "description": "Bethel High School Schedule Personalizer",
-  "screenshots": [
-  ]
+  "description": "Bethel High School Schedule Personalizer"
 }

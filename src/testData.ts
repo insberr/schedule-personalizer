@@ -15,6 +15,7 @@ export const testData: Stdata = {
             classes: [
                 {
                     period: "1",
+                    name: "Math",
                     room: "Earth",
                     teacher: {
                         name: "Tester",
@@ -33,6 +34,7 @@ export const testData: Stdata = {
             classes: [
                 {
                     period: "1",
+                    name: "ELA",
                     // should use null for things that dont have any data. idk how to do that
                     room: null,
                     teacher: null,
@@ -47,7 +49,20 @@ export const testData: Stdata = {
             endDate: "do something with time",
             classes: [
                 {
+                    period: "advisory",
+                    name: "Advisory",
+                    room: "210",
+                    teacher: {
+                        name: "Teach",
+                        email: "shitfart14@wackery.com",
+                        id: "boomer"
+                    },
+                    startTime: getTimeW(0,0,0),
+                    endTime: getTimeW(23,59,59),
+                },
+                {
                     period: "1",
+                    name: "Science",
                     room: "Earth",
                     teacher: {
                         name: "Tester",

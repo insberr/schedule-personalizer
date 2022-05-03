@@ -23,6 +23,7 @@ export type Term = {
 
 export type Class = {
     period: string
+    name: string
     room: string | null
     teacher: Teacher | null
     // these times should be what studentvue says

@@ -22,7 +22,7 @@ function Schedule(props: ScheduleProps) {
         <div className="row justify-content-center">
             <Center className="date">Monday: 69/69/69</Center>
         </div>
-        {[rows]}
+        {rows}
     </Center>)
 }
 export default Schedule

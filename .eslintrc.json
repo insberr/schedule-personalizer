@@ -8,7 +8,7 @@
             "version": "18.1"
         }
     },
-    "ignorePatterns": "./**/*.js",
+    "ignorePatterns": [ "**/*.js", "dist/*"] ,
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",

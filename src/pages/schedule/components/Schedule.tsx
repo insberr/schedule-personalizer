@@ -1,5 +1,5 @@
-import { Stdata } from "../types"
-import Center from "./Center"
+import { Stdata } from "../../../types"
+import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
 
 type ScheduleProps = {

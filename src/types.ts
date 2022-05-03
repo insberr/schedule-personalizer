@@ -15,8 +15,9 @@ export type StudentVue = {
 
 export type Term = {
     term: number
-    startDate: Date
-    endDate: Date
+    // remove the | string  later since yeah its not supposed to be a string
+    startDate: Date | string
+    endDate: Date | string
     classes: Class[]
 }
 

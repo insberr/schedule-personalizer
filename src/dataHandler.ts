@@ -1,4 +1,4 @@
-import { Stdata } from "./types";
+import { Stdata, defaultData } from "./types";
 
 
 // get data from local storage
@@ -8,6 +8,12 @@ export function getSavedData(): Stdata | undefined {
     const data = localStorage.getItem("scheduleData")
     if (!data) {
         // check for and migrate v1 data
+        const v1data_v3 = localStorage.getItem("data-v3");
+        const v1data_v2 = localStorage.getItem("data-v2");
+        if (v1data_v3 !== undefined) {
+            // migrate and return
+
+        }
         return undefined
     }
     return JSON.parse(data)

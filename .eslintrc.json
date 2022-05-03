@@ -3,6 +3,12 @@
         "browser": true,
         "es2021": true
     },
+    "settings": {
+        "react": {
+            "version": "18.1"
+        }
+    },
+    "ignorePatterns": "./**/*.js",
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",

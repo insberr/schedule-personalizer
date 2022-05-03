@@ -37,7 +37,7 @@
   "scripts": {
     "build": "parcel build",
     "dev": "parcel",
-    "check": "tsc && eslint",
+    "check": "tsc && eslint src",
     "clean": "rimraf dist && rimraf .parcel-cache"
   },
   "packageManager": "yarn@3.2.0",

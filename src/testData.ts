@@ -33,12 +33,9 @@ export const testData: Stdata = {
             classes: [
                 {
                     period: "1",
-                    room: "Earth",
-                    teacher: {
-                        name: "Tester",
-                        email: "shitfart14@wackery.com",
-                        id: "boomer"
-                    },
+                    // should use null for things that dont have any data. idk how to do that
+                    room: null,
+                    teacher: null,
                     startTime: getTimeW(0,0,0),
                     endTime: getTimeW(23,59,59),
                 }

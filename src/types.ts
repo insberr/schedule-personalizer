@@ -22,8 +22,9 @@ export type Term = {
 
 export type Class = {
     period: string
-    room: string
-    teacher: Teacher
+    room: string | null
+    teacher: Teacher | null
+    // these times should be what studentvue says
     startTime: Time
     endTime: Time
 }

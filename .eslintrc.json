@@ -22,5 +22,6 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/triple-slash-reference": 0
     }
 }

@@ -1,5 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
+import eruda from './eruda'
+if (process.env.NODE_ENV != "production") {
+    // gamer devtools
+    eruda()
+}
 import App from "./App";
 
 if (process.env.NODE_ENV == "production") {

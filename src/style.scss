@@ -10,6 +10,14 @@ $body-bg: #4b5563;
 $body-color: #fafafa;
 $font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+$border-radius-table: 10px;
+
+.date {
+    background-color: #DC143C;
+    border-top-left-radius: $border-radius-table;
+    border-top-right-radius: $border-radius-table;
+    color: white;
+}
 
 @import "npm:bootstrap/scss/bootstrap";
 

@@ -5,7 +5,7 @@ type preCacheManifestEntry = {
     revision: string
 }
 
-// @ts-ignore
+// @ts-expect-error cringe
 const manifest: preCacheManifestEntry[] = self.__precacheManifest
 
 precacheAndRoute(manifest); // yoo fucking caching

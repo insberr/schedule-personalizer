@@ -2,10 +2,26 @@ import set from "date-fns/set"
 
 
 export type Stdata = {
+    studentVue: StudentVue
+    terms: Term[]
+    customizations: Customizations
+}
+
+export type StudentVue = {
+    stayLoggedIn: boolean
+    username: string
+    password: string
+}
+
+export type Term = {
+    term: number
+    startDate: Date
+    endDate: Date
     classes: Class[]
 }
 
 export type Class = {
+    period: string
     room: string
     teacher: Teacher
     startTime: Time
@@ -22,6 +38,13 @@ export type Time = {
     hours: number
     minutes: number
     seconds: number
+}
+
+export type Customizations = {
+    theme: {
+        color: string
+    }
+    showInfoOnSchedule: boolean
 }
 
 export function dateToTime(d: Date): Time {

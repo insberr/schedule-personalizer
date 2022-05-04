@@ -27,6 +27,12 @@ export async function getSavedDataAsync(): Promise<Stdata | undefined> {
                 // fetch that shit
             }
             // if its not logged into studentvue ... 
+            // suggest that they log in, if yes pull info from studentVue, if no, migrate from data
+
+            // migrate  classes
+            // migrate teachers
+            // migrate rooms
+
         }
         return undefined
     }

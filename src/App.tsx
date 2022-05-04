@@ -5,6 +5,7 @@ import { getSavedData } from "./dataHandler";
 import LoadSpinner from "./components/LoadSpinner";
 import Theme from "./components/ThemeComponent";
 import { refresh } from './studentvue'
+import StudentVueReloader from "./components/StudentVueReloader";
 //console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
@@ -32,6 +33,6 @@ function App() {
         }
         return <React.Suspense fallback={<LoadSpinner />}><SetupPage setSchedule={ setSch }/></React.Suspense> // replace loading text with a spinner
     }
-    return <><SchedulePage sch={sch} /><Theme custom={ sch.customizations } /></> // it just works
+    return <><SchedulePage sch={sch} /><Theme custom={ sch.customizations } /><StudentVueReloader reload={ reloadStudentVue }/></> // it just works
 }
 export default App;

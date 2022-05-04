@@ -31,6 +31,8 @@ class StudentVueReloader extends PureComponent<ReloaderProps, ReloaderState> {
             this.props.reload()
             this.setState({
                 last: getTime(new Date())
+            },() => {
+                localStorage.setItem("last-update", this.state.last.toString())
             })
         }, 1000)
     }

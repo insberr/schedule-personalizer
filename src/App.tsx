@@ -4,7 +4,7 @@ import { Customizations, Stdata } from "./types";
 import { getSavedData } from "./dataHandler";
 import LoadSpinner from "./components/LoadSpinner";
 import Theme from "./components/ThemeComponent";
-
+import { refresh } from './studentvue'
 //console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
@@ -16,8 +16,15 @@ function App() {
         const newSch = Object.assign({}, sch, { customization: theme })
         setSch(newSch)
     }
+    function reloadStudentVue(schd?: Stdata) {
+        if (!schd) {
+            if (!sch) return
+            schd = sch
+        }
+        refresh(schd).then(setSch)
+    }
     useEffect(() => {
-        getSavedData(setSch)
+        getSavedData(reloadStudentVue)
     }, [])
     if (!sch) {
         if (sch === false) {

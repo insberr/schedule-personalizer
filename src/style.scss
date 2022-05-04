@@ -19,6 +19,17 @@ $border-radius-table: 10px;
     color: white;
 }
 
+.full-center-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    //transform: translate(-50%, -50%);
+}
+
 @import "npm:bootstrap/scss/bootstrap";
 
 //other styles go here
+
+.row {
+    margin-right: calc(.5 * var(--bs-gutter-x) )!important;
+}

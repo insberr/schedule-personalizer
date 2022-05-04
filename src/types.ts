@@ -43,9 +43,19 @@ export type Time = {
     seconds: number
 }
 
+export type Colors = {
+    currentClass: string
+    zeroHour: string
+    lunch: string
+    normalClass: string
+    dismissal: string
+    arrival: string
+    background: string
+}
+
 export type Customizations = {
     theme: {
-        color: string
+        colors: Colors | Record<string, string>
     }
     showInfoOnSchedule: boolean
 }

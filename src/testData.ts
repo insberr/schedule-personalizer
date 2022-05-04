@@ -57,8 +57,8 @@ export const testData: Stdata = {
                         email: "shitfart14@wackery.com",
                         id: "boomer"
                     },
-                    startTime: getTimeW(0,0,0),
-                    endTime: getTimeW(23,59,59),
+                    startTime: getTimeW(6,0,0),
+                    endTime: getTimeW(14,0,0),
                 },
                 {
                     period: "1",
@@ -69,15 +69,15 @@ export const testData: Stdata = {
                         email: "shitfart14@wackery.com",
                         id: "boomer"
                     },
-                    startTime: getTimeW(0,0,0),
-                    endTime: getTimeW(23,59,59),
+                    startTime: getTimeW(6,0,0),
+                    endTime: getTimeW(14,0,0),
                 }
             ]
         }
     ],
     customizations: {
         theme: {
-            color: "ill do this later",
+            colors: {}
         },
         showInfoOnSchedule: true,
     }

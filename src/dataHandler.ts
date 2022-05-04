@@ -1,18 +1,32 @@
-import { Stdata, defaultData } from "./types";
-
+import { Stdata } from "./types";
+import { defaultStruct } from "./defaultValues";
+import { fetchData } from "./studentvue";
 
 // get data from local storage
 //export const data: Stdata  | { noData: true } = JSON.parse(localStorage.getItem("scheduleData") || JSON.stringify({ noData: true }))
 
-export function getSavedData(): Stdata | undefined {
+export function getSavedData(callback: (out: Stdata | undefined) => void) {
+    getSavedDataAsync().then(callback);
+}
+
+export async function getSavedDataAsync(): Promise<Stdata | undefined> {
     const data = localStorage.getItem("scheduleData")
     if (!data) {
         // check for and migrate v1 data
         const v1data_v3 = localStorage.getItem("data-v3");
         const v1data_v2 = localStorage.getItem("data-v2");
-        if (v1data_v3 !== undefined) {
+        if (v1data_v3 !== null) {
             // migrate and return
-
+            const parsed_v3 = JSON.parse(v1data_v3);
+            const migrated = Object.assign({}, defaultStruct) // copy the default struct
+            if (parsed_v3.password && parsed_v3.username) {
+                const fetchedNewData = await fetchData(parsed_v3.username, parsed_v3.password)
+                fetchedNewData.studentVue.stayLoggedIn = parsed_v3.rememberMe;
+                saveData(fetchedNewData);
+                return fetchedNewData;
+                // fetch that shit
+            }
+            // if its not logged into studentvue ... 
         }
         return undefined
     }

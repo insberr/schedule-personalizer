@@ -231,6 +231,27 @@ const fuckedUpJuniorCareerDay = [
     { p: "dism", time: "2:05 - 2:10" },
 ];
 
+const messedUpPepAssembly = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "1", time: "7:35 - 8:35" },
+    { p: "2", time: "8:40 - 9:35" },
+
+    { p: "lnc", time: "9:40 - 10:10", l: "1" },
+    { p: "3", time: "10:15 - 11:20" },
+
+    { p: "3", time: "9:40 - 10:15", l: "2" },
+    { p: "lnc", time: "10:15 - 10:45", l: "2" },
+    { p: "3", time: "10:50 - 11:20", l: "2" },
+
+    { p: "3", time: "9:45 - 10:55", l: "3" },
+    { p: "lnc", time: "10:50 - 11:20", l: "3" },
+
+    { p: "4", time: "11:25 - 12:15" },
+    { p: "5", time: "12:20 - 1:10" },
+    { p: "pass", time: "1:15 - 2:05" },
+    { p: "dism", time: "12:35 - 12:40" },
+];
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -557,7 +578,7 @@ const events = {
             3: { details: "Spirit Day - BBQ Dads vs Soccer Moms", schedule: "normal" },
             4: { details: "1 Hour Late Start & Spirit Day - Adam Sandler Day", schedule: lateStart },
             5: { details: "Spirit Day - Country vs Country Club", schedule: "normal" },
-            6: { details: "Spirit Day - Bison Out! & Pep Assembly - Schedule Unknown", schedule: "normal" },
+            6: { details: "Spirit Day - Bison Out! & Pep Assembly", schedule: messedUpPepAssembly },
             11: eventLateStartDay,
             18: eventLateStartDay,
         },

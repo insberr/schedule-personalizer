@@ -8,5 +8,5 @@ export default function eruda(callback: () => void) {
        /*fetch("https://cdn.jsdelivr.net/npm/eruda").then((s) => s.text()).then((s) => {
            eval(s).eruda.init()
        })*/
-    }
+    } else {callback()}
     }

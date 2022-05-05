@@ -372,6 +372,10 @@ const main = Vue.createApp({
 	*/
         },
         perName(per) {
+            // tempory fix because saved data is pain
+            if (per.p === 'assem') {
+                return "Assembly";
+            }
             let pd = this.classes["p" + per.p];
             if (this.showScheduleInfo === false) {
                 pd = this._defaultClasses["p" + per.p];
@@ -394,7 +398,8 @@ const main = Vue.createApp({
                 per.p === "dism" ||
                 per.p === "zero" ||
                 per.p === "lnc" ||
-                per.p === "study" || per.p === "assem"
+                per.p === "study" ||
+                per.p === "assem"
             )
                 return "";
             return this.teachers["p" + per.p];
@@ -635,7 +640,8 @@ const main = Vue.createApp({
                 per.p === "study" ||
                 per.p === "arr" ||
                 per.p === "dism" ||
-                per.p === "zero" || per.p === "assem"
+                per.p === "zero" ||
+                per.p === "assem"
             )
                 return;
             this.classModel = per;

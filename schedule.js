@@ -248,8 +248,8 @@ const messedUpPepAssembly = [
 
     { p: "4", time: "11:25 - 12:15" },
     { p: "5", time: "12:20 - 1:10" },
-    { p: "zero", time: "1:15 - 2:05" },
-    { p: "dism", time: "12:35 - 12:40" },
+    { p: "assem", time: "1:15 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" },
 ];
 
 let lunchraw = [

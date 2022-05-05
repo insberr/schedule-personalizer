@@ -128,6 +128,7 @@ const main = Vue.createApp({
                 pstudy: "Study",
                 ppass: "Passing",
                 pzero: "0 Hour",
+                assem: "Assembly",
             },
             _defaultClasses: {
                 p1: "",
@@ -142,6 +143,7 @@ const main = Vue.createApp({
                 pstudy: "Study",
                 ppass: "Passing",
                 pzero: "0 Hour",
+                assem: "Assembly",
             },
             rooms: {
                 p1: "",
@@ -392,7 +394,7 @@ const main = Vue.createApp({
                 per.p === "dism" ||
                 per.p === "zero" ||
                 per.p === "lnc" ||
-                per.p === "study"
+                per.p === "study" || per.p === "assem"
             )
                 return "";
             return this.teachers["p" + per.p];
@@ -633,7 +635,7 @@ const main = Vue.createApp({
                 per.p === "study" ||
                 per.p === "arr" ||
                 per.p === "dism" ||
-                per.p === "zero"
+                per.p === "zero" || per.p === "assem"
             )
                 return;
             this.classModel = per;

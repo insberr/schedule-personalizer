@@ -128,7 +128,7 @@ const main = Vue.createApp({
                 pstudy: "Study",
                 ppass: "Passing",
                 pzero: "0 Hour",
-                assem: "Assembly",
+                passem: "Assembly",
             },
             _defaultClasses: {
                 p1: "",
@@ -143,7 +143,7 @@ const main = Vue.createApp({
                 pstudy: "Study",
                 ppass: "Passing",
                 pzero: "0 Hour",
-                assem: "Assembly",
+                passem: "Assembly",
             },
             rooms: {
                 p1: "",

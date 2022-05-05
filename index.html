@@ -432,7 +432,7 @@
 
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
 									<span
-										v-if="per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero'"></span>
+										v-if="per.p === 'study' || per.p === 'lnc' || per.p === 'arr' || per.p === 'dism' || per.p === 'zero' || per.p === 'assem'"></span>
 									<span v-else v-show="showScheduleInfo === true">
 										{{ rooms['p' + per.p] ? 'R ' + rooms['p' + per.p] : '' }}
 									</span>

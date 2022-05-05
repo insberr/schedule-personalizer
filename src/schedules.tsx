@@ -1,3 +1,3 @@
-export type Period = {};
+//export type Period = {};
 
 // idk what i was doing

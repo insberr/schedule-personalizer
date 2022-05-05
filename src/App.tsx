@@ -25,7 +25,14 @@ function App() {
         refresh(schd).then(setSch)
     }
     useEffect(() => {
-        getSavedData(reloadStudentVue)
+        function calb(r: Stdata | undefined) {
+            if (r) {
+                reloadStudentVue(r)
+            } else {
+                setSch(r)
+            }
+        }
+        getSavedData(calb)
     }, [])
     if (!sch) {
         if (sch === false) {

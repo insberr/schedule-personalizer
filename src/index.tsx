@@ -5,6 +5,7 @@ import eruda from './eruda'
 import App from './App'
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import { identifyCommit } from "./lib";
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
@@ -30,7 +31,8 @@ Sentry.init({
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
     tracesSampleRate,
-    environment: process.env.NODE_ENV ? process.env.NODE_ENV : "development"
+    environment: process.env.NODE_ENV ? process.env.NODE_ENV : "development",
+    release: identifyCommit()
   });
 }
 const app = document.getElementById("app");
@@ -38,7 +40,7 @@ if (!app) {
     console.error("What the fuck? theres no app element? wtf?");
     throw new Error("God is dead and we have killed him");
 }
-
+console.log("Schedule personalizer v2 ("+identifyCommit()+")")
 const root = createRoot(app)
 root.render(<StrictMode><Sentry.ErrorBoundary fallback={<div> A fatal error has occurred. </div>} showDialog={ process.env.NODE_ENV == "production" }><App /></Sentry.ErrorBoundary></StrictMode>);
 }

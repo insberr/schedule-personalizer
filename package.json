@@ -67,5 +67,8 @@
     "react-dom": "^18.1.0",
     "workbox-precaching": "^6.5.3",
     "workbox-sw": "^6.5.3"
-  }, "alias": { "process": false }
+  },
+  "alias": {
+    "process": false
+  }
 }

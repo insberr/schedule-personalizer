@@ -24,3 +24,16 @@ export function formatClassTime(start: Time, end: Time): string {
 export function parseTime(timeString: string): Time {
     return dateToTime(parse(timeString, "hh:mm",set(new Date(), { seconds: 0 } )))
 }
+
+export function identifyCommit(): string | undefined  {
+    if (process.env.GITHUB_SHA) {
+        // we are running in gh actions
+        return process.env.GITHUB_SHA
+    } else if (process.env.CF_PAGES_COMMIT_SHA) {
+        // cloudflare pages
+        return process.env.CF_PAGES_COMMIT_SHA
+    } else {
+        return undefined
+    }
+
+}

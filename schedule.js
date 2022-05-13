@@ -252,6 +252,27 @@ const messedUpPepAssembly = [
     { p: "dism", time: "2:05 - 2:10" },
 ];
 
+let sbaTestingSchedule = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "adv", time: "7:35 - 8:50" },
+    { p: "1", time: "8:55 - 9:45" },
+    { p: "2", time: "9:50 - 10:40" },
+
+    { p: "lnc", time: "10:40 - 11:10", l: "1" },
+    { p: "3", time: "11:15 -12:20", l: "1" },
+
+    { p: "3", time: "10:45 - 11:15", l: "2" },
+    { p: "lnc", time: "11:15 - 11:45", l: "2" },
+    { p: "3", time: "11:50 - 12:20", l: "2" },
+
+    { p: "3", time: "10:45 - 11:50", l: "3" },
+    { p: "lnc", time: "11:50 - 12:20", l: "3" },
+
+    { p: "4", time: "12:25 - 1:15" },
+    { p: "5", time: "1:20 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" }
+]
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -580,7 +601,12 @@ const events = {
             5: { details: "Spirit Day - Country vs Country Club", schedule: "normal" },
             6: { details: "Spirit Day - Bison Out! & Pep Assembly", schedule: messedUpPepAssembly },
             11: eventLateStartDay,
+            16: { details: "Grade 10 ELA CAT", schedule: sbaTestingSchedule },
+            17: { details: "Grade 10 ELA PT 1", schedule: sbaTestingSchedule },
             18: eventLateStartDay,
+            19: { details: "Grade 10 ELA PT 2", schedule: sbaTestingSchedule },
+            24: { details: "Grade 9 STAR Reading, Grade 10 Math CAT, Grade 11 WCAS", schedule: sbaTestingSchedule },
+            26: { details: "Grade 9 STAR Math, Grade 10 Math PT, Grade 11 WCAS", schedule: sbaTestingSchedule },
         },
         5: {
             1: eventLateStartDay,

@@ -442,7 +442,7 @@
 
 					</table>
 					<div class="mt-1" v-show="scheduleEvent !== null">
-						<strong>{{ scheduleEvent !== null ? scheduleEvent.details : '' }}</strong>
+						<strong v-html="scheduleEvent?.details || ''"></strong>
 					</div>
 
 					<!-- hidden because not remote -->

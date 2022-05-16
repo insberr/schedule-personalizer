@@ -273,6 +273,27 @@ let sbaTestingSchedule = [
     { p: "dism", time: "2:05 - 2:10" }
 ]
 
+let sbaTestingScheduleExtended = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "adv", time: "7:35 - 9:15" },
+    { p: "1", time: "9:20 - 10:00" },
+    { p: "2", time: "10:05 - 10:50" },
+
+    { p: "lnc", time: "10:50 - 11:20", l: "1" },
+    { p: "3", time: "11:25 -12:30", l: "1" },
+
+    { p: "3", time: "10:55 - 11:25", l: "2" },
+    { p: "lnc", time: "11:25 - 11:55", l: "2" },
+    { p: "3", time: "12:00 - 12:30", l: "2" },
+
+    { p: "3", time: "10:55 - 12:00", l: "3" },
+    { p: "lnc", time: "12:00 - 12:30", l: "3" },
+
+    { p: "4", time: "12:35 - 1:15" },
+    { p: "5", time: "1:20 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" }
+]
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -601,7 +622,7 @@ const events = {
             5: { details: "Spirit Day - Country vs Country Club", schedule: "normal" },
             6: { details: "Spirit Day - Bison Out! & Pep Assembly", schedule: messedUpPepAssembly },
             11: eventLateStartDay,
-            16: { details: "Grade 9 Advisory, Panorama<br>Grade 10 ELA CAT<br>Grade 11 Advisory, Panorama<br>Grade 12 Advisory, ELA CAT make-up, Panorama/Life Track", schedule: sbaTestingSchedule },
+            16: { details: "Grade 9 Advisory, Panorama<br>Grade 10 ELA CAT<br>Grade 11 Advisory, Panorama<br>Grade 12 Advisory, ELA CAT make-up, Panorama/Life Track", schedule: sbaTestingScheduleExtended },
             17: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 1<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingSchedule },
             18: eventLateStartDay,
             19: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 2<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingSchedule },

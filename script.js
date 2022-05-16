@@ -766,7 +766,9 @@ const main = Vue.createApp({
         },
         showScheduleInfo() {
             // toggle the schedule info being shown and hidden
-            
+            if (this.showScheduleInfo === false) {
+                this.lunch = "2";
+            }
         }
     },
     computed: {

@@ -625,7 +625,7 @@ const events = {
             16: { details: "Grade 9 Advisory, Panorama<br>Grade 10 ELA CAT<br>Grade 11 Advisory, Panorama<br>Grade 12 Advisory, ELA CAT make-up, Panorama/Life Track", schedule: sbaTestingScheduleExtended },
             17: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 1<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingSchedule },
             18: eventLateStartDay,
-            19: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 2<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingSchedule },
+            19: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 2<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingScheduleExtended },
             24: { details: "Grade 9 STAR Reading<br>Grade 10 Math CAT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math CAT make-up", schedule: sbaTestingSchedule },
             26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingSchedule },
         },

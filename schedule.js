@@ -629,10 +629,12 @@ const events = {
             24: { details: "Grade 9 STAR Reading<br>Grade 10 Math CAT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math CAT make-up", schedule: sbaTestingSchedule },
             25: { details: "Decision Day Assembly - Schedule Unknown", schedule: "normal" },
             26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingSchedule },
+			30: { details: "Memorial Day - No School", schedule: noSchool },
         },
         5: {
             1: eventLateStartDay,
-            23: { details: "Last Day of School - Schedule Unknown", schedule: "normal" },
+			15: { details: "Early Dismissal (K - 12) - Grade Prep - Schedule Unknown", schedule: "normal" },
+            23: { details: "Early Dismissal (K - 12) - Last Day of School - Schedule Unknown", schedule: "normal" },
         }
     },
 };

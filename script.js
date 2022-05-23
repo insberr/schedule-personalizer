@@ -703,6 +703,11 @@ const main = Vue.createApp({
 					new Date(this.year, this.month, this.day).getDay()
 				] = this.scheduleEvent.schedule;
 			}
+
+            if (this.scheduleEvent.lunches) {
+                lunches = generateLunches(this.scheduleEvent.lunches);
+                this.runLunchDetect()
+            }
         },
         currentLookingAtDay() {
             return (

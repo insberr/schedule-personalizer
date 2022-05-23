@@ -294,6 +294,27 @@ let sbaTestingScheduleExtended = [
     { p: "dism", time: "2:05 - 2:10" }
 ]
 
+let messedUpAssemblyDecisionDay = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "1", time: "7:35 - 8:25" },
+    { p: "2", time: "8:30 - 9:20" },
+    { p: "3", time: "9:25 - 10:15" },
+
+    { p: "lnc", time: "10:15 - 10:45", l: "1" },
+    { p: "4", time: "10:50 - 11:55", l: "1" },
+
+    { p: "4", time: "10:20 - 10:50", l: "2" },
+    { p: "lnc", time: "10:50 - 11:20", l: "2" },
+    { p: "4", time: "11:25 - 11:55", l: "2" },
+
+    { p: "4", time: "10:20 - 11:25", l: "3" },
+    { p: "lnc", time: "11:25 - 11:55", l: "3" },
+
+    { p: "5", time: "12:00 - 12:50" },
+    { p: "assem", time: "12:55 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" }
+]
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -377,6 +398,70 @@ let lunchraw = [
     ],
 ];
 
+// for the messed up assembly that makes lunch in 4th period
+let lunchraw2 = [
+    [
+        "5055B0DF-34AB-42AA-8AD4-07E7FB95293E", // BROKAW
+        "", // FRADY
+        "05B18ACF-4FB0-4D48-A97B-5E8A295FE753", // GIBBS
+        "11F13E4A-D3C2-44C2-B85E-E42D044C4A7D", // HAEGELE
+        "5ED1F075-B1E6-4012-9F25-F9BD96DE3CB7", // HAMILTON
+        "736302BF-89B1-4FC3-BC31-ED8CFA8D4E6C", // LANTZ
+        "8C2BA073-F252-4166-9AA0-8BAA32010154", // LOISELLE
+        "09441DB3-3CF9-409B-A292-5592502AE241", // MCCANN
+        "6C0E7AA5-FB41-46C7-A017-125B4590EF87", // MORRISON
+        "D8215B42-7E71-4527-96BA-19B5CABA8C9B", // O'DONNELL
+        "", // PARTIN
+        "87361F26-64B4-4245-BD95-A20E8495F86B", // RATH
+        "EB696A7C-FD7F-4A05-B60C-217D04FDD7FF", // REXUS
+        "", // ROBERTS
+        "31132696-3038-4611-9A5D-4F07D3D57F0A", // SHOOT
+        "BE947D94-A04C-425F-B91F-5AA4402F312F", // SORIERO
+        "AD4CA338-FDFF-47E8-8378-306F91D7CC6C", // TALEN
+        "10B967EC-7856-481F-A582-B084362DE8E0", // VALLIER
+    ],
+    [
+        "2082227C-4340-4A77-9BFD-2A91DE42E5F4", // ANDERSON
+        "743247FA-3794-433D-B93B-3B8F928D51CC", // BARNETTE
+        "0AD4E730-8F18-4E95-AEEA-2ED5C337C151", // BEATTY
+        "684B20C2-BAB0-4E22-BFE0-22F8CBB994C5", // CAMBRA
+        "D271A345-ED7C-412A-BB26-27A41FE3399D", // CARREL
+        "EF0E762D-7A7D-4BBD-864B-4C6D6743E9FF", // K. FOWLER
+        "4CE7FB9A-1C6F-4174-9C50-9F32F056B707", // GLADFELTER
+        "", // GRIMALDI
+        "1B5BFD83-2919-4A21-85A0-CD82D6364AF2", // HUBEEK
+        "87E25A49-8848-4168-B443-268B35535C85", // ITO
+        "F0887088-6E68-4CB7-82A1-EFD647AA0DD4", // IVERSON
+        "D81A4ABA-8EAB-40D1-8DCA-AEA24D5DF935", // JOLLY
+        "", // PELANDINI
+        "E0322F38-B08D-4A24-8ECD-C5C51CBB91BF", // SNOW
+        "", // STICKNEY
+        "", // STROM
+        // WHICH ONE
+        "49512926-C5E3-42C7-90FA-AEE628D72717", // A. WILSON
+        "833B4D50-83AF-4973-8C0B-917FEA73A621", // G. WILSON
+    ],
+    [
+        "E2899865-11A1-4C45-A63B-25BFBE878157", // BLAND
+        "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
+        "5A278915-6DA9-45BF-967A-D3C6909CAE36", // ESTRADA
+        "", // FORTE
+        "561420AA-D874-468B-9456-D52910FE8633", // HODGES
+        "292C3235-37B1-4475-B807-708D0A336D0D", // HOWARD
+        "", // JIN
+        "", // KASW
+        "6EDDF615-60D5-45AA-8B3F-A3D04DDF1533", // KINTZ
+        "EA675775-8E99-489C-94E4-86228C4F1892", // KNOX
+        "", // MISLEY
+        "7DAD4E68-6A68-4823-A933-C6864652D72F", // NORTHINGTON
+        "AB98701E-A3DE-47A9-99DB-5AAC7397EB11", // SAFFLE
+        "F5C93D23-A66E-4BBF-8D00-9863CE0822C0", // SAUER
+        "3E7413CA-5771-4987-9E1C-91F97715C589", // SCHREIBER
+        "CDE89AD0-1D63-4DB7-8C89-A66F1C5C41E2", // STUMPF
+        "CBDFA846-B3CB-45C5-BB36-C870B5AC4099", // SOUTHWORTH
+    ],
+]
+
 function generateLunches(lraw) {
     let out = {};
     lraw.forEach((l, i) => {
@@ -387,6 +472,7 @@ function generateLunches(lraw) {
     return out;
 }
 const lunches = generateLunches(lunchraw);
+// const lunches2 = generateLunches(lunchraw2); // dont use
 
 const noSchool = [
     { we: true },
@@ -627,7 +713,7 @@ const events = {
             18: eventLateStartDay,
             19: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 2<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingScheduleExtended },
             24: { details: "Grade 9 STAR Reading<br>Grade 10 Math CAT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math CAT make-up", schedule: sbaTestingSchedule },
-            25: { details: "Decision Day Assembly - Schedule Unknown", schedule: "normal" },
+            25: { details: "Decision Day Assembly", schedule: messedUpAssemblyDecisionDay, lunches: lunchraw2 },
             26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingSchedule },
 			30: { details: "Memorial Day - No School", schedule: noSchool },
         },

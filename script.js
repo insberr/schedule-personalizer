@@ -294,6 +294,11 @@ const main = Vue.createApp({
         this.$nextTick(function () {
             document.getElementById("loading").className = "d-none";
         });
+        
+        let force_dark_mode = document.localStorage.get('force-dark');
+        if (force_dark_mode) {
+            document.getElementById('themestylesheet').setAttribute('media', '(prefers-color-scheme: light)')
+        }
     },
     methods: {
         save() {

@@ -295,7 +295,7 @@ const main = Vue.createApp({
             document.getElementById("loading").className = "d-none";
         });
         
-        let force_dark_mode = document.localStorage.getItem('force-dark');
+        let force_dark_mode = localStorage.getItem('force-dark');
         if (force_dark_mode === 'true') {
             document.getElementById('themestylesheet').setAttribute('media', '(prefers-color-scheme: light)')
         }

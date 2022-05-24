@@ -413,7 +413,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="per in schedule[cohort][week]"
-								:class="{ 'tblue': (per.p), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr' || per.p === 'zero'), 't3rdblue': (per.p === '3') }" @click="openClassModel(per)">
+								:class="{ 'tblue': (per.p), 'tgreen': (per.p === 'lnc' || per.p === 'dism'), 'tyellow': (per.p === 'arr' || per.p === 'zero'), 't3rdblue': (per.p !== 'lnc' && l !== undefined) }" @click="openClassModel(per)">
 								<td v-if="per.we !== true && (per.l === undefined || per.l === lunch)">
 									{{ per.time }}
 								</td>

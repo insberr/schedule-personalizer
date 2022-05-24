@@ -313,7 +313,7 @@ let messedUpAssemblyDecisionDay = [
     { p: "5", time: "12:00 - 12:50" },
     { p: "assem", time: "12:55 - 2:05" },
     { p: "dism", time: "2:05 - 2:10" }
-]
+];
 
 let lunchraw = [
     [
@@ -460,7 +460,7 @@ let lunchraw2 = [
         "CDE89AD0-1D63-4DB7-8C89-A66F1C5C41E2", // STUMPF
         "CBDFA846-B3CB-45C5-BB36-C870B5AC4099", // SOUTHWORTH
     ],
-]
+];
 
 function generateLunches(lraw) {
     let out = {};

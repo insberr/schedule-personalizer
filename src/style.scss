@@ -11,7 +11,9 @@ $body-color: #fafafa;
 $font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 $border-radius-table: 10px;
-
+$list-group-color: $body-color;
+$list-group-bg: rgba(white, 0);
+$list-group-border-width: 0;
 .date {
     background-color: #DC143C;
     border-top-left-radius: $border-radius-table;
@@ -32,4 +34,7 @@ $border-radius-table: 10px;
 
 .row {
     margin-right: calc(.5 * var(--bs-gutter-x) )!important;
+}
+.background-clear {
+    background-color: rgba($color: #000000, $alpha: 0);
 }

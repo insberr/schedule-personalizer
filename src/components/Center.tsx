@@ -6,7 +6,7 @@ type CenterProps = {
 
 function Center(props: CenterProps) { 
     return (
-    <div className={"container" + props.className != undefined ? " " + props.className : ""}>
+    <div className={"container text-center" + props.className != undefined ? " " + props.className : ""}>
         <div className="row justify-content-center">
             <div className="col">
             </div>

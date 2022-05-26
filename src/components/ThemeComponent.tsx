@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { Customizations } from "../types";
 
 function generateCSS(custom: Customizations) {
-    return `* { color: magenta; }`
+    return '';//`* { color: magenta; }`
 }
 
 function ThemeInternal(props: {custom: Customizations}) {

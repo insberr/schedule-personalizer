@@ -14,12 +14,13 @@ function Schedule(props: ScheduleProps) {
     // make a value for todays schedule
     
     return (<Center>
-        <div className="row justify-content-center">
+        <ul className="list-group" style={{ "minWidth": "75vw" }}>
+        <li className="row background-clear list-group-item justify-content-center text-center">
             <Center className="date">Monday: 69/69/69</Center>
-        </div>
+        </li>
         { props.sch.terms[getCurrentTerm(props.sch)].classes.map((period) => {
             return <ScheduleEntry key={period.period} period={period} />
         }) }
-    </Center>)
+    </ul></Center>)
 }
 export default Schedule

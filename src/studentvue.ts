@@ -3,6 +3,9 @@ import { Stdata } from "./types";
 
 
 export async function refresh(data: Stdata): Promise<Stdata> {
+    if (!data.studentVue.username || !data.studentVue.password) {
+        return data
+    }
     return fetchData(data.studentVue.username, data.studentVue.password, data);
 }
 

@@ -4,7 +4,8 @@ type CenterProps = {
     className?: string
 }
 
-function Center(props: CenterProps) { 
+function Center(props: CenterProps) {
+    /*
     return (
     <div className={"container text-center" + props.className != undefined ? " " + props.className : ""}>
         <div className="row justify-content-center">
@@ -17,6 +18,13 @@ function Center(props: CenterProps) {
             </div>
         </div>
     </div>
+    )*/
+    return (
+        <div className={"d-flex justify-content-center w-100" + props.className ? props.className : ""}>
+            <div className="w-auto">
+                { props.children }
+            </div>
+        </div>
     )
 }
 export default Center

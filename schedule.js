@@ -715,7 +715,7 @@ const events = {
             19: { details: "Grade 9 Advisory Lesson<br>Grade 10 ELA PT 2<br>Grade 11 Advisory Lesson<br>Grade 12 Advisory Lesson, ELA PT make-up", schedule: sbaTestingScheduleExtended },
             24: { details: "Grade 9 STAR Reading<br>Grade 10 Math CAT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math CAT make-up", schedule: sbaTestingSchedule },
             25: { details: "Decision Day Assembly", schedule: messedUpAssemblyDecisionDay, lunches: lunchraw2 },
-            26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingSchedule },
+            26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingScheduleExtended },
 			30: { details: "Memorial Day - No School", schedule: noSchool },
         },
         5: {

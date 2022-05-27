@@ -14,7 +14,7 @@ function Schedule(props: ScheduleProps) {
     // make a value for todays schedule
     
     return (<Center>
-        <ul className="list-group" style={{ "minWidth": "75vw" }}>
+        <ul className="list-group" style={{ "width": "75vw" }}>
         <li className="row background-clear list-group-item justify-content-center text-center">
             <Center className="date">Monday: 69/69/69</Center>
         </li>

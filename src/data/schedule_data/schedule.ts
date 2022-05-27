@@ -78,6 +78,11 @@ class ScheduleData {
         return
 
     }
+    
+    public get DBG_db() : dblocal {
+        return DB.localdb
+    }
+    
 }
 const sch = new ScheduleData()
 export default sch

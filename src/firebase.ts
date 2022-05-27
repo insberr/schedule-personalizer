@@ -2,7 +2,7 @@ import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getDatabase } from 'firebase/database'
 
-const firebaseConfig: FirebaseOptions = { // todo: copy the things
+const firebaseConfig: FirebaseOptions = {
 apiKey: "AIzaSyAPhi8PNcv-PJeu9wJ5qj8oCVj8c5bx3O0",
 authDomain: "schedule-personalizer-70ac7.firebaseapp.com",
 projectId: "schedule-personalizer-70ac7",
@@ -16,5 +16,4 @@ databaseURL: "schedule-personalizer-70ac7-default-rtdb.firebaseio.com"
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
-
 export { app, analytics, database };

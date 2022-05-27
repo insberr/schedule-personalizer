@@ -2,7 +2,6 @@
 
 import { Time } from "../../types"
 import { set } from 'date-fns'
-import { objectify } from "@sentry/utils"
 export type SchedulePeriod = {
   period: string,
   time: {

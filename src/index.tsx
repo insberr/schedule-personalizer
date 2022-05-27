@@ -6,6 +6,7 @@ import App from './App'
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import { identifyCommit } from "./lib";
+import sch from "./data/schedule_data/schedule";
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
@@ -47,5 +48,6 @@ root.render(<StrictMode><Sentry.ErrorBoundary fallback={<div> A fatal error has 
 if (process.env.NODE_ENV == "production") {
     startLoad()
 } else {
+    (window as any).schDB = sch;
     eruda(startLoad)
 }

@@ -11,13 +11,29 @@ export type SchedulePeriod = {
   l?: string;
 }
 
-const DB = { // todo: make these actually do something.
-    getSchDBEntry: (entry: string): Schedule => { return [] },
-    setSchDBEntry: (entry: string, value: Schedule) => {return},
-    getSchDB: (): Record<string, Schedule> => {return {}},
+type dblocal = {
+    sch: Record<string, Schedule>
+    days: Record<string, string>
+}
 
-    getDayDBEntry: (entry: string): string | undefined => {return},
-    setDayDBEntry: (entry: string, value: string) => {return},
+const DB = { // todo: make these actually do something.
+    localdb: { sch: {}, days: {}} as dblocal,// what is read into from firebase, and used as a base for writing to firebase.
+    getSchDBEntry: (entry: string): Schedule => { return DB.localdb.sch[entry] },
+    setSchDBEntry: (entry: string, value: Schedule) => {
+        const newdb = Object.assign({}, DB.localdb.sch, { [entry]: value })
+        // write into firebase
+
+        DB.localdb.sch = newdb;
+    }, 
+    getSchDB: (): Record<string, Schedule> => { return DB.localdb.sch },
+
+    getDayDBEntry: (entry: string): string | undefined => {return DB.localdb.days[entry]},
+    setDayDBEntry: (entry: string, value: string) => {
+        const newdb = Object.assign({},DB.localdb.days, { [entry]:value })
+        // write into firebase
+
+        DB.localdb.days = newdb;
+    },
 }
 
 export type Schedule = SchedulePeriod[];

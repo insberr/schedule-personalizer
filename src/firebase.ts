@@ -9,7 +9,8 @@ projectId: "schedule-personalizer-70ac7",
 storageBucket: "schedule-personalizer-70ac7.appspot.com",
 messagingSenderId: "982359110019",
 appId: "1:982359110019:web:1b60a09e7b9b42533dc6b6",
-measurementId: "G-0JFN98Q4NT"
+measurementId: "G-0JFN98Q4NT",
+databaseURL: "schedule-personalizer-70ac7-default-rtdb.firebaseio.com"
 }
 
 const app = initializeApp(firebaseConfig);

@@ -2,7 +2,7 @@
   "name": "schedule-personalizer",
   "version": "2.0.0",
   "description": "Personalized Schedules?",
-  "source": "src/index.html",
+  "source": [ "src/index.html", "src/editor/index.html" ],
   "repository": "https://github.com/insberr/schedule-personalizer.git",
   "author": "Insberr & Wackery",
   "license": "MIT",
@@ -36,7 +36,7 @@
   "browserslist": "defaults and not ie >0 and not ie_mob >0",
   "scripts": {
     "build": "parcel build",
-    "dev": "parcel",
+    "dev": "parcel serve",
     "check": "tsc && eslint src",
     "clean": "rimraf dist && rimraf .parcel-cache"
   },

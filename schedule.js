@@ -717,6 +717,9 @@ const events = {
             25: { details: "Decision Day Assembly", schedule: messedUpAssemblyDecisionDay, lunches: lunchraw2 },
             26: { details: "Grade 9 STAR Math<br>Grade 10 Math PT<br>Grade 11 WCAS<br>Grade 12 Advisory, Math PT make-up", schedule: sbaTestingScheduleExtended },
 			30: { details: "Memorial Day - No School", schedule: noSchool },
+
+            31: { details: "Advisory/ Test make-up", schedule: sbaTestingSchedule },
+
         },
         5: {
             1: eventLateStartDay,

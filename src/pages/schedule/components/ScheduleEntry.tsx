@@ -9,10 +9,10 @@ type ScheduleEntryProps = {
 function ScheduleEntry(props: ScheduleEntryProps) {
     return (
     <li className="list-group-item d-flex justify-content-around align-items-center">
-        <div className="">{formatClassTime(props.period.startTime, props.period.endTime)}</div>
-        <div className="">{props.period.name}</div>
-        <div className="">{props.period.teacher?.name || "no name"}</div>
-        <div className="">R {props.period.room}</div>
+        <div key="classTime" className="">{formatClassTime(props.period.startTime, props.period.endTime)}</div>
+        <div key="className" className="">{props.period.name}</div>
+        <div key="teacherName" className="">{props.period.teacher?.name || "no name"}</div>
+        <div key="roomNumber" className="">R {props.period.room}</div>
     </li>
 )
 }

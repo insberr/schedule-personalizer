@@ -4,7 +4,7 @@ Please add details
 ## Component locations
 Components that are only used for one page should be put into src/pages/\<page\>/components while components used for multiple pages go into src/components
 
-### To do
+### To do (Read the project on the repo)
 - Cloudflare site analytics
 - the ability for users to customize the colors
 - a button one each class that brings up the more info pop up

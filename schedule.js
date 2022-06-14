@@ -748,7 +748,8 @@ let events = {
             16: { details: "Assembly - Senior Awards", schedule: messedUpAssemblySeniorAwards, lunches: lunchraw2 },
             20: { details: "Early Dismissal (K - 12) - Senior Graduation", schedule: earlyDismissal },
             23: { details: "Early Dismissal (K - 12) - Last Day of School", schedule: earlyDismissal },
-        }
+        },
+	    6: {},
     },
 };
 

@@ -547,7 +547,7 @@ Type 2 - If there are cohort specific schedules
 }
 
 */
-const events = {
+let events = {
     2021: {
         10: {
             3: eventLateStartDay,

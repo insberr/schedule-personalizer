@@ -315,6 +315,27 @@ let messedUpAssemblyDecisionDay = [
     { p: "dism", time: "2:05 - 2:10" }
 ];
 
+let messedUpAssemblySeniorAwards = [
+    { p: "zero", time: "6:35 - 7:30" },
+    { p: "1", time: "7:35 - 8:25" },
+    { p: "2", time: "8:30 - 9:20" },
+    { p: "3", time: "9:25 - 10:15" },
+
+    { p: "lnc", time: "10:15 - 10:45", l: "1" },
+    { p: "4", time: "10:50 - 11:55", l: "1" },
+
+    { p: "4", time: "10:20 - 10:50", l: "2" },
+    { p: "lnc", time: "10:50 - 11:20", l: "2" },
+    { p: "4", time: "11:25 - 11:55", l: "2" },
+
+    { p: "4", time: "10:20 - 11:25", l: "3" },
+    { p: "lnc", time: "11:25 - 11:55", l: "3" },
+
+    { p: "5", time: "12:00 - 12:50" },
+    { p: "assem", time: "12:55 - 2:05" },
+    { p: "dism", time: "2:05 - 2:10" }
+];
+
 let lunchraw = [
     [
         "1FD1AA82-942A-40EE-95D4-F34305640AF6", // BRENDIBLE
@@ -723,11 +744,22 @@ const events = {
         },
         5: {
             1: eventLateStartDay,
-			15: { details: "Early Dismissal (K - 12) - Grade Prep - Schedule Unknown", schedule: "normal" },
-            23: { details: "Early Dismissal (K - 12) - Last Day of School - Schedule Unknown", schedule: "normal" },
+			15: { details: "Early Dismissal (K - 12) - Grade Prep", schedule: earlyDismissal },
+            16: { details: "Assembly - Senior Awards", schedule: messedUpAssemblySeniorAwards, lunches: lunchraw2 },
+            20: { details: "Early Dismissal (K - 12) - Senior Graduation", schedule: earlyDismissal },
+            23: { details: "Early Dismissal (K - 12) - Last Day of School", schedule: earlyDismissal },
         }
     },
 };
+
+const summerDumbDumb = [
+    { we: true },
+    { p: "study", time: "Its Summer Dumb Dumb!!!" }
+];
+
+for (let i = 24; i < 31; i++) {
+    events["5"][`${i}`] = { details: "Its summer, why are you looking at the schedule??", schedule: summerDumbDumb };
+}
 
 // Return the event for the given day
 function getEventFor(day, month, year, cohort) {

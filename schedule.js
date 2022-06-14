@@ -758,9 +758,12 @@ const summerDumbDumb = [
 ];
 
 for (let i = 24; i < 31; i++) {
-    events["5"][`${i}`] = { details: "Its summer, why are you looking at the schedule??", schedule: summerDumbDumb };
+    events[2022][5][i] = { details: "Its summer, why are you looking at the schedule??", schedule: summerDumbDumb };
 }
 
+for (let i = 1; i < 32; i++) {
+	events[2022][6][i] = { details: "Its summer, why are you looking at the schedule??", schedule: summerDumbDumb };
+}
 // Return the event for the given day
 function getEventFor(day, month, year, cohort) {
     let event = events[year]?.[month]?.[day];

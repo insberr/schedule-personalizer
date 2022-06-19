@@ -4,12 +4,13 @@ import { isThursday, isTuesday, isWeekend } from "date-fns";
 import { getCurrentTerm } from "./lib";
 export type StudentScheduleEntry = SchedulePeriod & {
     teacher?: string,
-    room?: string
+    room?: string,
+    l: undefined // there should be, NO LUNCHES.
 }
 
 
 
-export type StudentSchedule = StudentScheduleEntry[]
+export type StudentSchedule = StudentScheduleEntry[] // this should be the data we give to the rendererererererer.
 
 
 const defaultSchedules: Record<string, Schedule> = {

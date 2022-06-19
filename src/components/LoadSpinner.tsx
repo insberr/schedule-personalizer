@@ -1,5 +1,7 @@
+import Spinner from "react-bootstrap/Spinner";
+
 function LoadSpinner() {
-    return <div className="spinner-grow full-center-spinner text-dark"></div>
+    return <Spinner animation="grow" className="full-center-spinner "/>
 }
 
 export default LoadSpinner;

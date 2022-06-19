@@ -7,7 +7,7 @@
     "src/editor/index.html"
   ],
   "repository": "https://github.com/insberr/schedule-personalizer.git",
-  "author": "Insberr & Wackery",
+  "author": "insberr & Wackery",
   "license": "MIT",
   "private": true,
   "devDependencies": {

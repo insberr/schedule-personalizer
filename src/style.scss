@@ -5,6 +5,7 @@
 
 // some stuff from another site
 
+@import "npm:bootstrap/scss/functions";
 
 $body-bg: #4b5563;
 $body-color: #fafafa;
@@ -14,6 +15,14 @@ $border-radius-table: 10px;
 $list-group-color: $body-color;
 $list-group-bg: rgba(white, 0);
 $list-group-border-width: 0;
+$input-bg: $body-bg;
+$input-disabled-bg: tint-color($body-bg, 20%);
+
+
+.shade-bg {
+    background-color: shade-color($body-bg, 30%);
+}
+
 .date {
     background-color: #DC143C;
     border-top-left-radius: $border-radius-table;

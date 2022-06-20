@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from "react";
 import { Stage0 } from "./steps/Stage0";
 import { StageManually1 } from "./steps/StageManually1";
+import { Stage1 } from "./steps/Stage1";
 type SetupPageProps = {
     setSchedule: (s: Stdata) => void
 }
@@ -32,7 +33,7 @@ function SetupPage(props: SetupPageProps) {
             return <Stage0 setStage={ setStage }/>
             break;
         case 1: // studentvue login
-            return <div> todo </div>
+            return <Stage1 setSchedule={ setLocalSchedule } setStage={setStage} />
             break;
         case 2: // lunch autodetect failure, set force lunch
             return <div> todo </div>

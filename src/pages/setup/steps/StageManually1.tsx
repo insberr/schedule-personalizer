@@ -10,7 +10,7 @@ export function StageManually1(props: StageProps) {
     return (
         <Center className="text-center"> 
             <h1 className="mb-3">Setup</h1>
-            <div className="shade-bg p-3 rounded">
+            <div className="paper">
             {[...Array(classAmount)].map((_, i) => {
                 return <ManualClassEntry key={"class"+i} />
             })}

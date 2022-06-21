@@ -39,7 +39,7 @@ export function Stage1(props: Props) {
             {error}
         </Alert>
         <br />
-        <Form className="shade-bg p-3 rounded" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit() }}>
+        <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit() }}>
             <Form.Group className="mb-3">
                 <Form.FloatingLabel controlId={id+"username"} label="Username">
                     <Form.Control placeholder="Username" disabled={loading} onChange={ (e) => { setUsername(e.currentTarget.value) } } value={username} />

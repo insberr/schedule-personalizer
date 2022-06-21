@@ -19,11 +19,22 @@ $input-bg: $body-bg;
 $input-disabled-bg: tint-color($body-bg, 20%);
 $shade-bg: shade-color($body-bg, 30%);
 $shader-bg: shade-color($body-bg, 40%);
-.shade-bg {
+$paper-border-tint: 10%;
+@import "npm:bootstrap/scss/bootstrap";
+
+
+.paper {
+    @extend .p-3;
+    @extend .rounded;
     background-color: $shade-bg;
+    border: 1px solid tint-color($shade-bg, $paper-border-tint);
+
+
 }
-.shader-bg {
+.paperer {
+    @extend .paper;
     background-color: $shader-bg;
+    border-color: tint-color($shader-bg, $paper-border-tint);
 }
 
 
@@ -40,8 +51,6 @@ $shader-bg: shade-color($body-bg, 40%);
     left: 50%;
     //transform: translate(-50%, -50%);
 }
-
-@import "npm:bootstrap/scss/bootstrap";
 
 //other styles go here
 

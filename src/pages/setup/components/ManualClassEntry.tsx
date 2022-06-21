@@ -16,7 +16,7 @@ export function ManualClassEntry() {
     }
     // mayne convert the floatinglabel+control combo into a component
     return (
-        <Container className="shader-bg mb-4 p-3 rounded">
+        <Container className="paperer mb-4">
             Period name goes here (maybe with some styling) (id: {id})
             <Row>
                 <Form.Group as={Col}>

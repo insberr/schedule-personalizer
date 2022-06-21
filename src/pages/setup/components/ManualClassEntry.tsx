@@ -25,18 +25,18 @@ export function ManualClassEntry(props: Props) {
             <div className="mb-2">{ props.isAdv ? "Advisory" : "Period "+props.period}</div>
             <Row>
                 <Form.Group as={Col}>
-                    <Form.FloatingLabel controlId={id+"classname"} label="Class Name"> 
-                        <Form.Control type="text" onChange={changeDo(setclassname)} value={classname} placeholder="Class Name" disabled={props.isAdv} />
+                    <Form.FloatingLabel controlId={id+"classname"} label="Name"> 
+                        <Form.Control type="text" onChange={changeDo(setclassname)} value={classname} placeholder="Name" disabled={props.isAdv} />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}>
-                    <Form.FloatingLabel controlId={id+"tname"} label="Teacher Name">
-                        <Form.Control value={teacher} onChange={changeDo(setteacher)} placeholder="Teacher Name" />
+                    <Form.FloatingLabel controlId={id+"tname"} label="Teacher">
+                        <Form.Control value={teacher} onChange={changeDo(setteacher)} placeholder="Teacher" />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}>
-                    <Form.FloatingLabel controlId={id+"room"} label="Room Number">
-                        <Form.Control value={room} onChange={changeDo(setroom)} placeholder="Room Number" />
+                    <Form.FloatingLabel controlId={id+"room"} label="Room">
+                        <Form.Control value={room} onChange={changeDo(setroom)} placeholder="Room" />
                     </Form.FloatingLabel>
                 </Form.Group>
             </Row>

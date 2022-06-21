@@ -12,7 +12,7 @@ export function StageManually1(props: StageProps) {
             <h1 className="mb-3">Setup</h1>
             <div className="paper">
             {[...Array(classAmount)].map((_, i) => {
-                return <ManualClassEntry key={"class"+i} />
+                return <ManualClassEntry isAdv={i==0} period={i} key={"class"+i} />
             })}
             <div className="mb-3">
                 Lunch picker goes here

@@ -4,9 +4,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
 import Form from 'react-bootstrap/Form'
 
-export function ManualClassEntry() {
+type Props = {
+    isAdv: boolean
+    period: number
+}
+
+export function ManualClassEntry(props: Props) {
     const id = useId()
-    const [classname, setclassname] = useState("")
+    const [classname, setclassname] = useState(props.isAdv ? "Advisory" : "")
     const [teacher, setteacher] = useState("")
     const [room, setroom] = useState("")
     function changeDo(setfunc: (v: string) => void) {
@@ -17,11 +22,11 @@ export function ManualClassEntry() {
     // mayne convert the floatinglabel+control combo into a component
     return (
         <Container className="paperer mb-4">
-            Period name goes here (maybe with some styling) (id: {id})
+            <div className="mb-2">{ props.isAdv ? "Advisory" : "Period "+props.period}</div>
             <Row>
                 <Form.Group as={Col}>
                     <Form.FloatingLabel controlId={id+"classname"} label="Class Name"> 
-                        <Form.Control type="text" onChange={changeDo(setclassname)} value={classname} placeholder="Class Name" />
+                        <Form.Control type="text" onChange={changeDo(setclassname)} value={classname} placeholder="Class Name" disabled={props.isAdv} />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}>

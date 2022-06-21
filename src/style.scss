@@ -17,11 +17,15 @@ $list-group-bg: rgba(white, 0);
 $list-group-border-width: 0;
 $input-bg: $body-bg;
 $input-disabled-bg: tint-color($body-bg, 20%);
-
-
+$shade-bg: shade-color($body-bg, 30%);
+$shader-bg: shade-color($body-bg, 40%);
 .shade-bg {
-    background-color: shade-color($body-bg, 30%);
+    background-color: $shade-bg;
 }
+.shader-bg {
+    background-color: $shader-bg;
+}
+
 
 .date {
     background-color: #DC143C;

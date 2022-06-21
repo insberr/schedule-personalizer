@@ -42,12 +42,12 @@ export function Stage1(props: Props) {
         <Form className="shade-bg p-3 rounded" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit() }}>
             <Form.Group className="mb-3">
                 <Form.FloatingLabel controlId={id+"username"} label="Username">
-                    <Form.Control disabled={loading} onChange={ (e) => { setUsername(e.currentTarget.value) } } value={username} placeholder="" />
+                    <Form.Control placeholder="Username" disabled={loading} onChange={ (e) => { setUsername(e.currentTarget.value) } } value={username} />
                 </Form.FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.FloatingLabel controlId={id+"password"} label="Password">
-                    <Form.Control disabled={loading} type="password" onChange={ (e) => {setPassword(e.currentTarget.value)}} value={password} />
+                    <Form.Control placeholder="Password" disabled={loading} type="password" onChange={ (e) => {setPassword(e.currentTarget.value)}} value={password} />
                 </Form.FloatingLabel>
             </Form.Group>
             <Button disabled={loading} type="submit">

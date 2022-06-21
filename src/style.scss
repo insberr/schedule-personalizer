@@ -40,8 +40,7 @@ $paper-border-tint: 10%;
 
 .date {
     background-color: #DC143C;
-    border-top-left-radius: $border-radius-table;
-    border-top-right-radius: $border-radius-table;
+    border-radius: $border-radius-table $border-radius-table 0 0;
     color: white;
 }
 

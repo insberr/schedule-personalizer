@@ -1,12 +1,15 @@
-import { useState, useId } from "react";
+import { useState, useId, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
 import Form from 'react-bootstrap/Form'
+import { CL } from "../types";
+import parseWithOptions from "date-fns/esm/fp/parseWithOptions/index.js";
 
 type Props = {
     isAdv: boolean
     period: number
+    change: (d: CL) => void
 }
 
 export function ManualClassEntry(props: Props) {
@@ -14,11 +17,20 @@ export function ManualClassEntry(props: Props) {
     const [classname, setclassname] = useState(props.isAdv ? "Advisory" : "")
     const [teacher, setteacher] = useState("")
     const [room, setroom] = useState("")
+    function pushSCH() {
+        const data: CL = {
+            name: props.isAdv ? "Advisory" : classname,
+            teacher,
+            room
+        }
+        props.change(data);
+    }
     function changeDo(setfunc: (v: string) => void) {
         return (e: any) => { // use a better type
-            setfunc(e.currentTarget.value)
+            setfunc(e.currentTarget.value);
         }
     }
+    useEffect(pushSCH)
     // mayne convert the floatinglabel+control combo into a component
     return (
         <Container className="paperer mb-4">

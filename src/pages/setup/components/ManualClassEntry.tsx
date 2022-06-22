@@ -30,7 +30,7 @@ export function ManualClassEntry(props: Props) {
             setfunc(e.currentTarget.value);
         }
     }
-    useEffect(pushSCH)
+    useEffect(pushSCH, [classname,teacher,room])
     // mayne convert the floatinglabel+control combo into a component
     return (
         <Container className="paperer mb-4">

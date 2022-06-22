@@ -1,4 +1,6 @@
 import { useEffect, useId, useMemo, useState } from "react";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import Center from "../../../components/Center";
 import { LunchPicker } from "../components/LunchPicker";
 import { ManualClassEntry } from "../components/ManualClassEntry";
@@ -15,6 +17,12 @@ export function StageManually1(props: StageProps) {
             classes: classes
         }
     }, [classes, l])
+    const isValid = useMemo<boolean>(() => {
+        const i = classes.some((c) => {
+            return c.name == "" || c.teacher == "" || c.room == ""
+        })
+        return !i
+    }, [classes])
     useEffect(() => {
         if (classes[0].name != "Advisory") {
             const newg = {...classes[0]}
@@ -38,7 +46,8 @@ export function StageManually1(props: StageProps) {
                 <LunchPicker l={l} lunchamt={3} setl={sl} />
             </div>
             <div className="mb-3">
-                submit button goes here
+                { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
+                <Button onClick={()=>{alert("you thought.")}} disabled={!isValid}>Confirm</Button>
             </div>
             <pre className="paperer text-start">
                 {JSON.stringify(resultData, null, 4)}

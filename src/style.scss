@@ -19,6 +19,7 @@ $input-bg: $body-bg;
 $input-disabled-bg: tint-color($body-bg, 20%);
 $shade-bg: shade-color($body-bg, 30%);
 $shader-bg: shade-color($body-bg, 40%);
+$shaderer-bg: shade-color($body-bg, 50%);
 $paper-border-tint: 10%;
 @import "npm:bootstrap/scss/bootstrap";
 

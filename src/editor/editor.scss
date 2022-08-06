@@ -1,1 +1,39 @@
-@import "../style.scss"
+@import "../style.scss";
+@import "npm:react-calendar/dist/calendar.css";
+
+$tile-selected: shade-color($white,10%);
+
+// react calendar
+.react-calendar  {
+    font-family: $font-family-sans-serif;
+    background-color: $shade-bg;
+    color: $body-color;
+}
+.react-calendar__navigation__label__labelText {
+    color: inherit;
+}
+.react-calendar__tile--now {
+    background-color: shade-color($body-bg, 70%);
+}
+.react-calendar__tile, .react-calendar__navigation__arrow, .react-calendar__navigation__label {
+    color: $body-color;
+    &:hover {
+        background-color: $tile-selected!important;
+        color: black;
+    }
+    &:focus {
+        background-color: shade-color($tile-selected, 10%)!important;
+        color: black;
+    }
+}
+.react-calendar__month-view__days__day {
+    color: $body-color;
+    
+}
+.react-calendar__month-view__days__day--weekend {
+    color: $danger;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: $primary;
+}
+

@@ -1,18 +1,16 @@
-import { parse } from "date-fns"
-import { useState } from "react"
-import sch from "../data/schedule_data/schedule"
+import { useEffect, useState } from "react"
+import { ScheduleFile } from "./types"
+import _schedule from "../schedule.json"
+import Center from "../components/Center"
+import { DateEditor } from "./DateEditor"
 
 export function EditorApp() {
-    const [s, ref] = useState<number>(0)
-    return (<div>Crimge, use editor.set{ "(" }mm-dd-yyyy, any jsonable obj{")"} to edit the schedule. {"("}until we get a proper editor{")"} <br />
-    <button className="btn btn-primary" onClick={ () => { ref(s+1) } }>Refresh displayer</button>
-    <pre>{ JSON.stringify(sch.DBG_db,null,4) }</pre>
-    </div> )
+    const [sch, setSch] = useState<ScheduleFile>(_schedule) // loads the schedule from the json file by default
+    return (<Center><h1>Schedule Editor</h1>
+                <div className="mb-2 mt-3"><DateEditor /></div>
+                <div>Section for schedule editor</div>
+                <br /> <br />
+                <h2> Output </h2>
+                <div className="paper">{JSON.stringify(sch)}</div> 
+                </Center>)
 }
-(window as any).editor = {
-    sch,
-    set: (date: string, data:any) => {
-        const pdate = parse(date, "mm-dd-yyyy", new Date());
-        sch.setSchedule(pdate, data)
-    }
-} // cring

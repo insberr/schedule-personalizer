@@ -27,7 +27,7 @@ export async function getSavedDataAsync(): Promise<Stdata | undefined> {
                 // fetch that shit
             }
             // if its not logged into studentvue ... 
-            // suggest that they log in, if yes pull info from studentVue, if no, migrate from data
+            // suggest that they log in, if yes pull info from studentVue, if no, migrate from data (pain)
 
             // migrate  classes
             // migrate teachers
@@ -42,6 +42,11 @@ export async function getSavedDataAsync(): Promise<Stdata | undefined> {
 export function saveData(data: Stdata) {
     localStorage.setItem("scheduleData", JSON.stringify(data))
 }
+
+export function clearData() {
+    localStorage.removeItem("scheduleData")
+}
+
 // translate it to the new format if its from v1
 
 // update schedules from studentvue if its been long enough

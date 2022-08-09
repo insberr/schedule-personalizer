@@ -5,6 +5,10 @@ import Alert from "react-bootstrap/Alert"
 import Spinner from "react-bootstrap/Spinner"
 import { Stdata } from "../../../types";
 import Center from '../../../components/Center'
+import { fetchData } from "../../../studentvue"
+import { saveData } from "../../../dataHandler"
+import { testData } from "../../../testData";
+
 type Props = {
     setStage:  (stage: number) => void;
     setSchedule: (schedule: Stdata | undefined) => void
@@ -27,6 +31,18 @@ export function Stage1(props: Props) {
     function Submit() {
         setLoading(true)
         hideError();
+        fetchData(username, password).then(res => {
+            console.log(res);
+            setLoading(false)
+            props.setStage(420);
+        }).catch(err => {
+            console.log(err);
+            doError("Error fetching data")
+            setLoading(false)
+        })
+
+        saveData(testData)
+
         setTimeout(() => {
             doError("Haha you thought i actually implemented this lmafo")
             setLoading(false)

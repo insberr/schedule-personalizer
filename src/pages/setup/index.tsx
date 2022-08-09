@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Stage0 } from "./steps/Stage0";
 import { StageManually1 } from "./steps/StageManually1";
 import { Stage1 } from "./steps/Stage1";
+import Schedule from "../schedule/components/Schedule";
 type SetupPageProps = {
     setSchedule: (s: Stdata) => void
 }
@@ -43,6 +44,9 @@ function SetupPage(props: SetupPageProps) {
             break;
         case 69: // the schedule will only be set in this state, so stages can pass schedule data between them (lunch detect failure)
             return <div />
+            break;
+        case 420:
+            return <Schedule sch={ testData }/>
             break;
         default: 
             return (<div>Invalid state! <Button onClick={ () => { setStage(0) } } variant="primary">Reset</Button></div>)

@@ -1,4 +1,4 @@
-import { getTimeW, Stdata } from "./types"
+import { getTimeW, Stdata } from "./types";
 
 // This can be used as the default values until data is saved to local storage
 export const testData: Stdata = {
@@ -20,12 +20,12 @@ export const testData: Stdata = {
                     teacher: {
                         name: "Tester",
                         email: "shitfart14@wackery.com",
-                        id: "boomer"
+                        id: "boomer",
                     },
-                    startTime: getTimeW(0,0,0),
-                    endTime: getTimeW(23,59,59),
-                }
-            ]
+                    startTime: getTimeW(0, 0, 0),
+                    endTime: getTimeW(23, 59, 59),
+                },
+            ],
         },
         {
             term: 2,
@@ -38,10 +38,10 @@ export const testData: Stdata = {
                     // should use null for things that dont have any data. idk how to do that
                     room: null,
                     teacher: null,
-                    startTime: getTimeW(0,0,0),
-                    endTime: getTimeW(23,59,59),
-                }
-            ]
+                    startTime: getTimeW(0, 0, 0),
+                    endTime: getTimeW(23, 59, 59),
+                },
+            ],
         },
         {
             term: 3,
@@ -55,10 +55,10 @@ export const testData: Stdata = {
                     teacher: {
                         name: "Teach",
                         email: "shitfart14@wackery.com",
-                        id: "boomer"
+                        id: "boomer",
                     },
-                    startTime: getTimeW(6,0,0),
-                    endTime: getTimeW(14,0,0),
+                    startTime: getTimeW(6, 0, 0),
+                    endTime: getTimeW(14, 0, 0),
                 },
                 {
                     period: "1",
@@ -67,20 +67,39 @@ export const testData: Stdata = {
                     teacher: {
                         name: "Tester",
                         email: "shitfart14@wackery.com",
-                        id: "boomer"
+                        id: "boomer",
                     },
-                    startTime: getTimeW(6,0,0),
-                    endTime: getTimeW(14,0,0),
-                }
-            ]
-        }
+                    startTime: getTimeW(6, 0, 0),
+                    endTime: getTimeW(14, 0, 0),
+                },
+            ],
+        },
     ],
     customizations: {
         theme: {
-            colors: {}
+            colors: {},
         },
         showInfoOnSchedule: true,
-    }
+    },
+};
+
+export const exampleStudentVueScheduleData: any = {
+    content: {
+        ClassLists: [
+            [
+                {
+                    Period: 1,
+                    CourseTitle: "Math",
+                    RoomName: "111",
+                    Teacher: "Crabby",
+                    TeacherEmail: "example@gmail.com",
+                    TeacherStaffGU: "a-string-id",
+                },
+            ],
+            [],
+            [],
+        ],
+    },
 };
 
 // import this file when you need test data

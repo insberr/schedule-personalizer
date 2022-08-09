@@ -47,7 +47,7 @@ export function StageManually1(props: StageProps) {
             </div>
             <div className="mb-3">
                 { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                <Button onClick={()=>{alert("you thought.")}} disabled={!isValid}>Confirm</Button>
+                <Button onClick={()=>{props.setStage(420)}} disabled={!isValid}>Confirm</Button>
             </div>
             <pre className="paperer text-start">
                 {JSON.stringify(resultData, null, 4)}

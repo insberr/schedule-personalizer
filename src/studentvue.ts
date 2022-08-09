@@ -1,7 +1,6 @@
 import { defaultStruct } from "./defaultValues";
 import { Stdata } from "./types";
 
-
 export async function refresh(data: Stdata): Promise<Stdata> {
     if (!data.studentVue.username || !data.studentVue.password) {
         return data
@@ -21,14 +20,14 @@ export async function fetchData(username: string, password: string, base?: Stdat
 
     // schedule info
     console.time("fetching schedule info");
-    const [schedule, student_info] = await Promise.all([
-        get_all_schedules(username, password),
+    const [/*schedule, */student_info] = await Promise.all([
+        // get_all_schedules(username, password),
         get_student_info(username, password)
     ])
     console.timeEnd("fetching schedule info");
     base.studentVue.username = username
     base.studentVue.password = password
-    console.log("schedule", schedule);
+    // console.log("schedule", schedule);
     console.log("student info", student_info);
 
     // just return the default because im lazy!

@@ -85,19 +85,91 @@ export const testData: Stdata = {
 
 export const exampleStudentVueScheduleData: any = {
     content: {
-        CLassLists: [
+        ClassLists: [
             [
                 {
-                    Period: 1,
+                    Period: "1",
                     RoomName: "111",
                     Teacher: "Crabby",
                     TeacherEmail: "example@gmail.com",
                     TeacherStaffGU: "sdfsdfsdfsdfsdf",
                     CourseTitle: "ADV ALGB A",
                 },
+                {
+                    Period: "2",
+                    CourseTitle: "AP Comp Sci A B",
+                    RoomName: "334",
+                    Teacher: "Arthur Simon",
+                    TeacherEmail: "SIMONA1@sfusd.edu",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                },
+                {
+                    Period: "3",
+                    CourseTitle: "MATH",
+                    RoomName: "111",
+                    Teacher: "Timmy Rod",
+                    TeacherEmail: "ROD@gmail.com",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                }
             ],
-            [],
-            [],
+            [
+                {
+                    Period: "1",
+                    RoomName: "111",
+                    Teacher: "Crabby",
+                    TeacherEmail: "example@gmail.com",
+                    TeacherStaffGU: "sdfsdfsdfsdfsdf",
+                    CourseTitle: "PHYSICS",
+                },
+                {
+                    Period: "2",
+                    CourseTitle: "BAND",
+                    RoomName: "346",
+                    Teacher: "Arth urimon",
+                    TeacherEmail: "SIMONA1@sfusd.lol",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                },
+                {
+                    Period: "3",
+                    CourseTitle: "ELA",
+                    RoomName: "222",
+                    Teacher: "Timmy Rod",
+                    TeacherEmail: "ROD@gmail.com",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                }
+            ],
+            [
+                {
+                    Period: "1",
+                    RoomName: "444",
+                    Teacher: "Shammmmet",
+                    TeacherEmail: "sdgfsdfexample@gmail.com",
+                    TeacherStaffGU: "sdfsdfsdfsdfsdf",
+                    CourseTitle: "GAMING",
+                },
+                {
+                    Period: "2",
+                    CourseTitle: "CODING",
+                    RoomName: "999",
+                    Teacher: "Camath uristomn",
+                    TeacherEmail: "SIMONA3331@sfusd.lol",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                },
+                {
+                    Period: "3",
+                    CourseTitle: "PE",
+                    RoomName: "333",
+                    Teacher: "Tim myod",
+                    TeacherEmail: "TOD@gmail.com",
+                    SectionGU: "2549B62B-A20A-4A0C-A203-ECDE3EB0C8BE",
+                    TeacherStaffGU: "37E8254B-CFC0-4DEC-926C-CDCAEB238444"
+                }
+            ],
         ],
     },
 };

@@ -8,6 +8,7 @@ import Center from '../../../components/Center'
 import { fetchData } from "../../../studentvue"
 import { saveData } from "../../../dataHandler"
 import { testData } from "../../../testData";
+import { Stages } from "../types";
 
 type Props = {
     setStage:  (stage: number) => void;
@@ -34,7 +35,7 @@ export function Stage1(props: Props) {
         fetchData(username, password).then(res => {
             console.log(res);
             setLoading(false)
-            props.setStage(420);
+            props.setStage(Stages.Schedule);
         }).catch(err => {
             console.log(err);
             doError("Error fetching data")

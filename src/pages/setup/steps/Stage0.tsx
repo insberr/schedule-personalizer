@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Center from "../../../components/Center";
 import { StageProps } from "../types";
 import Button from "react-bootstrap/Button";
-
+import { Stages } from "../types";
 
 export function Stage0(props: StageProps) {
     return (
@@ -21,7 +21,7 @@ export function Stage0(props: StageProps) {
                 </Row>
                 <Row className="mb-3">
                     <Col />
-                    <Col className="col-auto"><Button onClick={ () => {props.setStage(0)} } variant="primary">Dont import</Button></Col>
+                    <Col className="col-auto"><Button onClick={ () => {props.setStage(Stages.Schedule)} } variant="primary">Dont import</Button></Col>
                     <Col />
                 </Row>
                 <Row className="mb-3">

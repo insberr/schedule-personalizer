@@ -7,6 +7,8 @@ import { Stage0 } from "./steps/Stage0";
 import { StageManually1 } from "./steps/StageManually1";
 import { Stage1 } from "./steps/Stage1";
 import Schedule from "../schedule/components/Schedule";
+import { Stages } from "./types";
+
 type SetupPageProps = {
     setSchedule: (s: Stdata) => void
 }
@@ -45,7 +47,7 @@ function SetupPage(props: SetupPageProps) {
         case 69: // the schedule will only be set in this state, so stages can pass schedule data between them (lunch detect failure)
             return <div />
             break;
-        case 420:
+        case Stages.Schedule:
             return <Schedule sch={ testData }/>
             break;
         default: 

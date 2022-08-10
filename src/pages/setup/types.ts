@@ -1,3 +1,10 @@
+export enum Stages {
+    Stage0,
+    Stage1,
+    SetManually,
+    Schedule,
+}
+
 export type StageProps = {
     setStage: (stage: number) => void
 }

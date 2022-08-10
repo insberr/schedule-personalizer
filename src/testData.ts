@@ -85,15 +85,15 @@ export const testData: Stdata = {
 
 export const exampleStudentVueScheduleData: any = {
     content: {
-        ClassLists: [
+        CLassLists: [
             [
                 {
                     Period: 1,
-                    CourseTitle: "Math",
                     RoomName: "111",
                     Teacher: "Crabby",
                     TeacherEmail: "example@gmail.com",
-                    TeacherStaffGU: "a-string-id",
+                    TeacherStaffGU: "sdfsdfsdfsdfsdf",
+                    CourseTitle: "ADV ALGB A",
                 },
             ],
             [],

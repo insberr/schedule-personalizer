@@ -42,7 +42,7 @@ export const Schedules: Schedules = {
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
-                1: { order: [ { classID: ClassIDS.Lunch, startTime: 1, endTime: 2 }, { classID: ClassIDS.Period, startTime: 1, endTime: 2 } ] },
+                1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
                 2: { order: [] },
                  3: { order: [] },
             }
@@ -50,7 +50,7 @@ export const Schedules: Schedules = {
     },
     advisory: {
         classes: [
-            { classID: ClassIDS.Advisory, period: -1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
+            { classID: ClassIDS.Advisory, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 2, startTime: { hours: 8, minutes: 50 }, endTime: { hours: 9, minutes: 55 } },
             { classID: ClassIDS.Period, period: 3, startTime: { hours: 10, minutes: 0 }, endTime: { hours: 11, minutes: 40 } },
@@ -61,7 +61,7 @@ export const Schedules: Schedules = {
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
-                1: { order: [ { classID: ClassIDS.Lunch, startTime: 1, endTime: 2 }, { classID: ClassIDS.Period, startTime: 1, endTime: 2 } ] },
+                1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
                 2: { order: [] },
                 3: { order: [] },
             }
@@ -69,7 +69,7 @@ export const Schedules: Schedules = {
     },
     lateStart: {
         classes: [
-            { classID: ClassIDS.Advisory, period: -1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
+            { classID: ClassIDS.Advisory, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 2, startTime: { hours: 8, minutes: 50 }, endTime: { hours: 9, minutes: 55 } },
             { classID: ClassIDS.Period, period: 3, startTime: { hours: 10, minutes: 0 }, endTime: { hours: 11, minutes: 40 } },
@@ -80,7 +80,7 @@ export const Schedules: Schedules = {
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
-                1: { order: [ { classID: ClassIDS.Lunch, startTime: 1, endTime: 2 }, { classID: ClassIDS.Period, startTime: 1, endTime: 2 } ] },
+                1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
                 2: { order: [] },
                 3: { order: [] },
             }
@@ -88,7 +88,13 @@ export const Schedules: Schedules = {
     },
     noSchool: {
         classes: [
-            { classID: ClassIDS.NoSchool, period: -2, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
-        ]
+            { classID: ClassIDS.NoSchool, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
+        ],
+        lunch: {
+            basedOnPeriod: 0,
+            numberOfLunches: 0,
+            lunches: {
+            }
+        }
     }
 }

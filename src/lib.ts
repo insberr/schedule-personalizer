@@ -64,6 +64,7 @@ export function ordinal_suffix_of(i: number): string {
 export const lunches: string[][] = _lunches; // probably a better spot for this but eh
 
 export function fixLunch(classes: schObject, lunch: number): schObject { // returns the classes with the ids of all the classes changed to detect to the specified lunch
+    console.log(classes)
     for (const classKey in classes) {
         classes[classKey].teacher.id = lunches[lunch][0]
     }

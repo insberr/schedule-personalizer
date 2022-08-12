@@ -5,7 +5,7 @@ import Center from "../../../components/Center";
 import { LunchPicker } from "../components/LunchPicker";
 import { ManualClassEntry } from "../components/ManualClassEntry";
 import { CL, emptyCL, ManualResult, StageProps } from "../types";
-import type { Stdata, schObject } from "../../../types";
+import type { Stdata, schObject, ClassIDS } from "../../../types";
 import { fixLunch } from "../../../lib"
 
 type Props = StageProps & {
@@ -26,8 +26,9 @@ export function StageManually1(props: Props) {
     useEffect(() => {
         if (classes[-1].name != "Advisory") {
             const newg = {...classes[0]}
+            newg.classID = ClassIDS.Advisory  // LEFT OFF HERE,,,
             newg.name = "Advisory"
-            setClass(0,newg)
+            setClass(-1,newg)
         }
     }, [classes])
     function setClass(classNum: number, clas: CL) {
@@ -40,7 +41,7 @@ export function StageManually1(props: Props) {
             <h1 className="mb-3">Setup</h1>
             <div className="paper">
             {[...Array(classAmount)].map((_, i) => {
-                return <ManualClassEntry change={ (c: CL) => {setClass(i,c)} } isAdv={i==0} period={i} key={"class"+i} />
+                return <ManualClassEntry change={ (c: CL) => {setClass(i,c)} } isAdv={i==-1} period={i} key={"class"+i} />
             })}
             <div className="mb-3">
                 <LunchPicker l={l} lunchamt={3} setl={sl} />

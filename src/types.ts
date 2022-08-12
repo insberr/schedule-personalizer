@@ -6,6 +6,7 @@ export enum ClassIDS {
     Lunch,
     Period,
     Dismissal,
+    NoSchool
 }
 
 export type Stdata = {
@@ -97,3 +98,4 @@ import { CL } from "./pages/setup/types" // ALSO TODO: BAD BAD BAD BAD
 export type schObject = {
     [key: string]: CL
 }
+

@@ -1,4 +1,4 @@
-import { schObject } from "../../types"
+import { schObject, ClassIDS } from "../../types"
 
 export enum Stages {
     Stage0,
@@ -12,6 +12,7 @@ export type StageProps = {
 }
 
 export type CL = {
+    classID: ClassIDS
     name: string
     teacher: {
         name: string,
@@ -22,7 +23,7 @@ export type CL = {
 }
 
 export type ManualResult = {
-    classes: CL[],
+    classes: schObject,
     lunch: number
 }
 

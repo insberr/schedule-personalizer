@@ -18,12 +18,12 @@ function TempMerge(sch: schObject): Class[] {
         const h: Class = {
             classID: period.classID,
             period: period.period,
-            name: sch[period.period].name,
-            room: sch[period.period].room,
+            name: sch[period.period]?.name || "",
+            room: sch[period.period]?.room || "",
             teacher: {
-                name: sch[period.period].teacher.name,
-                email: /* sch[period.period].teacher.email */ "example@gmail.com",
-                id: sch[period.period].teacher.id
+                name: sch[period.period]?.teacher.name || "",
+                email: /* sch[period.period]?.teacher.email || "" */ "example@gmail.com",
+                id: sch[period.period]?.teacher.id || ""
             },
             startTime: period.startTime,
             endTime: period.endTime

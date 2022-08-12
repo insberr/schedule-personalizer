@@ -5,16 +5,16 @@ import Center from "../../../components/Center";
 import { LunchPicker } from "../components/LunchPicker";
 import { ManualClassEntry } from "../components/ManualClassEntry";
 import { CL, emptyCL, ManualResult, StageProps } from "../types";
-import type { Stdata } from "../../../types";
+import type { Stdata, schObject } from "../../../types";
 import { fixLunch } from "../../../lib"
 
 type Props = StageProps & {
-    setSchedule: (schedule: CL[]) => void
+    setSchedule: (schedule: schObject) => void
 }
 
 export function StageManually1(props: Props) {
     const classAmount = 6;
-    const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))
+    const [classes, setClasses] = useState<schObject>(emptyCL(classAmount))
     const [l, sl] = useState(0);
     const resultData: ManualResult = useMemo<ManualResult>(() => {
         return {
@@ -24,14 +24,14 @@ export function StageManually1(props: Props) {
     }, [classes, l])
     const isValid = true;
     useEffect(() => {
-        if (classes[0].name != "Advisory") {
+        if (classes[-1].name != "Advisory") {
             const newg = {...classes[0]}
             newg.name = "Advisory"
             setClass(0,newg)
         }
     }, [classes])
     function setClass(classNum: number, clas: CL) {
-        const newv = [...classes];
+        const newv = Object.assign({}, classes);
         newv[classNum] = clas
         setClasses(newv);
     }

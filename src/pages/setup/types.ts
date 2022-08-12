@@ -1,3 +1,5 @@
+import { schObject } from "../../types"
+
 export enum Stages {
     Stage0,
     Stage1,
@@ -24,8 +26,24 @@ export type ManualResult = {
     lunch: number
 }
 
-export function emptyCL(amt: number): CL[] {
-    return [...Array(amt)].map(() => {
+export function emptyCL(amt: number): schObject {
+    const classesObject: schObject = {}
+    const keys = [-1, 1, 2, 3, 4 ,5]
+
+    for (const i of keys) {
+        classesObject[i] = {
+            name: "",
+            teacher: {
+                name: "",
+                id: ""
+            },
+            room: ""
+        }
+    }
+    return classesObject
+    
+    /*
+    [...Array(amt)].map(() => {
         return {
             name: "",
             teacher: {
@@ -35,4 +53,5 @@ export function emptyCL(amt: number): CL[] {
             room: ""
         }
     })
+    */
 }

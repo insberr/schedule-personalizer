@@ -25,7 +25,6 @@ function Schedule(props: ScheduleProps) {
         { props.sch.map((period, i) => {
             return <ScheduleEntry key={i.toString()} period={period} />
         }) }
-    </ListGroup>
-    <Button>Settings</Button></Center>)
+    </ListGroup></Center>)
 }
 export default Schedule

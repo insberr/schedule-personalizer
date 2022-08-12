@@ -7,6 +7,7 @@ import StudentVueReloader from "./components/StudentVueReloader";
 import { CL } from "./types"
 import { Header } from "./components/Header";
 import { SettingsPage } from "./pages/settings";
+import { defaultStruct } from "./defaultValues"
 //console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))

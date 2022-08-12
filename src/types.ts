@@ -5,6 +5,7 @@ export enum ClassIDS {
     Advisory,
     Lunch,
     Period,
+    Dismissal,
 }
 
 export type Stdata = {
@@ -28,9 +29,10 @@ export type Term = {
 }
 
 export type Class = {
-    period: string
+    classID: ClassIDS
+    period: string | number
     name: string
-    room: string | null
+    room: string | number | null
     teacher: Teacher | null
     // these times should be what studentvue says
     startTime: Time
@@ -81,7 +83,7 @@ export function timeToDate(t: Time, d?: Date): Date {
     return set(d, t)
 }
 
-export function getTimeW(h: number, m: number, s: number): Time {
+export function getTimeW(h: number, m: number, s = 0): Time {
     return {
         hours: h,
         minutes: m,
@@ -90,3 +92,8 @@ export function getTimeW(h: number, m: number, s: number): Time {
 }
 
 export { CL }  from "./pages/setup/types" //TODO: BAD BAD BAD BAD
+import { CL } from "./pages/setup/types" // ALSO TODO: BAD BAD BAD BAD
+
+export type schObject = {
+    [key: string]: CL
+}

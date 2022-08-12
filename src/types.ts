@@ -82,3 +82,5 @@ export function getTimeW(h: number, m: number, s: number): Time {
         seconds: s
     }
 }
+
+export { CL }  from "./pages/setup/types" //TODO: BAD BAD BAD BAD

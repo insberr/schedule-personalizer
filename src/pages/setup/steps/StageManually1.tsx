@@ -5,24 +5,23 @@ import Center from "../../../components/Center";
 import { LunchPicker } from "../components/LunchPicker";
 import { ManualClassEntry } from "../components/ManualClassEntry";
 import { CL, emptyCL, ManualResult, StageProps } from "../types";
+import type { Stdata } from "../../../types";
+import { fixLunch } from "../../../lib"
+type Props = StageProps & {
+    setSchedule: (schedule: CL[]) => void
+}
 
-
-export function StageManually1(props: StageProps) {
+export function StageManually1(props: Props) {
     const classAmount = 6;
     const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))
     const [l, sl] = useState(0);
     const resultData: ManualResult = useMemo<ManualResult>(() => {
         return {
-            lunch: l,
+            lunch: l, // lunch should probably be detected in the merger that merges the schedule with the manual input, convert this to id?
             classes: classes
         }
     }, [classes, l])
-    const isValid = useMemo<boolean>(() => {
-        const i = classes.some((c) => {
-            return c.name == "" || c.teacher == "" || c.room == ""
-        })
-        return !i
-    }, [classes])
+    const isValid = true;
     useEffect(() => {
         if (classes[0].name != "Advisory") {
             const newg = {...classes[0]}
@@ -47,10 +46,10 @@ export function StageManually1(props: StageProps) {
             </div>
             <div className="mb-3">
                 { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                <Button onClick={()=>{props.setStage(420)}} disabled={!isValid}>Confirm</Button>
+                <Button onClick={()=>{props.setSchedule(fixLunch(classes, l)); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
             </div>
             <pre className="paperer text-start">
-                {JSON.stringify(resultData, null, 4)}
+                {JSON.stringify(fixLunch(classes, l), null, 4)}
             </pre>
             </div>
         </Center>

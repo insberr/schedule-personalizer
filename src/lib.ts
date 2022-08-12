@@ -1,6 +1,7 @@
 // bunch of reusable functions
 import { isAfter, isBefore, format, parse, set } from "date-fns"
-import { dateToTime, Stdata, Time, timeToDate } from "./types";
+import { dateToTime, Stdata, Time, timeToDate, CL } from "./types";
+import _lunches from "./lunches.json"
 
 export function getCurrentTerm (t: Stdata, d?: Date): number {
     if (!d) {
@@ -51,4 +52,13 @@ export function ordinal_suffix_of(i: number): string {
         return i + "rd";
     }
     return i + "th";
+}
+
+export const lunches: string[][] = _lunches; // probably a better spot for this but eh
+
+export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the classes with the ids of all the classes changed to detect to the specified lunch
+    return classes.map(c => {
+        c.teacher.id = lunches[lunch][0] // wow!
+        return c;
+    })
 }

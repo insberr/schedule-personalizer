@@ -11,8 +11,12 @@ export type StageProps = {
 
 export type CL = {
     name: string
-    teacher: string
-    room: string
+    teacher: {
+        name: string,
+        id: string
+    }
+    room: string,
+
 }
 
 export type ManualResult = {
@@ -24,7 +28,10 @@ export function emptyCL(amt: number): CL[] {
     return [...Array(amt)].map(() => {
         return {
             name: "",
-            teacher: "",
+            teacher: {
+                name: "",
+                id: ""
+            },
             room: ""
         }
     })

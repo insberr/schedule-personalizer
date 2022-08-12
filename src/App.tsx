@@ -1,45 +1,28 @@
 import React,  { useEffect, useState } from "react"
 import SchedulePage from "./pages/schedule";
 import { Customizations, Stdata } from "./types";
-import { getSavedData } from "./dataHandler";
 import LoadSpinner from "./components/LoadSpinner";
 import Theme from "./components/ThemeComponent";
-import { refresh } from './studentvue'
 import StudentVueReloader from "./components/StudentVueReloader";
+import { CL } from "./types"
 //console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
 //import { testData } from "./testData"; // prob should only import this when in development, to strip it out of production
 function App() {
-    const [sch, setSch] = useState<Stdata | false | undefined>(false) // maybe somehow load this from localstorage?
+    const [sch, setSch] = useState<CL[] | undefined>(undefined) // maybe somehow load this from localstorage? 
+    // store studentvue specific info/theme info in a different state?
     function setTheme(theme: Customizations) {
         if (!sch) return
         const newSch = Object.assign({}, sch, { customization: theme })
         setSch(newSch)
     }
-    function reloadStudentVue(schd?: Stdata) {
-        if (!schd) {
-            if (!sch) return
-            schd = sch
-        }
-        refresh(schd).then(setSch)
-    }
-    useEffect(() => {
-        function calb(r: Stdata | undefined) {
-            if (r) {
-                reloadStudentVue(r)
-            } else {
-                setSch(r)
-            }
-        }
-        getSavedData(calb)
-    }, [])
     if (!sch) {
         if (sch === false) {
             return <LoadSpinner />
         }
         return <React.Suspense fallback={<LoadSpinner />}><SetupPage setSchedule={ setSch }/></React.Suspense> // replace loading text with a spinner
     }
-    return <><SchedulePage sch={sch} /><Theme custom={ sch.customizations } /><StudentVueReloader reload={ reloadStudentVue }/></> // it just works
+    return <><SchedulePage sch={sch} /></> // it just works
 }
 export default App;

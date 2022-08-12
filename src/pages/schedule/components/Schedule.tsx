@@ -1,13 +1,12 @@
-import { Stdata } from "../../../types"
+import { Class } from "../../../types"
 import Center from "../../../components/Center"
 import Button from "react-bootstrap/Button";
 import ScheduleEntry from "./ScheduleEntry"
 import { getCurrentTerm } from "../../../lib"
 import ListGroup from 'react-bootstrap/ListGroup'
-import { clearData } from "../../../dataHandler"
 
 type ScheduleProps = {
-    sch: Stdata
+    sch: Class[]
 }
 
 function Schedule(props: ScheduleProps) {
@@ -19,13 +18,12 @@ function Schedule(props: ScheduleProps) {
     // actually: pass the viewed date and the Stdata to the get_day_merged_schedule function from src/studentSchedule and use that
     
     return (<Center>
-        <Button onClick={ () => {clearData(); location.reload()} } variant="primary">reset</Button>
         <ListGroup style={{ "width": "75vw" }}>
         <ListGroup.Item className="row background-clear justify-content-center text-center">
-            <Center className="date">{ new Date().getDay() }: { new Date().getMonth() + 1 }/{ new Date().getDate() }/{ new Date().getFullYear() }</Center>
+            <Center className="date">{ new Date().getDay() }: { new Date().getMonth() + 1 }/{ new Date().getDate() }/{ new Date().getFullYear() }</Center> 
         </ListGroup.Item>
-        { props.sch.terms[getCurrentTerm(props.sch)].classes.map((period) => {
-            return <ScheduleEntry key={period.period} period={period} />
+        { props.sch.map((period, i) => {
+            return <ScheduleEntry key={i.toString()} period={period} />
         }) }
     </ListGroup></Center>)
 }

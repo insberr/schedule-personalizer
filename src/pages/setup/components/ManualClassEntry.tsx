@@ -20,7 +20,10 @@ export function ManualClassEntry(props: Props) {
     function pushSCH() {
         const data: CL = {
             name: props.isAdv ? "Advisory" : classname,
-            teacher,
+            teacher: {
+                name: teacher,
+                id: ""
+            },
             room
         }
         props.change(data);

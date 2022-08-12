@@ -3,7 +3,7 @@ import Schedule from "./components/Schedule";
 import { Schedules } from '../../schedules';
 
 type SchedulePageProps = {
-    sch: schObject
+    sch: CL[]
 }
 
 function SchedulePage(props: SchedulePageProps) {
@@ -11,19 +11,20 @@ function SchedulePage(props: SchedulePageProps) {
 }
 
 
-function TempMerge(sch: schObject): Class[] {
+function TempMerge(sch: CL[]): Class[] {
     const scheduleForDisplay: Class[] = [];
 
     for (const period of Schedules.normal.classes) {
+        const periodNeeded = sch.filter(p => (p.classID === period.classID) && (p.period === period.period));
         const h: Class = {
             classID: period.classID,
             period: period.period,
-            name: sch[period.period]?.name || "",
-            room: sch[period.period]?.room || "",
+            name: periodNeeded[0]?.name || "",
+            room: periodNeeded[0]?.room || "",
             teacher: {
-                name: sch[period.period]?.teacher.name || "",
-                email: /* sch[period.period]?.teacher.email || "" */ "example@gmail.com",
-                id: sch[period.period]?.teacher.id || ""
+                name: periodNeeded[0]?.teacher.name || "",
+                email: /* periodNeeded[0]?.teacher.email || "" */ "example@gmail.com",
+                id: periodNeeded[0]?.teacher.id || ""
             },
             startTime: period.startTime,
             endTime: period.endTime

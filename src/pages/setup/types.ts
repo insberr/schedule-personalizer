@@ -13,6 +13,7 @@ export type StageProps = {
 
 export type CL = {
     classID: ClassIDS
+    period: number
     name: string
     teacher: {
         name: string,
@@ -23,11 +24,12 @@ export type CL = {
 }
 
 export type ManualResult = {
-    classes: schObject,
+    classes: CL[],
     lunch: number
 }
 
-export function emptyCL(amt: number): schObject {
+export function emptyCL(amt: number): CL[] {
+    /*
     const classesObject: schObject = {}
     const keys = [-1, 1, 2, 3, 4 ,5]
 
@@ -42,10 +44,12 @@ export function emptyCL(amt: number): schObject {
         }
     }
     return classesObject
-    
-    /*
-    [...Array(amt)].map(() => {
+    */
+
+    return [...Array(amt)].map((v, i) => {
         return {
+            classID: ClassIDS.Period, // for now
+            period: i,
             name: "",
             teacher: {
                 name: "",
@@ -54,5 +58,5 @@ export function emptyCL(amt: number): schObject {
             room: ""
         }
     })
-    */
+    
 }

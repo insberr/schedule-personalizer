@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
 import Form from 'react-bootstrap/Form'
 import { CL } from "../types";
+import { ClassIDS } from "../../../types"
 import parseWithOptions from "date-fns/esm/fp/parseWithOptions/index.js";
 
 type Props = {
@@ -19,6 +20,8 @@ export function ManualClassEntry(props: Props) {
     const [room, setroom] = useState("")
     function pushSCH() {
         const data: CL = {
+            classID: props.isAdv ? ClassIDS.Advisory : ClassIDS.Period,
+            period: props.period,
             name: props.isAdv ? "Advisory" : classname,
             teacher: {
                 name: teacher,

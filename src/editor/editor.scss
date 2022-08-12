@@ -1,5 +1,5 @@
 @import "../style.scss";
-@import "npm:react-calendar/dist/calendar.css";
+@import "../../node_modules/react-calendar/dist/calendar.css";
 
 $tile-selected: shade-color($white,10%);
 

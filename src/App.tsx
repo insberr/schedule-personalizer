@@ -5,12 +5,15 @@ import LoadSpinner from "./components/LoadSpinner";
 import Theme from "./components/ThemeComponent";
 import StudentVueReloader from "./components/StudentVueReloader";
 import { CL } from "./types"
+import { Header } from "./components/Header";
+import { SettingsPage } from "./pages/settings";
 //console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
 //import { testData } from "./testData"; // prob should only import this when in development, to strip it out of production
 function App() {
     const [sch, setSch] = useState<CL[] | undefined>(undefined) // maybe somehow load this from localstorage? 
+    const [isSetup, setIsSetup] = useState<boolean>(false)
     // store studentvue specific info/theme info in a different state?
     function setTheme(theme: Customizations) {
         if (!sch) return
@@ -23,6 +26,9 @@ function App() {
         }
         return <React.Suspense fallback={<LoadSpinner />}><SetupPage setSchedule={ setSch }/></React.Suspense> // replace loading text with a spinner
     }
-    return <><SchedulePage sch={sch} /></> // it just works
+    if (isSetup) {
+        return <><Header setup={setIsSetup} c={isSetup} /><SettingsPage /></>
+    }
+    return <><Header setup={setIsSetup} c={isSetup} /><SchedulePage sch={sch} /></> // it just works
 }
 export default App;

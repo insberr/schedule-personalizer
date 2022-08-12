@@ -1,5 +1,11 @@
 import set from "date-fns/set"
 
+export enum ClassIDS {
+    Zero,
+    Advisory,
+    Lunch,
+    Period,
+}
 
 export type Stdata = {
     studentVue: StudentVue
@@ -40,7 +46,7 @@ export type Teacher = {
 export type Time = {
     hours: number
     minutes: number
-    seconds: number
+    seconds?: number
 }
 
 export type Colors = {

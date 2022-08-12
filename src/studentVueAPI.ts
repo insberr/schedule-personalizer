@@ -1,8 +1,17 @@
-]async function get_all_schedules(username: string, password: string): Promise<any> {
+function generateFetch(username: string, password: string): RequestInit {
+    return {
+        body: JSON.stringify({
+            username, password
+        }),
+        method: "POST",
+
+    }
+}
+
+async function get_all_schedules(username: string, password: string): Promise<any> {
     const data = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
-        // /* TEMPORARY EDITED OUT, TESTING PURPOSES ONLY. DO NOT DELETE THIS LINE */ throw new Error(data.content.code + ": " + data.content.error);
-        return exampleStudentVueScheduleData;
+        throw new Error(data.content.code + ": " + data.content.error);
     }
     return data
 }

@@ -7,6 +7,7 @@ import { ManualClassEntry } from "../components/ManualClassEntry";
 import { CL, emptyCL, ManualResult, StageProps } from "../types";
 import type { Stdata } from "../../../types";
 import { fixLunch } from "../../../lib"
+
 type Props = StageProps & {
     setSchedule: (schedule: CL[]) => void
 }

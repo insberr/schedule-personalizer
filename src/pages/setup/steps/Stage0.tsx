@@ -5,8 +5,13 @@ import Center from "../../../components/Center";
 import { StageProps } from "../types";
 import Button from "react-bootstrap/Button";
 import { Stages } from "../types";
+import { emptyCL, CL } from "../types";
 
-export function Stage0(props: StageProps) {
+type Props = StageProps & {
+    setSchedule: (schedule: CL[]) => void
+}
+
+export function Stage0(props: Props) {
     return (
         <Center className="text-center"> 
             <h1>Setup</h1>
@@ -21,7 +26,7 @@ export function Stage0(props: StageProps) {
                 </Row>
                 <Row className="mb-3">
                     <Col />
-                    <Col className="col-auto"><Button onClick={ () => {props.setStage(Stages.Schedule)} } variant="primary">Dont import</Button></Col>
+                    <Col className="col-auto"><Button onClick={ () => {props.setSchedule(emptyCL(6)); props.setStage(69)} } variant="primary">Dont import</Button></Col>
                     <Col />
                 </Row>
                 <Row className="mb-3">

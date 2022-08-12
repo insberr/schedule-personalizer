@@ -33,7 +33,7 @@ function SetupPage(props: SetupPageProps) {
             return <StageManually1 setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
         case 0: // Which import method do ya want?
-            return <Stage0 setStage={ setStage }/>
+            return <Stage0 setStage={ setStage } setSchedule={ setLocalSchedule }/>
             break;
         case 1: // studentvue login
             return <Stage1 setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?

@@ -12,6 +12,18 @@ type Props = StageProps & {
     setSchedule: (schedule: CL[]) => void
 }
 
+/* NOTE: please make the 'sch' an object that is 
+{
+    classes: CL[].
+    lunch: number
+}
+(lunch should be a number between 1 and however many lunches there are)
+so we can pass the lunch info to the merger
+
+Idk how to make this code function off the CL[] in an object and also change the lunch value in the object when the lunch is changed
+
+*/
+
 export function StageManually1(props: Props) {
     const classAmount = 6;
     const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))

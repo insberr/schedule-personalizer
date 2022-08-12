@@ -14,21 +14,23 @@ export type Lunch = {
     }[]
 }
 
-export type Schedules = { // oh god oh fck
-    [key: string]: {
-        classes: SCHCL[],
-        lunch: {
-            basedOnPeriod: number,
-            numberOfLunches: number,
-            lunches: {
-                [key: number]: Lunch
-            }
+export type SchedulesType = {
+    classes: SCHCL[],
+    lunch: {
+        basedOnPeriod: number,
+        numberOfLunches: number,
+        lunches: {
+            [key: number]: Lunch
         }
     }
 }
 
+export type Schedules = { // oh god oh fck
+    [key: string]: SchedulesType
+}
 
-export const Schedules: Schedules = {
+
+export const schedules: Schedules = {
     normal: {
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 0, 0), endTime: { hours: 7, minutes: 30 } },
@@ -44,7 +46,7 @@ export const Schedules: Schedules = {
             lunches: {
                 1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
                 2: { order: [] },
-                 3: { order: [] },
+                3: { order: [] },
             }
         }
     },

@@ -1,4 +1,4 @@
-# Schedule Personalizer V2
+# Schedule Personalizer V5
 Complete rewrite of schedule personalizer, with new features!
 
 ## Component locations

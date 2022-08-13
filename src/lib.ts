@@ -1,6 +1,6 @@
 // bunch of reusable functions
 import { isAfter, isBefore, format, parse, set } from "date-fns"
-import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS, schObject } from "./types";
+import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS } from "./types";
 import _lunches from "./lunches.json"
 
 
@@ -64,13 +64,6 @@ export function ordinal_suffix_of(i: number): string {
 export const lunches: string[][] = _lunches; // probably a better spot for this but eh
 
 export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the classes with the ids of all the classes changed to detect to the specified lunch
-    /*
-    for (const classKey in classes) {
-        classes[classKey].teacher.id = lunches[lunch][0]
-    }
-    return classes;
-    */
-    
     // The hell is this function even for?
     return classes.map(c => {
         c.teacher.id = lunches[lunch][0] // wow!

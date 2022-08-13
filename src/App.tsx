@@ -8,10 +8,8 @@ import { CL } from "./types"
 import { Header } from "./components/Header";
 import { SettingsPage } from "./pages/settings";
 import { defaultStruct } from "./defaultValues"
-//console.log(data)
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
-//import { testData } from "./testData"; // prob should only import this when in development, to strip it out of production
 function App() {
     const [sch, setSch] = useState<CL[] | undefined>(undefined) // maybe somehow load this from localstorage? 
     const [isSetup, setIsSetup] = useState<boolean>(false)

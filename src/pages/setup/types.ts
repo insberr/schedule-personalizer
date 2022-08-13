@@ -1,4 +1,4 @@
-import { schObject, ClassIDS } from "../../types"
+import { ClassIDS } from "../../types"
 
 export enum Stages {
     Stage0,
@@ -29,26 +29,9 @@ export type ManualResult = {
 }
 
 export function emptyCL(amt: number): CL[] {
-    /*
-    const classesObject: schObject = {}
-    const keys = [-1, 1, 2, 3, 4 ,5]
-
-    for (const i of keys) {
-        classesObject[i] = {
-            name: "",
-            teacher: {
-                name: "",
-                id: ""
-            },
-            room: ""
-        }
-    }
-    return classesObject
-    */
-
     return [...Array(amt)].map((v, i) => {
         return {
-            classID: ClassIDS.Period, // for now
+            classID: ClassIDS.Period,
             period: i,
             name: "",
             teacher: {

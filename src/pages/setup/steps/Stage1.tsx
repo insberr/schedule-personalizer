@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button"
 import Alert from "react-bootstrap/Alert"
 import Spinner from "react-bootstrap/Spinner"
-import { Stdata } from "../../../types";
 import Center from '../../../components/Center'
 import { Stages } from "../types";
 import { CL } from "../types"

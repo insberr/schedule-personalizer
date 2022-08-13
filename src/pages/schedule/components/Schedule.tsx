@@ -11,11 +11,6 @@ type ScheduleProps = {
 
 function Schedule(props: ScheduleProps) {
     console.log(props)
-    // get current (viewed) trimester
-    // get event and apply changes (if any)
-    // make a value for todays schedule
-
-    // actually: pass the viewed date and the Stdata to the get_day_merged_schedule function from src/studentSchedule and use that
     
     return (<Center>
         <ListGroup style={{ "width": "75vw" }}>

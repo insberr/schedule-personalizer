@@ -10,6 +10,3 @@ export default function eruda(callback: () => void) {
        })*/
     } else {callback()}
     }
-
-// the hell is eruda? oh youll have to tell me about it. ok talk later ok.
-// mobile console, i used it on the ipads. very helpful. ill start the gutting.

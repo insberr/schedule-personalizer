@@ -1,13 +1,10 @@
-//import { useEffect } from "react";
-import { Stdata } from "../../types";
 import Button from 'react-bootstrap/Button'
 import { useEffect, useState } from "react";
 import { Stage0 } from "./steps/Stage0";
 import { StageManually1 } from "./steps/StageManually1";
 import { Stage1 } from "./steps/Stage1";
 import Schedule from "../schedule/components/Schedule";
-import { Stages } from "./types";
-import { CL } from "./types"
+import { Stages, CL } from "./types";
 
 type SetupPageProps = {
     setSchedule: (s: CL[]) => void

@@ -5,8 +5,9 @@ export enum ClassIDS {
     Advisory,
     Lunch,
     Period,
+    Assembly,
     Dismissal,
-    NoSchool
+    NoSchool,
 }
 
 export type Stdata = {

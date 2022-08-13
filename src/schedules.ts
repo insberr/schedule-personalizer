@@ -17,6 +17,7 @@ export type Lunch = {
 export type SchedulesType = {
     classes: SCHCL[],
     lunch: {
+        hasLunch: boolean,
         basedOnPeriod: number,
         numberOfLunches: number,
         lunches: {
@@ -30,6 +31,19 @@ export type Schedules = { // oh god oh fck
 }
 
 
+/* A schedule is 
+    {
+        classes: [
+            {
+                classID: ClassIDS,
+                period: number, // 0 for all non-period classes (ie. zero hour, advisory, dismissal, assembly, etc)
+                startTime: Time,
+                endTime: Time
+            },
+        ]
+    }
+*/
+
 export const schedules: Schedules = {
     normal: {
         classes: [
@@ -41,6 +55,7 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: { hours: 13, minutes: 0 }, endTime: { hours: 14, minutes: 5 } },
         ],
         lunch: {
+            hasLunch: true,
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
@@ -60,6 +75,7 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: { hours: 13, minutes: 0 }, endTime: { hours: 14, minutes: 5 } },
         ],
         lunch: {
+            hasLunch: true,
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
@@ -71,7 +87,7 @@ export const schedules: Schedules = {
     },
     lateStart: {
         classes: [
-            { classID: ClassIDS.Advisory, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 2, startTime: { hours: 8, minutes: 50 }, endTime: { hours: 9, minutes: 55 } },
             { classID: ClassIDS.Period, period: 3, startTime: { hours: 10, minutes: 0 }, endTime: { hours: 11, minutes: 40 } },
@@ -79,6 +95,7 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: { hours: 13, minutes: 0 }, endTime: { hours: 14, minutes: 5 } },
         ],
         lunch: {
+            hasLunch: true,
             basedOnPeriod: 3,
             numberOfLunches: 3,
             lunches: {
@@ -93,6 +110,7 @@ export const schedules: Schedules = {
             { classID: ClassIDS.NoSchool, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
         ],
         lunch: {
+            hasLunch: false,
             basedOnPeriod: 0,
             numberOfLunches: 0,
             lunches: {

@@ -44,8 +44,10 @@ function SchedulePage(props: SchedulePageProps) {
 }
 
 function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
-    // check if lunch is a thing for that day, if not return mergedSchedule
-    
+    // This will prevent an error if there are no lunches on the schedule
+    // Check if lunch is a thing for that day, if not return mergedSchedule
+    if (mergedSchedule.event.schedule.lunch.hasLunch === false) return mergedSchedule;
+
     const lunchValue = mergedSchedule.event.schedule.lunch;
     const lunch = 1 // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
     const lunchSchedule = lunchValue.lunches[lunch];

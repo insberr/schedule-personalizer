@@ -26,13 +26,15 @@ type MergedSchedule = {
 
 
 function SchedulePage(props: SchedulePageProps) {
+    // SHOULD PROBABLY CONSIDER TRIMESTERS AT SOME POINT!!!!!!!!!!!!!!!
+
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
-    const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(new Date());
+    const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(new Date() /* make this the date thats being displayed */);
 
     // Override the schedule with the events scheduled for the current displayed day
-    const currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule);
-
+    const currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule, new Date() /* make this the date thats being displayed */);
+    console.log(currentDisplayDayEvent);
     // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
     const mergedSchedule: MergedSchedule = mergeDataWithSchedule(props.sch, currentDisplayDayEvent);
 
@@ -77,10 +79,18 @@ function getDisplayDaySchedule(date: Date): SchedulesType {
     return schedules.normal; // For now, once we add the time stuff we can make this actually do something
 }
 
-function getDisplayDayEvent(schedule: SchedulesType, date?: number): EventSchedule { // for now. we need to create a type for this
+function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule { // for now. we need to create a type for this
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
     // for now it is just passthrough
+    const displayDateEvents = scheduleEvents.filter(event => (event.info.date.getDate() === date.getDate()) && (event.info.date.getMonth() === date.getMonth()) && (event.info.date.getFullYear() === date.getFullYear()) );
+    if (displayDateEvents.length < 1) console.log("Why are there multiple evnts???") // We should send this "error" to sentry
+    if (displayDateEvents.length !== 0) return {
+        isEvent: true,
+        schedule: displayDateEvents[0].schedule,
+        info: displayDateEvents[0].info
+    };
+
     const event = {
         isEvent: false,
         schedule: schedule,

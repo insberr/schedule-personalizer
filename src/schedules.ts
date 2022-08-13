@@ -87,7 +87,7 @@ export const schedules: Schedules = {
     },
     lateStart: {
         classes: [
-            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(9, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
             { classID: ClassIDS.Period, period: 2, startTime: { hours: 8, minutes: 50 }, endTime: { hours: 9, minutes: 55 } },
             { classID: ClassIDS.Period, period: 3, startTime: { hours: 10, minutes: 0 }, endTime: { hours: 11, minutes: 40 } },

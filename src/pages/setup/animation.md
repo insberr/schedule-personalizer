@@ -1,0 +1,19 @@
+- Welcome
+- Heres whats new
+- Add to home screen (if its not already a pwa)
+  - [keep using in browser]
+
+- (if studentvue was logged into on v1) stay signed in with studentvue?
+  - [yes]
+    - (loading circle of doom while getting studentvue data and setting up)
+  - [no]
+    - Manually enter data 
+      - [skip]
+- (if not previously logged in on v1) login to studentvue
+  - [yes]
+    - Studentvue login page
+      - [next]
+        - (loading circle of doom while getting studentvue data and setting up)
+  - [no]
+    - Manually enter data 
+      - [skip]

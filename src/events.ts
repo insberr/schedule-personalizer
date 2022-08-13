@@ -18,10 +18,10 @@ export type ScheduleEvents = ScheduleEvent[]
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
 export const scheduleEvents: ScheduleEvents = [
     {
-        schedule: schedules.lateStart,
+        schedule: schedules.normal,
         info: {
-            message: 'This is an example',
-            date: new Date("August 12, 2022")
+            message: 'First Day Of School',
+            date: new Date("September 6, 2022")
         }
     }
 ]

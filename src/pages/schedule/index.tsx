@@ -8,7 +8,7 @@ type SchedulePageProps = {
 }
 
 // Probably move these to types.ts and stucture it better
-type EventSchedule = {
+export type EventSchedule = {
     isEvent: boolean,
     schedule: SchedulesType
     info: {
@@ -42,7 +42,7 @@ function SchedulePage(props: SchedulePageProps) {
     const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule);
 
     // add event property
-    return <Schedule sch={ lunchifiedSchedule.schedule }/> // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+    return <Schedule event={ currentDisplayDayEvent } sch={ lunchifiedSchedule.schedule }/> // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
 }
 
 function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {

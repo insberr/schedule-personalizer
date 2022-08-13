@@ -1,12 +1,12 @@
 import { Class } from "../../../types"
 import Center from "../../../components/Center"
-import Button from "react-bootstrap/Button";
 import ScheduleEntry from "./ScheduleEntry"
-import { getCurrentTerm } from "../../../lib"
 import ListGroup from 'react-bootstrap/ListGroup'
+import { EventSchedule } from '../index';
 
 type ScheduleProps = {
     sch: Class[]
+    event: EventSchedule
 }
 
 function Schedule(props: ScheduleProps) {
@@ -20,6 +20,9 @@ function Schedule(props: ScheduleProps) {
         { props.sch.map((period, i) => {
             return <ScheduleEntry key={i.toString()} period={period} />
         }) }
-    </ListGroup></Center>)
+    </ListGroup>
+    <br></br>
+    { props.event.isEvent ? props.event.info.message : null }
+    </Center>)
 }
 export default Schedule

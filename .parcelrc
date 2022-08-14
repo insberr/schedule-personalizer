@@ -1,4 +1,4 @@
 {
   "extends": ["@parcel/config-default", "parcel-config-pwa-manifest", "parcel-config-precache-manifest"],
-  "reporters":  ["...", "parcel-reporter-clean-dist"]
+  "reporters":  ["...", "parcel-reporter-clean-dist", "parcel-reporter-static-files-copy"]
 }

@@ -66,6 +66,6 @@ export function Login(props: Props) {
             <br />
             
         </Form>
-    <Button className="mt-5" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Not recommended)</Button>
+    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Not recommended)</Button>
     </Center></FadeIn>)
 }

@@ -22,6 +22,9 @@ export function formatTime(t: Time | Date): string {
 export function formatClassPeriodName(classData: Class): string {
     if (classData.classID === ClassIDS.Zero) return "Zero Hour"
     if (classData.classID === ClassIDS.Advisory) return "Advisory"
+    if (classData.classID === ClassIDS.NoSchool) return "No School"
+    if (classData.classID === ClassIDS.Dismissal) return "Dismissal"
+    if (classData.classID === ClassIDS.Assembly) return "Assembly"
     return "Period " + classData.period;
 }
 

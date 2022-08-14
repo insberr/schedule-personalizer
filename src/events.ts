@@ -17,6 +17,15 @@ export type ScheduleEvents = ScheduleEvent[]
 
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
 export const scheduleEvents: ScheduleEvents = [
+    /*
+    {
+        schedule: schedules.noSchool,
+        info: {
+            message: "summer",
+            date: new Date()
+        }
+    },
+    */
     {
         schedule: schedules.normal,
         info: {

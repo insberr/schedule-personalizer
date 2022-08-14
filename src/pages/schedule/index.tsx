@@ -2,6 +2,7 @@ import { CL, Class, ClassIDS, getTimeW, schObject } from "../../types";
 import Schedule from "./components/Schedule";
 import { schedules, Schedules, SchedulesType } from '../../schedules';
 import { scheduleEvents } from '../../events';
+import { StorageQuery, getV5Data } from '../../storageManager';
 
 type SchedulePageProps = {
     sch: CL[]
@@ -51,7 +52,7 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
     if (mergedSchedule.event.schedule.lunch.hasLunch === false) return mergedSchedule;
 
     const lunchValue = mergedSchedule.event.schedule.lunch;
-    const lunch = 1 // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
+    const lunch = getV5Data(StorageQuery.Lunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
     const lunchSchedule = lunchValue.lunches[lunch];
 
     const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod);

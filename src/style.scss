@@ -7,7 +7,7 @@
 
 @import "npm:bootstrap/scss/functions";
 
-$body-bg: #4b5563;
+$body-bg: #272727;
 $body-color: #fafafa;
 $font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
@@ -69,6 +69,13 @@ $paper-border-tint: 10%;
     color: white;
 }
 
+
+.full-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .full-center-spinner {
     position: absolute;
     top: 50%;

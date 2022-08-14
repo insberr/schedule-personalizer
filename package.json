@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
+    "@react-spring/web": "^9.5.2",
     "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
     "@types/react-calendar": "^3.5.2",

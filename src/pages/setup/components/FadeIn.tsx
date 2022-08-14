@@ -1,0 +1,14 @@
+import { useSpring, animated, config, AnimationResult, SpringValue } from "@react-spring/web";
+
+export function FadeIn(props: { children: React.ReactNode }) {
+    const fadein = useSpring({
+        from: {
+            opacity: 0,
+        },
+        to: {
+            opacity: 1,
+        },
+        config: config.gentle
+    })
+    return <animated.span style={fadein}>{props.children}</animated.span>
+}

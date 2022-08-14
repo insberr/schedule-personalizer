@@ -1,5 +1,17 @@
 import set from "date-fns/set"
 
+export type CL = {
+    classID: ClassIDS
+    period: number
+    name: string
+    teacher: {
+        name: string,
+        id: string
+    }
+    room: string,
+
+}
+
 export enum ClassIDS {
     Zero,
     Advisory,
@@ -93,10 +105,43 @@ export function getTimeW(h: number, m: number, s = 0): Time {
     }
 }
 
-export { CL }  from "./pages/setup/types" //TODO: BAD BAD BAD BAD
-import { CL } from "./pages/setup/types" // ALSO TODO: BAD BAD BAD BAD
-
 export type schObject = {
     [key: string]: CL
 }
+
+// Stages Types
+export enum Stages {
+    Stage0,
+    Stage1,
+    SetManually,
+    Schedule,
+}
+
+export type StageProps = {
+    setStage: (stage: number) => void
+}
+
+export type ManualResult = {
+    classes: CL[],
+    lunch: number
+}
+
+export function emptyCL(amt: number): CL[] {
+    return [...Array(amt)].map((v, i) => {
+        return {
+            classID: ClassIDS.Period,
+            period: i,
+            name: "",
+            teacher: {
+                name: "",
+                id: ""
+            },
+            room: ""
+        }
+    })
+    
+}
+
+// STAGES TYPES END
+
 

@@ -28,6 +28,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/triple-slash-reference": 0
+        "@typescript-eslint/triple-slash-reference": 0,
+        "quotes": [0, "single"]
     }
 }

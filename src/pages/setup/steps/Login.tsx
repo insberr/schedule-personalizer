@@ -1,17 +1,22 @@
-import { useId, useState, FormEvent } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button"
-import Alert from "react-bootstrap/Alert"
-import Spinner from "react-bootstrap/Spinner"
-import Center from '../../../components/Center'
-import { Stages } from "../types";
-import { CL } from "../types"
+import { useId, useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
+
+import Center from '../../../components/Center';
+
+import { CL } from '../../../types';
+import { FadeIn } from '../components/FadeIn';
+import { StorageQuery, setV5Data } from '../../../storageManager';
+
 type Props = {
     setStage:  (stage: number) => void;
     setSchedule: (schedule: CL[]) => void
 }
+
 //type changeevt = FormEvent<HTMLInputElement>;
-export function Stage1(props: Props) {
+export function Login(props: Props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState<string>("")
@@ -26,14 +31,18 @@ export function Stage1(props: Props) {
         showError(false)
     }
     function Submit() {
+        // ADD LATER: Check if user exists
+        setV5Data(StorageQuery.Studentvue, { password: password, username: username, stayLoggedIn: true, isLoggedIn: true })
         setLoading(true)
         hideError();
         setTimeout(() => {
             doError("Haha you thought i actually implemented this lmafo")
             setLoading(false)
+            setV5Data(StorageQuery.Setup, true)  
         }, 5000);
+        
     }
-    return (<Center>
+    return (<FadeIn><Center className="full-center mt-5">
         <h1>Login with StudentVue</h1>
         <br />
         <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
@@ -54,7 +63,9 @@ export function Stage1(props: Props) {
             <Button disabled={loading} type="submit">
                 { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
             </Button>
-    </Form>
-    
-    </Center>)
+            <br />
+            
+        </Form>
+    <Button className="mt-5" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Not recommended)</Button>
+    </Center></FadeIn>)
 }

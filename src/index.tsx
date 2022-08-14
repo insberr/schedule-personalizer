@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import eruda from './eruda'
 import App from './App'
 import { identifyCommit } from "./lib";
+import { Err } from "./components/ErrBoundery"
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
@@ -20,7 +21,7 @@ if (!app) {
 }
 console.log("Schedule personalizer v2 ("+identifyCommit()+")")
 const root = createRoot(app)
-root.render(<StrictMode><App /></StrictMode>);
+root.render(<Err><StrictMode><App /></StrictMode></Err>);
 }
 if (process.env.NODE_ENV == "production") {
     startLoad()

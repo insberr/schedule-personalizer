@@ -60,8 +60,8 @@ export const schedules: Schedules = {
             numberOfLunches: 3,
             lunches: {
                 1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
-                2: { order: [] },
-                3: { order: [] },
+                2: { order: [ { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 37) }, { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
+                3: { order: [ { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
             }
         }
     },

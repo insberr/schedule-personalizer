@@ -1,12 +1,12 @@
-import { useEffect, useId, useMemo, useState } from "react";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
-import Center from "../../../components/Center";
-import { LunchPicker } from "../components/LunchPicker";
-import { ManualClassEntry } from "../components/ManualClassEntry";
-import { CL, emptyCL, ManualResult, StageProps } from "../types";
-import { Stdata, schObject, ClassIDS } from "../../../types";
-import { fixLunch } from "../../../lib"
+import { useEffect, useMemo, useState } from 'react';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Center from '../../../components/Center';
+import { LunchPicker } from '../components/LunchPicker';
+import { ManualClassEntry } from '../components/ManualClassEntry';
+import { CL, ClassIDS, emptyCL, ManualResult, StageProps } from '../../../types';
+import { fixLunch } from '../../../lib'
+import { StorageQuery, setV5Data } from '../../../storageManager';
 
 type Props = StageProps & {
     setSchedule: (schedule: CL[]) => void
@@ -24,7 +24,7 @@ Idk how to make this code function off the CL[] in an object and also change the
 
 */
 
-export function StageManually1(props: Props) {
+export function Manual(props: Props) {
     const classAmount = 6;
     const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))
     const [l, sl] = useState(0);
@@ -43,6 +43,11 @@ export function StageManually1(props: Props) {
             setClass(0,newg)
         }
     }, [classes])
+    useEffect(() => {
+        console.log('lunch ' + l)
+        setV5Data(StorageQuery.Lunch, { lunch: l + 1 })
+    }, [l])
+
     function setClass(classNum: number, clas: CL) {
         const newv = [...classes];
         newv[classNum] = clas

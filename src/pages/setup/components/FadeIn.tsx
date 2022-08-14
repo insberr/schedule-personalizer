@@ -8,7 +8,7 @@ export function FadeIn(props: { children: React.ReactNode }) {
         to: {
             opacity: 1,
         },
-        config: config.gentle
+        config: config.stiff,
     })
     return <animated.span style={fadein}>{props.children}</animated.span>
 }

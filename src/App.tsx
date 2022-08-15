@@ -7,7 +7,7 @@ import Theme from "./components/ThemeComponent";
 import { CL } from "./types"
 import { Header } from "./components/Header";
 import { SettingsPage } from "./pages/settings";
-import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data } from "./storageManager";
+import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, StorageDataStudentvue } from "./storageManager";
 
 
 // WHERE WE LEFT OFF;
@@ -23,7 +23,8 @@ function App() {
     useEffect(() => {
         setV5Data(StorageQuery.Init, {});
         const v1Data = getV1Data();
-        if (v1Data !== null && getV5Data(StorageQuery.Studentvue).isLoggedIn === false) {
+        const v5StudentvueData = getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue;
+        if (v1Data !== null && v5StudentvueData.isLoggedIn === false) {
             const tempData = JSON.parse(v1Data);
             const {password, username, rememberMe} = tempData;
             setV5Data(StorageQuery.Studentvue, { password: password, username: username, stayLoggedIn: rememberMe, isLoggedIn: true })

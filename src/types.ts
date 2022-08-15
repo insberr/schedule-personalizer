@@ -111,9 +111,9 @@ export type schObject = {
 
 // Stages Types
 export enum Stages {
-    Stage0,
-    Stage1,
-    SetManually,
+    WhatsNew,
+    Login,
+    EnterManually,
     Schedule,
 }
 

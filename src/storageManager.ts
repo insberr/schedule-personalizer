@@ -18,7 +18,7 @@ export type Term = {
     termIndex: number
     startDate: Date
     endDate: Date
-    classes: CL[] | undefined | []
+    classes: CL[] | []
 }
 export type Terms = Term[]
 export type StorageDataTerms = Term[];

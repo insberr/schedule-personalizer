@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Manual } from './steps/Manual';
 import { Login } from './steps/Login';
+import { WhatsNew } from './steps/WhatsNew';
 
 import { CL } from '../../types';
 import { IntroPonent } from './components/Introponent';
@@ -29,13 +30,15 @@ function SetupPage(props: SetupPageProps) {
     /*function loadTestSchedule() {
         props.setSchedule(testData)
     }*/
+
+    // maybe use enum for stages valuse??
     let thing = <div />
     switch (stage) { 
         case -1: // fuck you no importing manually
             thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
         case 0: // studentvue login
-            thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
+            thing = <WhatsNew setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
             break;
         case 2: // lunch autodetect failure, set force lunch
             thing = <div> todo </div>
@@ -45,6 +48,9 @@ function SetupPage(props: SetupPageProps) {
             break;
         case 69: // the schedule will only be set in this state, so stages can pass schedule data between them (lunch detect failure)
             thing = <div />
+            break;
+        case 420:
+            thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // <WhatsNew setStage={setStage} />
             break;
         default: 
             thing = (<div>Invalid state! <Button onClick={ () => { setStage(0) } } variant="primary">Reset</Button></div>)

@@ -43,7 +43,7 @@ export type StorageDataCustomizations = {
     }
 };
 export type SetUpComplete = boolean;
-export type StorageDataTypes = StorageDataTerms | StorageDataLunch | StorageDataStudentvue | StorageDataCustomizations | SetUpComplete;
+
 export type StorageData = {
     terms: StorageDataTerms
     lunch: StorageDataLunch
@@ -51,12 +51,13 @@ export type StorageData = {
     customizations: StorageDataCustomizations
     setUpComplete: boolean
 }
+export type StorageDataTypes = StorageData | StorageDataTerms | StorageDataLunch | StorageDataStudentvue | StorageDataCustomizations | SetUpComplete;
 
 export function getV1Data(): string | null {
     return localStorage.getItem('data') || null
 }
 
-export function getV5Data(query: StorageQuery): StorageData |  StorageDataTypes { // FOR NOW SO ITLL STOP COMPLAINING FOR A DAMN SECOND
+export function getV5Data(query: StorageQuery): StorageDataTypes { // FOR NOW SO ITLL STOP COMPLAINING FOR A DAMN SECOND
     const v5Data: StorageData = JSON.parse(localStorage.getItem('v5Data-v1') || JSON.stringify(setV5Data(StorageQuery.Init, {})));
     
     if (query === StorageQuery.All) {
@@ -88,7 +89,7 @@ export function getV5Data(query: StorageQuery): StorageData |  StorageDataTypes 
 
 }
 
-export function setV5Data(query: StorageQuery, data: StorageData | StorageDataTypes): StorageData {
+export function setV5Data(query: StorageQuery, data: StorageDataTypes): StorageData {
     console.log("set: " + JSON.stringify(data));
 
     if (query === StorageQuery.Init) {
@@ -112,19 +113,19 @@ export function setV5Data(query: StorageQuery, data: StorageData | StorageDataTy
 
     switch(query) {
         case StorageQuery.Terms:
-            v5Data.terms = data;
+            v5Data.terms = data as StorageDataTerms;
             break;
         case StorageQuery.Lunch:
-            v5Data.lunch = data;
+            v5Data.lunch = data as StorageDataLunch;
             break;
         case StorageQuery.Studentvue:
-            v5Data.studentVue = data;
+            v5Data.studentVue = data as StorageDataStudentvue;
             break;
         case StorageQuery.Customizations:
-            v5Data.customizations = data;
+            v5Data.customizations = data as StorageDataCustomizations;
             break;
         case StorageQuery.Setup:
-            v5Data.setUpComplete = data;
+            v5Data.setUpComplete = data as SetUpComplete;
             break;
         default:
             throw Error(`Invalid query ${query.toString()}, How TF did this happen??`);

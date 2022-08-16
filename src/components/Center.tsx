@@ -1,8 +1,8 @@
 import React from "react";
 type CenterProps = {
-    children: React.ReactNode
-    className?: string
-}
+    children: React.ReactNode;
+    className?: string;
+};
 
 function Center(props: CenterProps) {
     /*
@@ -20,11 +20,15 @@ function Center(props: CenterProps) {
     </div>
     )*/
     return (
-        <div className={"d-flex text-center justify-content-center vw-100 " + (props.className ? props.className : "")}>
-            <div className="w-auto">
-                { props.children }
-            </div>
+        <div
+            className={
+                "d-flex text-center justify-content-center vw-100 " +
+                (props.className ? props.className : "")
+            }
+        >
+            <div className="w-auto">{props.children}</div>
         </div>
-    )
+    );
 }
-export default Center
+
+export default Center;

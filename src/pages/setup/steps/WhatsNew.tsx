@@ -1,8 +1,11 @@
 import { useSpringRef, useSpring, config, useChain,useTransition,animated } from '@react-spring/web';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Center from '../../../components/Center';
-import { FadeIn } from '../components/FadeIn';
+
+
+// THIS SHOULD BE FOR RETURNING USERS
+// WE SHOULD MAKE A NEW PAGE FOR NEW USERS THATS MORE LIKE A TUTORIAL/DESCRIPTION
+
 type Props = {
     setStage: (stage: number) => void
 }

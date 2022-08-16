@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Center from '../../../components/Center';
 import { LunchPicker } from '../components/LunchPicker';
 import { ManualClassEntry } from '../components/ManualClassEntry';
-import { CL, ClassIDS, emptyCL, ManualResult, StageProps } from '../../../types';
-import { fixLunch } from '../../../lib'
+import { CL, ClassIDS, emptyCL, StageProps } from '../../../types';
 import { StorageQuery, setV5Data } from '../../../storageManager';
 
 type Props = StageProps & {
@@ -16,12 +15,14 @@ export function Manual(props: Props) {
     const classAmount = 6;
     const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))
     const [l, sl] = useState(0);
+    /*
     const resultData: ManualResult = useMemo<ManualResult>(() => {
         return {
             lunch: l, // lunch should probably be detected in the merger that merges the schedule with the manual input, convert this to id?
             classes: classes
         }
     }, [classes, l])
+    */
     const isValid = true;
     useEffect(() => {
         if (classes[0].name != "Advisory") {
@@ -60,6 +61,6 @@ export function Manual(props: Props) {
             </pre>
             </div>
         </Center>
-        )
+    )
 
 }

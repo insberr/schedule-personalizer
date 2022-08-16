@@ -20,6 +20,7 @@ export enum ClassIDS {
     Assembly,
     Dismissal,
     NoSchool,
+    Weekend
 }
 
 export type Stdata = {

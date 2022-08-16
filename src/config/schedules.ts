@@ -1,11 +1,14 @@
-import { ClassIDS, getTimeW, Time } from '../types'
-import '../types/schedules.types'
+import { ClassIDS, getTimeW, Time } from '../types';
+import '../types/schedules.types';
+
+
 export type SCHCL = {
     classID: ClassIDS,
     period: number,
     startTime: Time,
     endTime: Time,
 }
+
 export type Lunch = {
     order: {
         startTime: Time,
@@ -18,15 +21,15 @@ export type SchedulesType = {
     classes: SCHCL[],
     lunch: {
         hasLunch: boolean,
-        basedOnPeriod: number,
-        numberOfLunches: number,
-        lunches: {
+        basedOnPeriod?: number,
+        numberOfLunches?: number,
+        lunches?: {
             [key: number]: Lunch
         }
-    }
+    },
 }
 
-export type Schedules = { // oh god oh fck
+export type Schedules = {
     [key: string]: SchedulesType
 }
 
@@ -85,6 +88,14 @@ export const schedules: Schedules = {
             }
         }
     },
+    weekend: {
+        classes: [
+            { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false
+        }
+    },
     lateStart: {
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(9, 35,0), endTime: { hours: 8, minutes: 45 } },
@@ -111,14 +122,42 @@ export const schedules: Schedules = {
         ],
         lunch: {
             hasLunch: false,
-            basedOnPeriod: 0,
-            numberOfLunches: 0,
-            lunches: {
-            }
         }
     }
 }
 
+/*
+    Anytime no schedule is defined for some odd reason, this will be used as the default.
+    However, I highly recommend NOT relying on the default fallback;
+        Both to reduce the risk of the site crashing and for code and/or data clarity.
+*/
+export const defaultSchedule: SchedulesType = schedules.normal;
+
+/*
+    Days of the week. This is for if theres a different schedule for each day of the week.
+
+    ie.
+        Monday, Wednesday, Friday are normal
+        Tuesday, Thursday are advisory
+
+    Remeber JS Date.getDay() returns 0 for Sunday, 1 for Monday, etc.
+
+    You can leave out days, they will default to the defaultSchedule value
+        However I do not recommend doing this, as it can cause risk of the site crashing
+        and it reduces code clarity.
+    
+    The order does not matter, as the 'day' property is used in a Array.filter() method
+
+*/
 export const weekSchedule = [
-    { day: 0, schedule: schedules.normal },
+    // Weekends
+    { day: 0, schedule: schedules.weekend }, // Sunday
+    { day: 6, schedule: schedules.weekend }, // Saturday
+
+    // Weekdays
+    { day: 1, schedule: schedules.normal }, // Monday
+    { day: 2, schedule: schedules.advisory },
+    { day: 3, schedule: schedules.normal },
+    { day: 4, schedule: schedules.advisory },
+    { day: 5, schedule: schedules.normal },
 ]

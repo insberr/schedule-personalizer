@@ -1,8 +1,8 @@
-import { useSpring, animated, config, AnimationResult, SpringValue } from "@react-spring/web";
-import Center from '../../../components/Center';
-import { useState } from "react";
+import { useSpring, animated, AnimationResult, SpringValue } from '@react-spring/web';
+import { useState } from 'react';
 
 type Props = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     children?: any;
 }
 

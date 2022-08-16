@@ -1,14 +1,11 @@
-import { useSpring, useSpringRef, animated, config, useTransition, useChain } from "@react-spring/web";
-import { useEffect, useState } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Center from "../../../components/Center";
-import Button from "react-bootstrap/Button";
-import { Stages, emptyCL, CL, StageProps } from "../../../types";
-import { IntroPonent } from "../components/Introponent";
+import { useSpring, useSpringRef, animated, config, useTransition, useChain } from '@react-spring/web';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
-export function FancyQuestion(props: { question: string, onYes: () => void, onNo: () => void}): JSX.Element {
+
+export function FancyQuestion(/*props: { question: string, onYes: () => void, onNo: () => void}*/): JSX.Element {
     const login = useSpringRef()
     const loginWithStudentvue = useSpring({
         ref: login,
@@ -36,8 +33,8 @@ export function FancyQuestion(props: { question: string, onYes: () => void, onNo
                     <animated.div key="sep" className="col-1" />,
                     <animated.div key="nay" className="col-2"> <Button variant="primary"> No </Button> </animated.div>
                 ][item]
-                }) } <Col /> </Row>
+            }) } <Col /> </Row>
         </Container>
-        )
+    )
 }
 //# sourceMappingURL=FancyYesNo.d.ts.map

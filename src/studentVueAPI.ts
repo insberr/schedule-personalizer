@@ -9,8 +9,18 @@ function generateFetch(username: string, password: string): RequestInit {
     }
 }
 
+export async function validateCredentials(username: string, password: string): Promise<boolean> {
+    const response = await fetch("https://studentvue.wackery.com/validate", generateFetch(username, password));
+    const data = await response.json();
+    console.log('ValidateCredentials: ' + JSON.stringify(data));
+    if (data.code !== "SUCCESS") {
+        return false;
+    }
+    return true; // data;
+}
+
 // Propbably should change args to take a StorageDataStudentvue object
-export async function get_all_schedules(username: string, password: string): Promise<any> {
+export async function getAllSchedules(username: string, password: string): Promise<any> {
     const data = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
         // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
@@ -20,7 +30,7 @@ export async function get_all_schedules(username: string, password: string): Pro
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
-export async function get_student_info(username: string, password: string): Promise<any> {
+export async function getStudentInfo(username: string, password: string): Promise<any> {
     const data = await (await fetch("https://studentvue.wackery.com/get_student_info", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
         throw new Error(data.content.code + ": " + data.content.error);

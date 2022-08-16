@@ -1,8 +1,13 @@
-import { CL, Class, ClassIDS, getTimeW, schObject } from "../../types";
+import { CL, Class, ClassIDS } from "../../types";
 import Schedule from "./components/Schedule";
-import { schedules, Schedules, SchedulesType } from '../../config/schedules';
+import { schedules, SchedulesType } from '../../config/schedules';
 import { scheduleEvents } from '../../config/events';
-import { StorageQuery, getV5Data, StorageDataLunch } from '../../storageManager';
+
+import * as settingsConfig from '../../config/settings';
+import * as lunchesConfig from '../../config/lunches';
+import * as lunchesConfigTypes from '../../types/lunches.types';
+
+import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue } from '../../storageManager';
 
 type SchedulePageProps = {
     sch: CL[]
@@ -49,10 +54,42 @@ function SchedulePage(props: SchedulePageProps) {
 function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
     // This will prevent an error if there are no lunches on the schedule
     // Check if lunch is a thing for that day, if not return mergedSchedule
-    if (mergedSchedule.event.schedule.lunch.hasLunch === false) return mergedSchedule;
-
     const lunchValue = mergedSchedule.event.schedule.lunch;
+    if (lunchValue.hasLunch === false) return mergedSchedule;
+
+    // This is only here to keep vscode from complaining
+    if (lunchValue.lunches === undefined) return mergedSchedule;
+
     const lunch = (getV5Data(StorageQuery.Lunch) as StorageDataLunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
+    
+    // if logged into studentvue we can determine the lunch automatically
+    // just realized that students who enter their data manually will have to figure out what lunch they have. maybe we could implement a "teacher" selector to automatically put teacher ids into the valuse???
+    // for now, only auto detects lunch if logged into studentvue.
+    let userLunch: number = lunch;
+    if ((getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).isLoggedIn) {
+        const temp_basedOnPeriodLunch = lunchesConfig.lunches.filter((lunches) => {
+            return lunches.basedOnPeriod === lunchValue.basedOnPeriod;
+        });
+
+        if (temp_basedOnPeriodLunch.length > 0) {
+            const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {
+                return lnc.teacherIDs.includes(mergedSchedule.sch.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.id);
+            });
+
+            if (temp_possibleLunches.length > 0) {
+                userLunch = temp_possibleLunches[0].lunch;
+                // TODO: SAVE LUNCH TO LOCALSTORAGE
+            } else {
+                console.log('This should be an error because it means that the teacher id is missing from the lunches config')
+            }
+        }
+    } else if (mergedSchedule.event.isEvent || settingsConfig.normalLunchBasedOnPeriod !== lunchValue.basedOnPeriod) {
+        // NOTE: THIS IS NOT TESTED, PLEASE TEST
+        mergedSchedule.event.info.message = mergedSchedule.event.info.message + '\n' + 'Lunch may not be correct';
+    }
+
+    console.log('lnc ' + userLunch);
+
     const lunchSchedule = lunchValue.lunches[lunch];
 
     const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod);
@@ -60,7 +97,9 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
     const lunchPeriod = mergedSchedule.schedule[indexOfLunchPeriod];
     const replacePeriodClassEntries = lunchSchedule.order.map((p) => {
         return {
-            ...p,
+            classID: p.classID,
+            startTime: p.startTime,
+            endTime: p.endTime,
             period: lunchValue.basedOnPeriod,
             name: p.classID === ClassIDS.Lunch ? "Lunch" : lunchPeriod.name,
             room: lunchPeriod.room,
@@ -75,18 +114,19 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
     return mergedSchedule; // For now, once we add the time stuff we can make this actually do something
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDisplayDaySchedule(date: Date): SchedulesType {
     
     // ie. if its tuesday or thurseday its an advisory day
     return schedules.normal; // For now, once we add the time stuff we can make this actually do something
 }
 
-function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule { // for now. we need to create a type for this
+function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
-    // for now it is just passthrough
+
     const displayDateEvents = scheduleEvents.filter(event => (event.info.date.getDate() === date.getDate()) && (event.info.date.getMonth() === date.getMonth()) && (event.info.date.getFullYear() === date.getFullYear()) );
-    if (displayDateEvents.length < 1) console.log("Why are there multiple evnts???") // We should send this "error" to sentry
+    if (displayDateEvents.length > 1) console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
     if (displayDateEvents.length !== 0) return {
         isEvent: true,
         schedule: displayDateEvents[0].schedule,
@@ -100,11 +140,10 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
             message: "No event scheduled"
         }
     }
-    return event; // For now, once we add the time stuff we can make this actually do something
+    return event;
 }
 
 
-// if no schedule is passed, use the default (normal). TRY NOT TO RELY ON THIS AND MAYBE REQUIRE IT TO BE PASSED WITH NO DEFAULT FALLBACK
 function mergeDataWithSchedule(sch: CL[], displayDaySchedule: EventSchedule): MergedSchedule{
     const scheduleForDisplay: Class[] = [];
 
@@ -117,7 +156,7 @@ function mergeDataWithSchedule(sch: CL[], displayDaySchedule: EventSchedule): Me
             room: periodNeeded[0]?.room || "",
             teacher: {
                 name: periodNeeded[0]?.teacher.name || "",
-                email: /* periodNeeded[0]?.teacher.email || "" */ "example@gmail.com",
+                email: periodNeeded[0]?.teacher.email || "",
                 id: periodNeeded[0]?.teacher.id || ""
             },
             startTime: period.startTime,

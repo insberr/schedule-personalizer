@@ -1,15 +1,12 @@
-- Welcome
-- Heres whats new
-- Add to home screen (if its not already a pwa)
+- Welcome {first time viewing v5}
+- Features
+
+- Add to home screen {if its not already a pwa}
   - [keep using in browser]
 
-- (if studentvue was logged into on v1) stay signed in with studentvue?
-  - (loading circle of doom while getting studentvue data and setting up)
-- (if not previously logged in on v1) login to studentvue?
-  - [yes]
-    - Studentvue login page
-      - [next]
-        - (loading circle of doom while getting studentvue data and setting up)
-  - [no]
+- If logged in on v1, login in and go to schedule (should prpbably do the checks and importing in the background)
+- 
+- If not logged in on v1 login to studentvue
+  - [I prefer to Manually enetr data]
     - Manually enter data 
-      - [skip]
+  - [Skip]

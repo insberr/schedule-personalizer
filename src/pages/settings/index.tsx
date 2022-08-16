@@ -11,6 +11,11 @@ export function SettingsPage() {
         <Button onClick={()=>{ clearV5Data(); location.reload() }}>Reset</Button>
         <br />
         <Button onClick={()=>{ forceReload() }}>Force Reload (For mobile)</Button>
+        <br />
+        <br />
+        <div>Credits To:</div>
+        <div>- Jonah Matteson The Creator of This Amazing Website</div>
+        <div>- Wackery For Helping With This Amazing Website</div>
     </div>)
 }
 

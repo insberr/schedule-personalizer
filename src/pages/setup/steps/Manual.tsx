@@ -53,10 +53,10 @@ export function Manual(props: Props) {
             </div>
             <div className="mb-3">
                 { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                <Button onClick={()=>{props.setSchedule(fixLunch(classes, l)); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
+                <Button onClick={()=>{props.setSchedule(classes); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
             </div>
             <pre className="paperer text-start">
-                {JSON.stringify(fixLunch(classes, l), null, 4)}
+                {JSON.stringify(classes, null, 4)}
             </pre>
             </div>
         </Center>

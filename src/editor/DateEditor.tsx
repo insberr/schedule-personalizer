@@ -1,14 +1,22 @@
 import { format } from 'date-fns'
-import { useState } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Calendar from 'react-calendar'
-export function DateEditor() {
-    const [date, setDate] = useState(new Date())
-    const [time, setTime] = useState<Date | string>(new Date())
+import { SchedulesType, schedules } from '../config/schedules'
+import { ScheduleEvents, ScheduleEvent } from '../config/events';
+
+type Props = {
+    setDate: (date: Date) => void
+    date: Date
+    setSchedule: (schedule: SchedulesType) => void
+}
+
+export function DateEditor(props: Props) {
+
     return (<div>
         <h2> Date Editor </h2>
-        <Calendar onChange={setDate}/>
+        <Calendar onChange={props.setDate}/>
         <br />
-        <div>{format(date,"MM-dd-yyyy")}</div>
+        <div>{/*format(props.date,"MM-dd-yyyy")*/}</div>
         <div> actual editor goes here </div>
         </div>)
 }

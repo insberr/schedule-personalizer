@@ -1,8 +1,8 @@
 import { CL, Class, ClassIDS, getTimeW, schObject } from "../../types";
 import Schedule from "./components/Schedule";
-import { schedules, Schedules, SchedulesType } from '../../schedules';
-import { scheduleEvents } from '../../events';
-import { StorageQuery, getV5Data } from '../../storageManager';
+import { schedules, Schedules, SchedulesType } from '../../config/schedules';
+import { scheduleEvents } from '../../config/events';
+import { StorageQuery, getV5Data, StorageDataLunch } from '../../storageManager';
 
 type SchedulePageProps = {
     sch: CL[]
@@ -52,13 +52,13 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
     if (mergedSchedule.event.schedule.lunch.hasLunch === false) return mergedSchedule;
 
     const lunchValue = mergedSchedule.event.schedule.lunch;
-    const lunch = getV5Data(StorageQuery.Lunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
+    const lunch = (getV5Data(StorageQuery.Lunch) as StorageDataLunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
     const lunchSchedule = lunchValue.lunches[lunch];
 
     const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod);
 
     const lunchPeriod = mergedSchedule.schedule[indexOfLunchPeriod];
-    const replacePeriodClassEntries = lunchSchedule.order.map((p, i) => {
+    const replacePeriodClassEntries = lunchSchedule.order.map((p) => {
         return {
             ...p,
             period: lunchValue.basedOnPeriod,
@@ -76,6 +76,7 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
 }
 
 function getDisplayDaySchedule(date: Date): SchedulesType {
+    
     // ie. if its tuesday or thurseday its an advisory day
     return schedules.normal; // For now, once we add the time stuff we can make this actually do something
 }

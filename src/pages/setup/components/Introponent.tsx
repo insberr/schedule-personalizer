@@ -52,7 +52,7 @@ export function IntroPonent(props: Props) {
       )
       if (!stage1Complete) {
             // @ts-expect-error hahaha
-            return <><animated.span className="text-center" style={animWelcome}> <h1>Welcome</h1> </animated.span> <animated.span style={animWelcome2}> <h7 className="text-muted">Schedule Peronalizer v5</h7></animated.span></>
+            return <><animated.span className="text-center" style={animWelcome}> <h1>Welcome</h1> </animated.span> <animated.span style={animWelcome2}> <h6 className="text-muted">Schedule Peronalizer v5</h6></animated.span></>
         } else {
             return props.children;
         }

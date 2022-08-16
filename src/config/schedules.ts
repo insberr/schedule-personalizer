@@ -1,5 +1,5 @@
-import { ClassIDS, getTimeW, Time } from './types'
-
+import { ClassIDS, getTimeW, Time } from '../types'
+import '../types/schedules.types'
 export type SCHCL = {
     classID: ClassIDS,
     period: number,
@@ -118,3 +118,7 @@ export const schedules: Schedules = {
         }
     }
 }
+
+export const weekSchedule = [
+    { day: 0, schedule: schedules.normal },
+]

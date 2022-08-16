@@ -57,7 +57,7 @@ export function getV1Data(): string | null {
     return localStorage.getItem('data') || null
 }
 
-export function getV5Data(query: StorageQuery): StorageDataTypes { // FOR NOW SO ITLL STOP COMPLAINING FOR A DAMN SECOND
+export function getV5Data(query: StorageQuery): StorageDataTypes {
     const v5Data: StorageData = JSON.parse(localStorage.getItem('v5Data-v1') || JSON.stringify(setV5Data(StorageQuery.Init, {})));
     
     if (query === StorageQuery.All) {

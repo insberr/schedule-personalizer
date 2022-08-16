@@ -44,7 +44,6 @@ function App() {
     },[]);
 
     useEffect(() => {
-        console.log("setv5");
         if (sch.length > 1) {
             setV5Data(StorageQuery.Terms, [
                 { termIndex: 1, classes: sch, startDate: new Date(), endDate: new Date() },

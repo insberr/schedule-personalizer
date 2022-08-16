@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 
+
 // THIS SHOULD BE FOR RETURNING USERS
 // WE SHOULD MAKE A NEW PAGE FOR NEW USERS THATS MORE LIKE A TUTORIAL/DESCRIPTION
 
@@ -19,7 +20,7 @@ const whatsnew = [
 ]
 
 // ANIMATE THIS
-export function WhatsNew(props: Props) {
+export function Features(props: Props) {
     const conf = config.gentle;
     const [disappear, setDisappear] = useState(false);
     const tapi = useSpringRef()
@@ -32,7 +33,9 @@ export function WhatsNew(props: Props) {
             console.log("rest")
             console.log(disappear)
             if (disappear) {
-                setTimeout(() => {props.setStage(420)},500)
+                setTimeout(() => {
+                    props.setStage(420)
+                },500)
             }
         }
     })
@@ -57,7 +60,7 @@ export function WhatsNew(props: Props) {
     useChain(disappear ? [buttonapi ,newsapi,tapi] : [tapi, newsapi, buttonapi], [0,0.25,0.5])
     return (
     <div className="text-center full-center">
-        <animated.span style={title}><h5>Whats New?</h5></animated.span>
+        <animated.span style={title}><h5>Features And Whats New?</h5></animated.span>
         <ul style={{"listStyleType": "none", "margin":0, "marginTop": "1em", "padding":0}}>
         { news((style, item) => {
             return <li><animated.span style={style}>{item}</animated.span></li>

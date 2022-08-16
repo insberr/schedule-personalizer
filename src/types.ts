@@ -6,10 +6,10 @@ export type CL = {
     name: string
     teacher: {
         name: string,
+        email: string,
         id: string
     }
     room: string,
-
 }
 
 export enum ClassIDS {
@@ -45,10 +45,10 @@ export type Term = {
 
 export type Class = {
     classID: ClassIDS
-    period: string | number
+    period: number | undefined
     name: string
-    room: string | number | null
-    teacher: Teacher | null
+    room: string | number
+    teacher: Teacher
     // these times should be what studentvue says
     startTime: Time
     endTime: Time
@@ -135,6 +135,7 @@ export function emptyCL(amt: number): CL[] {
             name: "",
             teacher: {
                 name: "",
+                email: "",
                 id: ""
             },
             room: ""

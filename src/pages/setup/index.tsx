@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Manual } from './steps/Manual';
 import { Login } from './steps/Login';
-import { WhatsNew } from './steps/WhatsNew';
+import { Features } from './steps/Features';
 
 import { CL } from '../../types';
 import { IntroPonent } from './components/Introponent';
@@ -38,7 +38,7 @@ function SetupPage(props: SetupPageProps) {
             thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
         case 0: // studentvue login
-            thing = <WhatsNew setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
+            thing = <Features setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
             break;
         case 2: // lunch autodetect failure, set force lunch
             thing = <div> todo </div>

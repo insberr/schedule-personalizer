@@ -1,4 +1,5 @@
-import { SchedulesType, schedules } from "./schedules";
+import { SchedulesType, schedules } from './schedules';
+import { ClassIDS, getTimeW } from '../types'
 
 // Bassically schedules.ts, but it's for events
 

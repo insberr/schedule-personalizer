@@ -1,5 +1,5 @@
 import { precacheAndRoute } from 'workbox-precaching';
-import {setCacheNameDetails} from 'workbox-core';
+import { setCacheNameDetails } from 'workbox-core';
 
 type preCacheManifestEntry = {
     url: string;
@@ -8,10 +8,10 @@ type preCacheManifestEntry = {
 
 setCacheNameDetails({
     prefix: "schedule-personalizer",
-    suffix: "v2"
+    suffix: "v5"
 })
 
 // @ts-expect-error cringe
 const manifest: preCacheManifestEntry[] = self.__precacheManifest
 
-precacheAndRoute(manifest); // yoo fucking caching
+precacheAndRoute(manifest); // yoo caching

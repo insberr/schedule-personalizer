@@ -1,7 +1,7 @@
 {
   "name": "schedule-personalizer",
   "version": "5.0.0",
-  "description": "Personalized Schedules?",
+  "description": "Personalized Schedule",
   "source": [
     "src/index.html",
     "src/editor/index.html"

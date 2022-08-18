@@ -16,7 +16,7 @@ export class Err extends Component<props, state> {
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         // You can also log the error to an error reporting service
         // console.error(error, errorInfo);
-        // sentry should also go here
+        // sentry should also go here. How Do You Do This?
     }
 
     render() {

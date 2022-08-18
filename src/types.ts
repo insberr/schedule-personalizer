@@ -14,6 +14,7 @@ export type CL = {
 
 export enum ClassIDS {
     Zero,
+    Arrival,
     Advisory,
     Lunch,
     Period,

@@ -24,6 +24,7 @@ export function ManualClassEntry(props: Props) {
             name: props.isAdv ? "Advisory" : classname,
             teacher: {
                 name: teacher,
+                email: "",
                 id: ""
             },
             room

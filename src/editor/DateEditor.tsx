@@ -1,13 +1,8 @@
-import { format } from 'date-fns'
-import { useState, useEffect, useMemo } from 'react'
-import Calendar from 'react-calendar'
-import { SchedulesType, schedules } from '../config/schedules'
-import { ScheduleEvents, ScheduleEvent } from '../config/events';
+import Calendar from 'react-calendar';
 
 type Props = {
     setDate: (date: Date) => void
     date: Date
-    setSchedule: (schedule: SchedulesType) => void
 }
 
 export function DateEditor(props: Props) {

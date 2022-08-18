@@ -1,21 +1,25 @@
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState } from "react"
 import Button from "react-bootstrap/Button"
-import { ScheduleFile } from "./types"
-import _schedule from "../schedule.json"
 import Center from "../components/Center"
 import { DateEditor } from "./DateEditor"
 import { ScheduleEditor } from "./ScheduleEditor"
 
-import { ScheduleEvent, scheduleEvents, ScheduleEvents } from '../config/events';
+import { ScheduleEvent } from '../config/events';
 import { SchedulesType, schedules } from "../config/schedules"
 
 export function EditorApp() {
-    const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
+    // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState(new Date())
     const [schedule, setSchedule] = useState<SchedulesType>(schedules.normal)
-    const [time, setTime] = useState<Date | string>(new Date())
+    // const [time, setTime] = useState<Date | string>(new Date())
     
-    const [resultEvent, setResultEvent] = useState<ScheduleEvent>({});
+    const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
+        schedule: schedules.noSchool,
+        info: {
+            message: '',
+            date: new Date(),
+        }
+    });
     
     // somehow display the object as a string (not JSON.stringify because that makes it not copy pasteable into the events.ts file)
     useEffect(() => {

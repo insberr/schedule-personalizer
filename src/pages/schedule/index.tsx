@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; 
+import { useState } from 'react'; 
 import { CL, Class, ClassIDS } from "../../types";
 import Schedule from "./components/Schedule";
 import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
@@ -6,7 +6,6 @@ import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../conf
 
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
-import * as lunchesConfigTypes from '../../types/lunches.types';
 
 import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue } from '../../storageManager';
 

@@ -1,7 +1,9 @@
 import { createPortal } from "react-dom";
 import { Customizations } from "../types";
 
+
 function generateCSS(custom: Customizations) {
+    console.log(custom)
     return '* { animation-name: spin; animation-duration: 1000ms; animation-iteration-count: infinite; animation-timing-function: linear; }';//`* { color: magenta; }`
 }
 

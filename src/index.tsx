@@ -5,7 +5,7 @@ import App from './App'
 import { identifyCommit } from "./lib";
 import { Err } from "./components/ErrBoundery"
 import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+// import { BrowserTracing } from "@sentry/tracing";
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
@@ -19,9 +19,11 @@ function startLoad() {
     if (process.env.NODE_ENV == "production") {
         Sentry.init({
             dsn: "https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608",
+            /*
             integrations: [new BrowserTracing({
                 tracingOrigins: ['localhost', 'schedule.insberr.com', 'insberr.github.io', 'schedule.insberr.live'],
             })],
+            */
 
             // We recommend adjusting this value in production, or using tracesSampler
             // for finer control

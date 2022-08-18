@@ -1,4 +1,6 @@
 import { SchedulesType, schedules } from './schedules';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ClassIDS, getTimeW } from '../types'
 
 // Bassically schedules.ts, but it's for events

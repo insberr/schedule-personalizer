@@ -20,6 +20,7 @@ export async function validateCredentials(username: string, password: string): P
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getAllSchedules(username: string, password: string): Promise<any> {
     const data = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
@@ -30,6 +31,7 @@ export async function getAllSchedules(username: string, password: string): Promi
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getStudentInfo(username: string, password: string): Promise<any> {
     const data = await (await fetch("https://studentvue.wackery.com/get_student_info", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {

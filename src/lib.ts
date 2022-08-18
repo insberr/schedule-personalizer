@@ -1,5 +1,5 @@
 // bunch of reusable functions
-import { isAfter, isBefore, format, parse, set } from "date-fns"
+import { format, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS } from "./types";
 import _lunches from "./lunches.json"
 

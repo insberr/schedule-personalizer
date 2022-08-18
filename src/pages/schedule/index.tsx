@@ -173,6 +173,11 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
     });
     console.log(displayDateEvents);
 
+    // TODO: make it so if there are more than one event on the same day, combine them into one event of choose one over the other
+    // Its probably best to send an error to sentry if there are more than one event on the same day
+    // or we could implement something to tell it we intentionally ment to overlap them and in that case also tell it what to do
+    // but at that point just write the events properly????
+
     if (displayDateEvents.length > 1) console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
     if (displayDateEvents.length !== 0) return {
         isEvent: true,

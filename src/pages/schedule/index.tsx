@@ -1,6 +1,7 @@
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { CL, Class, ClassIDS } from "../../types";
 import Schedule from "./components/Schedule";
+import LoadSpinner from '../../components/LoadSpinner';
 import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
 import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
 
@@ -34,8 +35,34 @@ type MergedSchedule = {
 function SchedulePage(props: SchedulePageProps) {
     // !!!!!!!! SHOULD PROBABLY CONSIDER TRIMESTERS AT SOME POINT !!!!!!!!!!!!!!!
 
-    
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
+    const [currentDisplayDayEvent, setCurrentDisplayDayEvent] = useState<EventSchedule | Record<string, never>>({});
+    const [lunchifiedSchedule, setLunchifiedSchedule] = useState<MergedSchedule | Record<string, never>>({});
+    
+    useEffect(() => {
+        setIsLoading(true);
+
+        console.log('Date changed: ' + currentDisplayDate);
+        const newScheduleFromDoSchedule = doSchedule(props.sch, currentDisplayDate);
+        setCurrentDisplayDayEvent(newScheduleFromDoSchedule.currentDisplayDayEvent);
+        setLunchifiedSchedule(newScheduleFromDoSchedule.lunchifiedSchedule);
+
+        setIsLoading(false);
+
+    }, [currentDisplayDate]);
+
+    // if loading shows blank schedule for a bit, maybe add a loading screen?
+    if (isLoading) {
+        return <LoadSpinner />
+    } else {
+        // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+        return <Schedule event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } />
+    }
+}
+
+function doSchedule(sch: CL[], currentDisplayDate: Date): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
+    // !!!!!!!! SHOULD PROBABLY CONSIDER TRIMESTERS AT SOME POINT !!!!!!!!!!!!!!!
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
     const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
@@ -46,19 +73,12 @@ function SchedulePage(props: SchedulePageProps) {
     console.log(currentDisplayDayEvent);
 
     // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
-    const mergedSchedule: MergedSchedule = mergeDataWithSchedule(props.sch, currentDisplayDayEvent);
+    const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch, currentDisplayDayEvent);
 
     // Do lunch related frickery to the schedule
     const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule);
 
-    /*
-    useEffect(() => {
-        console.log('Date changed: ' + currentDisplayDate);
-    })
-    */
-
-    // add event property
-    return <Schedule event={ currentDisplayDayEvent } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /> // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+    return { currentDisplayDayEvent, lunchifiedSchedule };
 }
 
 function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
@@ -132,7 +152,7 @@ function getDisplayDaySchedule(date: Date): SchedulesType {
         console.log(`For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`);
         return defaultSchedule;
     }
-    return schedules.normal; // For now, once we add the time stuff we can make this actually do something
+    return weekDaySchedule[0].schedule; // For now, once we add the time stuff we can make this actually do something
 }
 
 function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule {

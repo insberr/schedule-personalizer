@@ -29,13 +29,13 @@ function Schedule(props: ScheduleProps) {
     { props.event.isEvent ? props.event.info.message : null }
     <br />
     <Button onClick={ () => {
-        const newDate = new Date();
+        const newDate = new Date(props.displayDate);
         newDate.setDate(props.displayDate.getDate() - 1);
         props.setDisplayDate(newDate);
     }}>Back 1 day</Button>
     <Button onClick={ () => { props.setDisplayDate(new Date()) } }>Now</Button>
     <Button onClick={ () => {
-        const newDate = new Date();
+        const newDate = new Date(props.displayDate);
         newDate.setDate(props.displayDate.getDate() + 1);
         props.setDisplayDate(newDate);
     }}>Forward 1 day</Button>

@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react'; 
 import { CL, Class, ClassIDS } from "../../types";
 import Schedule from "./components/Schedule";
-import { schedules, SchedulesType } from '../../config/schedules';
-import { scheduleEvents } from '../../config/events';
+import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
+import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
 
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
@@ -32,23 +33,33 @@ type MergedSchedule = {
 
 
 function SchedulePage(props: SchedulePageProps) {
-    // SHOULD PROBABLY CONSIDER TRIMESTERS AT SOME POINT!!!!!!!!!!!!!!!
+    // !!!!!!!! SHOULD PROBABLY CONSIDER TRIMESTERS AT SOME POINT !!!!!!!!!!!!!!!
 
+    
+    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
-    const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(new Date() /* make this the date thats being displayed */);
+    const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
 
     // Override the schedule with the events scheduled for the current displayed day
-    const currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule, new Date() /* make this the date thats being displayed */);
+    /* make this the date thats being displayed */
+    const currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule, currentDisplayDate);
     console.log(currentDisplayDayEvent);
+
     // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
     const mergedSchedule: MergedSchedule = mergeDataWithSchedule(props.sch, currentDisplayDayEvent);
 
     // Do lunch related frickery to the schedule
     const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule);
 
+    /*
+    useEffect(() => {
+        console.log('Date changed: ' + currentDisplayDate);
+    })
+    */
+
     // add event property
-    return <Schedule event={ currentDisplayDayEvent } sch={ lunchifiedSchedule.schedule }/> // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+    return <Schedule event={ currentDisplayDayEvent } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /> // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
 }
 
 function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
@@ -116,16 +127,33 @@ function lunchify(mergedSchedule: MergedSchedule): MergedSchedule {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDisplayDaySchedule(date: Date): SchedulesType {
-    
-    // ie. if its tuesday or thurseday its an advisory day
+    const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
+    // ie. if its tuesday or thurseday its an advisory day or if its a weekend
+    if (weekDaySchedule.length === 0) {
+        console.log(`For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`);
+        return defaultSchedule;
+    }
     return schedules.normal; // For now, once we add the time stuff we can make this actually do something
 }
 
 function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
+    console.log(date)
+    const displayDateEvents = scheduleEvents.filter(event => {
+        let eventDate = event.info.date;
+        if ((eventDate as DateRange).start !== undefined) {
+            // console.log('date is an object');
+            eventDate = scheduleEventsDateRange(eventDate as DateRange, date) as Date;
+        }
 
-    const displayDateEvents = scheduleEvents.filter(event => (event.info.date.getDate() === date.getDate()) && (event.info.date.getMonth() === date.getMonth()) && (event.info.date.getFullYear() === date.getFullYear()) );
+        // to keep vscode from complaining
+        eventDate = eventDate as Date;
+
+        return (eventDate.getDate() === date.getDate()) && (eventDate.getMonth() === date.getMonth()) && (eventDate.getFullYear() === date.getFullYear())
+    });
+    console.log(displayDateEvents);
+
     if (displayDateEvents.length > 1) console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
     if (displayDateEvents.length !== 0) return {
         isEvent: true,

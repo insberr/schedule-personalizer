@@ -4,7 +4,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col"
 import Form from 'react-bootstrap/Form'
 import { CL, ClassIDS } from "../../../types"
-import parseWithOptions from "date-fns/esm/fp/parseWithOptions/index.js";
 
 type Props = {
     isAdv: boolean
@@ -31,11 +30,13 @@ export function ManualClassEntry(props: Props) {
         }
         props.change(data);
     }
+
     function changeDo(setfunc: (v: string) => void) {
-        return (e: any) => { // use a better type
+        return (e: { currentTarget: { value: string }}) => { // [wackery]: use a better type | [insberr]: I "used a better type", we should still use a better type, i just made it so vscode would stop complaining about it
             setfunc(e.currentTarget.value);
         }
     }
+
     useEffect(pushSCH, [classname,teacher,room])
     // mayne convert the floatinglabel+control combo into a component
     return (

@@ -35,7 +35,7 @@ export const scheduleEvents: ScheduleEvents = [
         schedule: schedules.noSchool,
         info: {
             message: "summer",
-            date: { start: new Date("August 18, 2022"), end: new Date("September 5, 2022") },
+            date: { start: new Date("September 1, 2022"), end: new Date("September 5, 2022") },
         }
     },
     {
@@ -44,5 +44,5 @@ export const scheduleEvents: ScheduleEvents = [
             message: "First Day Of School",
             date: new Date("September 6, 2022"),
         },
-    }
+    },
 ];

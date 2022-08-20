@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { EventSchedule } from '../index';
 import { format, isSameDay } from 'date-fns'
 import Button from 'react-bootstrap/Button';
-import { useId, useMemo, useRef } from "react";
+import { useId, useMemo, useRef, useEffect } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { SchHeader } from "./ScheduleHeader"
 import { VscArrowLeft,VscCalendar, VscReply, VscArrowRight } from "react-icons/vsc";
@@ -17,6 +17,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Calendar from 'react-calendar'
 import { Overlay } from "react-bootstrap";
+import { useScreenshot } from 'use-react-screenshot'
+import { copyImageToClipboard,canCopyImagesToClipboard   } from 'copy-image-clipboard'
+import { RiScreenshot2Fill } from "react-icons/ri";
 
 type ScheduleProps = {
     sch: Class[]
@@ -55,12 +58,29 @@ function Schedule(props: ScheduleProps) {
             const newDate = new Date(props.displayDate);
             newDate.setDate(props.displayDate.getDate() + 1);
             props.setDisplayDate(newDate);
-        }}><VscArrowRight /></Button>
+        }}><VscArrowRight /></Button>,
+        <Button key="screeny" style={{"marginLeft":"1em"}} onClick={()=> { takeScreenshot(screenref.current) }}><RiScreenshot2Fill /></Button>
     ]
-
-    return (<><SchHeader setup={props.setup} centerbuttons={buttons}/><Center>
+    const screenref = useRef<HTMLDivElement>(null)
+    const [image, takeScreenshot] = useScreenshot()
+    useEffect(() => {
+        console.log(image)
+        if (image) {
+            if (!canCopyImagesToClipboard()) {
+                //alert("unable to copy image to clipboard on this platform, cringe.")
+                window.open(image);
+                return;
+            }
+            copyImageToClipboard(image).then(() => {
+                alert("Screenshot copied to clipboard")
+            });
+            
+        }
+    },[image])
+    return (<div><SchHeader setup={props.setup} centerbuttons={buttons}/><Center>
         <br />
         <br /><br /><br />
+        <div ref={screenref} style={{"backgroundColor":"var(--bg)", "padding":"3em" }}>
         <Container style={{ "width": "80vw", "maxWidth": "900px" }}>
         <Row className="row background-clear justify-content-center text-center">
             <Center className="date">{ format(props.displayDate, "EEEE: LL/dd/yyyy") }</Center> 
@@ -69,9 +89,36 @@ function Schedule(props: ScheduleProps) {
             return (<Row className="crow" key={i.toString()}><ScheduleEntry key={i.toString()} mini={doMini} period={period} /></Row>)
         }) }
     </Container>
-    <br></br>
-    { props.event.isEvent ? props.event.info.message : null }
+    { props.event.isEvent ? <div style={{"marginTop":"1em"}}>{props.event.info.message}</div> : null }
     <br />
-    </Center></>)
+    </div>
+    </Center></div>)
 }
 export default Schedule
+
+/*
+import React, { createRef, useState } from 'react'
+import { useScreenshot } from 'use-react-screenshot'
+
+export default () => {
+  const ref = createRef(null)
+  const [image, takeScreenshot] = useScreenshot()
+  const getImage = () => takeScreenshot(ref.current)
+  return (
+    <div>
+      <div>
+        <button style={{ marginBottom: '10px' }} onClick={getImage}>
+          Take screenshot
+        </button>
+      </div>
+      <img width={width} src={image} alt={'Screenshot'} />
+      <div ref={ref}>
+        <h1>use-react-screenshot</h1>
+        <p>
+          <strong>hook by @vre2h which allows to create screenshots</strong>
+        </p>
+      </div>
+    </div>
+  )
+}
+*/

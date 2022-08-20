@@ -64,7 +64,7 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: true,
+  devTools: (process.env.NODE_ENV !== 'production'),
   middleware: [...getDefaultMiddleware(),createReduxMiddleware()],
 })
 export const persistor = persistStore(store)

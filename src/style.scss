@@ -165,3 +165,19 @@ $tile-selected: shade-color($white,10%);
     padding: 0.5em;
     //border-top: $row-border solid $date-bg;
 }
+
+.modal-content {
+    background: none!important;
+}
+.modal-body {
+    background: rgba(255, 255, 255, 0.401)!important;
+    box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1)!important;
+    backdrop-filter: blur(8px)!important;
+    border-bottom-left-radius: 16px!important;
+    border-bottom-right-radius: 16px!important;
+    -webkit-backdrop-filter: blur(8px)!important;
+}
+.modal-header {
+    background-color: var(--bs-modal-bg)!important;
+    border-bottom: none!important;
+}

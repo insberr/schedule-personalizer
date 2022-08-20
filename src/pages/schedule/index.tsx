@@ -212,9 +212,9 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
 
     let newTerm = sch.filter(term => {
         return (
-            term.startDate.getTime() >= displayDate.getTime()
-        ) || (
-            term.endDate.getTime() <= displayDate.getTime()
+            term.startDate.getTime() <= displayDate.getTime()
+        ) && (
+            term.endDate.getTime() >= displayDate.getTime()
         )
     });
 
@@ -223,6 +223,7 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
         console.log('newterm created')
         newTerm = [{ termIndex: 0, classes: [ { classID: ClassIDS.Period, period: 1, name: "", room: "", teacher: { name: "", email: "", id: "" } }], startDate: new Date(), endDate: new Date() }];
     }
+    console.log(newTerm[0])
     return newTerm[0];
 }
 

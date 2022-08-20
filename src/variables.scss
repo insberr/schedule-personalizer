@@ -20,7 +20,20 @@ $popover-bg: $shade-bg;
 $component-active-bg: $shade-bg;
 $accordion-button-active-bg: $shade-bg;
 $toast-background-color: $shade-bg;
-$toast-header-color: $shader-bg;
+$toast-header-background-color: $shader-bg;
+$dropdown-bg: $shade-bg;
+$dropdown-color: $body-color;
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: shade-color($body-color, 20%);
+$dropdown-link-hover-bg: shade-color($body-bg, 20%);
+$modal-bg: $shade-bg;
+$modal-content-bg: $modal-bg;
+$bs-modal-bg: rgb(0,0,0,0);
+
+.btn-close {
+    color: $body-color;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFF'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center / 1em no-repeat !important;
+}
 :root {
     --shade-bg:  #{$shade-bg};
     --shader-bg:  #{$shader-bg};

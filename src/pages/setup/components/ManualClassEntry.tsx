@@ -9,35 +9,28 @@ type Props = {
     isAdv: boolean
     period: number
     change: (d: CL) => void
+    value: CL
 }
 
 export function ManualClassEntry(props: Props) {
     const id = useId()
-    const [classname, setclassname] = useState(props.isAdv ? "Advisory" : "")
-    const [teacher, setteacher] = useState("")
-    const [room, setroom] = useState("")
-    function pushSCH() {
-        const data: CL = {
-            classID: props.isAdv ? ClassIDS.Advisory : ClassIDS.Period,
-            period: props.period,
-            name: props.isAdv ? "Advisory" : classname,
-            teacher: {
-                name: teacher,
-                email: "",
-                id: ""
-            },
-            room
-        }
-        props.change(data);
-    }
-
-    function changeDo(setfunc: (v: string) => void) {
-        return (e: { currentTarget: { value: string }}) => { // [wackery]: use a better type | [insberr]: I "used a better type", we should still use a better type, i just made it so vscode would stop complaining about it
-            setfunc(e.currentTarget.value);
+    
+    function changeDo(tomas: string) {
+        return (evt: any) => {
+            let val = evt.target.value
+            if (tomas == "teacher") {
+                val = {
+                    name: val,
+                    email: "",
+                    id: ""
+                }
+            }
+            props.change({
+                ...props.value,
+                [tomas]: val
+            })
         }
     }
-
-    useEffect(pushSCH, [classname,teacher,room])
     // mayne convert the floatinglabel+control combo into a component
     return (
         <Container className="paperer mb-4">
@@ -45,17 +38,17 @@ export function ManualClassEntry(props: Props) {
             <Row>
                 <Form.Group as={Col}>
                     <Form.FloatingLabel controlId={id+"classname"} label="Name"> 
-                        <Form.Control type="text" onChange={changeDo(setclassname)} value={classname} placeholder="Name" disabled={props.isAdv} />
+                        <Form.Control type="text" onChange={changeDo("name")} value={props.value.name} placeholder="Name" disabled={props.isAdv} />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}>
                     <Form.FloatingLabel controlId={id+"tname"} label="Teacher">
-                        <Form.Control value={teacher} onChange={changeDo(setteacher)} placeholder="Teacher" />
+                        <Form.Control value={props.value.teacher.name} onChange={changeDo("teacher")} placeholder="Teacher" />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col}>
                     <Form.FloatingLabel controlId={id+"room"} label="Room">
-                        <Form.Control value={room} onChange={changeDo(setroom)} placeholder="Room" />
+                        <Form.Control value={props.value.room} onChange={changeDo("room")} placeholder="Room" />
                     </Form.FloatingLabel>
                 </Form.Group>
             </Row>

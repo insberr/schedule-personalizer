@@ -38,7 +38,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     return (
     <Container style={{"backgroundColor": "#"+rgb }}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1em"}}>
-        <Col className={ props.mini ? 'hidden' : '' }><MdMoreVert /></Col>
+        <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
         <Col key="teacherName" className={ (props.mini ? 'hidden' : '') }>{props.period.teacher.name}</Col>

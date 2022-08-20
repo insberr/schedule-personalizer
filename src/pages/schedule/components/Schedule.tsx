@@ -20,6 +20,7 @@ import { Overlay } from "react-bootstrap";
 import { useScreenshot } from 'use-react-screenshot'
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import { RiScreenshot2Fill } from "react-icons/ri";
+//import { IoHomeSharp } from "react-icons/io";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
@@ -57,7 +58,7 @@ function Schedule(props: ScheduleProps) {
             newDate.setDate(props.displayDate.getDate() - 1);
             props.setDisplayDate(newDate);
         }}><VscArrowLeft /></Button>,
-        <Button key="now" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }><VscReply /></Button>,
+        <Button key="now" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }>home</Button>,
         <OverlayTrigger rootClose={true} key="calendar" trigger="click" placement="bottom" overlay={calendar}><Button style={{"marginLeft":"1em"}}><VscCalendar /></Button></OverlayTrigger>,
         <Button key="forward" style={{"marginLeft":"1em"}} onClick={ () => {
             const newDate = new Date(props.displayDate);

@@ -3,9 +3,9 @@ import Button from "react-bootstrap/Button";
 import Center from "../components/Center";
 import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
-
 import { ScheduleEvent } from "../config/events";
 import { SchedulesType, schedules } from "../config/schedules";
+import { Calendar } from "../components/Calendar/Calendar";
 
 export function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
@@ -42,7 +42,8 @@ export function EditorApp() {
             <h2> Output </h2>
             <pre style={{textAlign: "left"}} className="paper">{resultEvent}</pre>
             <div className="paper">{/*JSON.stringify(events)*/}</div>
-            <Button href="./">Back to schedule</Button>
+            <Button href="../">Back to schedule</Button>
+            <Calendar />
         </Center>
     );
 }

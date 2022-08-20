@@ -205,6 +205,15 @@ export const schedules: Schedules = {
         lunch: {
             hasLunch: false,
         }
+    },
+
+    summer: {
+        classes: [
+            { classID: ClassIDS.Summer, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false,
+        }
     }
 }
 

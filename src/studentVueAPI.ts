@@ -1,3 +1,4 @@
+import { Terms } from "./types";
 
 function generateFetch(username: string, password: string): RequestInit {
     return {
@@ -21,12 +22,13 @@ export async function validateCredentials(username: string, password: string): P
 
 // Propbably should change args to take a StorageDataStudentvue object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getAllSchedules(username: string, password: string): Promise<any> {
+export async function getAllSchedules(username: string, password: string): Promise<Terms> {
     const data = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
         // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
         throw new Error(data.content.code + ": " + data.content.error);
     }
+    console.log('%OH WHAT THEY PUBLISHED OUR SCHEDULES!!!!', 'color:red;font-size:20px;')
     return data
 }
 

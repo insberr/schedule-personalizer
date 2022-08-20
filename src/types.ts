@@ -11,7 +11,15 @@ export type CL = {
     }
     room: string,
 }
+export type Term = {
+    isFake?: boolean
+    termIndex: number
+    startDate: Date
+    endDate: Date
+    classes: CL[] | []
+}
 
+export type Terms = Term[]
 export enum ClassIDS {
     Zero,
     Arrival,
@@ -21,7 +29,8 @@ export enum ClassIDS {
     Assembly,
     Dismissal,
     NoSchool,
-    Weekend
+    Weekend,
+    Summer
 }
 
 export type Stdata = {
@@ -34,14 +43,6 @@ export type StudentVue = {
     stayLoggedIn: boolean
     username: string
     password: string
-}
-
-export type Term = {
-    term: number
-    // remove the | string  later since yeah its not supposed to be a string
-    startDate: Date | string
-    endDate: Date | string
-    classes: Class[]
 }
 
 export type Class = {

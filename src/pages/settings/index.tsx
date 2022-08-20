@@ -1,14 +1,12 @@
 import Button from "react-bootstrap/Button";
-import { clearV5Data } from '../../storageManager';
+import { resetStorage } from "../../storage/store";
 
-
-
-export function SettingsPage() {
+export function SettingsPage(props: { setup: (s: boolean) => void }) {
     return (<div>
         <h1>Settings</h1>
         <Button href="/editor">Editor (Devs only)</Button>
         <br />
-        <Button onClick={()=>{ clearV5Data(); location.reload() }}>Reset</Button>
+        <Button onClick={()=>{ props.setup(false); resetStorage() }}>Reset</Button>
         <br />
         <Button onClick={()=>{ forceReload() }}>Force Reload (For mobile)</Button>
         <br />

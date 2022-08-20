@@ -1,5 +1,11 @@
-import { CL } from './types';
-
+import { CL } from '../types';
+import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit'
+import scheduleReducer, {reset as resetSchedule} from './schedule';
+import studentvueReducer, {reset as resetStudentvue} from './studentvue';
+import miscReducer, {reset as resetMisc} from './misc';
+import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
+import storage from 'redux-persist/lib/storage'
+import { persistReducer, persistStore } from 'redux-persist';
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -14,14 +20,6 @@ export enum StorageQuery {
     Dev
 }
 
-export type Term = {
-    termIndex: number
-    startDate: Date
-    endDate: Date
-    classes: CL[] | []
-}
-export type Terms = Term[]
-export type StorageDataTerms = Term[];
 export type StorageDataLunch = {
     lunch: number
 };
@@ -45,14 +43,48 @@ export type StorageDataCustomizations = {
 export type SetUpComplete = boolean;
 
 export type StorageData = {
-    terms: StorageDataTerms
+    //terms: StorageDataTerms
     lunch: StorageDataLunch
     studentVue: StorageDataStudentvue
     customizations: StorageDataCustomizations
     setUpComplete: boolean
 }
-export type StorageDataTypes = StorageData | StorageDataTerms | StorageDataLunch | StorageDataStudentvue | StorageDataCustomizations | SetUpComplete;
 
+const persistConfig = {
+    key: 'v5ReduxData',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, combineReducers({
+    schedule: scheduleReducer,
+    studentvue: studentvueReducer,
+    misc: miscReducer
+}))
+
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: true,
+  middleware: [...getDefaultMiddleware(),createReduxMiddleware()],
+})
+export const persistor = persistStore(store)
+
+
+export const resetStorage = () => { 
+    persistor.purge().then(() => {
+        store.dispatch(resetSchedule())
+        store.dispatch(resetStudentvue())
+        store.dispatch(resetMisc())
+    })
+    
+}
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
+
+/*
 export function getV1Data(): string | null {
     return localStorage.getItem('data') || null
 }
@@ -139,3 +171,4 @@ export function setV5Data(query: StorageQuery, data: StorageDataTypes): StorageD
 export function clearV5Data(): void {
     localStorage.removeItem('v5Data-v1');
 }
+*/

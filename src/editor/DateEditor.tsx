@@ -1,4 +1,4 @@
-import Calendar from 'react-calendar';
+//import Calendar from 'react-calendar';
 
 type Props = {
     setDate: (date: Date) => void
@@ -9,7 +9,7 @@ export function DateEditor(props: Props) {
 
     return (<div>
         <h2> Date Editor </h2>
-        <Calendar onChange={props.setDate}/>
+        
         <br />
         <div>{/*format(props.date,"MM-dd-yyyy")*/}</div>
         <div> actual editor goes here </div>

@@ -4,26 +4,33 @@ import { Manual } from './steps/Manual';
 import { Login } from './steps/Login';
 import { Features } from './steps/Features';
 
-import { CL } from '../../types';
+import { Terms } from '../../types';
 import { IntroPonent } from './components/Introponent';
+import { useDispatch } from "react-redux";
+import { setSetupComplete } from '../../storage/misc';
+import { AddToHomeScreen } from './steps/AddToHomeScreen'
 
-import { StorageQuery, setV5Data } from '../../storageManager';
+//import { StorageQuery, setV5Data, Terms } from '../../storageManager';
 
 
 type SetupPageProps = {
-    setSchedule: (s: CL[]) => void
+    setSchedule: (s: Terms) => void
 }
 
 function SetupPage(props: SetupPageProps) {
     //useEffect
     const [stage, setStage] = useState(0);
-    const [schedule, setLocalSchedule] = useState<CL[] | undefined>(undefined);
+    const [schedule, setLocalSchedule] = useState<Terms | undefined>(undefined);
+    const dispatch = useDispatch();
     useEffect(() => {
         if (stage != 69) {
             return;
         }
         if (schedule) {
-            setV5Data(StorageQuery.Setup, true);
+            //setV5Data(StorageQuery.Setup, true);
+            dispatch(setSetupComplete(true));
+
+            // TODO: Add manual setup terms
             props.setSchedule(schedule)
         }
     })
@@ -37,9 +44,18 @@ function SetupPage(props: SetupPageProps) {
         case -1: // fuck you no importing manually
             thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
-        case 0: // studentvue login
+        case 0: {// studentvue login
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                setStage(1)
+            } else {
+                thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>
+            }
+            break;
+        }
+        case 1: {
             thing = <Features setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
             break;
+        }
         case 2: // lunch autodetect failure, set force lunch
             thing = <div> todo </div>
             break;

@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 
-export function FancyQuestion(/*props: { question: string, onYes: () => void, onNo: () => void}*/): JSX.Element {
+export function FancyQuestion(props: { question: string, onYes: () => void, onNo: () => void}): JSX.Element {
     const login = useSpringRef()
     const loginWithStudentvue = useSpring({
         ref: login,
@@ -25,7 +25,7 @@ export function FancyQuestion(/*props: { question: string, onYes: () => void, on
     useChain([login, tranapi], [0, 0.5])
     return (
         <Container className="full-center text-center">
-            <Row> <Col> <animated.div style={loginWithStudentvue}> <h2> Login To StudentVue </h2> </animated.div> </Col> </Row>
+            <Row> <Col> <animated.div style={loginWithStudentvue}> <h2> { props.question } </h2> </animated.div> </Col> </Row>
             <Row> <Col /> { trans((style, item) => {
                 console.log(item)
                 return [

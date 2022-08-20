@@ -25,6 +25,8 @@ export function formatClassPeriodName(classData: Class): string {
     if (classData.classID === ClassIDS.NoSchool) return "No School"
     if (classData.classID === ClassIDS.Dismissal) return "Dismissal"
     if (classData.classID === ClassIDS.Assembly) return "Assembly"
+    if (classData.classID === ClassIDS.Weekend) return "Weekend"
+    if (classData.classID === ClassIDS.Summer) return "Summer"
     return "Period " + classData.period;
 }
 
@@ -72,4 +74,11 @@ export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the cl
         c.teacher.id = lunches[lunch][0] // wow!
         return c;
     })
+}
+
+export function formatClassTimeHideElement(classData: Class): string {
+    if (classData.classID === ClassIDS.NoSchool) return 'hidden'
+    if (classData.classID  === ClassIDS.Weekend) return 'hidden'
+    if (classData.classID  === ClassIDS.Summer) return 'hidden'
+    return '';
 }

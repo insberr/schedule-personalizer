@@ -5,6 +5,10 @@ import App from './App'
 import { identifyCommit } from "./lib";
 import { Err } from "./components/ErrBoundery"
 import * as Sentry from "@sentry/react";
+import { store, persistor } from './storage/store'
+import { PersistGate } from 'redux-persist/integration/react';
+import LoadSpinner from "./components/LoadSpinner";
+import { Provider } from 'react-redux'
 // import { BrowserTracing } from "@sentry/tracing";
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
@@ -44,7 +48,17 @@ function startLoad() {
     console.log("Schedule personalizer v2 ("+identifyCommit()+")");
 
     const root = createRoot(app);
-    root.render(<Err><StrictMode><App /></StrictMode></Err>);
+    root.render((<Err>
+                    <StrictMode>
+                        
+                        <Provider store={store}>
+                            <PersistGate loading={<LoadSpinner />} persistor={persistor}>
+                                <App />
+                            </PersistGate>
+                        </Provider>
+                        
+                    </StrictMode>
+                </Err>));
 }
 
 if (process.env.NODE_ENV == "production") {

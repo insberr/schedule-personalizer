@@ -21,7 +21,7 @@ export type ScheduleEvent = {
 export type ScheduleEvents = ScheduleEvent[];
 
 export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Date {
-    if ((currentDate.getDate() >= range.start.getDate() && currentDate.getMonth() >= range.start.getMonth()) || (currentDate.getDate() <= range.end.getDate() && currentDate.getMonth() <= range.end.getMonth())) {
+    if ((currentDate.getDate() >= range.start.getDate() && currentDate.getMonth() >= range.start.getMonth() && currentDate.getFullYear() >= range.start.getFullYear()) || (currentDate.getDate() <= range.end.getDate() && currentDate.getMonth() <= range.end.getMonth() && currentDate.getFullYear() <= range.end.getFullYear())) {
         return currentDate;
     } else {
         return range.start;
@@ -34,8 +34,8 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "summer",
-            date: { start: new Date("September 1, 2022"), end: new Date("September 5, 2022") },
+            message: "Its Summer",
+            date: { start: new Date("August 21, 2022"), end: new Date("September 5, 2022") },
         }
     },
     {

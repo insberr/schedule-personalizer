@@ -1,0 +1,27 @@
+@import "npm:bootstrap/scss/functions";
+
+
+$body-bg: #272727;
+$body-color: #fafafa;
+$font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+
+$border-radius-table: 10px;
+$list-group-color: $body-color;
+$list-group-bg: rgba(white, 0);
+$list-group-border-width: 0;
+$input-bg: $body-bg;
+$input-disabled-bg: tint-color($body-bg, 20%);
+$shade-bg: shade-color($body-bg, 30%);
+$shader-bg: shade-color($body-bg, 40%);
+$shaderer-bg: shade-color($body-bg, 50%);
+$paper-border-tint: 10%;
+$popover-bg: $shade-bg;
+$component-active-bg: $shade-bg;
+$accordion-button-active-bg: $shade-bg;
+
+:root {
+    --shade-bg:  #{$shade-bg};
+    --shader-bg:  #{$shader-bg};
+    --shaderer-bg:  #{$shaderer-bg};
+}

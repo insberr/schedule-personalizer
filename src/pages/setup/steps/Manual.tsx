@@ -4,17 +4,22 @@ import Button from 'react-bootstrap/Button';
 import Center from '../../../components/Center';
 import { LunchPicker } from '../components/LunchPicker';
 import { ManualClassEntry } from '../components/ManualClassEntry';
-import { CL, ClassIDS, emptyCL, StageProps } from '../../../types';
-import { StorageQuery, setV5Data } from '../../../storageManager';
+import { CL, ClassIDS, emptyCL, StageProps, Terms } from '../../../types';
+import { useDispatch } from "react-redux";
+import { setLunch } from '../../../storage/schedule';
+
+
+//import { StorageQuery, setV5Data, Terms } from '../../../storageManager';
 
 type Props = StageProps & {
-    setSchedule: (schedule: CL[]) => void
+    setSchedule: (schedule: Terms) => void
 }
 
 export function Manual(props: Props) {
     const classAmount = 6;
     const [classes, setClasses] = useState<CL[]>(emptyCL(classAmount))
     const [l, sl] = useState(0);
+    const dispatch = useDispatch();
     /*
     const resultData: ManualResult = useMemo<ManualResult>(() => {
         return {
@@ -34,7 +39,7 @@ export function Manual(props: Props) {
     }, [classes])
     useEffect(() => {
         console.log('lunch ' + l)
-        setV5Data(StorageQuery.Lunch, { lunch: l + 1 })
+        dispatch(setLunch(l))
     }, [l])
 
     function setClass(classNum: number, clas: CL) {
@@ -54,7 +59,7 @@ export function Manual(props: Props) {
             </div>
             <div className="mb-3">
                 { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                <Button onClick={()=>{props.setSchedule(classes); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
+                <Button onClick={()=>{props.setSchedule([ { termIndex: 1, classes: classes, startDate: new Date(), endDate: new Date() }, { termIndex: 2, classes: classes, startDate: new Date(), endDate: new Date() }, { termIndex: 3, classes: classes, startDate: new Date(), endDate: new Date() } ]); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
             </div>
             <pre className="paperer text-start">
                 {JSON.stringify(classes, null, 4)}

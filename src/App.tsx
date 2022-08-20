@@ -3,15 +3,21 @@ import React,  { useEffect, useState } from "react"
 import LoadSpinner from "./components/LoadSpinner";
 import { Header } from "./components/Header";
 // import StudentVueReloader from "./components/StudentVueReloader";
+import { useSelector, useDispatch } from 'react-redux'
 
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
 
+import { setTerms, scheduleSlice } from "./storage/schedule";
+import { useStudentvue } from './storage/studentvue';
+import { RootState } from "./storage/store";
+
+import * as api from './studentVueAPI';
 // import { Customizations } from "./types";
 // import Theme from "./components/ThemeComponent";
 
-import { CL } from "./types"
-import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, StorageDataStudentvue } from "./storageManager";
+import { Terms } from "./types"
+//import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, StorageDataStudentvue, Terms } from "./storageManager";
 
 
 // WHERE WE LEFT OFF;
@@ -20,12 +26,23 @@ import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, Storag
 
 const SetupPage = React.lazy(() => import("./pages/setup"))
 function App() {
-
-    const [sch, setSch] = useState<CL[]>([]);
+    //const sch = useSelector((state: RootState) => state.schedule.terms)
+    const dispatch = useDispatch()
+    function setSch(sch: Terms) {
+        dispatch(setTerms(sch))
+    }
+    const stv = useStudentvue()
     const [isSetup, setIsSetup] = useState<boolean>(false);
-    const [isSetupComplete, setIsSetupComplete] = useState<boolean>(false);
+    const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete)
 
     useEffect(() => {
+        api.getAllSchedules(stv.username, stv.password).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, [])
+    /*useEffect(() => {
         setV5Data(StorageQuery.Init, {});
 
         const v1Data = getV1Data();
@@ -37,23 +54,18 @@ function App() {
 
         const v5TermsData = getV5Data(StorageQuery.Terms) as StorageDataTerms;
         if (v5TermsData !== null && v5TermsData !== undefined) {
-            setSch(v5TermsData[0].classes);
+            setSch(v5TermsData);
         }
         setIsSetupComplete(getV5Data(StorageQuery.Setup) as boolean);
 
+        api.getAllSchedules((getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).username, (getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).password).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
     },[]);
+    */
 
-    useEffect(() => {
-        if (sch.length > 1) {
-            setV5Data(StorageQuery.Terms, [
-                { termIndex: 1, classes: sch, startDate: new Date(), endDate: new Date() },
-                { termIndex: 2, classes: [], startDate: new Date(), endDate: new Date() },
-                { termIndex: 3, classes: [], startDate: new Date(), endDate: new Date() }
-            ]);
-        }
-        setIsSetupComplete(getV5Data(StorageQuery.Setup) as boolean);
-    },[sch]);
-    
     /*
     // Someday we will implement this
     function setTheme(theme: Customizations) {
@@ -61,11 +73,11 @@ function App() {
         const newSch = Object.assign({}, sch, { customization: theme })
         setSch(newSch)
     }
-    */
+    
     if (!sch) {
         return <LoadSpinner />
     }
-    
+    */
     if (!isSetupComplete) {
         return (
             <React.Suspense fallback={ <LoadSpinner /> }>
@@ -74,11 +86,14 @@ function App() {
         )
     }
 
-    if (isSetup) {
-        return <><Header setup={setIsSetup} c={isSetup} /><SettingsPage /></>
-    }
-    
-    return <><Header setup={ setIsSetup } c={ isSetup } /><SchedulePage sch={ sch } /></>
+    return (<>
+            <div id="schpage" className={isSetup ? "hidden" : ""}>
+                <SchedulePage setup={setIsSetup} />
+            </div>
+            <div id="settings" className={!isSetup ? "hidden" : ""}>
+                <Header setup={ setIsSetup } c={ isSetup } /><SettingsPage setup={setIsSetup}/>
+            </div>
+            </>)
 }
 
 export default App;

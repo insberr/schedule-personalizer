@@ -1,26 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import "./variables.scss";
+@import "npm:@fontsource/roboto/index.css";
 
 // Include any default variable overrides here (though functions won't be available)
 // see the sass section in each bootstrap module
 
 // some stuff from another site
 
-@import "npm:bootstrap/scss/functions";
 
-$body-bg: #272727;
-$body-color: #fafafa;
-$font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-$border-radius-table: 10px;
-$list-group-color: $body-color;
-$list-group-bg: rgba(white, 0);
-$list-group-border-width: 0;
-$input-bg: $body-bg;
-$input-disabled-bg: tint-color($body-bg, 20%);
-$shade-bg: shade-color($body-bg, 30%);
-$shader-bg: shade-color($body-bg, 40%);
-$shaderer-bg: shade-color($body-bg, 50%);
-$paper-border-tint: 10%;
 @import "npm:bootstrap/scss/bootstrap";
 
 .white-icon {
@@ -57,18 +43,30 @@ $paper-border-tint: 10%;
     @extend .rounded;
     background-color: $shade-bg;
     border: 1px solid tint-color($shade-bg, $paper-border-tint);
-
+    /*
+    @
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    */
 
 }
 .paperer {
     @extend .paper;
     background-color: $shader-bg;
+    //background: rgba(255, 255, 255, 0.15);
     border-color: tint-color($shader-bg, $paper-border-tint);
 }
 
+$date-bg: #DC143C;
+$row-border: 1px;
+
 
 .date {
-    background-color: #DC143C;
+    background-color: $date-bg;
+    border-top: $row-border solid $date-bg;
     border-radius: $border-radius-table $border-radius-table 0 0;
     color: white;
 }
@@ -101,4 +99,69 @@ html, body{
 
 .hidden {
     display: none;
+}
+
+.innerbox {
+}
+
+$tile-selected: shade-color($white,10%);
+@import "npm:react-calendar/dist/Calendar.css";
+
+.react-calendar  {
+    font-family: $font-family-sans-serif;
+    background-color: $shade-bg;
+    color: $body-color;
+}
+.react-calendar__navigation__label__labelText {
+    color: inherit;
+}
+.react-calendar__tile--now {
+    background-color: shade-color($body-bg, 70%);
+}
+.react-calendar__tile, .react-calendar__navigation__arrow, .react-calendar__navigation__label {
+    color: $body-color;
+    &:hover {
+        background-color: $tile-selected!important;
+        color: black;
+    }
+    &:focus {
+        background-color: shade-color($tile-selected, 10%)!important;
+        color: black;
+    }
+}
+.react-calendar__month-view__days__day {
+    color: $body-color;
+    
+}
+.react-calendar__month-view__days__day--weekend {
+    color: $danger;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: $primary;
+}
+
+@import "./components/Calendar/Calendar.scss";
+
+
+
+
+/*.date {
+    border-left: $row-border solid $border-color;
+    border-right: $row-border solid $border-color;
+    border-top: $row-border solid $border-color;
+}*/
+.crow {
+    &:nth-child(n) {
+        border-left: $row-border solid $date-bg;
+        border-right: $row-border solid $date-bg;
+        //border-bottom: $row-border solid $date-bg;
+    };
+    &:last-child  {
+        border-radius: 0 0 10px 10px;
+        border-bottom: $row-border solid $date-bg;
+    }
+}
+.innerbox {
+    padding: 0.5em;
+    //border-top: $row-border solid $date-bg;
 }

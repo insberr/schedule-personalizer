@@ -1,5 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { Err } from '../components/ErrBoundery'
 import eruda from '../eruda'
 import { EditorApp } from './EditorApp'
 
@@ -11,7 +12,7 @@ if (!app) {
 const root = createRoot(app)
 
 function render() {
-    root.render(<React.StrictMode><EditorApp /></React.StrictMode>)
+    root.render(<Err><React.StrictMode><EditorApp /></React.StrictMode></Err>)
 }
 
 if (process.env.NODE_ENV == "production") {

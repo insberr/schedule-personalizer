@@ -6,15 +6,18 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Center from '../../../components/Center';
 
-import { CL } from '../../../types';
+import { Terms, ClassIDS } from '../../../types';
 import { FadeIn } from '../components/FadeIn';
-import { StorageQuery, setV5Data } from '../../../storageManager';
+//import { StorageQuery, setV5Data } from '../../../storageManager';
 
 import * as api from '../../../studentVueAPI';
+import * as settings from '../../../config/settings';
+import { useDispatch } from 'react-redux';
+import { useStudentvue, StorageDataStudentvue, setStudentVueData } from '../../../storage/studentvue';
 
 type Props = {
     setStage:  (stage: number) => void;
-    setSchedule: (schedule: CL[]) => void
+    setSchedule: (schedule: Terms) => void
     // setTerms: (terms: Terms[]) => void;
 }
 
@@ -27,6 +30,7 @@ export function Login(props: Props) {
     const [loading, setLoading] = useState(false)
     const [validUser, setValidUser] = useState<{ isValid: boolean, loading: boolean, name: string, school: string }>({ isValid: true, loading: true, name: "", school: "" })
     const id = useId()
+    const dispatch = useDispatch()
 
     function doError(err: string) {
         setError(err)
@@ -63,7 +67,7 @@ export function Login(props: Props) {
         // ADD LATER: Check if user exists
 
         // Set username and password to local storage
-        setV5Data(StorageQuery.Studentvue, { password: password, username: username, stayLoggedIn: true, isLoggedIn: true });
+        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true }));
 
         // Initial validation check
         if (validUser.isValid === false) {
@@ -81,7 +85,12 @@ export function Login(props: Props) {
 
         
         setLoading(false)
-        setV5Data(StorageQuery.Setup, true)
+
+
+        // somehow change this?
+        // setV5Data()
+
+
 
         // set the schedule from studentvue. it wont work right now so heres some made up data
         api.getAllSchedules(username, password).then((res) => {
@@ -89,14 +98,36 @@ export function Login(props: Props) {
             // const formattedTerms = res.map((term) => { /* uhhh just waiting for our schedules to be published in studentvue */ })
         })
         
-        props.setSchedule([
-            { classID: 1, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
-            { classID: 3, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
-            { classID: 3, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
-            { classID: 3, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
-            { classID: 3, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
-            { classID: 3, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
-        ])
+        const newTerms = settings.termsDates;
+
+        /* TEMPOARY UNTILL STUDENTVUE GET SCHEDULES WORKS */
+        newTerms[0].classes = [
+            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
+            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
+            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
+            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
+            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
+            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
+        ]
+        newTerms[1].classes = [
+            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
+            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
+            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
+            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
+            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
+            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
+        ]
+        newTerms[2].classes = [
+            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
+            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
+            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
+            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
+            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
+            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
+        ]
+        /* END TEMPORARY */
+
+        props.setSchedule(newTerms);
 
         props.setStage(69);
 

@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { EventSchedule } from '../index';
 import { format, isSameDay } from 'date-fns'
 import Button from 'react-bootstrap/Button';
-import { useId, useMemo, useRef, useEffect } from "react";
+import { useId, useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { SchHeader } from "./ScheduleHeader"
 import { VscArrowLeft,VscCalendar, VscReply, VscArrowRight } from "react-icons/vsc";
@@ -18,8 +18,10 @@ import Col from 'react-bootstrap/Col';
 import Calendar from 'react-calendar'
 import { Overlay } from "react-bootstrap";
 import { useScreenshot } from 'use-react-screenshot'
-import { copyImageToClipboard,canCopyImagesToClipboard   } from 'copy-image-clipboard'
+import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import { RiScreenshot2Fill } from "react-icons/ri";
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 type ScheduleProps = {
     sch: Class[]
@@ -31,6 +33,9 @@ type ScheduleProps = {
 
 function Schedule(props: ScheduleProps) {
     console.log("props: ", props.sch)
+    const [showImageToast, setShowImageToast] = useState(false);
+    const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
+
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
             return formatClassTimeHideElement(i) == "hidden"
@@ -61,6 +66,9 @@ function Schedule(props: ScheduleProps) {
         }}><VscArrowRight /></Button>,
         <Button key="screeny" style={{"marginLeft":"1em"}} onClick={()=> { takeScreenshot(screenref.current) }}><RiScreenshot2Fill /></Button>
     ]
+
+    
+    
     const screenref = useRef<HTMLDivElement>(null)
     const [image, takeScreenshot] = useScreenshot()
     useEffect(() => {
@@ -69,30 +77,80 @@ function Schedule(props: ScheduleProps) {
             if (!canCopyImagesToClipboard()) {
                 //alert("unable to copy image to clipboard on this platform, cringe.")
                 window.open(image);
+                setImageCopiedToClipboard(false)
+                setShowImageToast(true)
                 return;
             }
-            copyImageToClipboard(image).then(() => {
-                alert("Screenshot copied to clipboard")
-            });
-            
+            requestClipboardWritePermission().then((hasPerm) => {
+                if (!hasPerm) {
+                    window.open(image);
+                    setImageCopiedToClipboard(false)
+                    return;
+                }
+                copyImageToClipboard(image).then(() => {
+                    setImageCopiedToClipboard(true)
+                    setShowImageToast(true)
+                });
+            })  
         }
     },[image])
-    return (<div><SchHeader setup={props.setup} centerbuttons={buttons}/><Center>
-        <br />
-        <br /><br /><br />
-        <div ref={screenref} style={{"backgroundColor":"var(--bg)", "padding":"3em" }}>
-        <Container style={{ "width": "80vw", "maxWidth": "900px" }}>
-        <Row className="row background-clear justify-content-center text-center">
-            <Center className="date">{ format(props.displayDate, "EEEE: LL/dd/yyyy") }</Center> 
-        </Row>
-        { props.sch.map((period, i) => {
-            return (<Row className="crow" key={i.toString()}><ScheduleEntry key={i.toString()} mini={doMini} period={period} /></Row>)
-        }) }
-    </Container>
-    { props.event.isEvent ? <div style={{"marginTop":"1em"}}>{props.event.info.message}</div> : null }
-    <br />
-    </div>
-    </Center></div>)
+    return (
+        <div>
+            <ToastContainer className="p-3" position={"bottom-end"}>
+                <Toast onClose={() => setShowImageToast(false)} show={showImageToast} delay={10000} autohide>
+                    <Toast.Header closeButton={true}>
+                        <strong className="me-auto">Image Captured</strong>
+                        <small>Just Now</small>
+                    </Toast.Header>
+                    <Toast.Body>
+                        { imageCopiedToClipboard ? 'The image has been copied to your clipboard.' : 'Copy the image below and save it' }
+                        <img
+                            src={image}
+                            className="rounded me-2"
+                            style={{ width: "100%", height: "auto" }}
+                            alt=""
+                        />
+                    </Toast.Body>
+                </Toast>
+            </ToastContainer>
+            <SchHeader setup={props.setup} centerbuttons={buttons} />
+            <Center>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div
+                    ref={screenref}
+                    style={{ backgroundColor: "var(--bg)", padding: "3em" }}
+                >
+                    <Container style={{ width: "80vw", maxWidth: "900px" }}>
+                        <Row className="row background-clear justify-content-center text-center">
+                            <Center className="date">
+                                {format(props.displayDate, "EEEE: LL/dd/yyyy")}
+                            </Center>
+                        </Row>
+                        {props.sch.map((period, i) => {
+                            return (
+                                <Row className="crow" key={i.toString()}>
+                                    <ScheduleEntry
+                                        key={i.toString()}
+                                        mini={doMini}
+                                        period={period}
+                                    />
+                                </Row>
+                            );
+                        })}
+                    </Container>
+                    {props.event.isEvent ? (
+                        <div style={{ marginTop: "1em" }}>
+                            {props.event.info.message}
+                        </div>
+                    ) : null}
+                    <br />
+                </div>
+            </Center>
+        </div>
+    );
 }
 export default Schedule
 

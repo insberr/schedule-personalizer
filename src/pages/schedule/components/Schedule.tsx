@@ -21,8 +21,10 @@ import { useScreenshot } from 'use-react-screenshot'
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import { RiScreenshot2Fill } from "react-icons/ri";
 //import { IoHomeSharp } from "react-icons/io";
+import { IoHomeOutline } from "react-icons/io5";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+import { useTransition, animated, config } from '@react-spring/web'
 
 type ScheduleProps = {
     sch: Class[]
@@ -36,7 +38,7 @@ function Schedule(props: ScheduleProps) {
     console.log("props: ", props.sch)
     const [showImageToast, setShowImageToast] = useState(false);
     const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
-
+    
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
             return formatClassTimeHideElement(i) == "hidden"
@@ -53,19 +55,19 @@ function Schedule(props: ScheduleProps) {
         </Popover>
     )
     const buttons = [
-        <Button key="back" onClick={ () => {
+        <Button variant="outline-crimson" key="back"  size="sm" onClick={ () => {
             const newDate = new Date(props.displayDate);
             newDate.setDate(props.displayDate.getDate() - 1);
             props.setDisplayDate(newDate);
         }}><VscArrowLeft /></Button>,
-        <Button key="now" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }>home</Button>,
-        <OverlayTrigger rootClose={true} key="calendar" trigger="click" placement="bottom" overlay={calendar}><Button style={{"marginLeft":"1em"}}><VscCalendar /></Button></OverlayTrigger>,
-        <Button key="forward" style={{"marginLeft":"1em"}} onClick={ () => {
+        <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeOutline /></Button>,
+        <OverlayTrigger rootClose={true} key="calendar" trigger="click" placement="bottom" overlay={calendar}><Button variant="outline-crimson" size="sm" style={{"marginLeft":"1em"}}><VscCalendar /></Button></OverlayTrigger>,
+        <Button variant="outline-crimson" key="forward" size="sm" style={{"marginLeft":"1em"}} onClick={ () => {
             const newDate = new Date(props.displayDate);
             newDate.setDate(props.displayDate.getDate() + 1);
             props.setDisplayDate(newDate);
         }}><VscArrowRight /></Button>,
-        <Button key="screeny" style={{"marginLeft":"1em"}} onClick={()=> { takeScreenshot(screenref.current) }}><RiScreenshot2Fill /></Button>
+        <Button variant="outline-crimson" key="screeny" size="sm" style={{"marginLeft":"1em"}} onClick={()=> { takeScreenshot(screenref.current) }}><RiScreenshot2Fill /></Button>
     ]
 
     
@@ -77,14 +79,15 @@ function Schedule(props: ScheduleProps) {
         if (image) {
             if (!canCopyImagesToClipboard()) {
                 //alert("unable to copy image to clipboard on this platform, cringe.")
-                window.open(image);
+                // window.open(image);
                 setImageCopiedToClipboard(false)
                 setShowImageToast(true)
                 return;
             }
             requestClipboardWritePermission().then((hasPerm) => {
                 if (!hasPerm) {
-                    window.open(image);
+                    // window.open(image);
+                    setShowImageToast(true)
                     setImageCopiedToClipboard(false)
                     return;
                 }
@@ -114,7 +117,7 @@ function Schedule(props: ScheduleProps) {
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
-            <SchHeader setup={props.setup} centerbuttons={buttons} />
+            <SchHeader home={()=>{props.setDisplayDate(new Date())}}setup={props.setup} centerbuttons={buttons} />
             <Center>
                 <br />
                 <br />
@@ -130,15 +133,18 @@ function Schedule(props: ScheduleProps) {
                                 {format(props.displayDate, "EEEE: LL/dd/yyyy")}
                             </Center>
                         </Row>
-                        {props.sch.map((period, i) => {
+                        { props.sch.map((period, i) => {
                             return (
-                                <Row className="crow" key={i.toString()}>
+                                
+                                <Row className="crow" key={period.classID.toString() + period.period?.toString()}>
                                     <ScheduleEntry
                                         key={i.toString()}
                                         mini={doMini}
                                         period={period}
+                                        viewDate={props.displayDate}
                                     />
                                 </Row>
+                                
                             );
                         })}
                     </Container>

@@ -6,6 +6,7 @@ import { ScheduleEditor } from "./ScheduleEditor";
 import { ScheduleEvent } from "../config/events";
 import { SchedulesType, schedules } from "../config/schedules";
 import { Calendar } from "../components/Calendar/Calendar";
+import stringifyObject from '../stringify-object';
 
 export function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
@@ -13,12 +14,12 @@ export function EditorApp() {
     const [schedule, setSchedule] = useState<SchedulesType>(schedules.normal);
     // const [time, setTime] = useState<Date | string>(new Date())
 
-    const [resultEvent, setResultEvent] = useState<string>("{}");
+    const [resultEvent, setResultEvent] = useState<ScheduleEvent>({});
 
     // somehow display the object as a string (not JSON.stringify because that makes it not copy pasteable into the events.ts file)
     useEffect(() => {
-        setResultEvent(stringifyEvent(date, schedule));
-        /*
+        // setResultEvent(stringifyEvent(date, schedule));
+        
         setResultEvent({
             schedule: schedules.noSchool,
             info: {
@@ -26,7 +27,7 @@ export function EditorApp() {
                 date: date,
             },
         });
-        */
+        
     }, [date, schedule]);
 
     return (
@@ -40,7 +41,18 @@ export function EditorApp() {
             </div>
             <br /> <br />
             <h2> Output </h2>
-            <pre style={{textAlign: "left"}} className="paper">{resultEvent}</pre>
+            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(resultEvent, {
+                indent: '  ',
+                singleQuotes: true,
+                inlineCharacterLimit: 80,
+                transform: (object, property, originalResult) => {
+                    if (property === 'schedule') {
+                        return 'schedules.noSchool'
+                    }
+            
+                    return originalResult;
+                }
+            })}</pre>
             <div className="paper">{/*JSON.stringify(events)*/}</div>
             <Button href="../">Back to schedule</Button>
             <Calendar />

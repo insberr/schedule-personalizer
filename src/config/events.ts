@@ -45,4 +45,4 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("September 6, 2022"),
         },
     },
-];
+]; 

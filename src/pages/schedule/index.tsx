@@ -33,7 +33,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     const sch = useSchedule();
     const stv = useStudentvue();
 
-    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
+    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(process.env.NODE_ENV === "development" ? new Date("September 6, 2022") : new Date());
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];

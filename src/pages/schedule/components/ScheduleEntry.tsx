@@ -9,12 +9,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
+import { Timer } from "./Timer";
 
 
 type ScheduleEntryProps = {
     key: string
     period: Class
     mini: boolean,
+    viewDate: Date,
 }
 
 // Making this look better will be fun : )
@@ -38,15 +40,15 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     return (
     <Container style={{"backgroundColor": "#"+rgb }}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1em"}}>
-        <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px'}}><MdMoreVert /></Col>
+        <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
-        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-md-block d-sm-none') }>{props.period.teacher.name}</Col>
-        <Col key="roomNumber" className={(props.mini ? 'hidden' : '') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
+        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
+        <Col key="roomNumber" className={(props.mini ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
     </Row>
     <Row onClick={() => {setOpen(!props.mini && !open)}}>
         <Collapse in={open} dimension="height">
-            <div className="innerbox">inner</div> 
+            <div className="innerbox"><Timer basedDate={props.viewDate} time={props.period.startTime} /></div> 
         </Collapse>
     </Row>
     </Container>

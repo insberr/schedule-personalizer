@@ -5,14 +5,14 @@ import Center from "../../../components/Center";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {useId, useState} from 'react'
 import { Map } from "./Map/Map"
-export function SchHeader(props: { setup: (s: boolean) => void, centerbuttons: JSX.Element[] }) {
+export function SchHeader(props: { setup: (s: boolean) => void, centerbuttons: JSX.Element[], home: () => void }) {
   const id = useId();
   const [map, setMap] = useState(false)
   return (
     <>
     <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Schedule Personalizer V5</Navbar.Brand>
+          <Navbar.Brand className="d-none d-md-block" href="#" onClick={props.home}>Schedule V5</Navbar.Brand>
           <NavDropdown className="text-muted" title="Info" id={id+"nav"}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
           </NavDropdown>

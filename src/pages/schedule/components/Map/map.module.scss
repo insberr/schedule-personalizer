@@ -1,0 +1,11 @@
+.pin {
+    position: absolute;
+    border: 5px solid red;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    color: black;
+}

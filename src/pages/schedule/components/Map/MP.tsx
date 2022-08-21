@@ -3,11 +3,11 @@ import _map from "./map.svg"
 import { Pin } from "./Pin";
 import { mapLocations } from "../../../../config/mapLocation";
 import { useState, useRef, useEffect } from 'react';
-import { useMouse } from 'react-use';
+import { useMouseHovered } from 'react-use';
 
 export function MP() {
     const ref = useRef(null)
-    const mouse = useMouse(ref);
+    const mouse = useMouseHovered(ref, {bound: true, whenHovered: true});
     const [cpins, setcpins] = useState<{room: string,cords: number[]}[]>([])
     useEffect(() => {
         if (mouse.elX > mouse.elW || mouse.elX < 0 || mouse.elY > mouse.elH || mouse.elY < 0) {

@@ -41,7 +41,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
-        <Col key="teacherName" className={ (props.mini ? 'hidden' : '') }>{props.period.teacher.name}</Col>
+        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-md-block d-sm-none') }>{props.period.teacher.name}</Col>
         <Col key="roomNumber" className={(props.mini ? 'hidden' : '') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
     </Row>
     <Row onClick={() => {setOpen(!props.mini && !open)}}>

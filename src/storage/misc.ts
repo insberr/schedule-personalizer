@@ -28,7 +28,7 @@ export type Misc = {
   })
   
   // Action creators are generated for each case reducer function
-  export const { setSetupComplete, reset } = miscSlice.actions
+  export const { setSetupComplete, reset, setRgbParty } = miscSlice.actions
   
   export default miscSlice.reducer
   

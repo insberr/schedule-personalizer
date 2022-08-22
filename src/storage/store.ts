@@ -1,11 +1,11 @@
 import { CL } from '../types';
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import scheduleReducer, {reset as resetSchedule} from './schedule';
 import studentvueReducer, {reset as resetStudentvue} from './studentvue';
 import miscReducer, {reset as resetMisc} from './misc';
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -65,7 +65,11 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: (process.env.NODE_ENV !== 'production'),
-  middleware: [...getDefaultMiddleware(),createReduxMiddleware()],
+  middleware: (gDM) => gDM({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }).concat(createReduxMiddleware()),
 })
 export const persistor = persistStore(store)
 

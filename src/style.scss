@@ -181,3 +181,6 @@ $tile-selected: shade-color($white,10%);
     background-color: var(--bs-modal-bg)!important;
     border-bottom: none!important;
 }
+
+
+@import "./eggs.scss";

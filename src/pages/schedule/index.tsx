@@ -8,7 +8,7 @@ import { useSchedule, ScheduleStorage } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import {isAfter, isBefore} from 'date-fns'
+import {isAfter, isBefore, isSameDay} from 'date-fns'
 //import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue, } from '../../storageManager';
 
 // Probably move these to types.ts and stucture it better
@@ -166,7 +166,7 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
         // to keep vscode from complaining
         eventDate = eventDate as Date;
 
-        return (eventDate.getDate() === date.getDate()) && (eventDate.getMonth() === date.getMonth()) && (eventDate.getFullYear() === date.getFullYear())
+        return (isSameDay(eventDate, date))
     });
 
     // TODO: make it so if there are more than one event on the same day, combine them into one event of choose one over the other

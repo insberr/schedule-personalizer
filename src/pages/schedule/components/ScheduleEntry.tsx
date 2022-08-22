@@ -11,12 +11,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
 
-
 type ScheduleEntryProps = {
     key: string
     period: Class
     mini: boolean,
     viewDate: Date,
+    
 }
 
 // Making this look better will be fun : )
@@ -39,7 +39,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     },[doRGBParty])
     return (
     <Container style={{"backgroundColor": "#"+rgb }}>
-    <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1em"}}>
+    <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>

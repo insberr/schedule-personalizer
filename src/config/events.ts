@@ -21,7 +21,7 @@ export type ScheduleEvent = {
 export type ScheduleEvents = ScheduleEvent[];
 
 export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Date {
-    if ((currentDate.getDate() >= range.start.getDate() && currentDate.getMonth() >= range.start.getMonth() && currentDate.getFullYear() >= range.start.getFullYear()) || (currentDate.getDate() <= range.end.getDate() && currentDate.getMonth() <= range.end.getMonth() && currentDate.getFullYear() <= range.end.getFullYear())) {
+    if (range.start.getTime() <= currentDate.getTime() && range.end.getTime() >= currentDate.getTime()) {
         return currentDate;
     } else {
         return range.start;
@@ -31,6 +31,13 @@ export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Da
 
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
 export const scheduleEvents: ScheduleEvents = [
+    {
+        schedule: schedules.noSchool,
+        info: {
+            message: 'No reason, just yes',
+            date: new Date("September 3, 2022")
+        }
+    },
     {
         schedule: schedules.noSchool,
         info: {

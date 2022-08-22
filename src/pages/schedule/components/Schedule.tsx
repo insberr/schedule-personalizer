@@ -8,23 +8,17 @@ import Button from 'react-bootstrap/Button';
 import { useId, useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { SchHeader } from "./ScheduleHeader"
-import { VscArrowLeft,VscCalendar, VscReply, VscArrowRight } from "react-icons/vsc";
-import { isToday } from 'date-fns'
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Calendar from 'react-calendar'
 import { Overlay } from "react-bootstrap";
 import { useScreenshot } from 'use-react-screenshot'
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
-import { RiScreenshot2Fill } from "react-icons/ri";
-//import { IoHomeSharp } from "react-icons/io";
-import { IoHomeOutline } from "react-icons/io5";
+
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { useTransition, animated, config } from '@react-spring/web'
+import {useUpdate} from 'react-use';
 
 type ScheduleProps = {
     sch: Class[]
@@ -38,6 +32,8 @@ function Schedule(props: ScheduleProps) {
     console.log("props: ", props.sch)
     const [showImageToast, setShowImageToast] = useState(false);
     const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
+    const screenref = useRef<HTMLDivElement>(null)
+    const [image, takeScreenshot] = useScreenshot()
     
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
@@ -46,42 +42,18 @@ function Schedule(props: ScheduleProps) {
         return hiddens.some((i) => i)
     },[props.sch])
     const id = useId()
-    const calendar = (
-        <Popover id={id+"popover"}>
-            <Popover.Header as="h3" className="text-center">Goto Date</Popover.Header>
-            <Popover.Body>
-                <Calendar value={props.displayDate} onChange={ props.setDisplayDate }></Calendar>
-            </Popover.Body>
-        </Popover>
-    )
-    const buttons = [
-        <Button variant="outline-crimson" key="back"  size="sm" onClick={ () => {
-            const newDate = new Date(props.displayDate);
-            newDate.setDate(props.displayDate.getDate() - 1);
-            props.setDisplayDate(newDate);
-        }}><VscArrowLeft /></Button>,
-        <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeOutline /></Button>,
-        <OverlayTrigger rootClose={true} key="calendar" trigger="click" placement="bottom" overlay={calendar}><Button variant="outline-crimson" size="sm" style={{"marginLeft":"1em"}}><VscCalendar /></Button></OverlayTrigger>,
-        <Button variant="outline-crimson" key="forward" size="sm" style={{"marginLeft":"1em"}} onClick={ () => {
-            const newDate = new Date(props.displayDate);
-            newDate.setDate(props.displayDate.getDate() + 1);
-            props.setDisplayDate(newDate);
-        }}><VscArrowRight /></Button>,
-        <Button variant="outline-crimson" key="screeny" size="sm" style={{"marginLeft":"1em"}} onClick={()=> { takeScreenshot(screenref.current) }}><RiScreenshot2Fill /></Button>
-    ]
+    const up = useUpdate()
 
-    
-    
-    const screenref = useRef<HTMLDivElement>(null)
-    const [image, takeScreenshot] = useScreenshot()
     useEffect(() => {
         console.log(image)
+
         if (image) {
             if (!canCopyImagesToClipboard()) {
                 //alert("unable to copy image to clipboard on this platform, cringe.")
                 // window.open(image);
                 setImageCopiedToClipboard(false)
                 setShowImageToast(true)
+                setTimeout(up,10050)
                 return;
             }
             requestClipboardWritePermission().then((hasPerm) => {
@@ -89,15 +61,26 @@ function Schedule(props: ScheduleProps) {
                     // window.open(image);
                     setShowImageToast(true)
                     setImageCopiedToClipboard(false)
+                    setTimeout(up,10050)
                     return;
                 }
                 copyImageToClipboard(image).then(() => {
                     setImageCopiedToClipboard(true)
                     setShowImageToast(true)
+                    setTimeout(up,10050)
+                    return;
                 });
-            })  
+            })
         }
+        return;
     },[image])
+
+    /*useEffect(() => {
+        if (showImageToast === false) {
+            up()
+        }
+    }, [showImageToast])*/
+
     return (
         <div>
             <ToastContainer className="p-3" position={"bottom-end"}>
@@ -117,7 +100,7 @@ function Schedule(props: ScheduleProps) {
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
-            <SchHeader home={()=>{props.setDisplayDate(new Date())}}setup={props.setup} centerbuttons={buttons} />
+            <SchHeader home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} takeScreenshot={takeScreenshot} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} screenRef={screenref} />
             <Center>
                 <br />
                 <br />

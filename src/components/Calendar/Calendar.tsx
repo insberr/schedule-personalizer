@@ -17,6 +17,14 @@ const localizer = dateFnsLocalizer({
     getDay,
     locales,
 });
-export function Calendar(props: any) {
-    return (<C localizer={localizer} {...props} />)
+
+type Props = {
+    date: Date;
+    setDate: (date: Date) => void;
+}
+
+export function Calendar(props: Props) {
+    return (
+        <C localizer={localizer} {...props} />
+    )
 }

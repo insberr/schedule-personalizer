@@ -20,6 +20,8 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import { useTransition, animated, config } from '@react-spring/web'
 import {useUpdate} from 'react-use';
 
+import { useStudentvue } from '../../../storage/studentvue';
+
 type ScheduleProps = {
     sch: Class[]
     event: EventSchedule
@@ -30,10 +32,17 @@ type ScheduleProps = {
 
 function Schedule(props: ScheduleProps) {
     console.log("props: ", props.sch)
+
+    const studentvue = useStudentvue();
+
     const [showImageToast, setShowImageToast] = useState(false);
     const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
     const screenref = useRef<HTMLDivElement>(null)
-    const [image, takeScreenshot] = useScreenshot()
+    const [image, takeScreenshot] = useScreenshot({
+        type: "image/png",
+        quality: 1.0
+    })
+    const getImage = () => takeScreenshot(screenref.current).then(img)
     
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
@@ -41,10 +50,9 @@ function Schedule(props: ScheduleProps) {
         })
         return hiddens.some((i) => i)
     },[props.sch])
-    const id = useId()
-    const up = useUpdate()
 
-    useEffect(() => {
+    /*useEffect(() => {*/
+    const img = (image: any, { name = 'screenshot', extension = 'png' } = {}) => {
         console.log(image)
 
         if (image) {
@@ -53,7 +61,6 @@ function Schedule(props: ScheduleProps) {
                 // window.open(image);
                 setImageCopiedToClipboard(false)
                 setShowImageToast(true)
-                setTimeout(up,10050)
                 return;
             }
             requestClipboardWritePermission().then((hasPerm) => {
@@ -61,28 +68,46 @@ function Schedule(props: ScheduleProps) {
                     // window.open(image);
                     setShowImageToast(true)
                     setImageCopiedToClipboard(false)
-                    setTimeout(up,10050)
                     return;
                 }
                 copyImageToClipboard(image).then(() => {
                     setImageCopiedToClipboard(true)
                     setShowImageToast(true)
-                    setTimeout(up,10050)
                     return;
                 });
             })
         }
         return;
-    },[image])
+    }/*,[image])*/
 
-    /*useEffect(() => {
-        if (showImageToast === false) {
-            up()
+    const [customToast, setCustomToast] = useState<{ header: string, body: string }>({
+        header: "",
+        body: ""
+    });
+    const [showCustomToast, setShowCustomToast] = useState(false);
+    
+    useEffect(() => {
+        if (studentvue.gotSchedules === false) {
+            setCustomToast({
+                header: "StudentVue Error",
+                body: "We were unable to get your classes from StudentVue. StudentVue may be down. If this issue continues, please [ADD BUTTON !!!]click here to report a bug!"
+            })
+            setShowCustomToast(true);
         }
-    }, [showImageToast])*/
+    }, [])
+    
 
     return (
         <div>
+            <ToastContainer className="p-3" position={'bottom-end'}>
+                <Toast onClose={() => setShowCustomToast(false)} show={showCustomToast} delay={30000} autohide>
+                    <Toast.Header closeButton={true}>
+                        <strong className="me-auto">{customToast.header}</strong>
+                        <small>Just Now</small>
+                    </Toast.Header>
+                    <Toast.Body>{customToast.body}</Toast.Body>
+                </Toast>
+            </ToastContainer>
             <ToastContainer className="p-3" position={"bottom-end"}>
                 <Toast onClose={() => setShowImageToast(false)} show={showImageToast} delay={10000} autohide>
                     <Toast.Header closeButton={true}>
@@ -100,7 +125,7 @@ function Schedule(props: ScheduleProps) {
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
-            <SchHeader home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} takeScreenshot={takeScreenshot} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} screenRef={screenref} />
+            <SchHeader home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
             <Center>
                 <br />
                 <br />

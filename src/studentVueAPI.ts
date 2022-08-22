@@ -1,4 +1,5 @@
-import { Terms } from "./types";
+import { Terms, emptyCL } from "./types";
+import * as settings from "./config/settings";
 
 function generateFetch(username: string, password: string): RequestInit {
     return {
@@ -29,7 +30,18 @@ export async function getAllSchedules(username: string, password: string): Promi
         throw new Error(data.content.code + ": " + data.content.error);
     }
     console.log('%OH WHAT THEY PUBLISHED OUR SCHEDULES!!!!', 'color:red;font-size:20px;')
-    return data
+
+    // Convert api data to terms data
+    //
+
+    /* TEMPOARY UNTILL STUDENTVUE GET SCHEDULES WORKS */
+    const newTerms = settings.termsDates.map(t => {
+        t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+        return t;
+    });
+
+    return newTerms;
+    /* END TEMPORARY */
 }
 
 // Propbably should change args to take a StorageDataStudentvue object

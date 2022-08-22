@@ -4,6 +4,7 @@ export type StorageDataStudentvue = {
   username: string
   stayLoggedIn: boolean
   isLoggedIn: boolean
+  gotSchedules: boolean
 };
 
 import { createSlice } from '@reduxjs/toolkit'
@@ -13,7 +14,8 @@ const initialState: StorageDataStudentvue = {
     password: '',
     username: '',
     stayLoggedIn: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    gotSchedules: false,
 }
 
 export const studentVueSlice = createSlice({
@@ -25,10 +27,14 @@ export const studentVueSlice = createSlice({
       state.username = action.payload.username
       state.stayLoggedIn = action.payload.stayLoggedIn
       state.isLoggedIn = action.payload.isLoggedIn
+      state.gotSchedules = action.payload.gotSchedules
     },
     setUsernameAndPassword: (state, action: PayloadAction<{username: string, password: string}>) => {
       state.username = action.payload.username
       state.password = action.payload.password
+    },
+    setGotSchedules: (state, action: PayloadAction<boolean>) => {
+        state.gotSchedules = action.payload
     },
     reset: () => {
       return initialState
@@ -46,7 +52,7 @@ export function useStudentvue(): StorageDataStudentvue {
 
 
 // Action creators are generated for each case reducer function
-export const { setStudentVueData, setUsernameAndPassword, reset } = studentVueSlice.actions
+export const { setStudentVueData, setUsernameAndPassword, setGotSchedules, reset } = studentVueSlice.actions
 
 export default studentVueSlice.reducer
 

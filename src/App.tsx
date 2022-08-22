@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
 
-import { setTerms, scheduleSlice } from "./storage/schedule";
+import { setTerms, scheduleSlice, useSchedule } from "./storage/schedule";
 import { useStudentvue } from './storage/studentvue';
 import { RootState } from "./storage/store";
 
@@ -19,6 +19,7 @@ import * as api from './studentVueAPI';
 import { Terms } from "./types"
 //import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, StorageDataStudentvue, Terms } from "./storageManager";
 
+import { refreshStudentVueSchedules } from "./lib";
 
 // WHERE WE LEFT OFF;
 // Make setup skip studentvue login if logged in in v1
@@ -31,11 +32,18 @@ function App() {
     function setSch(sch: Terms) {
         dispatch(setTerms(sch))
     }
-    const stv = useStudentvue()
+    const stv = useStudentvue();
+    const sch = useSchedule();
     const [isSetup, setIsSetup] = useState<boolean>(false);
     const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete)
 
+    // theres probably a better way to do this
+    setInterval(() => {
+        console.log('Refreshing studentvue: ', refreshStudentVueSchedules(stv.username, stv.password));
+    }, 1 * 60 * 1000)
+
     useEffect(() => {
+
         api.getAllSchedules(stv.username, stv.password).then(data => {
             console.log(data);
         }).catch(err => {

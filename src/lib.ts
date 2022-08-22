@@ -1,7 +1,10 @@
 // bunch of reusable functions
 import { format, parse, set } from "date-fns"
-import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS } from "./types";
+import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS, Terms } from "./types";
 import _lunches from "./lunches.json"
+import { applyMiddleware } from "@reduxjs/toolkit";
+
+import * as api from './studentVueAPI';
 
 
 export function getCurrentTerm (t: Stdata, d?: Date): number {
@@ -77,8 +80,33 @@ export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the cl
 }
 
 export function formatClassTimeHideElement(classData: Class): string {
-    if (classData.classID === ClassIDS.NoSchool) return 'hidden'
-    if (classData.classID  === ClassIDS.Weekend) return 'hidden'
-    if (classData.classID  === ClassIDS.Summer) return 'hidden'
+    if (classData.classID === ClassIDS.NoSchool) return 'hidden';
+    if (classData.classID  === ClassIDS.Weekend) return 'hidden';
+    if (classData.classID  === ClassIDS.Summer) return 'hidden';
     return '';
+}
+
+export type refreshedStudentVueData = {
+    successful: boolean
+    terms?: Terms
+}
+export function refreshStudentVueSchedules(username: string, password: string): refreshedStudentVueData {
+    let output: refreshedStudentVueData = {
+        successful: false
+    };
+
+    api.getAllSchedules(username, password).then((res: Terms) => {
+        output = {
+            terms: res,
+            successful: true
+        }
+    }).catch((err: string) => {
+        // TODO: handle this error and send to sentry
+        console.log('Unable to get schedules from studentvue.' + err);
+        output = {
+            successful: false
+        }
+    });
+
+    return output;
 }

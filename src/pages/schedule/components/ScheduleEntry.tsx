@@ -43,12 +43,16 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
-        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
-        <Col key="roomNumber" className={(props.mini ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
+        <Col key="teacherName" className={ ((props.mini || props.period.teacher.name === '') ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
+        <Col key="roomNumber" className={((props.mini || props.period.room === '') ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
     </Row>
     <Row onClick={() => {setOpen(!props.mini && !open)}}>
         <Collapse in={open} dimension="height">
-            <div className="innerbox"><Timer basedDate={props.viewDate} time={props.period.startTime} /></div> 
+            <div>
+                <div className="innerbox"><Timer basedDate={props.viewDate} time={props.period.startTime} /> Till { props.period.name } starts</div> 
+                <div className="innerbox">{ props.period.teacher.name } in room { props.period.room }</div>
+                <div className="innerbox"><a href={ "mailto:" + props.period.teacher.email }>Email Teacher</a></div>
+            </div>
         </Collapse>
     </Row>
     </Container>

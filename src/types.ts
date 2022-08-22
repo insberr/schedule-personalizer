@@ -129,8 +129,8 @@ export type ManualResult = {
     lunch: number
 }
 
-export function emptyCL(amt: number): CL[] {
-    return [...Array(amt)].map((v, i) => {
+export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
+    const classes = [...Array(amt)].map((v, i) => {
         return {
             classID: ClassIDS.Period,
             period: i,
@@ -143,7 +143,15 @@ export function emptyCL(amt: number): CL[] {
             room: ""
         }
     })
-    
+    if (hasAdvisory) {
+        classes[0] = {
+            ...classes[0],
+            classID: ClassIDS.Advisory,
+            name: "Advisory",
+        }
+    }
+
+    return classes;
 }
 
 // STAGES TYPES END

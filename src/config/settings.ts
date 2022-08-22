@@ -1,16 +1,10 @@
 import * as types from '../types';
-/*
-    Required Config Values
-*/
 
-// This is for the number of classes in the day
-// advisory should be included
-export const numberOfPeriods= 6;
+/* Required Config Values */
 
 // The usual period lunch is based on.
 export const normalLunchBasedOnPeriod = 3;
 
-// Settings To Implement
 
 // StudentVue API URL (You can host it yourself (WE SHOULD PUBLISH THE SERVER CODE OR SOMETHING IDK))
 // Do Not Add Trailing Slash (/), else the code will error [IMPLEMENT THIS]
@@ -18,8 +12,20 @@ export const normalLunchBasedOnPeriod = 3;
 // If no api url is provided, then the studentvue login page will not be shown in setup [IMPLEMENT THIS]
 export const studentVueApiURL = 'https://studentvue.wackery.com';
 
+// The period number that studentvue uses for advisory
+export const studentVueAdvisoryPeriod = 8;
+
+
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';
+
+
+// This is for the number of classes in the day
+// advisory should be included
+export const numberOfPeriods= 6;
+
+// If your school has an advisory period, set this to true
+export const hasAdvisory = true;
 
 // Terms
 // This is also used to determine the number of terms in the school year

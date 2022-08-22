@@ -6,14 +6,15 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Center from '../../../components/Center';
 
-import { Terms, ClassIDS } from '../../../types';
+import { Terms, ClassIDS, emptyCL } from '../../../types';
 import { FadeIn } from '../components/FadeIn';
 //import { StorageQuery, setV5Data } from '../../../storageManager';
 
 import * as api from '../../../studentVueAPI';
 import * as settings from '../../../config/settings';
 import { useDispatch } from 'react-redux';
-import { useStudentvue, StorageDataStudentvue, setStudentVueData } from '../../../storage/studentvue';
+import { setTerms } from '../../../storage/schedule';
+import { useStudentvue, StorageDataStudentvue, setStudentVueData, setGotSchedules } from '../../../storage/studentvue';
 
 type Props = {
     setStage:  (stage: number) => void;
@@ -64,83 +65,66 @@ export function Login(props: Props) {
     }, [username, password])
 
     function Submit() {
-        // ADD LATER: Check if user exists
+        setLoading(true)
+        hideError();
 
-        // Set username and password to local storage
-        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true }));
+        // Set username and password to local storage so we can use them later
+        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false }));
+
+        // Validate user credentials to make sure the login info is correct
+        api.validateCredentials(username, password).then(res => {
+            if (res) {
+                // TODO: change text input to green
+                // 
+                console.log("valid credentioals");
+
+                api.getStudentInfo(username, password).then(res => {
+                    setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
+                })
+            } else {
+                // TODO: change text input to red
+                //
+                setValidUser({ isValid: false, loading: true, name: "", school: "" });
+            }
+        }).catch(err => {
+            // TODO: handle this error and send to sentry
+            console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
+            doError('Failed to validate user credentials: ' + err);
+        });
 
         // Initial validation check
         if (validUser.isValid === false) {
             doError("There was an error logging in. Make sure the credentials are correct or try again later.");
+            return;
         }
-
-        // Validate user credentials (check again because why the hell not)
 
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
+        api.getAllSchedules(username, password).then(res => {
+            dispatch(setGotSchedules(true))
+            dispatch(setTerms(res));
+        }).catch(err => {
+            // TODO: handle this error and send to sentry
+            console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
+            dispatch(setGotSchedules(false))
 
+            // TODO: Log error to sentry
+            console.log('No schedule was set, so temporay data is being used');
 
-        setLoading(true)
-        hideError();
+            // Set the schedule to temporary data
+            const newTerms = settings.termsDates.map(t => {
+                t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+                return t;
+            });
+
+            props.setSchedule(newTerms)
+        });
 
         
-        setLoading(false)
-
-
-        // somehow change this?
-        // setV5Data()
-
-
-
-        // set the schedule from studentvue. it wont work right now so heres some made up data
-        api.getAllSchedules(username, password).then((res) => {
-            console.log(res);
-            // const formattedTerms = res.map((term) => { /* uhhh just waiting for our schedules to be published in studentvue */ })
-        })
-        
-        const newTerms = settings.termsDates;
-
-        /* TEMPOARY UNTILL STUDENTVUE GET SCHEDULES WORKS */
-        newTerms[0].classes = [
-            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
-            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
-            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
-            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
-            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
-            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
-        ]
-        newTerms[1].classes = [
-            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
-            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
-            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
-            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
-            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
-            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
-        ]
-        newTerms[2].classes = [
-            { classID: ClassIDS.Advisory, period: 0, name: "Advisory", teacher: { name: "Nail", email: "", id: "" }, room: "111" },
-            { classID: ClassIDS.Period, period: 1, name: "Math", teacher: { name: "Screw", email: "", id: "" }, room: "222" },
-            { classID: ClassIDS.Period, period: 2, name: "ELA", teacher: { name: "Spoon", email: "", id: "" }, room: "333" },
-            { classID: ClassIDS.Period, period: 3, name: "Science", teacher: { name: "Pencil", email: "", id: "" }, room: "444" },
-            { classID: ClassIDS.Period, period: 4, name: "PE", teacher: { name: "Glue", email: "", id: "" }, room: "555" },
-            { classID: ClassIDS.Period, period: 5, name: "Band", teacher: { name: "Trumpet", email: "", id: "" }, room: "666" },
-        ]
-        /* END TEMPORARY */
-
-        props.setSchedule(newTerms);
-
+        setLoading(false);
         props.setStage(69);
-
-        /*
-        setTimeout(() => {
-            doError("Haha you thought i actually implemented this lmafo")
-            setLoading(false)
-            setV5Data(StorageQuery.Setup, true)
-            
-        }, 5000);
-        */
-        
     }
+
     return (<FadeIn><Center className="full-center mt-5">
         <h1>Login with StudentVue</h1>
         <br />

@@ -15,6 +15,11 @@ export const studentVueApiURL = 'https://studentvue.wackery.com';
 // The period number that studentvue uses for advisory
 export const studentVueAdvisoryPeriod = 8;
 
+// While site is loaded refresh from studentvue afetr this much time in milliseconds
+// setting it to a value less than 5 minutes is just cringe
+export const studentvueRefreshInterval = 10 * 60 * 1000; // 10 minutes
+// When the page is loading, refresh from studentvue if its been this long since the last refresh
+export const studentvueRefreshOnLoad = 1 * 60 * 60 * 1000; // 1 hour
 
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';

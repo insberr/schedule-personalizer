@@ -52,6 +52,7 @@ export type StorageData = {
 
 const persistConfig = {
     key: 'v5ReduxData',
+    version: 5,
     storage,
 }
 

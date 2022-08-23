@@ -6,6 +6,7 @@ import { RootState } from "../../storage/store";
 import { setRgbParty } from "../../storage/misc";
 import { useEffect } from "react";
 import { useKeyboardShortcut } from "../../hooks";
+
 export function SettingsPage(props: { setup: (s: boolean) => void }) {
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
     const dispatch = useDispatch()
@@ -21,8 +22,12 @@ export function SettingsPage(props: { setup: (s: boolean) => void }) {
         <Button onClick={()=>{ location.reload() }}>Reload</Button>
         <br />
         <br />
-        <div>Credits To:</div>
-        <div>- Jonah Matteson The Creator of This Amazing Website</div>
-        <div>- Wackery For Helping With This Amazing Website</div>
+        <div>
+            <h3> Debug </h3>
+            <div>add debug stuff here</div>
+        </div>
+        <div>Credits</div>
+        <div>Jonah Matteson - Creator</div>
+        <div>Wackery - Creator</div>
     </div>)
 }

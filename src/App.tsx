@@ -1,78 +1,58 @@
-import React,  { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import LoadSpinner from "./components/LoadSpinner";
-import { Header } from "./components/Header";
-// import StudentVueReloader from "./components/StudentVueReloader";
-import { useSelector, useDispatch } from 'react-redux'
-
-import SchedulePage from "./pages/schedule";
-import { SettingsPage } from "./pages/settings";
-
-import { setTerms, scheduleSlice, useSchedule } from "./storage/schedule";
-import { useStudentvue } from './storage/studentvue';
-import { RootState } from "./storage/store";
-
-import * as api from './studentVueAPI';
-// import { Customizations } from "./types";
-// import Theme from "./components/ThemeComponent";
-
-import { Terms } from "./types"
-//import { StorageQuery, StorageDataTerms, getV1Data, getV5Data, setV5Data, StorageDataStudentvue, Terms } from "./storageManager";
-
+import { Terms } from './types';
 import { refreshStudentVueSchedules } from "./lib";
+import * as settings from "./config/settings";
 
-// WHERE WE LEFT OFF;
-// Make setup skip studentvue login if logged in in v1
+import SchedulePage from './pages/schedule';
+import { SettingsPage } from './pages/settings';
 
+import { RootState } from "./storage/store";
+import { setTerms, useSchedule } from "./storage/schedule";
+import { setLastRefresh, useStudentvue } from "./storage/studentvue";
 
-const SetupPage = React.lazy(() => import("./pages/setup"))
+import LoadSpinner from './components/LoadSpinner';
+import { Header } from './components/Header';
+
+const SetupPage = React.lazy(() => import("./pages/setup"));
 function App() {
-    //const sch = useSelector((state: RootState) => state.schedule.terms)
-    const dispatch = useDispatch()
+    // const sch = useSelector((state: RootState) => state.schedule.terms)
+    const dispatch = useDispatch();
     function setSch(sch: Terms) {
-        dispatch(setTerms(sch))
+        dispatch(setTerms(sch));
     }
     const stv = useStudentvue();
     const sch = useSchedule();
     const [isSetup, setIsSetup] = useState<boolean>(false);
-    const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete)
+    const isSetupComplete = useSelector(
+        (state: RootState) => state.misc.setupComplete
+    );
 
     // theres probably a better way to do this
     setInterval(() => {
-        console.log('Refreshing studentvue: ', refreshStudentVueSchedules(stv.username, stv.password));
-    }, 1 * 60 * 1000)
+        console.log(
+            "[interval] Refreshing studentvue: ",
+            refreshStudentVueSchedules(stv.username, stv.password)
+        );
+    }, settings.studentvueRefreshInterval);
 
     useEffect(() => {
-
-        api.getAllSchedules(stv.username, stv.password).then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    }, [])
-    /*useEffect(() => {
-        setV5Data(StorageQuery.Init, {});
-
-        const v1Data = getV1Data();
-        if (v1Data !== null && (getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).isLoggedIn === false) {
-            const tempData = JSON.parse(v1Data);
-            const {password, username, rememberMe} = tempData;
-            setV5Data(StorageQuery.Studentvue, { password: password, username: username, stayLoggedIn: rememberMe, isLoggedIn: true });
+        console.log("[on load] last refresh: ", stv.lastRefresh)
+        if (stv.lastRefresh === undefined) {
+            dispatch(setLastRefresh(new Date().getTime()));
+            return;
         }
-
-        const v5TermsData = getV5Data(StorageQuery.Terms) as StorageDataTerms;
-        if (v5TermsData !== null && v5TermsData !== undefined) {
-            setSch(v5TermsData);
+        
+        console.log(new Date().getTime() - stv.lastRefresh)
+        console.log(settings.studentvueRefreshInterval)
+        if ((new Date().getTime() - stv.lastRefresh) >= settings.studentvueRefreshOnLoad) {
+            console.log(
+                "[on load] Refreshing studentvue: ",
+                refreshStudentVueSchedules(stv.username, stv.password)
+            );
         }
-        setIsSetupComplete(getV5Data(StorageQuery.Setup) as boolean);
-
-        api.getAllSchedules((getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).username, (getV5Data(StorageQuery.Studentvue) as StorageDataStudentvue).password).then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    },[]);
-    */
+    }, []);
 
     /*
     // Someday we will implement this
@@ -81,27 +61,27 @@ function App() {
         const newSch = Object.assign({}, sch, { customization: theme })
         setSch(newSch)
     }
-    
-    if (!sch) {
-        return <LoadSpinner />
-    }
     */
+
     if (!isSetupComplete) {
         return (
-            <React.Suspense fallback={ <LoadSpinner /> }>
-                <SetupPage setSchedule={ setSch }/>
+            <React.Suspense fallback={<LoadSpinner />}>
+                <SetupPage setSchedule={setSch} />
             </React.Suspense> // replace loading text with a spinner
-        )
+        );
     }
 
-    return (<>
+    return (
+        <>
             <div id="schpage" className={isSetup ? "hidden" : ""}>
                 <SchedulePage setup={setIsSetup} />
             </div>
             <div id="settings" className={!isSetup ? "hidden" : ""}>
-                <Header setup={ setIsSetup } c={ isSetup } /><SettingsPage setup={setIsSetup}/>
+                <Header setup={setIsSetup} c={isSetup} />
+                <SettingsPage setup={setIsSetup} />
             </div>
-            </>)
+        </>
+    );
 }
 
 export default App;

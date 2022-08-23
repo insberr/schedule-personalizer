@@ -14,5 +14,11 @@ export function ScheduleEditor(props: Props) {
                 return <Button key={i} onClick={() => { props.setSchedule(schedules[k]) }}>{ k }</Button>
             })
         }
+
+        <div>
+            <h4> Custom Schedule </h4>
+            <span>add later, probably a thing where you add to a list</span>
+            <br />
+        </div>
     </div>)
 }

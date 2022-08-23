@@ -69,7 +69,7 @@ export function Login(props: Props) {
         hideError();
 
         // Set username and password to local storage so we can use them later
-        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false }));
+        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
 
         // Validate user credentials to make sure the login info is correct
         api.validateCredentials(username, password).then(res => {
@@ -102,7 +102,9 @@ export function Login(props: Props) {
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
         api.getAllSchedules(username, password).then(res => {
             dispatch(setGotSchedules(true))
-            dispatch(setTerms(res));
+            props.setSchedule(res);
+            // change it to this, i think its better
+            // dispatch(setTerms(res));
         }).catch(err => {
             // TODO: handle this error and send to sentry
             console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);

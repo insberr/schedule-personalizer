@@ -29,7 +29,7 @@ export async function getAllSchedules(username: string, password: string): Promi
         // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
         throw new Error(data.content.code + ": " + data.content.error);
     }
-    console.log('%OH WHAT THEY PUBLISHED OUR SCHEDULES!!!!', 'color:red;font-size:20px;')
+    console.log(data)
 
     // Convert api data to terms data
     //

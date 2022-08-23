@@ -6,8 +6,11 @@ import { RootState } from "../../storage/store";
 import { setRgbParty } from "../../storage/misc";
 import { useEffect } from "react";
 import { useKeyboardShortcut } from "../../hooks";
+import { refreshStudentVueSchedules } from "../../lib";
+import { useStudentvue } from "../../storage/studentvue";
 
 export function SettingsPage(props: { setup: (s: boolean) => void }) {
+    const stv = useStudentvue();
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
     const dispatch = useDispatch()
     useKeyboardShortcut("shift + r + g + b", () => {
@@ -20,6 +23,8 @@ export function SettingsPage(props: { setup: (s: boolean) => void }) {
         <Button onClick={()=>{ props.setup(false); resetStorage() }}>Reset</Button>
         <br />
         <Button onClick={()=>{ location.reload() }}>Reload</Button>
+        <br />
+        <Button onClick={()=>{ refreshStudentVueSchedules(stv.username, stv.password) }}>Force StudentVue Data Refresh</Button>
         <br />
         <br />
         <div>

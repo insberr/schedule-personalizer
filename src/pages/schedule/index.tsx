@@ -137,7 +137,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     
     // Because the way JS works, this modifies the value of mergedSchedule.schedule.
     mergedSchedule.schedule.splice(indexOfLunchPeriod, 1, ...replacePeriodClassEntries);
-    
+
     return mergedSchedule; // For now, once we add the time stuff we can make this actually do something
 }
 
@@ -233,20 +233,48 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     for (const period of displayDaySchedule.schedule.classes) {
 
         const periodNeeded = displayTerm.classes.filter(p => (p.classID == period.classID) && (p.period == period.period));
-        const h: Class = {
-            classID: period.classID,
-            period: period.period,
-            name: periodNeeded[0]?.name || "",
-            room: periodNeeded[0]?.room || "",
-            teacher: {
-                name: periodNeeded[0]?.teacher.name || "",
-                email: periodNeeded[0]?.teacher.email || "",
-                id: periodNeeded[0]?.teacher.id || ""
-            },
-            startTime: period.startTime,
-            endTime: period.endTime
+        if (periodNeeded.length > 1) {
+            console.log('theres multiple periods for some reson???', periodNeeded);
+
+            const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`
+            displayDaySchedule.isEvent = true;
+            displayDaySchedule.info.message = displayDaySchedule.info.message.includes(addMessage) ? displayDaySchedule.info.message : displayDaySchedule.info.message + '<br />' + addMessage;
         }
-        scheduleForDisplay.push(h)
+
+        if (periodNeeded.length === 0) {
+            console.log('period needed is empty for period: ', period);
+            scheduleForDisplay.push({
+                classID: period.classID,
+                period: period.period,
+                name: "",
+                room: "",
+                teacher: {
+                    name: "",
+                    email: "",
+                    id: ""
+                },
+                startTime: period.startTime,
+                endTime: period.endTime
+            })
+            continue;
+        }
+
+        for (const pd of periodNeeded) {
+            const h: Class = {
+                classID: period.classID,
+                period: period.period,
+                name: pd?.name || "",
+                room: pd?.room || "",
+                teacher: {
+                    name: pd?.teacher.name || "",
+                    email: pd?.teacher.email || "",
+                    id: pd?.teacher.id || ""
+                },
+                startTime: period.startTime,
+                endTime: period.endTime
+            }
+            scheduleForDisplay.push(h)
+        }
     }
 
     return {

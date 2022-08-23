@@ -12,11 +12,11 @@ import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
 
 type ScheduleEntryProps = {
+    sch: Class[]
     key: string
     period: Class
     mini: boolean,
     viewDate: Date,
-    
 }
 
 // Making this look better will be fun : )
@@ -38,13 +38,13 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         }
     },[doRGBParty])
     return (
-    <Container style={{"backgroundColor": "#"+rgb }}>
+    <Container className={ props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period)).length > 1 ? 'highlightClassEntryRed' : '' } style={{"backgroundColor": "#"+rgb }}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
-        <Col key="teacherName" className={ ((props.mini || props.period.teacher.name === '') ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
-        <Col key="roomNumber" className={((props.mini || props.period.room === '') ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
+        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
+        <Col key="roomNumber" className={(props.mini ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
     </Row>
     <Row onClick={() => {setOpen(!props.mini && !open)}}>
         <Collapse in={open} dimension="height">

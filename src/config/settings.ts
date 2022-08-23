@@ -32,12 +32,13 @@ export const numberOfPeriods= 6;
 // If your school has an advisory period, set this to true
 export const hasAdvisory = true;
 
+export const lastDayOfSchool = new Date('June 23, 2023');
 // Terms
 // This is also used to determine the number of terms in the school year
 // This valuse is REQUIRED else there will be an error
 // I DID NOT WRITE THE DATES ACCURATE PLEASE CAHNGE THEM LATER
 export const termsDates: types.Terms = [
-    { termIndex: 0, startDate: new Date("September 6, 2022"), endDate: new Date("December 1, 2022"), classes: [] },
-    { termIndex: 1, startDate: new Date("December 2, 2022"), endDate: new Date("March 1, 2023"), classes: [] },
-    { termIndex: 2, startDate: new Date("March 2, 2023"), endDate: new Date("June 23, 2023"), classes: [] },
+    { termIndex: 0, startDate: new Date("September 6, 2022"), endDate: new Date("December 6, 2022"), classes: [] },
+    { termIndex: 1, startDate: new Date("December 8, 2022"), endDate: new Date("March 27, 2023"), classes: [] },
+    { termIndex: 2, startDate: new Date("March 28, 2023"), endDate: lastDayOfSchool, classes: [] },
 ];

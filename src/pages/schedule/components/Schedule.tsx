@@ -1,4 +1,4 @@
-import { Class } from "../../../types"
+import { Class, ClassIDS } from "../../../types"
 import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -143,11 +143,11 @@ function Schedule(props: ScheduleProps) {
                         </Row>
                         { props.sch.map((period, i) => {
                             return (
-                                
-                                <Row className="crow" key={period.classID.toString() + period.period?.toString()}>
+                                <Row className="crow" key={period.classID.toString() + period.period?.toString() + period.name}>
                                     <ScheduleEntry
                                         key={i.toString()}
                                         mini={doMini}
+                                        sch={props.sch}
                                         period={period}
                                         viewDate={props.displayDate}
                                     />
@@ -157,8 +157,7 @@ function Schedule(props: ScheduleProps) {
                         })}
                     </Container>
                     {props.event.isEvent ? (
-                        <div style={{ marginTop: "1em" }}>
-                            {props.event.info.message}
+                        <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.message }}>
                         </div>
                     ) : null}
                     <br />

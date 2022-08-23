@@ -96,7 +96,7 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(8, 10), endTime: getTimeW(9, 5) },
             { classID: ClassIDS.Period, period: 2, startTime: getTimeW(9, 10), endTime: getTimeW(10, 10) },
             { classID: ClassIDS.Period, period: 3, startTime: getTimeW(10, 10), endTime: getTimeW(11, 55) },
-            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(12, 0), endTime: getTimeW(1, 0) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(12, 0), endTime: getTimeW(13, 0) },
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 5), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
@@ -161,29 +161,8 @@ export const schedules: Schedules = {
         }
     },
 
-    // Not Added
+    // Not Correct !!!!!!!!!!!!!!!
     lateStart2Hour: {
-        classes: [
-            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(9, 35,0), endTime: { hours: 8, minutes: 45 } },
-            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35,0), endTime: { hours: 8, minutes: 45 } },
-            { classID: ClassIDS.Period, period: 2, startTime: { hours: 8, minutes: 50 }, endTime: { hours: 9, minutes: 55 } },
-            { classID: ClassIDS.Period, period: 3, startTime: { hours: 10, minutes: 0 }, endTime: { hours: 11, minutes: 40 } },
-            { classID: ClassIDS.Period, period: 4, startTime: { hours: 11, minutes: 45 }, endTime: { hours: 12, minutes: 55 } },
-            { classID: ClassIDS.Period, period: 5, startTime: { hours: 13, minutes: 0 }, endTime: { hours: 14, minutes: 5 } },
-        ],
-        lunch: {
-            hasLunch: true,
-            basedOnPeriod: 3,
-            numberOfLunches: 3,
-            lunches: {
-                1: { order: [ { classID: ClassIDS.Lunch, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) }, { classID: ClassIDS.Period, startTime: getTimeW(7, 35), endTime: getTimeW(7, 35) } ] },
-                2: { order: [] },
-                3: { order: [] },
-            }
-        }
-    },
-
-    earlyDissmissal: {
         classes: [
             { classID: ClassIDS.Arrival, period: 0, startTime: getTimeW(8, 15), endTime: getTimeW(8, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(8, 35), endTime: getTimeW(9, 25) },
@@ -192,6 +171,38 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 4, startTime: getTimeW(12, 15), endTime: getTimeW(13, 10) },
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 15), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
+        ],
+        lunch: {
+            hasLunch: true,
+            basedOnPeriod: 3,
+            numberOfLunches: 3,
+            lunches: {
+                1: { order: [
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(10, 25), endTime: getTimeW(10, 55) },
+                    { classID: ClassIDS.Period, startTime: getTimeW(11, 0), endTime: getTimeW(12, 10) }
+                ]},
+                2: { order: [
+                    { classID: ClassIDS.Period, startTime: getTimeW(10, 30), endTime: getTimeW(11, 0) },
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(11, 0), endTime: getTimeW(11, 30) },
+                    { classID: ClassIDS.Period, startTime: getTimeW(11, 35), endTime: getTimeW(12, 10) }
+                ]},
+                3: { order: [
+                    { classID: ClassIDS.Period, startTime: getTimeW(10, 30), endTime: getTimeW(11, 40) },
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(11, 40), endTime: getTimeW(12, 10) }
+                ]},
+            }
+        }
+    },
+
+    earlyDissmissal: {
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 0) },
+            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(8, 5), endTime: getTimeW(8, 30) },
+            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(8, 35), endTime: getTimeW(9, 0) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(9, 5), endTime: getTimeW(9, 30) },
+            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(9, 35), endTime: getTimeW(10, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
         ],
         lunch: {
             hasLunch: false,

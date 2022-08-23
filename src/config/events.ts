@@ -34,13 +34,6 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: 'No reason, just yes',
-            date: new Date("September 3, 2022")
-        }
-    },
-    {
-        schedule: schedules.noSchool,
-        info: {
             message: "Its Summer",
             date: { start: new Date("August 21, 2022"), end: new Date("September 5, 2022") },
         }

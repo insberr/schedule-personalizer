@@ -43,28 +43,31 @@ export function Login(props: Props) {
     }
 
     useEffect(() => {
-        if (username !== "" && password !== "") {
-            api.validateCredentials(username, password).then(res => {
-                if (res) {
-                    // change text input to green
-                    // 
-                    console.log("valid credentioals");
-
-                    api.getStudentInfo(username, password).then(res => {
-                        console.log(res);
-                        setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
-                    })
-                } else {
-                    // change text input to red
-                    //
-                    console.log('invalid credentials');
-                    setValidUser({ isValid: false, loading: true, name: "", school: "" });
-                }
-            }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
+        if (username === "" || password === "") {
+            setValidUser({ isValid: false, loading: false, name: "", school: "" })
+            return
         }
+
+        api.validateCredentials(username, password).then(res => {
+            if (res) {
+                // change text input to green
+                // 
+                console.log("valid credentioals");
+
+                api.getStudentInfo(username, password).then(res => {
+                    console.log(res);
+                    setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
+                })
+            } else {
+                // change text input to red
+                //
+                console.log('invalid credentials');
+                setValidUser({ isValid: false, loading: true, name: "", school: "" });
+            }
+        }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
     }, [username, password])
 
-    function Submit() {
+    async function Submit() {
         setLoading(true)
         hideError();
 
@@ -72,7 +75,7 @@ export function Login(props: Props) {
         dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
 
         // Validate user credentials to make sure the login info is correct
-        api.validateCredentials(username, password).then(res => {
+        await api.validateCredentials(username, password).then(res => {
             if (res) {
                 // TODO: change text input to green
                 // 
@@ -95,12 +98,13 @@ export function Login(props: Props) {
         // Initial validation check
         if (validUser.isValid === false) {
             doError("There was an error logging in. Make sure the credentials are correct or try again later.");
+            setLoading(false);
             return;
         }
 
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
-        api.getAllSchedules(username, password).then(res => {
+        await api.getAllSchedules(username, password).then(res => {
             dispatch(setGotSchedules(true))
             props.setSchedule(res);
             // change it to this, i think its better

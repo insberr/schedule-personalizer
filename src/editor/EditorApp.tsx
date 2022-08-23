@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Center from "../components/Center";
+import Form from 'react-bootstrap/Form';
 import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
 import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../config/events";
@@ -72,17 +73,25 @@ export function EditorApp() {
                 <ScheduleEditor setSchedule={setSchedule} schedule={schedule} />
             </div>
             <br /> <br />
+            <>
+                <Form.Label htmlFor="inputEventMessage">Event Message</Form.Label>
+                <Form.Control
+                    type="text"
+                    id="inputEventMessage"
+                    onInput={(e) => setMessage(e.currentTarget.value)}
+                />
+            </>
+
             <Button onClick={() => {
                     setDate(new Date("August 29, 2022"));
                 }}>set new event date</Button>
             <Button onClick={() => {
                 createNewEvents();
             }}>add new event</Button>
-            <h2> Output Events </h2>
-            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(newEvents, {
+            <h2> Output Event </h2>
+            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(resultEvent, {
                 indent: '  ',
                 singleQuotes: true,
-                inlineCharacterLimit: 90,
                 transform: (object, property, originalResult) => {
                     if (property === 'schedule') {
                         // console.log((object as ScheduleEvent)[property])
@@ -95,10 +104,11 @@ export function EditorApp() {
                     return originalResult;
                 }
             })}</pre>
-            <h2> Output Event </h2>
-            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(resultEvent, {
+            <h2> Output Events </h2>
+            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(newEvents, {
                 indent: '  ',
                 singleQuotes: true,
+                inlineCharacterLimit: 90,
                 transform: (object, property, originalResult) => {
                     if (property === 'schedule') {
                         // console.log((object as ScheduleEvent)[property])

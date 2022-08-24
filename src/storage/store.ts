@@ -3,6 +3,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import scheduleReducer, {reset as resetSchedule} from './schedule';
 import studentvueReducer, {reset as resetStudentvue} from './studentvue';
 import miscReducer, {reset as resetMisc} from './misc';
+import stvReducer, {reset as resetStv} from './studentvueData';
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
@@ -54,12 +55,14 @@ const persistConfig = {
     key: 'v5ReduxData',
     version: 5,
     storage,
+    blacklist: []
 }
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({
     schedule: scheduleReducer,
     studentvue: studentvueReducer,
-    misc: miscReducer
+    misc: miscReducer,
+    stv: stvReducer,
 }))
 
 
@@ -80,6 +83,7 @@ export const resetStorage = () => {
         store.dispatch(resetSchedule())
         store.dispatch(resetStudentvue())
         store.dispatch(resetMisc())
+        store.dispatch(resetStv())
     })
     
 }

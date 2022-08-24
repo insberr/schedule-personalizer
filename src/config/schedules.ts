@@ -18,6 +18,7 @@ export type Lunch = {
 }
 
 export type SchedulesType = {
+    name: string, // This is used by the event editor
     classes: SCHCL[],
     lunch: {
         hasLunch: boolean,
@@ -59,6 +60,7 @@ export type Schedules = {
 
 export const schedules: Schedules = {
     normal: {
+        name: 'Normal',
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
@@ -90,6 +92,7 @@ export const schedules: Schedules = {
         }
     },
     advisory: {
+        name: 'Advisory',
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
             { classID: ClassIDS.Advisory, period: 0, startTime: getTimeW(7, 35), endTime: getTimeW(8, 5) },
@@ -121,15 +124,8 @@ export const schedules: Schedules = {
             }
         }
     },
-    weekend: {
-        classes: [
-            { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
-        ],
-        lunch: {
-            hasLunch: false
-        }
-    },
     lateStart1Hour: {
+        name: '1 Hour Late Start',
         classes: [
             { classID: ClassIDS.Arrival, period: 0, startTime: getTimeW(8, 15), endTime: getTimeW(8, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(8, 35), endTime: getTimeW(9, 25) },
@@ -163,6 +159,7 @@ export const schedules: Schedules = {
 
     // Not Correct !!!!!!!!!!!!!!!
     lateStart2Hour: {
+        name: '2 Hour Late Start',
         classes: [
             { classID: ClassIDS.Arrival, period: 0, startTime: getTimeW(8, 15), endTime: getTimeW(8, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(8, 35), endTime: getTimeW(9, 25) },
@@ -195,6 +192,7 @@ export const schedules: Schedules = {
     },
 
     earlyDissmissal: {
+        name: 'Early Dissmissal',
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 0) },
@@ -208,8 +206,18 @@ export const schedules: Schedules = {
             hasLunch: false,
         }
     },
-
+    weekend: {
+        name: 'Weekend',
+        classes: [
+            { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false
+        }
+    },
+    
     noSchool: {
+        name: 'No School',
         classes: [
             { classID: ClassIDS.NoSchool, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
         ],
@@ -219,6 +227,7 @@ export const schedules: Schedules = {
     },
 
     summer: {
+        name: 'Summer',
         classes: [
             { classID: ClassIDS.Summer, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
         ],

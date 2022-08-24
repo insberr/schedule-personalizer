@@ -13,8 +13,19 @@ import { IoHomeSharp } from "react-icons/io5";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { VscArrowLeft,VscCalendar, VscReply, VscArrowRight } from "react-icons/vsc";
 import { RiScreenshot2Fill } from "react-icons/ri";
+import { STVBoundery } from '../../../components/STVBoundery';
+import { Class } from '../../../types';
 
-export function SchHeader(props: { setup: (s: boolean) => void, home: () => void, getImage: () => void, displayDate: Date, setDisplayDate: (date: Date) => void }) {
+type Props = {
+    sch: Class[],
+    setup: (s: boolean) => void,
+    home: () => void,
+    getImage: () => void,
+    displayDate: Date,
+    setDisplayDate: (date: Date) => void
+}
+
+export function SchHeader(props: Props) {
   const id = useId();
   const [map, setMap] = useState(false)
 
@@ -34,6 +45,7 @@ export function SchHeader(props: { setup: (s: boolean) => void, home: () => void
           <Navbar.Brand className="d-none d-md-block" href="#" onClick={props.home}>Schedule V5</Navbar.Brand>
           <NavDropdown className="text-muted" title="More" id={id+"nav"}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
+            <STVBoundery><NavDropdown.Item onClick={()=>{ console.log('not added') }}>Email Counselor</NavDropdown.Item></STVBoundery>
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>
@@ -55,7 +67,7 @@ export function SchHeader(props: { setup: (s: boolean) => void, home: () => void
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Map show={map} close={()=>{setMap(false)}}/>
+      <Map sch={props.sch} show={map} close={()=>{setMap(false)}}/>
       </>
   )
 }

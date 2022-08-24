@@ -13,10 +13,12 @@ type Props = {
 
 
 const whatsnew = [
-    "Cringe? yes.",
-    "This is a game about a guy who is a little bit of a cringer. (thanks codepilot)",
-    "this is example data, please change it",
-    "hello mario"
+    'Completely redesigned the UI',
+    'The map shows you where your classes are! (working progress)',
+    'Login with StudentVue to have all your classes automatically added.',
+    'Auto schedules for events like 2 hour delays (coming soon)',
+    'You can now screenshot the schedule on site!',
+    'Added theme customization, That\'s right, you can customize the colors of the schedule and more!'
 ]
 
 // ANIMATE THIS
@@ -60,7 +62,7 @@ export function Features(props: Props) {
     useChain(disappear ? [buttonapi ,newsapi,tapi] : [tapi, newsapi, buttonapi], [0,0.25,0.5])
     return (
     <div className="text-center full-center">
-        <animated.span style={title}><h5>Features And Whats New?</h5></animated.span>
+        <animated.span style={title}><h2>Features And Whats New?</h2></animated.span>
         <ul style={{"listStyleType": "none", "margin":0, "marginTop": "1em", "padding":0}}>
         { news((style, item) => {
             return <li><animated.span style={style}>{item}</animated.span></li>

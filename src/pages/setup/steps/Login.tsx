@@ -15,7 +15,7 @@ import * as settings from '../../../config/settings';
 import { useDispatch } from 'react-redux';
 import { setTerms } from '../../../storage/schedule';
 import { useStudentvue, StorageDataStudentvue, setStudentVueData, setGotSchedules } from '../../../storage/studentvue';
-
+import {useDebounce} from 'react-use'
 type Props = {
     setStage:  (stage: number) => void;
     setSchedule: (schedule: Terms) => void
@@ -42,7 +42,7 @@ export function Login(props: Props) {
         showError(false)
     }
 
-    useEffect(() => {
+    useDebounce(() => {
         if (username === "" || password === "") {
             setValidUser({ isValid: false, loading: false, name: "", school: "" })
             return
@@ -65,7 +65,7 @@ export function Login(props: Props) {
                 setValidUser({ isValid: false, loading: true, name: "", school: "" });
             }
         }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
-    }, [username, password])
+    }, 1000, [username, password])
 
     async function Submit() {
         setLoading(true)
@@ -106,7 +106,7 @@ export function Login(props: Props) {
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
         await api.getAllSchedules(username, password).then(res => {
             dispatch(setGotSchedules(true))
-            props.setSchedule(res);
+            props.setSchedule(api.convertStudentvueDataToTerms(res));
             // change it to this, i think its better
             // dispatch(setTerms(res));
         }).catch(err => {
@@ -149,13 +149,14 @@ export function Login(props: Props) {
                     <Form.Control placeholder="Password" disabled={loading} type="password" onChange={ (e) => {setPassword(e.currentTarget.value)}} value={password} />
                 </Form.FloatingLabel>
             </Form.Group>
-            <Button disabled={loading} type="submit">
+            <div>TODO: Add signup for alert emails check box</div>
+            <Button disabled={loading || !(validUser.isValid && validUser.loading === false)} type="submit">
                 { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
             </Button>
             <br /><br />
-            <div>{ (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Invalid Credentials' }</div>
+            <div>{ (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Please enter your username and password' }</div>
         </Form>
-    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Not recommended)</Button>
+    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Recommended For Teachers)</Button>
     </Center></FadeIn>)
-    // For enter manually we should add a "are you sure alert" also warning them that the lunch will not be auto detected. we should figure out a way on events to display a message saying that lunch may not be correct because of event
+    // TODO: For enter manually we should add a "are you sure alert" also warning them that the lunch will not be auto detected.
 }

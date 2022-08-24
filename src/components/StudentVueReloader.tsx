@@ -1,46 +1,55 @@
-import { getTime, milliseconds } from "date-fns";
-import { PureComponent } from 'react'
-type ReloaderState = {
-    last: number
-}
-
-type ReloaderProps = {
-    reload: () => void
-}
-
-
-const updateEvery = milliseconds({hours:1})
-class StudentVueReloader extends PureComponent<ReloaderProps, ReloaderState> {
-    time?: NodeJS.Timer;
-    constructor(props: ReloaderProps) {
-        super(props)
-        let last = localStorage.getItem("last-reload")
-        if (!last) {
-            last = "0"
-        }
-        this.state = {
-            last: parseInt(last)
+import useSWR from 'swr'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { setSch, enableSTV, setInfo, useSTV, disableSTV } from '../storage/studentvueData'
+import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getStudentInfo } from '../studentVueAPI'
+import {setGotSchedules, useStudentvue} from '../storage/studentvue'
+import {setTerms} from '../storage/schedule'
+import {studentvueRefreshInterval} from '../config/settings'
+export function StudentVueReloader() {
+    const stv = useStudentvue()
+    function swrCreate(t: string) {
+        if (stv.isLoggedIn) {
+            return [stv.username, stv.password, t]
+        } else {
+            return false
         }
     }
-    componentDidMount() {
-        this.time = setInterval(() => {
-            if ((getTime(new Date()) - this.state.last) < updateEvery) {
-                return
-            }
-            console.log("reload")
-            this.props.reload()
-            this.setState({
-                last: getTime(new Date())
-            },() => {
-                localStorage.setItem("last-reload", this.state.last.toString())
-            })
-        }, 1000)
+    const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, { refreshInterval: studentvueRefreshInterval })
+    const { data: scheduleData, error: scheduleError } = useSWR<StudentVueAPIData | null, any>(swrCreate('schedule'), getAllSchedules, { refreshInterval: studentvueRefreshInterval })
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (scheduleData) {
+            dispatch(setSch(scheduleData));
+            dispatch(setTerms(convertStudentvueDataToTerms(scheduleData)))
+            dispatch(enableSTV())
+            dispatch(setGotSchedules(true))
+        }
+        if (scheduleError) {
+            dispatch(setGotSchedules(false))
+            dispatch(disableSTV())
+        }
+    },[scheduleData, scheduleError])
+    useEffect(() => {
+        if (studentData != undefined) {
+            dispatch(setInfo(studentData));
+            dispatch(enableSTV());
+        }
+        if (studentError) {
+            dispatch(disableSTV());
+        }
+    },[studentData, studentError])
+    useEffect(() => {
+        console.log("student data", studentData)
+        console.log("schedule data", scheduleData)
+    }, [studentData, scheduleData])
+
+    if (studentError || scheduleError) { 
+        console.error(studentError, scheduleError)
+        return <></>;
     }
-    componentWillUnmount() {
-        if (this.time) clearInterval(this.time)
-    }
-    render() {
-        return <></>
-    }
+
+    
+
+    return <></>
 }
-export default StudentVueReloader

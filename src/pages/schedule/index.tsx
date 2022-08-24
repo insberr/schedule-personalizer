@@ -9,6 +9,7 @@ import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
 import {isAfter, isBefore, isSameDay} from 'date-fns'
+import {StudentVueReloader} from "../../components/StudentVueReloader"
 //import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue, } from '../../storageManager';
 
 // Probably move these to types.ts and stucture it better
@@ -17,6 +18,7 @@ export type EventSchedule = {
     schedule: SchedulesType
     info: {
         message: string
+        date?: Date | DateRange
     }
 }
 
@@ -44,7 +46,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
         return <LoadSpinner />
     } else {
         // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
-        return <Schedule setup={props.setup} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } />
+        return <><Schedule setup={props.setup} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
     }
 }
 
@@ -61,11 +63,13 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
     const displayTerm = determineDisplayTerm(sch.terms, currentDisplayDate);
     if (displayTerm.isFake) {
         console.warn("No term found for the current date");
-        currentDisplayDayEvent = {
-            isEvent: true,
-            schedule: schedules.summer,
-            info: {
-                message: "Its summer, or something is broken"
+        if (!currentDisplayDayEvent.isEvent) {
+            currentDisplayDayEvent = {
+                isEvent: true,
+                schedule: schedules.summer,
+                info: {
+                    message: "Its summer, or something is broken"
+                }
             }
         }
     }
@@ -115,7 +119,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         mergedSchedule.event.info.message = mergedSchedule.event.info.message + '\n' + 'Lunch may not be correct';
     }
 
-    console.log('lnc ' + userLunch);
+    // console.log('lnc ' + userLunch);
 
     const lunchSchedule = lunchValue.lunches[lunch+1];
 
@@ -129,8 +133,8 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
             endTime: p.endTime,
             period: lunchValue.basedOnPeriod,
             name: p.classID === ClassIDS.Lunch ? "Lunch" : lunchPeriod.name,
-            room: lunchPeriod.room,
-            teacher: lunchPeriod.teacher
+            room: p.classID === ClassIDS.Lunch ? '' : lunchPeriod.room,
+            teacher: p.classID === ClassIDS.Lunch ? {...lunchPeriod.teacher, name: ''} : lunchPeriod.teacher,
         }
     })
     
@@ -185,7 +189,7 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
         isEvent: false,
         schedule: schedule,
         info: {
-            message: "No event scheduled"
+            message: ""
         }
     }
     return event;
@@ -220,10 +224,10 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
 
     // If you go passed the first term or the last term, return a fake term
     if (newTerm[0] === undefined) {
-        console.log('newterm created')
+        // console.log('newterm created')
         newTerm = [{ termIndex: 0, classes: [ { classID: ClassIDS.Period, period: 1, name: "", room: "", teacher: { name: "", email: "", id: "" } }], startDate: new Date(), endDate: new Date() }];
     }
-    console.log(newTerm[0])
+    // console.log(newTerm[0])
     return newTerm[0];
 }
 
@@ -234,7 +238,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
 
         const periodNeeded = displayTerm.classes.filter(p => (p.classID == period.classID) && (p.period == period.period));
         if (periodNeeded.length > 1) {
-            console.log('theres multiple periods for some reson???', periodNeeded);
+            // console.log('theres multiple periods for some reson???', periodNeeded);
 
             const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`
             displayDaySchedule.isEvent = true;
@@ -242,7 +246,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         }
 
         if (periodNeeded.length === 0) {
-            console.log('period needed is empty for period: ', period);
+            // console.log('period needed is empty for period: ', period);
             scheduleForDisplay.push({
                 classID: period.classID,
                 period: period.period,

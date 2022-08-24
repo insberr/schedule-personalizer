@@ -1,5 +1,5 @@
 import { formatClassTime, formatClassPeriodName, formatClassTimeHideElement } from "../../../lib"
-import { Class, ClassIDS } from "../../../types"
+import { Class, ClassIDS, timeToDate } from "../../../types"
 import ListGroup from 'react-bootstrap/ListGroup'
 import Collapse from 'react-bootstrap/Collapse';
 import { MdMoreVert } from "react-icons/md";
@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
+import {isAfter, isBefore, isWithinInterval} from "date-fns"
+import * as lib from "../../../lib"
 
 type ScheduleEntryProps = {
     sch: Class[]
@@ -37,21 +39,61 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             clearInterval(i);
         }
     },[doRGBParty])
+    const [cdate, setcdate] = useState<Date>(new Date())
+    useEffect(() => {
+        const dt = setInterval(() => {
+            setcdate(new Date())
+        },1000)
+        return () => {
+            clearInterval(dt);
+        }
+    },[])
     return (
-    <Container className={ props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period)).length > 1 ? 'highlightClassEntryRed' : '' } style={{"backgroundColor": "#"+rgb }}>
+    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period)).length > 1 ? 'highlightClassEntryRed' : '')} style={{"backgroundColor": "#"+rgb }}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
-        <Col key="teacherName" className={ (props.mini ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
-        <Col key="roomNumber" className={(props.mini ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
+        <Col key="teacherName" className={ (props.mini || !lib.displayTeacherNamesCol(props.sch) ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
+        <Col key="roomNumber" className={(props.mini || !lib.displayRoomsCol(props.sch) ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
     </Row>
     <Row onClick={() => {setOpen(!props.mini && !open)}}>
-        <Collapse in={open} dimension="height">
+        <Collapse in={open} dimension="height" unmountOnExit={true}>
             <div>
-                <div className="innerbox"><Timer basedDate={props.viewDate} time={props.period.startTime} /> Till { props.period.name } starts</div> 
-                <div className="innerbox">{ props.period.teacher.name } in room { props.period.room }</div>
-                <div className="innerbox"><a href={ "mailto:" + props.period.teacher.email }>Email Teacher</a></div>
+                <div className="innerbox">
+                    <div className={ isBefore(cdate, timeToDate(props.period.startTime,props.viewDate)) ? '' : 'hidden' }>
+                        { props.period.name || formatClassPeriodName(props.period) } starts in
+                        <Timer basedDate={props.viewDate} time={props.period.startTime} />
+                    </div>
+                    <div className={
+                        isWithinInterval(cdate, {
+                                start: timeToDate(props.period.startTime,props.viewDate),
+                                end: timeToDate(props.period.endTime,props.viewDate)
+                            }) ? '' : 'hidden'
+                    }>
+                        { props.period.name || formatClassPeriodName(props.period) } ends in
+                        <Timer basedDate={props.viewDate} time={props.period.startTime} />
+                    </div>
+                    <div className={isAfter(cdate, timeToDate(props.period.endTime,props.viewDate)) ? '' : 'hidden' }>
+                        Class Ended
+                    </div>
+                </div> 
+
+                <div className={
+                    [ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID)
+                    && (props.period.teacher.name !== '' || props.period.room !== '')
+                    ? 'innerbox' : 'hidden innerbox'
+                }>
+                    { props.period.teacher.name } { props.period.room !== '' ? 'in room ' + props.period.room : '' }
+                </div>
+
+                <div className={
+                    [ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID)
+                    && props.period.teacher.email !== ''
+                    ? 'innerbox' : 'hidden innerbox'
+                }>
+                    <a href={ "mailto:" + props.period.teacher.email }>Email Teacher</a>
+                </div>
             </div>
         </Collapse>
     </Row>

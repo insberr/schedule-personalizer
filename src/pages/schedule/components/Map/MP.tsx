@@ -1,14 +1,25 @@
 //@ts-expect-error cirn
 import _map from "./map.svg"
 import { Pin } from "./Pin";
-import { mapLocations } from "../../../../config/mapLocation";
+import { mapLocations, Location } from "../../../../config/mapLocation";
 import { useState, useRef, useEffect } from 'react';
 import { useMouseHovered } from 'react-use';
+import { Class } from "../../../../types";
 
-export function MP() {
-    const ref = useRef(null)
+type Props = {
+    sch: Class[]
+}
+
+export function MP(props: Props) {
+    const ref = useRef(null);
     const mouse = useMouseHovered(ref, {bound: true, whenHovered: true});
-    const [cpins, setcpins] = useState<{room: string,cords: number[]}[]>([])
+    const [cpins, setcpins] = useState<Location[]>(()=>{
+        const locationsFromClasses = props.sch.map((c) => {
+            return mapLocations.find(l => l.room.toString() === c.room.toString())
+        })
+        
+        return locationsFromClasses.filter(l => l != undefined) as Location[];
+    });
     useEffect(() => {
         // !!!!! maybe we should consider the element position too??????? !!!!!!!!!
         if (mouse.elX > mouse.elW || mouse.elX < 0 || mouse.elY > mouse.elH || mouse.elY < 0) {
@@ -36,7 +47,7 @@ export function MP() {
         <div ref={ref} onClick={clickedMap} style={{"width":"100%", "height":"100%"}}>
             <_map  style={{"width":"fill-parent", "height":"auto"}}  />
             {
-               ([...mapLocations,...cpins]).map(({cords, room}) => {
+               cpins.map(({cords, room}) => {
                     return <Pin key={room} cords={cords} />
                 })
             }

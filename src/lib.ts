@@ -2,7 +2,6 @@
 import { format, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS, Terms } from "./types";
 import _lunches from "./lunches.json"
-import { applyMiddleware } from "@reduxjs/toolkit";
 
 import * as api from './studentVueAPI';
 
@@ -95,9 +94,9 @@ export function refreshStudentVueSchedules(username: string, password: string): 
         successful: false
     };
 
-    api.getAllSchedules(username, password).then((res: Terms) => {
+    api.getAllSchedules(username, password).then((res: api.StudentVueAPIData) => {
         output = {
-            terms: res,
+            terms: api.convertStudentvueDataToTerms(res),
             successful: true
         }
     }).catch((err: string) => {
@@ -109,4 +108,42 @@ export function refreshStudentVueSchedules(username: string, password: string): 
     });
 
     return output;
+}
+
+export function toTitleCase(str: string): string {
+    return str.replace(
+        /\w\S*/g,
+        function(str) {
+            return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+        }
+    );
+}
+
+export function courseTitleNameCase(str: string): string {
+    // add for loop or something with a list of things
+    str = str.replace('ENG', 'ENGLISH');
+
+    str = toTitleCase(str);
+    str = str.replace('Ap', 'AP');
+    str = str.replace('Ela', 'ELA');
+    
+    return str
+}
+
+export function displayRoomsCol(sch: Class[]): boolean {
+    let value = true;
+
+    const emptyRoomNamedClasses = sch.filter(c => c.room === '');
+    if (emptyRoomNamedClasses.length === sch.length) value = false;
+
+    return value;
+}
+
+export function displayTeacherNamesCol(sch: Class[]): boolean {
+    let value = true;
+
+    const emptyTeacherNamedClasses = sch.filter(c => c.teacher.name === '');
+    if (emptyTeacherNamedClasses.length === sch.length) value = false;
+
+    return value;
 }

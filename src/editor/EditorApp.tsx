@@ -8,21 +8,29 @@ import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../con
 import { SchedulesType, schedules } from "../config/schedules";
 import { Calendar } from "../components/Calendar/Calendar";
 import stringifyObject from '../stringify-object';
+import { format } from "date-fns"
+import { Col, Container, Row, Stack } from "react-bootstrap";
 
 export function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date|DateRange>(new Date());
     const [schedule, setSchedule] = useState<SchedulesType>(schedules.normal);
     const [message, setMessage] = useState<string>("");
     // const [time, setTime] = useState<Date | string>(new Date())
 
-    const [resultEvent, setResultEvent] = useState<ScheduleEvent>({});
+    const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
+        schedule: schedule,
+        info: {
+            message: message,
+            date: date
+        }
+    });
     const [newEvents, setNewEvents] = useState<ScheduleEvents>(scheduleEvents);
+
+    const [selectedEvent, setSelectedEvent] = useState<number>(0);
 
     // somehow display the object as a string (not JSON.stringify because that makes it not copy pasteable into the events.ts file)
     useEffect(() => {
-        // setResultEvent(stringifyEvent(date, schedule));
-
         setResultEvent({
             schedule: schedule,
             info: {
@@ -30,99 +38,142 @@ export function EditorApp() {
                 date: date,
             },
         });
-        
     }, [date, schedule, message]);
 
     function createNewEvents() {
         if (resultEvent.schedule === undefined) return;
 
+        let evenNewerEvents;
 
-        let evenNewerEvents = [...newEvents, resultEvent];
-        console.log(newEvents.filter(evt => {
-            return (evt.info.message === resultEvent.info.message && (evt.info.date?.start || evt.info.date).getTime() === (resultEvent.info.date?.start || resultEvent.info.date).getTime())
-        }).length)
+        // Prevent adding a duplicate of the same event
         if (newEvents.filter(evt => {
-            return (evt.info.message === resultEvent.info.message && (evt.info.date?.start || evt.info.date).getTime() === (resultEvent.info.date?.start || resultEvent.info.date).getTime())
+            const evtStartDate = (evt.info.date as DateRange)?.start || evt.info.date;
+            const rstStartDate = (resultEvent.info.date as DateRange)?.start || resultEvent.info.date;
+            return (
+                evt.info.message === resultEvent.info.message
+                && evtStartDate.getTime() === rstStartDate.getTime()
+            )
         }).length > 0) {
             evenNewerEvents = [...newEvents];
+        } else {
+            evenNewerEvents = [...newEvents, resultEvent];
         }
 
 
-
+        // Sorts the events by start date, it looks nicer
         evenNewerEvents.sort((e, pe) => {
-            if (e.info === undefined) {
-                return 1;
-            }
-            if (pe.info === undefined) {
-                return 1;
-            }
-            // console.log(e)
-            return (e.info.date?.start || e.info.date).getTime() - (pe.info.date?.start || pe.info.date).getTime();
+            if (e.info === undefined || pe.info === undefined) return 1;
+
+            const eStartDate = (e.info.date as DateRange)?.start || e.info.date;
+            const peStartDate = (pe.info.date as DateRange)?.start || pe.info.date;
+            return eStartDate.getTime() - peStartDate.getTime();
         })
-        // console.log("evenNewerEvents: ", evenNewerEvents)
+
         setNewEvents(evenNewerEvents);
+
+        setMessage('');
+        setSchedule(schedules.normal);
     }
+
+    function stringifyThings(resultF: ScheduleEvent | ScheduleEvents): string {
+        return stringifyObject(resultF, {
+            indent: '  ',
+            singleQuotes: true,
+            transform: (object , property, originalResult) => {
+                if (property === 'schedule') {
+                    const obj = object as ScheduleEvent;
+                    // console.log((object as ScheduleEvent)[property])
+                    for (const [i, sc] of Object.entries(schedules)) {
+                        if (obj.schedule === sc) return `schedules.${i}`;
+                    }
+                    return 'schedules.broken';
+                }
+
+                if (property === 'date') {
+                    type Info = { message: string, date: Date | DateRange };
+                    const obj = object as Info;
+                    if ((obj.date as DateRange)?.start) {
+                        return `{\n      start: new Date('${format((obj.date  as DateRange)?.start, 'MMMM d, yyyy')}'),\n      end: new Date('${format((obj.date as DateRange)?.end, 'MMMM d, yyyy')}')\n    }`
+                    }
+                    return `new Date('${format(obj.date as Date, 'MMMM d, yyyy')}')`;
+                }
+        
+                return originalResult;
+            }
+        })
+    }
+
+    function removeEvent(index: number) {
+        const newerEvents = [...newEvents];
+        newerEvents.splice(index, 1);
+        setNewEvents(newerEvents);
+    }
+    
 
     return (
         <Center>
             <h1>Schedule Editor</h1>
-            <div className="mb-2 mt-3">
-                <DateEditor setDate={setDate} date={date} />
-            </div>
-            <div>
-                <ScheduleEditor setSchedule={setSchedule} schedule={schedule} />
-            </div>
-            <br /> <br />
-            <>
-                <Form.Label htmlFor="inputEventMessage">Event Message</Form.Label>
-                <Form.Control
-                    type="text"
-                    id="inputEventMessage"
-                    onInput={(e) => setMessage(e.currentTarget.value)}
-                />
-            </>
+            <Container>
+                <Row className="mt-5">
+                    <Col><DateEditor setDate={setDate} date={date} /></Col>
+                    <Col><ScheduleEditor setSchedule={setSchedule} schedule={schedule} /></Col>
+                </Row>
+                <Row className="mt-5">
+                    <Col>
+                        <Stack gap={4} className='mx-auto'>
+                            <Form.Group>
+                                <Form.Label htmlFor="inputEventMessage">Event Message</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    id="inputEventMessage"
+                                    value={message}
+                                    placeholder='Event Message'
+                                    onInput={(e) => setMessage(e.currentTarget.value)}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label htmlFor="selectEvent">Select Existing Event</Form.Label>
+                                <Form.Select onChange={(n) => { setSelectedEvent(parseInt(n.target.value)) }} id='selectEvent' aria-label="Select Event To Edit/Remove">
+                                    <option>Select Event</option>
+                                    { newEvents.map((evt, i) => {
+                                        return (<option key={"event"+i} value={i}>{ format((evt.info.date as DateRange)?.start || evt.info.date, 'MMMM d, yyyy') + ' - ' + evt.info.message }</option>)
+                                    })}
+                                </Form.Select>
+                            </Form.Group>
+                        </Stack>
+                    </Col>
+                    <Col>
+                        <Stack gap={2} className='col-md-5 mx-auto'>
+                            <Button variant="outline-danger" onClick={() => {
+                                    removeEvent(selectedEvent);
+                            }}>Remove Event</Button>
 
-            <Button onClick={() => {
-                    setDate(new Date("August 29, 2022"));
-                }}>set new event date</Button>
-            <Button onClick={() => {
-                createNewEvents();
-            }}>add new event</Button>
-            <h2> Output Event </h2>
-            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(resultEvent, {
-                indent: '  ',
-                singleQuotes: true,
-                transform: (object, property, originalResult) => {
-                    if (property === 'schedule') {
-                        // console.log((object as ScheduleEvent)[property])
-                        for (const [i, sc] of Object.entries(schedules)) {
-                            if (object.schedule === sc) return `schedules.${i}`;
-                        }
-                        return 'schedules.noSchool';
-                    }
-            
-                    return originalResult;
-                }
-            })}</pre>
-            <h2> Output Events </h2>
-            <pre style={{textAlign: "left"}} className="paper">{stringifyObject(newEvents, {
-                indent: '  ',
-                singleQuotes: true,
-                inlineCharacterLimit: 90,
-                transform: (object, property, originalResult) => {
-                    if (property === 'schedule') {
-                        // console.log((object as ScheduleEvent)[property])
-                        for (const [i, sc] of Object.entries(schedules)) {
-                            if (object.schedule === sc) return `schedules.${i}`;
-                        }
-                        return 'schedules.noSchool';
-                    }
-            
-                    return originalResult;
-                }
-            })}</pre>
-            <Button href="../">Back to schedule</Button>
-            <Calendar date={date} setDate={setDate} />
+                            <Button onClick={() => {
+                                setSchedule(newEvents[selectedEvent].schedule);
+                                setDate(newEvents[selectedEvent].info.date);
+                                setMessage(newEvents[selectedEvent].info.message);
+
+                                removeEvent(selectedEvent);
+                            }}>Edit Event</Button>
+                        
+                            <Button onClick={() => {
+                                createNewEvents();
+                            }}>Add new event</Button>
+                        </Stack>
+                    </Col>
+                </Row>
+                <Row className="mt-5">
+                    <Col>
+                        <h2> Output Event </h2>
+                        <pre style={{textAlign: "left"}} className="paper">{stringifyThings(resultEvent)}</pre>
+                    </Col>
+                    <Col>
+                        <h2> Output Events </h2>
+                        <pre style={{textAlign: "left"}} className="paper">{stringifyThings(newEvents)}</pre>
+                    </Col>
+                    <Button href="../">Back to schedule</Button>
+                </Row>
+            </Container>
         </Center>
     );
 }

@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setLunch, useSchedule } from '../../../storage/schedule';
 import * as settings from '../../../config/settings';
 import Form from 'react-bootstrap/Form';
+import { Collapse, Container, Row } from 'react-bootstrap';
 
 //import { StorageQuery, setV5Data, Terms } from '../../../storageManager';
 
@@ -17,6 +18,7 @@ type Props = StageProps & {
 }
 
 export function Manual(props: Props) {
+    const [openDebug, setOpenDebug] = useState(false);
     const classAmount = settings.numberOfPeriods;
     const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);
@@ -33,7 +35,7 @@ export function Manual(props: Props) {
 
     if (terms[0].classes.length < 1) {
         terms.map(t => {
-            t.classes = emptyCL(settings.numberOfPeriods);
+            t.classes = emptyCL(settings.numberOfPeriods, false);
             t.classes[0] = {
                 ...t.classes[0],
                 classID: ClassIDS.Advisory,
@@ -51,29 +53,33 @@ export function Manual(props: Props) {
     console.log(terms)
     return (
         <Center className="text-center"> 
-            <h1 className="mb-3">Setup</h1>
-            <Form.Select value={term} onChange={(n) => {setTerm(parseInt(n.target.value)); console.log("set term to "+n.target.value)}}  aria-label="Term Select">
-                { 
-                    terms.map((t, i) => {
-                        return <option key={"term"+i} value={t.termIndex}>Term {t.termIndex + 1}</option>
-                    })
-                }
-            </Form.Select>
-            <div className="paper">
-                {[...Array(classAmount)].map((_, i) => {
-                    return <ManualClassEntry  value={terms[term].classes[i]} change={ (c: CL) => {setClass(i,c)} } isAdv={i==0} period={i} key={"class"+i} />
-                })}
-            <div className="mb-3">
-                <LunchPicker l={l} lunchamt={3} setl={sl} />
-            </div>
-            <div className="mb-3">
-                { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                <Button onClick={()=>{props.setSchedule(terms); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
-            </div>
-            <pre className="paperer text-start">
-                {JSON.stringify(terms, null, 4)}
-            </pre>
-            </div>
+            <h1 className="mt-5">Setup</h1>
+            <Container className='mt-5'>
+                <Row lg={2} className='justify-content-center'>
+                    <Form.Group controlId="formSelectTerm">
+                        <Form.Label>Select Term</Form.Label>
+                        <Form.Select value={term} onChange={(n) => {setTerm(parseInt(n.target.value)); console.log("set term to "+n.target.value)}}  aria-label="Term Select">
+                            { 
+                                terms.map((t, i) => {
+                                    return <option key={"term"+i} value={t.termIndex}>Term {t.termIndex + 1}</option>
+                                })
+                            }
+                        </Form.Select>
+                    </Form.Group>
+                </Row>
+                <Row className="paper mt-4" style={{'maxWidth': '1000px'}}>
+                    {[...Array(classAmount)].map((_, i) => {
+                        return <ManualClassEntry  value={terms[term].classes[i]} change={ (c: CL) => {setClass(i,c)} } isAdv={i==0} period={i} key={"class"+i} />
+                    })}
+                </Row>
+                <Row className="mt-4">
+                    <LunchPicker l={l} lunchamt={3} setl={sl} />
+                </Row>
+                <Row className="mt-4 mb-5">
+                    { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
+                    <Button onClick={()=>{props.setSchedule(terms); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
+                </Row>
+            </Container>
         </Center>
     )
 

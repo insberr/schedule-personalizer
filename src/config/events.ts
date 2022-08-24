@@ -32,10 +32,10 @@ export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Da
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
 export const scheduleEvents: ScheduleEvents = [
     {
-        schedule: schedules.noSchool,
+        schedule: schedules.summer,
         info: {
             message: "Its Summer",
-            date: { start: new Date("August 21, 2022"), end: new Date("September 5, 2022") },
+            date: { start: new Date("August 20, 2022"), end: new Date("September 5, 2022") },
         }
     },
     {

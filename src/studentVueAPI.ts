@@ -1,5 +1,6 @@
 import { Terms, emptyCL, ClassIDS } from "./types";
 import * as settings from "./config/settings";
+import { courseTitleNameCase, toTitleCase } from "./lib";
 
 function generateFetch(username: string, password: string): RequestInit {
     return {
@@ -55,12 +56,7 @@ export type StudentVueAPIData = {
     }
 }
 
-export async function getAllSchedules(username: string, password: string): Promise<Terms> {
-    const data: StudentVueAPIData = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
-    if (data.code != "SUCCESS") {
-        // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
-        throw new Error(data.content.code + ": " + data.content.error);
-    }
+export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     console.log("schedules: ", data)
 
     const studentvueTerms = data.content.ClassLists;
@@ -77,10 +73,10 @@ export async function getAllSchedules(username: string, password: string): Promi
             return {
                 classID: (parseInt(c.Period) === 0 ? ClassIDS.Zero : parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? ClassIDS.Advisory : ClassIDS.Period),
                 period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
-                name: c.CourseTitle,
+                name: courseTitleNameCase(c.CourseTitle),
                 room: c.RoomName,
                 teacher: {
-                    name: c.Teacher,
+                    name: toTitleCase(c.Teacher),
                     email: c.TeacherEmail,
                     id: c.TeacherStaffGU
                 }
@@ -99,6 +95,15 @@ export async function getAllSchedules(username: string, password: string): Promi
 
     return combinedStudentvue;
     /* END TEMPORARY */
+}
+
+export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
+    const data: StudentVueAPIData = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
+    if (data.code != "SUCCESS") {
+        // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
+        throw new Error(data.content.code + ": " + data.content.error);
+    }
+    return data;
 }
 
 // Propbably should change args to take a StorageDataStudentvue object

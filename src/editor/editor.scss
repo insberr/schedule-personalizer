@@ -2,3 +2,6 @@
 $tile-selected: shade-color($white,10%);
 
 // react calendar
+.react-calendar__tile--hover {
+    background-color: black!important;
+}

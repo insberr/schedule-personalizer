@@ -31,7 +31,7 @@ type ScheduleProps = {
 }
 
 function Schedule(props: ScheduleProps) {
-    console.log("props: ", props.sch)
+    // console.log("props: ", props.sch)
 
     const studentvue = useStudentvue();
 
@@ -53,7 +53,7 @@ function Schedule(props: ScheduleProps) {
 
     /*useEffect(() => {*/
     const img = (image: any, { name = 'screenshot', extension = 'png' } = {}) => {
-        console.log(image)
+        // console.log(image)
 
         if (image) {
             if (!canCopyImagesToClipboard()) {
@@ -87,7 +87,7 @@ function Schedule(props: ScheduleProps) {
     const [showCustomToast, setShowCustomToast] = useState(false);
     
     useEffect(() => {
-        if (studentvue.gotSchedules === false) {
+        if (studentvue.isLoggedIn && studentvue.gotSchedules === false) {
             setCustomToast({
                 header: "StudentVue Error",
                 body: "We were unable to get your classes from StudentVue. StudentVue may be down. If this issue continues, please [ADD BUTTON !!!]click here to report a bug!"
@@ -125,7 +125,7 @@ function Schedule(props: ScheduleProps) {
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
-            <SchHeader home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
+            <SchHeader sch={props.sch} home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
             <Center>
                 <br />
                 <br />
@@ -157,6 +157,7 @@ function Schedule(props: ScheduleProps) {
                         })}
                     </Container>
                     {props.event.isEvent ? (
+                        // TODO: add timer for multi day event
                         <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.message }}>
                         </div>
                     ) : null}

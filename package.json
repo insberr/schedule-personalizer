@@ -56,7 +56,7 @@
     "name": "Schedule Personalizer",
     "shortName": "Schedule",
     "startURL": "./",
-    "theme": "#DC143C",
+    "theme": "#272727",
     "generateIconOptions": {
       "baseIcon": "./icon.svg",
       "genFavicons": true

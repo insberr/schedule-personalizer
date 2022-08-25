@@ -49,7 +49,6 @@ function startLoad() {
     Promise.all([import("react-dom/client"), import("react")]).then(([reactDom, React]) => {   
         const loadingthing = document.getElementById("loading")
         if (loadingthing) loadingthing.remove();
-    
     const root = reactDom.createRoot(app);
     const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}</h3>}) : App;
     root.render((<Err>

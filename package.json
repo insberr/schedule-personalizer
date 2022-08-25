@@ -57,6 +57,8 @@
     "shortName": "Schedule",
     "startURL": "./",
     "theme": "#272727",
+    "genSafariPinnedTab": true,
+    "appleTouchIconBG":"#272727",
     "generateIconOptions": {
       "baseIcon": "./icon.svg",
       "genFavicons": true

@@ -150,7 +150,7 @@ export function Login(props: Props) {
                 </Form.FloatingLabel>
             </Form.Group>
             <div>TODO: Add signup for alert emails check box</div>
-            <Button disabled={loading || !(validUser.isValid && validUser.loading === false)} type="submit">
+            <Button disabled={loading} type="submit">
                 { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
             </Button>
             <br /><br />

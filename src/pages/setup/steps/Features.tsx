@@ -32,8 +32,6 @@ export function Features(props: Props) {
         to: { y: disappear ? "-50%" : "0%", opacity: disappear ? 0 : 1},
         config: conf,
         onRest: () => {
-            console.log("rest")
-            console.log(disappear)
             if (disappear) {
                 setTimeout(() => {
                     props.setStage(420)

@@ -17,7 +17,6 @@ function generateFetch(username: string, password: string): RequestInit {
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
     const response = await fetch(apiURL + "/validate", generateFetch(username, password));
     const data = await response.json();
-    console.log('ValidateCredentials: ' + JSON.stringify(data));
     if (data.code !== "SUCCESS") {
         return false;
     }
@@ -76,8 +75,6 @@ export type StudentVueAPIDataUserDate = {
 }
 
 export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
-    console.log("schedules: ", data)
-
     const studentvueTerms = data.content.ClassLists;
 
     const newTerms = settings.termsDates.map(t => {
@@ -103,8 +100,6 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
         })
         return t;
     })
-
-    console.log("combinedStudentvue: ", combinedStudentvue)
 
     // Convert api data to terms data
     //

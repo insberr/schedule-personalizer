@@ -1,7 +1,6 @@
 // bunch of reusable functions
 import { format, parse, set } from "date-fns"
-import { dateToTime, Stdata, Time, timeToDate, CL, Class, ClassIDS, Terms } from "./types";
-import _lunches from "./lunches.json"
+import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "./types";
 
 import * as api from './studentVueAPI';
 
@@ -68,8 +67,8 @@ export function ordinal_suffix_of(i: number): string {
     return i + "th";
 }
 
+/*
 export const lunches: string[][] = _lunches; // probably a better spot for this but eh
-
 export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the classes with the ids of all the classes changed to detect to the specified lunch
     // The hell is this function even for?
     return classes.map(c => {
@@ -77,6 +76,7 @@ export function fixLunch(classes: CL[], lunch: number): CL[] { // returns the cl
         return c;
     })
 }
+*/
 
 export function formatClassTimeHideElement(classData: Class): string {
     if (classData.classID === ClassIDS.NoSchool) return 'hidden';
@@ -146,4 +146,8 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
     if (emptyTeacherNamedClasses.length === sch.length) value = false;
 
     return value;
+}
+
+export function redactStudentVueData(data: any): any { // add types pls
+    //
 }

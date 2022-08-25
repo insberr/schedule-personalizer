@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Terms } from './types';
@@ -11,6 +11,8 @@ import { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
 import { Header } from './components/Header';
+import { setSetupComplete } from './storage/misc';
+
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 function App() {
@@ -19,10 +21,11 @@ function App() {
         dispatch(setTerms(sch));
     }
 
-    const [isSetup, setIsSetup] = useState<boolean>(false);
     const isSetupComplete = useSelector(
         (state: RootState) => state.misc.setupComplete
     );
+
+    const [isSetup, setIsSetup] = useState<boolean>(false);
 
     /*
     // TODO: Add customizations woo
@@ -49,7 +52,7 @@ function App() {
             </div>
             <div id="settings" className={!isSetup ? "hidden" : ""}>
                 <Header setup={setIsSetup} c={isSetup} />
-                <SettingsPage setup={setIsSetup} />
+                <SettingsPage setup={setIsSetup} setSchedule={setSch} />
             </div>
         </>
     );

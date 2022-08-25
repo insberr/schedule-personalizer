@@ -4,26 +4,26 @@ import Button from 'react-bootstrap/Button';
 import Center from '../../../components/Center';
 import { LunchPicker } from '../components/LunchPicker';
 import { ManualClassEntry } from '../components/ManualClassEntry';
-import { CL, ClassIDS, emptyCL, StageProps, Terms, Term } from '../../../types';
+import { CL, ClassIDS, emptyCL, StageProps, Terms } from '../../../types';
 import { useDispatch } from "react-redux";
 import { setLunch, useSchedule } from '../../../storage/schedule';
 import * as settings from '../../../config/settings';
 import Form from 'react-bootstrap/Form';
-import { Collapse, Container, Row } from 'react-bootstrap';
-
-//import { StorageQuery, setV5Data, Terms } from '../../../storageManager';
+import { Container, Row } from 'react-bootstrap';
 
 type Props = StageProps & {
-    setSchedule: (schedule: Terms) => void
+    setStage?: (stage: number) => void;
+    setSchedule: (schedule: Terms) => void;
+    isEdit?: boolean;
+    setIsEdit?: (isEdit: boolean) => void;
 }
 
 export function Manual(props: Props) {
-    const [openDebug, setOpenDebug] = useState(false);
     const classAmount = settings.numberOfPeriods;
     const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);
     const [terms, setTerms] = useState<Terms>(() => sch.terms.length > 0 ? sch.terms : settings.termsDates)
-    const [l, sl] = useState(0);
+    const [l, sl] = useState(sch.lunch || 0);
 
     const dispatch = useDispatch();
     
@@ -77,7 +77,7 @@ export function Manual(props: Props) {
                 </Row>
                 <Row className="mt-4 mb-5">
                     { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                    <Button onClick={()=>{props.setSchedule(terms); props.setStage(69)}} disabled={!isValid}>Confirm</Button>
+                    <Button onClick={()=>{ props.setSchedule(terms); props.isEdit ? (props as { setIsEdit: (s: boolean) => void }).setIsEdit(false) : props.setStage(69); }} disabled={!isValid}>Confirm</Button>
                 </Row>
             </Container>
         </Center>

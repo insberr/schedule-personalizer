@@ -1,4 +1,5 @@
 import * as types from '../types';
+import { ClassIDS } from '../types';
 
 /* Required Config Values */
 
@@ -42,3 +43,28 @@ export const termsDates: types.Terms = [
     { termIndex: 1, startDate: new Date("December 8, 2022"), endDate: new Date("March 27, 2023"), classes: [] },
     { termIndex: 2, startDate: new Date("March 28, 2023"), endDate: lastDayOfSchool, classes: [] },
 ];
+
+export const defaultCustomizations = {
+    theme: {
+        backgroundColor: '#ffffff',
+        schedule: {
+            backgroundColor: '#ffffff',
+            classColors: {
+                [ClassIDS.Zero]: '#ffffff',
+                [ClassIDS.Advisory]: '#ffffff',
+                [ClassIDS.Period]: '#ffffff',
+                [ClassIDS.Lunch]: '#ffffff',
+                [ClassIDS.Arrival]: '#ffffff',
+                [ClassIDS.Assembly]: '#ffffff',
+                [ClassIDS.Dismissal]: '#ffffff',
+                [ClassIDS.NoSchool]: '#ffffff',
+                [ClassIDS.Weekend]: '#ffffff',
+                current: '#ffffff',
+            },
+        },
+    },
+    keyboardShortcuts: {
+        //
+    },
+    showInfoOnSchedule: true,
+}

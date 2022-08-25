@@ -4,14 +4,11 @@ import { Manual } from './steps/Manual';
 import { Login } from './steps/Login';
 import { Features } from './steps/Features';
 
-import { emptyCL, Terms } from '../../types';
+import { Terms } from '../../types';
 import { IntroPonent } from './components/Introponent';
 import { useDispatch } from "react-redux";
 import { setSetupComplete } from '../../storage/misc';
-import { AddToHomeScreen } from './steps/AddToHomeScreen'
-import * as settings from '../../config/settings';
-
-//import { StorageQuery, setV5Data, Terms } from '../../storageManager';
+import { AddToHomeScreen } from './steps/AddToHomeScreen';
 
 
 type SetupPageProps = {

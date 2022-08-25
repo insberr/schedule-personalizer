@@ -1,4 +1,4 @@
-import * as types from '../types/lunches.types';
+import * as types from '../types/lunchesTypes';
 
 // maybe something like
 export const lunches: types.LunchesType = [

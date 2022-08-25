@@ -2,6 +2,8 @@ import { Terms, emptyCL, ClassIDS } from "./types";
 import * as settings from "./config/settings";
 import { courseTitleNameCase, toTitleCase } from "./lib";
 
+const apiURL = settings.studentVueApiURL.endsWith('/') ? settings.studentVueApiURL.slice(0, -1) : settings.studentVueApiURL;
+
 function generateFetch(username: string, password: string): RequestInit {
     return {
         body: JSON.stringify({
@@ -13,7 +15,7 @@ function generateFetch(username: string, password: string): RequestInit {
 }
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
-    const response = await fetch("https://studentvue.wackery.com/validate", generateFetch(username, password));
+    const response = await fetch(apiURL + "/validate", generateFetch(username, password));
     const data = await response.json();
     console.log('ValidateCredentials: ' + JSON.stringify(data));
     if (data.code !== "SUCCESS") {
@@ -48,11 +50,28 @@ export type StudentVueAPIData = {
         TermIndex: string
         TermIndexName: "Trimester 1"
         TermLists: {
-            TermListing: any[]
+            TermListing: unknown[]
         }
         TodayScheduleInfoData: Record<string, unknown> // find waht this should be
         'xmlns:xsd': string
         'xmlns:xsi': string
+    }
+}
+
+export type StudentVueAPIDataUserDate = {
+    code: string
+    content: {
+        code?: string
+        error?: string
+        BirthDate: string
+        CounselorEmail: string
+        CounselorName: string
+        CounselorStaffGU: string
+        CurrentSchool: string
+        EMail: string
+        FormattedName: string
+        Grade: string
+        PermID: string
     }
 }
 
@@ -98,7 +117,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 }
 
 export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
-    const data: StudentVueAPIData = await (await fetch("https://studentvue.wackery.com/get_all_schedules", generateFetch(username, password))).json();
+    const data: StudentVueAPIData = await (await fetch(apiURL + "/get_all_schedules", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
         // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
         throw new Error(data.content.code + ": " + data.content.error);
@@ -108,8 +127,16 @@ export async function getAllSchedules(username: string, password: string): Promi
 
 // Propbably should change args to take a StorageDataStudentvue object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getStudentInfo(username: string, password: string): Promise<any> {
-    const data = await (await fetch("https://studentvue.wackery.com/get_student_info", generateFetch(username, password))).json();
+export async function getStudentInfo(username: string, password: string): Promise<StudentVueAPIDataUserDate> {
+    const data = await (await fetch(apiURL + "/get_student_info", generateFetch(username, password))).json();
+    if (data.code != "SUCCESS") {
+        throw new Error(data.content.code + ": " + data.content.error);
+    }
+    return data
+}
+
+export async function getSchoolInfo(username: string, password: string): Promise<unknown> {
+    const data = await (await fetch(apiURL + "/get_school_info", generateFetch(username, password))).json();
     if (data.code != "SUCCESS") {
         throw new Error(data.content.code + ": " + data.content.error);
     }

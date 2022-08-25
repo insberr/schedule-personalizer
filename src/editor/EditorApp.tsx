@@ -6,7 +6,6 @@ import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
 import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../config/events";
 import { SchedulesType, schedules } from "../config/schedules";
-import { Calendar } from "../components/Calendar/Calendar";
 import stringifyObject from '../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";

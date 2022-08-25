@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
-import { Time, getTimeW, timeToDate } from "../../../types"
-import { intervalToDuration, Duration,formatDuration } from 'date-fns'
+import { useState, useEffect } from 'react';
+import { Time, getTimeW, timeToDate } from '../../../types';
+import { intervalToDuration, Duration,formatDuration } from 'date-fns';
+
 export function Timer(props: { time: Time, basedDate?: Date }) {
     const [timer, setTimer] = useState<Duration>(getTimeW(0,0,0))
     useEffect(() => {

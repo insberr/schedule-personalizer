@@ -1,6 +1,5 @@
-import { formatClassTime, formatClassPeriodName, formatClassTimeHideElement } from "../../../lib"
+import { formatClassTime, formatClassPeriodName } from "../../../lib"
 import { Class, ClassIDS, timeToDate } from "../../../types"
-import ListGroup from 'react-bootstrap/ListGroup'
 import Collapse from 'react-bootstrap/Collapse';
 import { MdMoreVert } from "react-icons/md";
 import { useState, useEffect } from "react";
@@ -49,7 +48,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         }
     },[])
     return (
-    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period)).length > 1 ? 'highlightClassEntryRed' : '')} style={{"backgroundColor": "#"+rgb }}>
+    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '')} style={{"backgroundColor": "#"+rgb }}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '4px', 'paddingLeft': '0px'}}><MdMoreVert /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>

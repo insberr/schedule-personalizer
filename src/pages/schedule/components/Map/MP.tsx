@@ -36,7 +36,7 @@ export function MP(props: Props) {
         //console.log("clickX%",(mouse.elX/mouse.elW)*100);
         
         //console.log("clickY%",(mouse.elY/mouse.elH)*100)
-        console.log("clickpos: ", "[ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ]");
+        console.log("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },");
         setcpins([...cpins, {room: Math.floor(Math.random()*16777215).toString(16), cords: [((mouse.elX/mouse.elW)*100), ((mouse.elY/mouse.elH)*100)]}])
     }
     

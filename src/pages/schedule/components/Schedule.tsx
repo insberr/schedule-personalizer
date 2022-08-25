@@ -1,26 +1,21 @@
-import { Class, ClassIDS } from "../../../types"
+import { Class, Term } from "../../../types"
 import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
-import ListGroup from 'react-bootstrap/ListGroup'
 import { EventSchedule } from '../index';
-import { format, isSameDay } from 'date-fns'
-import Button from 'react-bootstrap/Button';
-import { useId, useMemo, useRef, useEffect, useState } from "react";
+import { format } from 'date-fns'
+import { useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { SchHeader } from "./ScheduleHeader"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Overlay } from "react-bootstrap";
 import { useScreenshot } from 'use-react-screenshot'
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
-
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-import { useTransition, animated, config } from '@react-spring/web'
-import {useUpdate} from 'react-use';
+import * as api from '../../../studentVueAPI';
 
 import { useStudentvue } from '../../../storage/studentvue';
+import { Col } from "react-bootstrap";
 
 type ScheduleProps = {
     sch: Class[]
@@ -87,13 +82,23 @@ function Schedule(props: ScheduleProps) {
     const [showCustomToast, setShowCustomToast] = useState(false);
     
     useEffect(() => {
-        if (studentvue.isLoggedIn && studentvue.gotSchedules === false) {
+        if (studentvue.isLoggedIn === true && studentvue.gotSchedules === false) {
             setCustomToast({
                 header: "StudentVue Error",
                 body: "We were unable to get your classes from StudentVue. StudentVue may be down. If this issue continues, please [ADD BUTTON !!!]click here to report a bug!"
             })
             setShowCustomToast(true);
         }
+
+        /*
+        if (studentvue.isLoggedIn) {
+            api.getSchoolInfo(studentvue.username, studentvue.password).then((info) => {
+                console.log(info)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+        */
     }, [])
     
 
@@ -143,7 +148,7 @@ function Schedule(props: ScheduleProps) {
                         </Row>
                         { props.sch.map((period, i) => {
                             return (
-                                <Row className="crow" key={period.classID.toString() + period.period?.toString() + period.name}>
+                                <Row className="crow" key={period.classID.toString() + period.period?.toString() + period.name + `${period.startTime.hours}${period.startTime.minutes}${period.startTime.seconds}`}>
                                     <ScheduleEntry
                                         key={i.toString()}
                                         mini={doMini}
@@ -156,42 +161,25 @@ function Schedule(props: ScheduleProps) {
                             );
                         })}
                     </Container>
-                    {props.event.isEvent ? (
+                    <div>{props.event.isEvent ? (
                         // TODO: add timer for multi day event
                         <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.message }}>
                         </div>
                     ) : null}
+                    </div>
                     <br />
+                    <div>
+                        { props.event.hasError ? (
+                            <div>
+                                <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.error || 'There was an error' }}>
+                                </div>
+                            </div>
+                        ) : null }
+                    </div>
                 </div>
             </Center>
         </div>
     );
 }
-export default Schedule
 
-/*
-import React, { createRef, useState } from 'react'
-import { useScreenshot } from 'use-react-screenshot'
-
-export default () => {
-  const ref = createRef(null)
-  const [image, takeScreenshot] = useScreenshot()
-  const getImage = () => takeScreenshot(ref.current)
-  return (
-    <div>
-      <div>
-        <button style={{ marginBottom: '10px' }} onClick={getImage}>
-          Take screenshot
-        </button>
-      </div>
-      <img width={width} src={image} alt={'Screenshot'} />
-      <div ref={ref}>
-        <h1>use-react-screenshot</h1>
-        <p>
-          <strong>hook by @vre2h which allows to create screenshots</strong>
-        </p>
-      </div>
-    </div>
-  )
-}
-*/
+export default Schedule;

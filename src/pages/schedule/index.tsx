@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'; 
-import { CL, Class, ClassIDS,Terms, Term  } from "../../types";
+import { useMemo, useState } from 'react'; 
+import { CL, Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
 import Schedule from "./components/Schedule";
 import LoadSpinner from '../../components/LoadSpinner';
 import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
@@ -8,15 +8,18 @@ import { useSchedule, ScheduleStorage } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import {isAfter, isBefore, isSameDay} from 'date-fns'
-import {StudentVueReloader} from "../../components/StudentVueReloader"
+import { isAfter, isBefore, isSameDay } from 'date-fns'
+import { StudentVueReloader } from "../../components/StudentVueReloader"
+
 //import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue, } from '../../storageManager';
 
 // Probably move these to types.ts and stucture it better
 export type EventSchedule = {
     isEvent: boolean,
+    hasError?: boolean
     schedule: SchedulesType
     info: {
+        error?: string
         message: string
         date?: Date | DateRange
     }
@@ -116,7 +119,8 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         }
     } else if (mergedSchedule.event.isEvent || settingsConfig.normalLunchBasedOnPeriod !== lunchValue.basedOnPeriod) {
         // NOTE: THIS IS NOT TESTED, PLEASE TEST
-        mergedSchedule.event.info.message = mergedSchedule.event.info.message + '\n' + 'Lunch may not be correct';
+        const temp_Message = '<br />Lunch may not be correct'
+        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
     }
 
     // console.log('lnc ' + userLunch);
@@ -234,19 +238,66 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
 function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule: EventSchedule): MergedSchedule{
     const scheduleForDisplay: Class[] = [];
 
+    // Alert the user of unknown classes from studentvue
+    const periodsFromEmptyCL = emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory).map(c => c.period);
+    const unknownPeriods = displayTerm.classes.filter(p => !periodsFromEmptyCL.includes(p.period));
+    
+    if (unknownPeriods.length > 1) {
+        const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        displayDaySchedule.hasError = true;
+        displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
+    }
+
+    /* Kinda just a replacement for whatever heckery the school has put upon us by messing up the schedules
+    // Commented out in case we want to use it ig?
+    const indexedUnknownPeriods: { index: number, period: CL }[] = unknownPeriods.map(p => {
+        return { index: displayTerm.classes.indexOf(p), period: p };
+    })
+    let previousIndex = 0;
+    ============================ End of replacement ============================ */
+
     for (const period of displayDaySchedule.schedule.classes) {
 
         const periodNeeded = displayTerm.classes.filter(p => (p.classID == period.classID) && (p.period == period.period));
-        if (periodNeeded.length > 1) {
-            // console.log('theres multiple periods for some reson???', periodNeeded);
+        
+        /* Kinda just a replacement for whatever heckery the school has put upon us by messing up the schedules
+        // Commented out in case we want to use it ig?
+        const indexOfPeriodNeeded = displayTerm.classes.indexOf(periodNeeded[0]);
+        if (indexOfPeriodNeeded !== -1) {
+            previousIndex = indexOfPeriodNeeded + (periodNeeded.length - 1);
+        } else {
+            previousIndex++;
+        }
 
+        for (const unkPd of indexedUnknownPeriods) {
+            if (unkPd.index < previousIndex + 1) {
+                indexedUnknownPeriods.splice(indexedUnknownPeriods.indexOf(unkPd), 1);
+                scheduleForDisplay.push({
+                    classID: unkPd.period.classID,
+                    period: unkPd.period.period,
+                    name: unkPd.period.name,
+                    room: unkPd.period.room,
+                    teacher: {
+                        name: unkPd.period.teacher.name,
+                        email: unkPd.period.teacher.email,
+                        id: unkPd.period.teacher.id
+                    },
+                    startTime: period.startTime,
+                    endTime: period.endTime
+                })
+            }
+        }
+        ============================ End of replacement ============================ */
+
+
+
+        if (periodNeeded.length > 1) {
             const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`
-            displayDaySchedule.isEvent = true;
-            displayDaySchedule.info.message = displayDaySchedule.info.message.includes(addMessage) ? displayDaySchedule.info.message : displayDaySchedule.info.message + '<br />' + addMessage;
+            displayDaySchedule.hasError = true;
+            displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : displayDaySchedule.info.error + '<br />' + addMessage;
         }
 
         if (periodNeeded.length === 0) {
-            // console.log('period needed is empty for period: ', period);
             scheduleForDisplay.push({
                 classID: period.classID,
                 period: period.period,
@@ -287,4 +338,5 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         sch: sch
     }
 }
+
 export default SchedulePage

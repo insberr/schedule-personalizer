@@ -1,11 +1,14 @@
 import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { setSch, enableSTV, setInfo, useSTV, disableSTV } from '../storage/studentvueData'
+import { setSch, enableSTV, setInfo, disableSTV } from '../storage/studentvueData'
 import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getStudentInfo } from '../studentVueAPI'
 import {setGotSchedules, useStudentvue} from '../storage/studentvue'
 import {setTerms} from '../storage/schedule'
-import {studentvueRefreshInterval} from '../config/settings'
+import {studentvueRefreshInterval} from '../config/settings';
+import * as Sentry from '@sentry/react';
+
+
 export function StudentVueReloader() {
     const stv = useStudentvue()
     function swrCreate(t: string) {
@@ -16,10 +19,11 @@ export function StudentVueReloader() {
         }
     }
     const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, { refreshInterval: studentvueRefreshInterval })
-    const { data: scheduleData, error: scheduleError } = useSWR<StudentVueAPIData | null, any>(swrCreate('schedule'), getAllSchedules, { refreshInterval: studentvueRefreshInterval })
+    const { data: scheduleData, error: scheduleError } = useSWR(swrCreate('schedule'), getAllSchedules, { refreshInterval: studentvueRefreshInterval })
     const dispatch = useDispatch()
     useEffect(() => {
         if (scheduleData) {
+            Sentry.setUser({ username: stv.username });
             dispatch(setSch(scheduleData));
             dispatch(setTerms(convertStudentvueDataToTerms(scheduleData)))
             dispatch(enableSTV())

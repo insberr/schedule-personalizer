@@ -18,7 +18,7 @@ export function IntroPonent(props: Props) {
         delay: 100,
         immediate: stage1Complete,
         config: {
-            tension: 280,
+            tension: 290,
             friction: 80
         },
         }

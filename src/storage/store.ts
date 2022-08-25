@@ -1,4 +1,3 @@
-import { CL } from '../types';
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import scheduleReducer, {reset as resetSchedule} from './schedule';
 import studentvueReducer, {reset as resetStudentvue} from './studentvue';

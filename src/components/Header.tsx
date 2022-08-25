@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { VscSettingsGear } from 'react-icons/vsc'
+import { VscSettingsGear } from 'react-icons/vsc';
+
 export function Header(props: { setup: (s: boolean) => void, c: boolean }) {
   return (
     <Navbar bg="dark" variant="dark">

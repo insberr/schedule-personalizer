@@ -1,4 +1,4 @@
-import { useId, useState, useEffect } from 'react';
+import { useId, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -6,16 +6,16 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Center from '../../../components/Center';
 
-import { Terms, ClassIDS, emptyCL } from '../../../types';
+import { Terms, emptyCL } from '../../../types';
 import { FadeIn } from '../components/FadeIn';
 //import { StorageQuery, setV5Data } from '../../../storageManager';
 
 import * as api from '../../../studentVueAPI';
 import * as settings from '../../../config/settings';
 import { useDispatch } from 'react-redux';
-import { setTerms } from '../../../storage/schedule';
-import { useStudentvue, StorageDataStudentvue, setStudentVueData, setGotSchedules } from '../../../storage/studentvue';
-import {useDebounce} from 'react-use'
+import { setStudentVueData, setGotSchedules } from '../../../storage/studentvue';
+import { useDebounce } from 'react-use';
+
 type Props = {
     setStage:  (stage: number) => void;
     setSchedule: (schedule: Terms) => void

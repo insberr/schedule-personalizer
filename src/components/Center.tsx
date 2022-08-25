@@ -1,4 +1,5 @@
 import React from "react";
+
 type CenterProps = {
     children: React.ReactNode;
     className?: string;

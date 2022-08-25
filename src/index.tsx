@@ -1,5 +1,5 @@
-import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
+//import { createRoot } from "react-dom/client";
+//import { StrictMode } from "react";
 import eruda from './eruda'
 import App from './App'
 import { identifyCommit } from "./lib";
@@ -46,19 +46,24 @@ function startLoad() {
     }
 
     console.log("Schedule personalizer v2 ("+identifyCommit()+")");
-
-    const root = createRoot(app);
+    Promise.all([import("react-dom/client"), import("react")]).then(([reactDom, React]) => {   
+        const loadingthing = document.getElementById("loading")
+        if (loadingthing) loadingthing.remove();
+    
+    const root = reactDom.createRoot(app);
+    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}</h3>}) : App;
     root.render((<Err>
-                    <StrictMode>
+                    <React.StrictMode>
                         
                         <Provider store={store}>
                             <PersistGate loading={<LoadSpinner />} persistor={persistor}>
-                                <App />
+                                <Withsentry />
                             </PersistGate>
                         </Provider>
                         
-                    </StrictMode>
+                    </React.StrictMode>
                 </Err>));
+    })
 }
 
 if (process.env.NODE_ENV == "production") {

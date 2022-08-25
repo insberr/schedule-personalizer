@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { VscSettingsGear } from 'react-icons/vsc'
-import Center from "../../../components/Center";
+import { VscSettingsGear } from 'react-icons/vsc';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {useId, useState} from 'react'
 import { Map } from "./Map/Map"
@@ -11,11 +10,11 @@ import Popover from 'react-bootstrap/Popover';
 import Calendar from 'react-calendar'
 import { IoHomeSharp } from "react-icons/io5";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import { VscArrowLeft,VscCalendar, VscReply, VscArrowRight } from "react-icons/vsc";
+import { VscArrowLeft,VscCalendar, VscArrowRight } from "react-icons/vsc";
 import { RiScreenshot2Fill } from "react-icons/ri";
 import { STVBoundery } from '../../../components/STVBoundery';
 import { Class } from '../../../types';
-
+import { useSTV } from '../../../storage/studentvueData';
 type Props = {
     sch: Class[],
     setup: (s: boolean) => void,
@@ -28,6 +27,7 @@ type Props = {
 export function SchHeader(props: Props) {
   const id = useId();
   const [map, setMap] = useState(false)
+  const stv = useSTV();
 
     const calendar = (
         <Popover id={id+"popover"}>
@@ -45,7 +45,7 @@ export function SchHeader(props: Props) {
           <Navbar.Brand className="d-none d-md-block" href="#" onClick={props.home}>Schedule V5</Navbar.Brand>
           <NavDropdown className="text-muted" title="More" id={id+"nav"}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
-            <STVBoundery><NavDropdown.Item onClick={()=>{ console.log('not added') }}>Email Counselor</NavDropdown.Item></STVBoundery>
+            <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>

@@ -44,10 +44,12 @@
   },
   "browserslist": "defaults and not ie >0 and not ie_mob >0",
   "scripts": {
-    "build": "parcel build",
+    "build": "parcel build --detailed-report",
     "dev": "parcel serve",
     "check": "tsc && eslint src",
-    "clean": "rimraf dist && rimraf .parcel-cache"
+    "clean": "rimraf dist && rimraf .parcel-cache",
+    "splash": "cd src && pwa-asset-generator ../icon.svg ./splashscreens --background #272727 --splash-only --dark-mode --index index.html --type png --padding \"calc(50vh - 10%) calc(50vw - 15%)\" && pwa-asset-generator ../icon.svg ./splashscreens --splash-only --index index.html --type png --padding \"calc(50vh - 10%) calc(50vw - 15%)\"", 
+    "fullbuild": "yarn splash && yarn build"
   },
   "packageManager": "yarn@3.2.0",
   "pwaManifest": {
@@ -56,12 +58,7 @@
     "startURL": "./",
     "theme": "#DC143C",
     "generateIconOptions": {
-      "baseIcon": "./icon.png",
-      "sizes": [
-        192,
-        384,
-        512
-      ],
+      "baseIcon": "./icon.svg",
       "genFavicons": true
     }
   },
@@ -76,7 +73,7 @@
     "@sentry/react": "^7.11.1",
     "@sentry/tracing": "^6.19.7",
     "@types/react-big-calendar": "^0.38.1",
-    "bootstrap": "^5.2.0-beta1",
+    "bootstrap": "^5.2.0",
     "browserslist": "^4.20.3",
     "copy-image-clipboard": "^2.1.2",
     "date-fns": "^2.28.0",
@@ -86,11 +83,12 @@
     "is-regexp": "^3.1.0",
     "keyboardjs": "^2.6.4",
     "pepjs": "^0.5.3",
-    "react": "^18.1.0",
+    "pwa-asset-generator": "^6.1.1",
+    "react": "^18.2.0",
     "react-big-calendar": "^1.5.0",
-    "react-bootstrap": "^2.4.0",
+    "react-bootstrap": "^2.5.0",
     "react-calendar": "^3.7.0",
-    "react-dom": "^18.1.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
     "react-use": "^17.4.0",

@@ -1,5 +1,5 @@
 import { ClassIDS, getTimeW, Time } from '../types';
-import '../types/schedules.types';
+import '../types/schedulesTypes';
 
 
 export type SCHCL = {

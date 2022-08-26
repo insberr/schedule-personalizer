@@ -55,7 +55,6 @@ export function Login(props: Props) {
                 console.log("valid credentioals");
 
                 api.getStudentInfo(username, password).then(res => {
-                    console.log(res);
                     setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
                 })
             } else {

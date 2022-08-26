@@ -8,7 +8,7 @@ import { useSchedule, ScheduleStorage } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import { isAfter, isBefore, isSameDay } from 'date-fns'
+import { isAfter, isBefore, isDate, isSameDay } from 'date-fns'
 import { StudentVueReloader } from "../../components/StudentVueReloader"
 
 //import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue, } from '../../storageManager';
@@ -146,19 +146,20 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     // Because the way JS works, this modifies the value of mergedSchedule.schedule.
     mergedSchedule.schedule.splice(indexOfLunchPeriod, 1, ...replacePeriodClassEntries);
 
-    return mergedSchedule; // For now, once we add the time stuff we can make this actually do something
+    return mergedSchedule;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDisplayDaySchedule(date: Date): SchedulesType {
     /* Day of the week schedule */
-    const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
     // ie. if its tuesday or thurseday its an advisory day or if its a weekend
+    const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
+    
     if (weekDaySchedule.length === 0) {
         console.log(`For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`);
         return defaultSchedule;
     }
-    return weekDaySchedule[0].schedule; // For now, once we add the time stuff we can make this actually do something
+    return weekDaySchedule[0].schedule;
 }
 
 function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule {
@@ -168,7 +169,7 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
     const displayDateEvents = scheduleEvents.filter(event => {
         let eventDate = event.info.date;
         if ((eventDate as DateRange).start !== undefined) {
-            eventDate = scheduleEventsDateRange(eventDate as DateRange, date) as Date;
+            eventDate = scheduleEventsDateRange(event.info.date as DateRange, date) as Date;
         }
 
         // to keep vscode from complaining
@@ -185,7 +186,7 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
     if (displayDateEvents.length > 1) console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
     if (displayDateEvents.length !== 0) return {
         isEvent: true,
-        schedule: displayDateEvents[0].schedule,
+        schedule: displayDateEvents[0]?.schedule || schedule,
         info: displayDateEvents[0].info
     };
 
@@ -200,7 +201,12 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
 }
 
 function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
-    if (isAfter(displayDate, sch[sch.length-1].endDate) || isBefore(displayDate, sch[0].startDate)) {
+    /*
+        If you go passed the first term or the last term, return a fake term
+        This prevents the site from crashing lol
+    */
+    if (isBefore(displayDate, sch[0].startDate) || isAfter(displayDate, sch[sch.length-1].endDate)) {
+        console.log('A fake term was created because there was no term for the current display date');
         return {
             isFake: true,
             termIndex: 0,
@@ -219,16 +225,12 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
     }
 
     let newTerm = sch.filter(term => {
-        return (
-            term.startDate.getTime() <= displayDate.getTime()
-        ) && (
-            term.endDate.getTime() >= displayDate.getTime()
-        )
+        return (isAfter(displayDate, term.startDate) || isSameDay(displayDate, term.startDate)) && (isBefore(displayDate, term.endDate) || isSameDay(displayDate, term.endDate))
     });
 
-    // If you go passed the first term or the last term, return a fake term
+    
     if (newTerm[0] === undefined) {
-        // console.log('newterm created')
+        console.log('newterm created')
         newTerm = [{ termIndex: 0, classes: [ { classID: ClassIDS.Period, period: 1, name: "", room: "", teacher: { name: "", email: "", id: "" } }], startDate: new Date(), endDate: new Date() }];
     }
     // console.log(newTerm[0])

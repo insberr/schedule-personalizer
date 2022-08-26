@@ -49,12 +49,12 @@ export function SchHeader(props: Props) {
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>
-                <Button variant="outline-crimson" key="back"  size="sm" onClick={ () => {
+                <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeSharp /></Button>
+                <Button variant="outline-crimson" key="back"  size="sm" style={{"marginLeft":"1em"}} onClick={ () => {
                     const newDate = new Date(props.displayDate);
                     newDate.setDate(props.displayDate.getDate() - 1);
                     props.setDisplayDate(newDate);
                 }}><VscArrowLeft /></Button>
-                <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } style={{"marginLeft":"1em"}} onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeSharp /></Button>
                 <OverlayTrigger rootClose={true} key="calendar" trigger="click" placement="bottom" overlay={calendar}><Button variant="outline-crimson" size="sm" style={{"marginLeft":"1em"}}><VscCalendar /></Button></OverlayTrigger>
                 <Button variant="outline-crimson" key="forward" size="sm" style={{"marginLeft":"1em"}} onClick={ () => {
                     const newDate = new Date(props.displayDate);
@@ -66,8 +66,8 @@ export function SchHeader(props: Props) {
             <a onClick={() => { props.setup(true) }}><VscSettingsGear className={"white-icon"}/></a>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
-      <Map sch={props.sch} show={map} close={()=>{setMap(false)}}/>
-      </>
+    </Navbar>
+    <Map sch={props.sch} show={map} close={()=>{setMap(false)}}/>
+    </>
   )
 }

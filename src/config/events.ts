@@ -1,3 +1,4 @@
+import { isAfter, isBefore, isSameDay } from "date-fns";
 import { SchedulesType, schedules } from "./schedules";
 
 // Bassically schedules.ts, but it's for events
@@ -8,7 +9,7 @@ export type DateRange = {
 };
 
 export type ScheduleEvent = {
-    schedule: SchedulesType;
+    schedule: SchedulesType | null;
     info: {
         date: Date | DateRange;
         message: string;
@@ -17,14 +18,8 @@ export type ScheduleEvent = {
 
 export type ScheduleEvents = ScheduleEvent[];
 
-export function scheduleEventsDateRange(
-    range: DateRange,
-    currentDate: Date
-): Date {
-    if (
-        range.start.getTime() <= currentDate.getTime() &&
-        range.end.getTime() >= currentDate.getTime()
-    ) {
+export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Date {
+    if ((isAfter(currentDate, range.start) || isSameDay(currentDate, range.start)) && (isBefore(currentDate, range.end) || isSameDay(currentDate, range.end))){
         return currentDate;
     } else {
         return range.start;
@@ -45,9 +40,9 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
-        schedule: schedules.normal,
+        schedule: null,
         info: {
-            message: "First Day Of School",
+            message: "First Day Of School - (Schedule Is Not Known Yet)",
             date: new Date("September 6, 2022"),
         },
     },

@@ -69,11 +69,12 @@ export function Login(props: Props) {
     async function Submit(attempt?: number) {
         setLoading(true)
         hideError();
-        
+
         /* This is here because of apple smh */
         if (attempt === undefined) attempt = 0;
 
-        if (validUser.loading) {
+        if (validUser.loading && attempt !== -1) {
+            if (attempt > 5) Submit(-1)
             setTimeout(() => {
                 Submit((attempt as number)++);
             }, 200);
@@ -97,7 +98,7 @@ export function Login(props: Props) {
             } else {
                 // TODO: change text input to red
                 //
-                setValidUser({ isValid: false, loading: true, name: "", school: "" });
+                setValidUser({ isValid: false, loading: false, name: "", school: "" });
             }
         }).catch(err => {
             // TODO: handle this error and send to sentry

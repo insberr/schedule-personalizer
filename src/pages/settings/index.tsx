@@ -121,7 +121,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <h2>Dev And Debug</h2>
                 <div>
                     <Button href="/editor">Event Editor (Devs only)</Button>
-                    <Button href="/testing">testing (Devs only)</Button>
+                    <Button href="/test">testing (Devs only)</Button>
                     <pre className="paper">
                         add debug info here
                     </pre>

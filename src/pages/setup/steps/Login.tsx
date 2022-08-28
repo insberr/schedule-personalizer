@@ -148,14 +148,14 @@ export function Login(props: Props) {
                     <Form.Control placeholder="Password" disabled={loading} type="password" onChange={ (e) => {setPassword(e.currentTarget.value)}} value={password} />
                 </Form.FloatingLabel>
             </Form.Group>
-            <div>TODO: Add signup for alert emails check box</div>
-            <Button disabled={loading} type="submit">
+            { /* TODO: Add signup for alert emails check box */ }
+            <Button variant='crimson' disabled={loading} type="submit">
                 { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
             </Button>
             <br /><br />
             <div>{ (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Please enter your username and password' }</div>
         </Form>
-    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="link" size="sm">Enter data manually (Recommended For Teachers)</Button>
+    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="crimson-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
     </Center></FadeIn>)
     // TODO: For enter manually we should add a "are you sure alert" also warning them that the lunch will not be auto detected.
 }

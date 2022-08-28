@@ -30,7 +30,8 @@ export enum ClassIDS {
     Dismissal,
     NoSchool,
     Weekend,
-    Summer
+    Summer,
+    Null, // This is used for the color customizations and NOTHING ELSE
 }
 
 export type Stdata = {
@@ -69,13 +70,18 @@ export type Time = {
 }
 
 
+export type RGBA = {
+    r: number
+    g: number
+    b: number
+    a: number
+}
 
 export type Colors = {
-    background: string
     schedule: {
-        [key in ClassIDS]: string
+        [key in ClassIDS]: RGBA
     }
-    currentClass: string
+    currentClass: RGBA
 }
 
 export type Keybinds = {

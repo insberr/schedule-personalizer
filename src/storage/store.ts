@@ -7,6 +7,7 @@ import customReducer, {reset as resetCustom} from './customizations';
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
+import { defaultCustomizations } from '../config/settings';
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -54,6 +55,10 @@ export type StorageData = {
 const migrations = {
     0: (state: any) => {
         return {...state, misc: { setUpComplete: false, rgbParty: false } } //ok
+    },
+    // added customizations
+    1: (state: any) => {
+        return {...state, customization: defaultCustomizations }
     }
 }
 
@@ -61,7 +66,7 @@ const migrations = {
 
 const persistConfig = {
     key: 'v5ReduxData',
-    version: 0,
+    version: 1,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

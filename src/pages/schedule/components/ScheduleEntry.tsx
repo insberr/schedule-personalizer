@@ -9,8 +9,10 @@ import Col from 'react-bootstrap/Col';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
-import {isAfter, isBefore, isWithinInterval} from "date-fns"
+import {isAfter, isBefore, isSameDay, isToday, isWithinInterval} from "date-fns"
 import * as lib from "../../../lib"
+import { useCustomizations } from "../../../storage/customizations";
+import { useCss } from 'react-use';
 
 type ScheduleEntryProps = {
     sch: Class[]
@@ -26,6 +28,8 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     const [open, setOpen] = useState(false);
     const [rgb, setRgb] = useState<string>("");
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
+    const customizations = useCustomizations();
+
     useEffect(() => {
         if (!doRGBParty) {
             setRgb("00000000");
@@ -38,17 +42,66 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             clearInterval(i);
         }
     },[doRGBParty])
+
     const [cdate, setcdate] = useState<Date>(new Date())
+    const [highlightPeriodColor, setHighlightPeriodColor] = useState({
+        'backgroundColor': 'rgba('+ Object.values(props.period.classID === ClassIDS.Null ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+    });
+
     useEffect(() => {
         const dt = setInterval(() => {
             setcdate(new Date())
         },1000)
+
         return () => {
             clearInterval(dt);
         }
     },[])
+
+    useEffect(() => {
+        if ([ClassIDS.Summer, ClassIDS.Weekend, ClassIDS.NoSchool].includes(props.period.classID)) {
+            if (props.period.classID !== ClassIDS.Null) {
+                setHighlightPeriodColor({
+                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+                });
+            } else {
+                setHighlightPeriodColor({
+                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
+                });
+            }
+            return;
+        }
+
+
+        // Somehow highlight the current period. THIS DOESNT WORK, I NEED HELP LOL
+        /*if (isAfter(new Date(), timeToDate(props.period.startTime)) && isBefore(new Date(), timeToDate(props.period.endTime))) {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
+            });
+            console.log(highlightPeriodColor)
+            return;
+        } else {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+            });
+        }
+        */
+
+        // FOR NOW
+        if (props.period.classID !== ClassIDS.Null) {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+            });
+        } else {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
+            });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [customizations])
+
     return (
-    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '')} style={{"backgroundColor": "#"+rgb }}>
+    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '') + (useCss(highlightPeriodColor)) } style={doRGBParty ? {"backgroundColor": "#"+rgb } : {}}>
     <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>

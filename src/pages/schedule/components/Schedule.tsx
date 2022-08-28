@@ -12,7 +12,7 @@ import { useScreenshot } from 'use-react-screenshot'
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-import * as api from '../../../studentVueAPI';
+import * as api from '../../../apis/studentvue/studentVueAPI';
 
 import { useStudentvue } from '../../../storage/studentvue';
 import { Col } from "react-bootstrap";
@@ -132,10 +132,6 @@ function Schedule(props: ScheduleProps) {
             </ToastContainer>
             <SchHeader sch={props.sch} home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
             <Center>
-                <br />
-                <br />
-                <br />
-                <br />
                 <div
                     ref={screenref}
                     style={{ backgroundColor: "var(--bg)", padding: "3em" }}

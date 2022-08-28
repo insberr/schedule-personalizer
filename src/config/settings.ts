@@ -42,23 +42,30 @@ export const termsDates: types.Terms = [
     { termIndex: 2, startDate: new Date("March 28, 2023"), endDate: lastDayOfSchool, classes: [] },
 ];
 
+
+const defaultColor: types.RGBA = {
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 0
+}
+
 export const defaultCustomizations: types.Customizations = {
     theme: {
         colors: {
-            background: '',
             schedule: {
-                [ClassIDS.Zero]: '',
-                [ClassIDS.Advisory]: '',
-                [ClassIDS.Period]: '',
-                [ClassIDS.Lunch]: '',
-                [ClassIDS.Arrival]: '',
-                [ClassIDS.Assembly]: '',
-                [ClassIDS.Dismissal]: '',
-                [ClassIDS.NoSchool]: '',
-                [ClassIDS.Weekend]: '',
-                [ClassIDS.Summer]: '',
+                [ClassIDS.Zero]: defaultColor,
+                [ClassIDS.Advisory]: defaultColor,
+                [ClassIDS.Period]: defaultColor,
+                [ClassIDS.Lunch]: defaultColor,
+                [ClassIDS.Arrival]: defaultColor,
+                [ClassIDS.Assembly]: defaultColor,
+                [ClassIDS.Dismissal]: defaultColor,
+                [ClassIDS.NoSchool]: defaultColor,
+                [ClassIDS.Weekend]: defaultColor,
+                [ClassIDS.Summer]: defaultColor,
             },
-            currentClass: '',
+            currentClass: defaultColor,
         },
     },
     keybinds: {

@@ -32,7 +32,7 @@ export const Demo = () => {
                     src="https://www.olympus-imaging.co.in/content/000107506.jpg"
                     style={{
                         'width': '80%', 'height': '80%',
-                        zoom: scale,
+                        'transform': `scale(${scale})`,
                     }}
                 />
             </div>

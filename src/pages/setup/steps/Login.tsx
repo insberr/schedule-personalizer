@@ -67,6 +67,9 @@ export function Login(props: Props) {
     }, 1000, [username, password])
 
     async function Submit(attempt?: number) {
+        setLoading(true)
+        hideError();
+        
         /* This is here because of apple smh */
         if (attempt === undefined) attempt = 0;
 
@@ -77,9 +80,6 @@ export function Login(props: Props) {
             return;
         }
         /* end of apple stupidness */
-
-        setLoading(true)
-        hideError();
 
         // Set username and password to local storage so we can use them later
         dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));

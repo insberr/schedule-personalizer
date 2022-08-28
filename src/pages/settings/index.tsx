@@ -43,7 +43,8 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             id="settingsPageTabs"
             activeKey={tab}
             onSelect={(k) => setTab(k)}
-            className="mb-3" style={{ 'marginLeft': '3rem', 'marginRight': '3rem'}}>
+            className="mb-3 crimsonTabs"
+            fill>
             <Tab eventKey="general" title="General">
                 <Center>
                     <h2>General</h2>

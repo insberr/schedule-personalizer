@@ -11,10 +11,10 @@ type props = {
 }
 export function Map(props: props) {
 
-    return (<Modal size="xl" show={props.show} onHide={props.close}>
-            <Modal.Header closeButton>
+    return (<Modal className="map" size="xl" show={props.show} onHide={props.close}>
+            <Modal.Header className="map" closeButton>
                 <Modal.Title>Map</Modal.Title>
             </Modal.Header>
-                <Modal.Body className={classes["map-model-body"]} style={{"backgroundColor":"white"}}><MP sch={props.sch}/></Modal.Body>
+                <Modal.Body className={'map ' + classes["map-model-body"]}><MP sch={props.sch}/></Modal.Body>
             </Modal>)
 }

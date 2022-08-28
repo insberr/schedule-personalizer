@@ -49,7 +49,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <Center>
                     <h2>General</h2>
                     <Stack gap={4}>
-                        <Button onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
+                        <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
@@ -120,6 +120,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <h2>Dev And Debug</h2>
                 <div>
                     <Button href="/editor">Event Editor (Devs only)</Button>
+                    <Button href="/editor">testing (Devs only)</Button>
                     <pre className="paper">
                         add debug info here
                     </pre>

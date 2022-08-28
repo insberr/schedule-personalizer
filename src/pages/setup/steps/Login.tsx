@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -42,13 +42,13 @@ export function Login(props: Props) {
         showError(false)
     }
 
-    useDebounce(async () => {
+    useDebounce(() => {
         if (username === "" || password === "") {
             setValidUser({ isValid: false, loading: false, name: "", school: "" })
             return
         }
 
-        await api.validateCredentials(username, password).then(res => {
+        api.validateCredentials(username, password).then(res => {
             if (res) {
                 // change text input to green
                 // 
@@ -61,12 +61,23 @@ export function Login(props: Props) {
                 // change text input to red
                 //
                 console.log('invalid credentials');
-                setValidUser({ isValid: false, loading: true, name: "", school: "" });
+                setValidUser({ isValid: false, loading: false, name: "", school: "" });
             }
         }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
     }, 1000, [username, password])
 
     async function Submit(attempt?: number) {
+        /* This is here because of apple smh */
+        if (attempt === undefined) attempt = 0;
+
+        if (validUser.loading) {
+            setTimeout(() => {
+                Submit((attempt as number)++);
+            }, 200);
+            return;
+        }
+        /* end of apple stupidness */
+
         setLoading(true)
         hideError();
 
@@ -96,17 +107,11 @@ export function Login(props: Props) {
 
         // Initial validation check
         if (validUser.isValid === false) {
-
-            // This is because of apple autofill that automatically clicks the login button immediatly and for some reason that causes a problem
-            if (attempt === undefined) {
-                Submit(1);
-                return;
-            }
             doError("There was an error logging in. Make sure the credentials are correct or try again later.");
             setLoading(false);
             return;
         }
-
+        
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
         await api.getAllSchedules(username, password).then(res => {
@@ -136,22 +141,25 @@ export function Login(props: Props) {
         props.setStage(69);
     }
 
-    return (<FadeIn><Center className="full-center mt-5">
-        <h1>Login with StudentVue</h1>
+    return (<FadeIn>
+        <Center className="full-center mt-5">
+            <h1>Login with StudentVue</h1>
+            <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
+                {error}
+            </Alert>
+        
         <br />
-        <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
-            {error}
-        </Alert>
+        
         <br />
-        <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit() }}>
+        <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit(); }}>
             <Form.Group className="mb-3">
                 <Form.FloatingLabel controlId={id+"username"} label="Username">
-                    <Form.Control placeholder="Username" disabled={loading} onChange={ (e) => { setUsername(e.currentTarget.value) } } value={username} />
+                    <Form.Control required placeholder="Username" disabled={loading} onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setUsername(e.currentTarget.value) } } value={username} />
                 </Form.FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.FloatingLabel controlId={id+"password"} label="Password">
-                    <Form.Control placeholder="Password" disabled={loading} type="password" onChange={ (e) => {setPassword(e.currentTarget.value)}} value={password} />
+                    <Form.Control required placeholder="Password" disabled={loading} type="password" onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setPassword(e.currentTarget.value)}} value={password} />
                 </Form.FloatingLabel>
             </Form.Group>
             { /* TODO: Add signup for alert emails check box */ }
@@ -159,7 +167,7 @@ export function Login(props: Props) {
                 { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
             </Button>
             <br /><br />
-            <div>{ (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Please enter your username and password' }</div>
+            <div>{ (username === '' || password === '') ? 'Please enter your username and password' : (validUser.loading) ? 'Loading...' : (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Invalid Credentails' }</div>
         </Form>
     <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="crimson-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
     </Center></FadeIn>)

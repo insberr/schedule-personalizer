@@ -10,7 +10,7 @@ import { Terms, emptyCL } from '../../../types';
 import { FadeIn } from '../components/FadeIn';
 //import { StorageQuery, setV5Data } from '../../../storageManager';
 
-import * as api from '../../../studentVueAPI';
+import * as api from '../../../apis/studentvue/studentVueAPI';
 import * as settings from '../../../config/settings';
 import { useDispatch } from 'react-redux';
 import { setStudentVueData, setGotSchedules } from '../../../storage/studentvue';

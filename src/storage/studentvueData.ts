@@ -1,6 +1,6 @@
 import { RootState } from "./store"
 import { deserify } from "@karmaniverous/serify-deserify"
-import { StudentVueAPIData as schTypes, StudentVueAPIDataUserDate as infoTypes } from "../studentVueAPI"
+import { StudentVueAPIData as schTypes, StudentVueAPIDataUserDate as infoTypes } from "../apis/studentvue/studentVueAPI"
 
 export type StvDataStorage = {
     info: infoTypes | null, // i beg of you, create types for these, i beg

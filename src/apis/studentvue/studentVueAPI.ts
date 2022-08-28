@@ -1,26 +1,10 @@
-import { Terms, emptyCL, ClassIDS } from "./types";
-import * as settings from "./config/settings";
-import { courseTitleNameCase, toTitleCase } from "./lib";
-
-const apiURL = settings.studentVueApiURL.endsWith('/') ? settings.studentVueApiURL.slice(0, -1) : settings.studentVueApiURL;
-
-function generateFetch(username: string, password: string): RequestInit {
-    return {
-        body: JSON.stringify({
-            username, password
-        }),
-        method: "POST",
-
-    }
-}
+import { Terms, emptyCL, ClassIDS } from "../../types";
+import * as settings from "../../config/settings";
+import { courseTitleNameCase, toTitleCase } from "../../lib";
+import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from "./api"
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
-    const response = await fetch(apiURL + "/validate", generateFetch(username, password));
-    const data = await response.json();
-    if (data.code !== "SUCCESS") {
-        return false;
-    }
-    return true; // data;
+    return await validate(username, password); // mm
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
@@ -112,28 +96,36 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 }
 
 export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
-    const data: StudentVueAPIData = await (await fetch(apiURL + "/get_all_schedules", generateFetch(username, password))).json();
-    if (data.code != "SUCCESS") {
-        // Change this so it doesnt stop the login process and just show a UI error to the user and use the defauklt schedule details
-        throw new Error(data.content.code + ": " + data.content.error);
+    const schs = await Promise.all([
+        StudentClassList(username, password, 0),
+        StudentClassList(username, password, 1),
+        StudentClassList(username, password, 2),
+    ])
+    if (!(isError(schs[0]) || isError(schs[1]) || isError(schs[2]))) {
+        const sch = schs.map((s) => s["StudentClassSchedule"]["ClassLists"]["ClassListing"])
+        const fullsch = schs[0]
+        fullsch["StudentClassSchedule"]["ClassLists"] = sch
+        return {"code": "SUCCESS", "content":fullsch["StudentClassSchedule"]}
+    } else {
+        throw new Error(schs[0].RT_ERROR.ERROR_MESSAGE)
     }
-    return data;
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getStudentInfo(username: string, password: string): Promise<StudentVueAPIDataUserDate> {
-    const data = await (await fetch(apiURL + "/get_student_info", generateFetch(username, password))).json();
-    if (data.code != "SUCCESS") {
-        throw new Error(data.content.code + ": " + data.content.error);
+    const info = await StudentInfo(username, password);
+    if (!isError(info)) {
+        return {"code": "SUCCESS", "content":info["StudentInfo"]}
+    } else {
+        throw new Error(info.RT_ERROR.ERROR_MESSAGE)
     }
-    return data
 }
 
 export async function getSchoolInfo(username: string, password: string): Promise<unknown> {
-    const data = await (await fetch(apiURL + "/get_school_info", generateFetch(username, password))).json();
-    if (data.code != "SUCCESS") {
-        throw new Error(data.content.code + ": " + data.content.error);
+    const info = await StudentSchoolInfo(username, password);
+    if (!isError(info)) {
+        return {"code": "SUCCESS", "content":info["StudentSchoolInfoListing"]}
+    } else {
+        throw new Error(info.RT_ERROR.ERROR_MESSAGE)
     }
-    return data
 }

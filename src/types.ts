@@ -68,22 +68,32 @@ export type Time = {
     seconds?: number
 }
 
+
+
 export type Colors = {
-    currentClass: string
-    zeroHour: string
-    lunch: string
-    normalClass: string
-    dismissal: string
-    arrival: string
     background: string
+    schedule: {
+        [key in ClassIDS]: string
+    }
+    currentClass: string
+}
+
+export type Keybinds = {
+    goForwardOneDay: string
+    goBackOneDay: string
+    goToToday: string
 }
 
 export type Customizations = {
     theme: {
-        colors: Colors | Record<string, string>
+        colors: Colors
+
     }
+    keybinds: Keybinds
     showInfoOnSchedule: boolean
 }
+
+
 
 export function dateToTime(d: Date): Time {
     return {
@@ -155,5 +165,3 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
 }
 
 // STAGES TYPES END
-
-

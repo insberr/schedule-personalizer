@@ -2,7 +2,7 @@
 import { format, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "./types";
 
-import * as api from './studentVueAPI';
+import * as api from './apis/studentvue/studentVueAPI';
 
 
 export function getCurrentTerm (t: Stdata, d?: Date): number {

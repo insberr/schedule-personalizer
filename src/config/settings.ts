@@ -13,14 +13,13 @@ export const normalLunchBasedOnPeriod = 3;
 // If no api url is provided, then the studentvue login page will not be shown in setup [IMPLEMENT THIS]
 export const studentVueApiURL = 'https://studentvue.wackery.com';
 
+export const studentvueAPIEndpoint = 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx';
 // The period number that studentvue uses for advisory
 export const studentVueAdvisoryPeriod = 8;
 
 // While site is loaded refresh from studentvue afetr this much time in milliseconds
 // setting it to a value less than 5 minutes is just cringe
-export const studentvueRefreshInterval = 10 * 60 * 1000; // 10 minutes
-// When the page is loading, refresh from studentvue if its been this long since the last refresh
-export const studentvueRefreshOnLoad = 1 * 60 * 60 * 1000; // 1 hour
+export const studentvueRefreshInterval = 2 * 60 * 1000; // 10 minutes
 
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';
@@ -37,34 +36,35 @@ export const lastDayOfSchool = new Date('June 23, 2023');
 // Terms
 // This is also used to determine the number of terms in the school year
 // This valuse is REQUIRED else there will be an error
-// I DID NOT WRITE THE DATES ACCURATE PLEASE CAHNGE THEM LATER
 export const termsDates: types.Terms = [
     { termIndex: 0, startDate: new Date("September 6, 2022"), endDate: new Date("December 6, 2022"), classes: [] },
     { termIndex: 1, startDate: new Date("December 8, 2022"), endDate: new Date("March 27, 2023"), classes: [] },
     { termIndex: 2, startDate: new Date("March 28, 2023"), endDate: lastDayOfSchool, classes: [] },
 ];
 
-export const defaultCustomizations = {
+export const defaultCustomizations: types.Customizations = {
     theme: {
-        backgroundColor: '#ffffff',
-        schedule: {
-            backgroundColor: '#ffffff',
-            classColors: {
-                [ClassIDS.Zero]: '#ffffff',
-                [ClassIDS.Advisory]: '#ffffff',
-                [ClassIDS.Period]: '#ffffff',
-                [ClassIDS.Lunch]: '#ffffff',
-                [ClassIDS.Arrival]: '#ffffff',
-                [ClassIDS.Assembly]: '#ffffff',
-                [ClassIDS.Dismissal]: '#ffffff',
-                [ClassIDS.NoSchool]: '#ffffff',
-                [ClassIDS.Weekend]: '#ffffff',
-                current: '#ffffff',
+        colors: {
+            background: '',
+            schedule: {
+                [ClassIDS.Zero]: '',
+                [ClassIDS.Advisory]: '',
+                [ClassIDS.Period]: '',
+                [ClassIDS.Lunch]: '',
+                [ClassIDS.Arrival]: '',
+                [ClassIDS.Assembly]: '',
+                [ClassIDS.Dismissal]: '',
+                [ClassIDS.NoSchool]: '',
+                [ClassIDS.Weekend]: '',
+                [ClassIDS.Summer]: '',
             },
+            currentClass: '',
         },
     },
-    keyboardShortcuts: {
-        //
+    keybinds: {
+        goBackOneDay: 'ArrowLeft',
+        goForwardOneDay: 'ArrowRight',
+        goToToday: 't',
     },
     showInfoOnSchedule: true,
 }

@@ -5,10 +5,7 @@ import { RootState } from "../../storage/store";
 import { setRgbParty } from "../../storage/misc";
 import { useKeyboardShortcut } from "../../hooks";
 import { useStudentvue } from "../../storage/studentvue";
-import { studentvueRefreshInterval, defaultCustomizations } from '../../config/settings'
-import useSWR from 'swr'
-import { getAllSchedules, getStudentInfo } from '../../studentVueAPI'
-import {STVBoundery}from '../../components/STVBoundery'
+import { defaultCustomizations } from '../../config/settings'
 import { Manual } from "../setup/steps/Manual";
 import { useState } from "react";
 import { Terms } from "../../types";
@@ -17,21 +14,12 @@ import Center from "../../components/Center";
 import { Form } from "react-bootstrap";
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
-    const sch = useSchedule();
+    // const sch = useSchedule();
     const stv = useStudentvue();
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
 
     const [editManually, setEditManually] = useState(false);
     const dispatch = useDispatch()
-    function swrCreate(t: string) {
-        if (stv.isLoggedIn) {
-            return [stv.username, stv.password, t]
-        } else {
-            return false
-        }
-    }
-    const { mutate: mutateStudentInfo, isValidating: is1 } = useSWR(swrCreate('studentinfo'), getStudentInfo, { refreshInterval: studentvueRefreshInterval })
-    const { mutate: mutateSchedule, isValidating: is2 } = useSWR<any | null, any>(swrCreate('schedule'), getAllSchedules, { refreshInterval: studentvueRefreshInterval })
     useKeyboardShortcut("shift + r + g + b", () => {
         dispatch(setRgbParty(!doRGBParty))
     })
@@ -50,12 +38,6 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
         <br />
         <Button onClick={()=>{ location.reload() }}>Reload</Button>
         <br />
-        <STVBoundery>
-            <Button onClick={()=>{
-                mutateStudentInfo()
-                mutateSchedule()
-            }} disabled={is1||is2}> {is1||is2 ? "Loading..." : "Force StudentVue Data Refresh"}</Button>
-        </STVBoundery>
         <br /><br />
         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
         <br />
@@ -70,7 +52,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             <h3>Customizations</h3>
             <span>Schedule colors</span>
             <div className="hidden">
-                { Object.entries(defaultCustomizations.theme.schedule.classColors).map((c, i) => {
+                { Object.entries(defaultCustomizations.theme.colors.schedule).map((c, i) => {
                     return (<Form.Group key={i+"scheduleClassColors"} className='mb-3'>
                         <Form.FloatingLabel controlId={i+"scheduleClassColorsForm"} label="color customization">
                             <Form.Control value={c[1]} onChange={() => { console.log('something') }} placeholder={c[0].toString()} />

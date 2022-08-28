@@ -3,9 +3,10 @@ import scheduleReducer, {reset as resetSchedule} from './schedule';
 import studentvueReducer, {reset as resetStudentvue} from './studentvue';
 import miscReducer, {reset as resetMisc} from './misc';
 import stvReducer, {reset as resetStv} from './studentvueData';
+import customReducer, {reset as resetCustom} from './customizations';
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
-import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -50,11 +51,20 @@ export type StorageData = {
     setUpComplete: boolean
 }
 
+const migrations = {
+    0: (state: any) => {
+        return {...state, misc: { setUpComplete: false, rgbParty: false } } //ok
+    }
+}
+
+
+
 const persistConfig = {
     key: 'v5ReduxData',
-    version: 5,
+    version: 0,
     storage,
-    blacklist: []
+    blacklist: [],
+    migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),
 }
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({
@@ -62,6 +72,7 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     studentvue: studentvueReducer,
     misc: miscReducer,
     stv: stvReducer,
+    customization: customReducer
 }))
 
 
@@ -83,6 +94,7 @@ export const resetStorage = () => {
         store.dispatch(resetStudentvue())
         store.dispatch(resetMisc())
         store.dispatch(resetStv())
+        store.dispatch(resetCustom())
     })
     
 }

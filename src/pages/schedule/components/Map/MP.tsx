@@ -1,5 +1,5 @@
 //@ts-expect-error cirn
-import _map from "./map.svg"
+import _map from "../../../../config/sorta_updated_map.svg"
 import { Pin } from "./Pin";
 import { mapLocations, Location } from "../../../../config/mapLocation";
 import { useState, useRef, useEffect } from 'react';

@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { setSch, enableSTV, setInfo, disableSTV } from '../storage/studentvueData'
-import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getStudentInfo } from '../studentVueAPI'
+import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getStudentInfo } from '../apis/studentvue/studentVueAPI'
 import {setGotSchedules, useStudentvue} from '../storage/studentvue'
 import {setTerms} from '../storage/schedule'
 import {studentvueRefreshInterval} from '../config/settings';
@@ -18,8 +18,8 @@ export function StudentVueReloader() {
             return false
         }
     }
-    const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, { refreshInterval: studentvueRefreshInterval })
-    const { data: scheduleData, error: scheduleError } = useSWR(swrCreate('schedule'), getAllSchedules, { refreshInterval: studentvueRefreshInterval })
+    const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, { revalidateOnFocus: false, refreshInterval: studentvueRefreshInterval })
+    const { data: scheduleData, error: scheduleError } = useSWR(swrCreate('schedule'), getAllSchedules, { revalidateOnFocus: false, refreshInterval: studentvueRefreshInterval })
     const dispatch = useDispatch()
     useEffect(() => {
         if (scheduleData) {

@@ -35,7 +35,7 @@ export function Features(props: Props) {
             if (disappear) {
                 setTimeout(() => {
                     props.setStage(420)
-                },500)
+                }, 300)
             }
         }
     })
@@ -57,16 +57,17 @@ export function Features(props: Props) {
         delay: 0
     })
 
-    useChain(disappear ? [buttonapi ,newsapi,tapi] : [tapi, newsapi, buttonapi], [0,0.25,0.5])
-    return (
-    <div className="text-center full-center">
-        <animated.span style={title}><h2>Features And Whats New?</h2></animated.span>
-        <ul style={{"listStyleType": "none", "margin":0, "marginTop": "1em", "padding":0}}>
-        { news((style, item) => {
-            return <li><animated.span style={style}>{item}</animated.span></li>
-        })}
-        </ul>
-        <br />
-        <animated.span style={button}><Button variant='crimson' disabled={disappear} onClick={()=>{ setDisappear(true) }}>Continue</Button></animated.span>
-    </div>)
+    useChain(disappear ? [buttonapi, newsapi, tapi] : [tapi, newsapi, buttonapi], [0,0.25,0.5])
+    return (<>
+        <div className="text-center full-center">
+            <animated.h2 style={title}><h2>Features And Whats New?</h2></animated.h2>
+            <ul style={{"listStyleType": "none", "margin":0, "marginTop": "1em", "padding":0}}>
+            { news((style, item) => {
+                return <li><animated.span style={style}>{item}</animated.span></li>
+            })}
+            </ul>
+            <br />
+            <animated.span style={button}><Button variant='crimson' disabled={disappear} onClick={()=>{ setDisappear(true) }}>Continue</Button></animated.span>
+        </div>
+    </>)
 }

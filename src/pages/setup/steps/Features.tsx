@@ -67,6 +67,6 @@ export function Features(props: Props) {
         })}
         </ul>
         <br />
-        <animated.span style={button}><Button disabled={disappear} onClick={()=>{ setDisappear(true) }}>Continue</Button></animated.span>
+        <animated.span style={button}><Button variant='crimson' disabled={disappear} onClick={()=>{ setDisappear(true) }}>Continue</Button></animated.span>
     </div>)
 }

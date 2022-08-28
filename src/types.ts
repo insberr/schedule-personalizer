@@ -82,6 +82,7 @@ export type Colors = {
         [key in ClassIDS]: RGBA
     }
     currentClass: RGBA
+    scheduleFrame: RGBA
 }
 
 export type Keybinds = {

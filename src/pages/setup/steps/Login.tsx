@@ -42,13 +42,13 @@ export function Login(props: Props) {
         showError(false)
     }
 
-    useDebounce(() => {
+    useDebounce(async () => {
         if (username === "" || password === "") {
             setValidUser({ isValid: false, loading: false, name: "", school: "" })
             return
         }
 
-        api.validateCredentials(username, password).then(res => {
+        await api.validateCredentials(username, password).then(res => {
             if (res) {
                 // change text input to green
                 // 
@@ -66,7 +66,7 @@ export function Login(props: Props) {
         }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
     }, 1000, [username, password])
 
-    async function Submit() {
+    async function Submit(attempt?: number) {
         setLoading(true)
         hideError();
 
@@ -96,6 +96,12 @@ export function Login(props: Props) {
 
         // Initial validation check
         if (validUser.isValid === false) {
+
+            // This is because of apple autofill that automatically clicks the login button immediatly and for some reason that causes a problem
+            if (attempt === undefined) {
+                Submit(1);
+                return;
+            }
             doError("There was an error logging in. Make sure the credentials are correct or try again later.");
             setLoading(false);
             return;

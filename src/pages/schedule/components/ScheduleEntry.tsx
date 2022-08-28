@@ -20,6 +20,7 @@ type ScheduleEntryProps = {
     period: Class
     mini: boolean,
     viewDate: Date,
+    isForCustomizations?: boolean
 }
 
 // Making this look better will be fun : )
@@ -45,7 +46,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
 
     const [cdate, setcdate] = useState<Date>(new Date())
     const [highlightPeriodColor, setHighlightPeriodColor] = useState({
-        'backgroundColor': 'rgba('+ Object.values(props.period.classID === ClassIDS.Null ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+        'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
     });
 
     useEffect(() => {
@@ -59,20 +60,35 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     },[])
 
     useEffect(() => {
+        if (props.period.teacher.id === 'currentClassColorOverride' || props.isForCustomizations) {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+            });
+            return;
+        }
+
         if ([ClassIDS.Summer, ClassIDS.Weekend, ClassIDS.NoSchool].includes(props.period.classID)) {
-            if (props.period.classID !== ClassIDS.Null) {
-                setHighlightPeriodColor({
-                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
-                });
-            } else {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+            });
+            return;
+        }
+
+        if (isSameDay(props.viewDate, new Date())) {
+            // check if the period time is the same
+
+            // TODO: add checking for if the times are the same
+            // TODO: add check if the period before ended and this one is about to start
+            if (isAfter(new Date(), timeToDate(props.period.startTime)) && isBefore(new Date(), timeToDate(props.period.endTime))) {
                 setHighlightPeriodColor({
                     'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
                 });
             }
-            return;
+        } else {
+            setHighlightPeriodColor({
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+            });
         }
-
-
         // Somehow highlight the current period. THIS DOESNT WORK, I NEED HELP LOL
         /*if (isAfter(new Date(), timeToDate(props.period.startTime)) && isBefore(new Date(), timeToDate(props.period.endTime))) {
             setHighlightPeriodColor({
@@ -86,17 +102,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             });
         }
         */
-
-        // FOR NOW
-        if (props.period.classID !== ClassIDS.Null) {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
-            });
-        } else {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
-            });
-        }
+        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [customizations])
 
@@ -124,7 +130,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                         }) &&
                     <div className="innerbox">
                         { props.period.name || formatClassPeriodName(props.period) } ends in
-                        <Timer hidden={!open} basedDate={props.viewDate} time={props.period.startTime} />
+                        <Timer hidden={!open} basedDate={props.viewDate} time={props.period.endTime} />
                     </div>
                 }
                 { isAfter(cdate, timeToDate(props.period.endTime,props.viewDate)) &&

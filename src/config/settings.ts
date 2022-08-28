@@ -64,7 +64,6 @@ export const defaultCustomizations: types.Customizations = {
                 [ClassIDS.NoSchool]: defaultColor,
                 [ClassIDS.Weekend]: defaultColor,
                 [ClassIDS.Summer]: defaultColor,
-                [ClassIDS.Null]: defaultColor,
             },
             currentClass: defaultColor,
             scheduleFrame: defaultColor,

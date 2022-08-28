@@ -31,7 +31,6 @@ export enum ClassIDS {
     NoSchool,
     Weekend,
     Summer,
-    Null, // This is used for the color customizations and NOTHING ELSE
 }
 
 export type Stdata = {

@@ -22,10 +22,19 @@ export type SchedulesType = {
     classes: SCHCL[],
     lunch: {
         hasLunch: boolean,
-        basedOnPeriod?: number,
+        basedOnPeriod?: number | number[],
         numberOfLunches?: number,
         lunches?: {
             [key: number]: Lunch
+        }
+
+        /* DOES NOT WORK YET */
+        isMultiLunch?: boolean,
+        multiLunches?: {
+            /// <basedOnPeriod>: { <lunch>: { order: [] } }
+            [key: number]: {
+                [key: number]: Lunch
+            }
         }
     },
 }
@@ -234,7 +243,59 @@ export const schedules: Schedules = {
         lunch: {
             hasLunch: false,
         }
-    }
+    },
+
+    /* DOES NOT WORK YET */
+    testMuliLunch: {
+        name: 'Normal',
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
+            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(8, 50), endTime: getTimeW(9, 55) },
+            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(9, 55), endTime: getTimeW(11, 40) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(11, 45), endTime: getTimeW(12, 55) },
+            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 0), endTime: getTimeW(14, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
+        ],
+        lunch: {
+            hasLunch: true,
+            isMultiLunch: true,
+            basedOnPeriod: [3, 4],
+            numberOfLunches: 3,
+            multiLunches: {
+                3: {
+                    1: { order: [
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(9, 55), endTime: getTimeW(10, 25) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 30), endTime: getTimeW(11, 40) }
+                    ]},
+                    2: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(10, 30) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(10, 30), endTime: getTimeW(11, 0) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 5), endTime: getTimeW(11, 40) }
+                    ]},
+                    3: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(11, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
+                    ]},
+                },
+                4: {
+                    1: { order: [
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 40), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(12, 15), endTime: getTimeW(12, 55) }
+                    ]},
+                    2: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 15), endTime: getTimeW(12, 30) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
+                    ]},
+                    3: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
+                    ]},
+                }
+            }
+        }
+    },
 }
 
 /*

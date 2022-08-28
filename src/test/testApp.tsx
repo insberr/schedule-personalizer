@@ -3,7 +3,7 @@ import { usePinchZoom } from "react-use";
 import Center from "../components/Center";
 
 export const Demo = () => {
-    const [scale, setState] = useState(0);
+    const [scale, setState] = useState(1);
     const scaleRef = useRef<HTMLDivElement>(null);
     const { zoomingState, pinchState } = usePinchZoom(scaleRef);
 

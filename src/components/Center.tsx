@@ -23,7 +23,7 @@ function Center(props: CenterProps) {
     return (
         <div
             className={
-                "d-flex text-center justify-content-center vw-100 " +
+                "d-flex text-center justify-content-center vw-100" +
                 (props.className ? props.className : "")
             }
         >

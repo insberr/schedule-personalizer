@@ -1,20 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import { usePinchZoom } from "react-use";
+import Button from 'react-bootstrap/Button'
+import { useLockBodyScroll, usePinchZoom, useToggle } from "react-use";
 import Center from "../components/Center";
 
 export const Demo = () => {
-    const [scale, setState] = useState(1);
+    const [scale, setScale] = useState(1);
     const scaleRef = useRef<HTMLDivElement>(null);
     const { zoomingState, pinchState } = usePinchZoom(scaleRef);
+    
+    const [locked, toggleLocked] = useToggle(false)
 
+    useLockBodyScroll(locked);
+    
     useEffect(() => {
         
-        if (zoomingState === "ZOOM_IN") {
+        if (scale < 0.05) return setScale(0.05);
+
+        if (zoomingState === "ZOOMING_IN") {
             // perform zoom in scaling
-            setState(scale + 0.1)
-        } else if (zoomingState === "ZOOM_OUT") {
+            setScale(scale + 0.01)
+        } else if (zoomingState === "ZOOMING_OUT") {
             // perform zoom out in scaling
-            setState(scale - 0.1)
+            setScale(scale - 0.01)
         }
     }, [zoomingState, pinchState]);
 
@@ -25,18 +32,20 @@ export const Demo = () => {
             Pinch: { JSON.stringify(pinchState, null, 2) }
             { '\n' }
             Zoom: { JSON.stringify(zoomingState, null, 2) }
+            { '\n' }
+            Scale: { scale }
         </pre>
-        <Center>
-            <div ref={scaleRef}>
-                <img
-                    src="https://www.olympus-imaging.co.in/content/000107506.jpg"
-                    style={{
-                        'width': '80%', 'height': '80%',
-                        'transform': `scale(${scale})`,
-                    }}
-                />
-            </div>
-        </Center>
+        <Button onClick={() => toggleLocked()}>
+            {locked ? 'Unlock' : 'Lock'}
+        </Button>
+        <div ref={scaleRef} style={{ 'border': '2px solid red' }}>
+            <img
+                src="https://www.olympus-imaging.co.in/content/000107506.jpg"
+                style={{
+                    'zoom': scale,
+                }}
+            />
+        </div>
         </>
     )
 }

@@ -1,38 +1,43 @@
-import { precacheAndRoute } from 'workbox-precaching';
-import { setCacheNameDetails } from 'workbox-core';
+import { precacheAndRoute } from "workbox-precaching";
+import { setCacheNameDetails } from "workbox-core";
 
 type preCacheManifestEntry = {
     url: string;
-    revision: string
-}
+    revision: string;
+};
 
 setCacheNameDetails({
     prefix: "schedule-personalizer",
-    suffix: "v5"
-})
+    suffix: "v5",
+});
 
 // @ts-expect-error cringe
-const manifest: preCacheManifestEntry[] = self.__precacheManifest
+const manifest: preCacheManifestEntry[] = self.__precacheManifest;
 
 precacheAndRoute(manifest); // yoo caching
 
-self.addEventListener('message', (event) => {   
+self.addEventListener("message", (event) => {
     const msg = event.data;
     console.log("SW Received Message: " + msg);
-        if (msg === 'clearCache') {
-            console.log('Clearing Workbox Cache.');
-            const registration = new ServiceWorkerRegistration();
-            if ('serviceWorker' in navigator) {
-                registration.unregister();
-                caches.keys().then(cacheNames => {
-                  cacheNames.forEach(cacheName => {
-                    caches.delete(cacheName);
-                  });
-                }).then(() => {
-                  registration.update();
+    if (msg === "clearCache") {
+        console.log("Clearing Workbox Cache.");
+        const registration = new ServiceWorkerRegistration();
+        if ("serviceWorker" in navigator) {
+            registration.unregister();
+            caches
+                .keys()
+                .then((cacheNames) => {
+                    cacheNames.forEach((cacheName) => {
+                        caches.delete(cacheName);
+                    });
                 })
-              }
-              console.log('serviceWorker' in navigator)
-              setTimeout(function () { window.location.replace(""); }, 300)
+                .then(() => {
+                    registration.update();
+                });
+        }
+        console.log("serviceWorker" in navigator);
+        setTimeout(function () {
+            window.location.reload();
+        }, 300);
     }
 });

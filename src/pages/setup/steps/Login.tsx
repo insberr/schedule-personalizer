@@ -66,27 +66,15 @@ export function Login(props: Props) {
         }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
     }, 1000, [username, password])
 
-    async function Submit(attempt?: number) {
+    async function Submit() {
         setLoading(true)
         hideError();
-
-        /* This is here because of apple smh */
-        if (attempt === undefined) attempt = 0;
-
-        if (validUser.loading && attempt !== -1) {
-            if (attempt > 5) Submit(-1)
-            setTimeout(() => {
-                Submit((attempt as number)++);
-            }, 200);
-            return;
-        }
-        /* end of apple stupidness */
 
         // Set username and password to local storage so we can use them later
         dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
 
         // Validate user credentials to make sure the login info is correct
-        await api.validateCredentials(username, password).then(res => {
+        const validCreds = await api.validateCredentials(username, password).then(res => {
             if (res) {
                 // TODO: change text input to green
                 // 
@@ -95,27 +83,29 @@ export function Login(props: Props) {
                 api.getStudentInfo(username, password).then(res => {
                     setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
                 })
+                return true;
             } else {
                 // TODO: change text input to red
                 //
                 setValidUser({ isValid: false, loading: false, name: "", school: "" });
+                console.log('invalid credentials');
+                return false;
             }
         }).catch(err => {
             // TODO: handle this error and send to sentry
             console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
             doError('Failed to validate user credentials: ' + err);
+            return false;
         });
 
-        // Initial validation check
-        if (validUser.isValid === false) {
-            doError("There was an error logging in. Make sure the credentials are correct or try again later.");
+        if (!validCreds) {
             setLoading(false);
             return;
         }
         
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
-        await api.getAllSchedules(username, password).then(res => {
+        api.getAllSchedules(username, password).then(res => {
             dispatch(setGotSchedules(true))
             props.setSchedule(api.convertStudentvueDataToTerms(res));
             // change it to this, i think its better
@@ -143,7 +133,7 @@ export function Login(props: Props) {
     }
 
     return (<FadeIn>
-        <Center className="full-center mt-5">
+        <Center className="full-center">
             <h1>Login with StudentVue</h1>
             <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
                 {error}
@@ -172,5 +162,4 @@ export function Login(props: Props) {
         </Form>
     <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="crimson-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
     </Center></FadeIn>)
-    // TODO: For enter manually we should add a "are you sure alert" also warning them that the lunch will not be auto detected.
 }

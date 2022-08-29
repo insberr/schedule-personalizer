@@ -120,7 +120,7 @@ function Schedule(props: ScheduleProps) {
                         <small>Just Now</small>
                     </Toast.Header>
                     <Toast.Body>
-                        { imageCopiedToClipboard ? 'The image has been copied to your clipboard.' : 'Copy the image below and save it' }
+                        { imageCopiedToClipboard ? 'The image has been copied to your clipboard.' : <><a href={image} datatype="png" download>Download</a> the image below and save it</> } 
                         <img
                             src={image}
                             className="rounded me-2"

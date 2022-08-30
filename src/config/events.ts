@@ -42,7 +42,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "First Day Of School - (Schedule Is Not Known Yet)",
+            message: "First Day Of School - (Schedule and Lunches Are Not Known Yet)",
             date: new Date("September 6, 2022"),
         },
     },

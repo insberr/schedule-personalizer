@@ -1,4 +1,5 @@
 import * as types from '../types/lunchesTypes';
+// import { teachers } from './config/teachers';
 
 // maybe something like
 export const lunches: types.LunchesType = [
@@ -7,6 +8,7 @@ export const lunches: types.LunchesType = [
         lunches: [
             {
                 lunch: 1,
+                // TODO: change to teachers: [ teachers.Last_First ]
                 teacherIDs: [
                     "642183792JHGKJ-HGKJH87697",
                     ""

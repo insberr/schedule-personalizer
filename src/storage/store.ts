@@ -62,17 +62,50 @@ const migrations = {
         return {...state, customization: defaultCustomizations }
     },
     2: (state: any) => {
+        console.log(state.customization);
         const colors = state.customization.theme.colors;
-        for (const c of Object.values<[string, RGBA]>(colors.schedule)) {
+        console.log('colors: ', colors);
+        for (const c of Object.entries<[string, RGBA]>(colors.schedule)) {
+            console.log('c: ', c);
             const temp = colors.schedule[parseInt(c[0])]
             if (temp.c === undefined) {
-                colors.schedule[parseInt(c[0])] = { enabled: temp.enabled || false, c: { r: temp.r, g: temp.g, b: temp.b, a: temp.a } }
+                colors.schedule[parseInt(c[0])] = {
+                    enabled: temp.enabled || false,
+                    c: {
+                        r: temp.r,
+                        g: temp.g,
+                        b: temp.b,
+                        a: temp.a
+                    },
+                    t: {
+                        r: 0,
+                        g: 0,
+                        b: 0,
+                        a: 0
+                    }
+                }
             }
         }
 
-        if (colors.schedule.currentClass.c === undefined) {
-            colors.schedule.currentClass = { enabled: colors.schedule.currentClass.enabled || false, c: { r: colors.schedule.currentClass.r, g: colors.schedule.currentClass.g, b: colors.schedule.currentClass.b, a: colors.schedule.currentClass.a } }
+        if (colors.currentClass.c === undefined) {
+            colors.currentClass = {
+                enabled: colors.currentClass.enabled || false,
+                c: {
+                    r: colors.currentClass.r,
+                    g: colors.currentClass.g,
+                    b: colors.currentClass.b,
+                    a: colors.currentClass.a
+                },
+                t: {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                    a: 0
+                }
+            }
         }
+
+        colors.scheduleFrame = { enabled: false, c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 } }
 
         return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: colors } } }
     }
@@ -82,7 +115,7 @@ const migrations = {
 
 const persistConfig = {
     key: 'v5ReduxData',
-    version: 1,
+    version: 2,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

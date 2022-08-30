@@ -6,21 +6,25 @@ import { setRgbParty } from "../../storage/misc";
 import { useKeyboardShortcut } from "../../hooks";
 import { useStudentvue } from "../../storage/studentvue";
 import { Manual } from "../setup/steps/Manual";
-import { useState } from "react";
-import { Terms, ClassIDS, getTimeW, dateToTime } from "../../types";
+import { useRef, useState } from "react";
+import { Terms, ClassIDS, getTimeW, dateToTime, RGBA, Colors } from "../../types";
 // import { useSchedule } from "../../storage/schedule";
 import Center from "../../components/Center";
-import { Container,  ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
-import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors } from "../../storage/customizations";
+import { Container,  Form,  FormControlProps,  ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
+import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setCustomizations, setAllColors } from "../../storage/customizations";
 import { ChromePicker } from 'react-color';
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
+import tinyColor from 'tinycolor2';
+import { debounce } from 'lodash';
+import { useDebounce } from "react-use";
+import { TypedStartListening } from "@reduxjs/toolkit";
+
+// I left off trying to debounce the color picker onChange event
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
     // const sch = useSchedule();
     const stv = useStudentvue();
     const customizations = useCustomizations();
-
-    const [colorPickers, setColorPickers] = useState<{ [key: string]: boolean }>({ });
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
 
@@ -28,12 +32,24 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
 
     const [editManually, setEditManually] = useState(false);
     const dispatch = useDispatch()
+
     useKeyboardShortcut("shift + r + g + b", () => {
         dispatch(setRgbParty(!doRGBParty))
     })
 
+    const [colorPickerValues, setColorPickerValues] = useState<Colors>({ ...customizations.theme.colors });
+
+    const debounceColor = debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) => {
+        const color = tinyColor(e.target.value);
+        setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS], c: color.toRgb() } } })
+    }, 5)
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) {
+        debounceColor(e, c);
+    }
+
     if (editManually) {
-        return (<Manual setSchedule={props.setSchedule} isEdit={editManually} setIsEdit={setEditManually}></Manual>)
+        // the satStage thing is not the best but itll be fine lol
+        return (<Manual setStage={(a: number) => { console.log('setStage is not defined, oops (settings/index.tsx). attempted to set stage to: ', a) }} setSchedule={props.setSchedule} isEdit={editManually} setIsEdit={setEditManually}></Manual>)
     }
 
     return (<><Center>
@@ -42,7 +58,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
         <Tabs
             id="settingsPageTabs"
             activeKey={tab}
-            onSelect={(k) => setTab(k)}
+            onSelect={(k) => setTab(k as string)}
             className="mb-3 crimsonTabs"
             fill>
             <Tab eventKey="general" title="General">
@@ -71,18 +87,25 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                             <ListGroup.Item key={'scheduleColors'+c[0]+i}>
                                 <Center>
                                     <Stack gap={2} direction="horizontal">
-                                        <Button onClick={() => { setColorPickers({ ...colorPickers, [c[0]]: true }) } }>Pick Color</Button>
-                                        <Button onClick={() => { dispatch(setScheduleColor({sch: c[0] as unknown as ClassIDS, color: { ...c[1], a: 0 } })) } }>Reset</Button>
+                                        <Form.Group>
+                                            <Form.Label htmlFor={"classColorInput" + c[0]}>Color picker</Form.Label>
+                                            <Form.Control
+                                                type="color"
+                                                id={"classColorInput" + c[0]}
+                                                defaultValue={ tinyColor(c[1].c).toHexString() }
+                                                title={"Pick Color For " + c[0]}
+                                                onChange={async (e) => {
+                                                    handleChange(e, c);
+                                                }}
+                                                onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
+                                            />
+                                        </Form.Group>
+                                        <span>TODO: add alpha changer</span>
+                                        <Button onClick={() => { dispatch(setScheduleColor({sch: c[0] as unknown as ClassIDS, color: { ...c[1], enabled: false } })) } }>Reset</Button>
                                     </Stack>
-                                    
-                                    { colorPickers[c[0]] ? <div style={{ 'position': 'absolute', 'zIndex': '2', 'overscrollBehavior': 'contain' }}>
-                                        <div style={{ 'position': 'fixed', 'top': '0px', 'right': '0px', 'bottom': '0px', 'left': '0px' }}  onClick={() => { setColorPickers({ ...colorPickers, [c[0]]: false}) }}/>
-                                        <ChromePicker color={(c[1] || {})} onChange={(color: any) => { dispatch(setScheduleColor({sch: parseInt(c[0]) as ClassIDS, color: { ...color.rgb, a: c[1].a === 0 ? 1 : color.rgb.a } })) }} />
-                                    </div> : null }
-
                                     <Container style={{ width: "80vw", maxWidth: "900px" }}>
                                         <Row className="crow">
-                                            <ScheduleEntry isForCustomizations={true} viewDate={new Date()} sch={[]} period={{ classID: parseInt(c[0]), period: 0, name: ClassIDS[parseInt(c[0])], room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'madeupid'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+c[0]+i} />
+                                            <ScheduleEntry isForCustomizations={true} forcedColor={colorPickerValues.schedule[parseInt(c[0]) as unknown as ClassIDS]} viewDate={new Date()} sch={[]} period={{ classID: parseInt(c[0]), period: 0, name: ClassIDS[parseInt(c[0])], room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'madeupid'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+c[0]+i} />
                                         </Row>
                                     </Container>
                                 </Center>
@@ -91,13 +114,18 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         <ListGroup.Item>
                             <Center>
                                 <Stack gap={2} direction="horizontal">
-                                    <Button onClick={() => { setColorPickers({ ...colorPickers, currentClass: true }) } }>Pick Color</Button>
-                                    <Button onClick={() => { dispatch(setCurrentClassColor({ ...customizations.theme.colors.currentClass, a: 0 })) } }>Reset</Button>
+                                    <Form.Group>
+                                        <Form.Label htmlFor={"classColorInputCurrentClass"}>Color picker</Form.Label>
+                                        <Form.Control
+                                            type="color"
+                                            id={"classColorInputCurrentClass"}
+                                            defaultValue={ tinyColor(customizations.theme.colors.currentClass.c).toHexString()}
+                                            title={"Pick Color For Current Class"}
+                                            onChangeCapture={(e) => { console.log(e); }}
+                                        />
+                                    </Form.Group>
+                                    <Button onClick={() => { dispatch(setCurrentClassColor({ ...customizations.theme.colors.currentClass, enabled: false })) } }>Reset</Button>
                                 </Stack>
-                                { colorPickers.currentClass ? <div style={{ 'position': 'absolute', 'zIndex': '2' }}>
-                                    <div style={{ 'position': 'fixed', 'top': '0px', 'right': '0px', 'bottom': '0px', 'left': '0px' }}  onClick={() => { setColorPickers({ ...colorPickers, currentClass: false }) }}/>
-                                    <ChromePicker color={(customizations.theme.colors.currentClass || {})} onChange={(color: any) => { dispatch(setCurrentClassColor({ ...color.rgb, a: customizations.theme.colors.currentClass.a === 0 ? 1 : color.rgb.a })) }} />
-                                </div> : null }
                                 
                                 <Container style={{ width: "80vw", maxWidth: "900px" }}>
                                     <Row className="crow">

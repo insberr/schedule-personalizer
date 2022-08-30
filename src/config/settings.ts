@@ -44,10 +44,13 @@ export const termsDates: types.Terms = [
 
 
 const defaultColor: types.RGBA = {
-    r: 0,
-    g: 0,
-    b: 0,
-    a: 0
+    enabled: false,
+    c: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0
+    }
 }
 
 export const defaultCustomizations: types.Customizations = {

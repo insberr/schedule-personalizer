@@ -1,5 +1,5 @@
 import { formatClassTime, formatClassPeriodName } from "../../../lib"
-import { Class, ClassIDS, timeToDate } from "../../../types"
+import { Class, ClassIDS, timeToDate, RGBA } from "../../../types"
 import Collapse from 'react-bootstrap/Collapse';
 import { MdExpandMore } from "react-icons/md";
 import { useState, useEffect } from "react";
@@ -13,6 +13,8 @@ import {isAfter, isBefore, isSameDay, isToday, isWithinInterval} from "date-fns"
 import * as lib from "../../../lib"
 import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
+import tinyColor from 'tinycolor2';
+import tinycolor from "tinycolor2";
 
 type ScheduleEntryProps = {
     sch: Class[]
@@ -21,6 +23,7 @@ type ScheduleEntryProps = {
     mini: boolean,
     viewDate: Date,
     isForCustomizations?: boolean
+    forcedColor?: RGBA
 }
 
 // Making this look better will be fun : )
@@ -46,7 +49,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
 
     const [cdate, setcdate] = useState<Date>(new Date())
     const [highlightPeriodColor, setHighlightPeriodColor] = useState({
-        'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+        'backgroundColor': (props.forcedColor !== undefined ? tinycolor(props.forcedColor.c).toRgbString() : 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')'),
     });
 
     useEffect(() => {
@@ -60,16 +63,25 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     },[])
 
     useEffect(() => {
+        if (props.forcedColor !== undefined) {
+            console.log('forced color')
+            // TODO: USE THIS EVERYWHERE
+            const color = tinycolor(props.forcedColor.c).toRgbString();
+            setHighlightPeriodColor({
+                'backgroundColor': color,
+            });
+            return;
+        }
         if (props.period.teacher.id === 'currentClassColorOverride' || props.isForCustomizations) {
             setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+                'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass.c : customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
             });
             return;
         }
 
         if ([ClassIDS.Summer, ClassIDS.Weekend, ClassIDS.NoSchool].includes(props.period.classID)) {
             setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
             });
             return;
         }
@@ -81,12 +93,12 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             // TODO: add check if the period before ended and this one is about to start
             if (isAfter(new Date(), timeToDate(props.period.startTime)) && isBefore(new Date(), timeToDate(props.period.endTime))) {
                 setHighlightPeriodColor({
-                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
+                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass.c).join(',') + ')',
                 });
             }
         } else {
             setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
+                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
             });
         }
         // Somehow highlight the current period. THIS DOESNT WORK, I NEED HELP LOL
@@ -104,7 +116,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         */
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [customizations])
+    }, [customizations, props?.forcedColor])
 
     return (
     <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '') + (useCss(highlightPeriodColor)) } style={doRGBParty ? {"backgroundColor": "#"+rgb } : {}}>

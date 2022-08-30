@@ -1,4 +1,4 @@
-import type { Customizations, ClassIDS, RGBA } from "../types";
+import type { Customizations, ClassIDS, RGBA, Colors } from "../types";
 import { defaultCustomizations as initialState } from "../config/settings";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -17,6 +17,9 @@ export const customizationSlice = createSlice({
         },
         setScheduleColor: (state, action: PayloadAction<{sch: ClassIDS, color: RGBA}>) => {
             state.theme.colors.schedule[action.payload.sch] = action.payload.color;
+        },
+        setAllColors: (state, action: PayloadAction<Colors>) => {
+            state.theme.colors = action.payload;
         },
         setCurrentClassColor: (state, action: PayloadAction<RGBA>) => {
             state.theme.colors.currentClass = action.payload;
@@ -38,6 +41,6 @@ export function useCustomizations(): Customizations {
 }
 
 // Action creators are generated for each case reducer function
-export const { reset, setShowInfoOnSchedule, setCustomizations, setScheduleColor, setCurrentClassColor, setKeybindings, resetColors } = customizationSlice.actions;
+export const { reset, setShowInfoOnSchedule, setCustomizations, setScheduleColor, setCurrentClassColor, setKeybindings, resetColors, setAllColors } = customizationSlice.actions;
 
 export default customizationSlice.reducer;

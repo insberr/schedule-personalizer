@@ -70,10 +70,13 @@ export type Time = {
 
 
 export type RGBA = {
-    r: number
-    g: number
-    b: number
-    a: number
+    enabled: boolean
+    c: {
+        r: number
+        g: number
+        b: number
+        a: number
+    }
 }
 
 export type Colors = {

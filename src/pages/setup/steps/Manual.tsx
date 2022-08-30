@@ -11,8 +11,8 @@ import * as settings from '../../../config/settings';
 import Form from 'react-bootstrap/Form';
 import { Container, Row } from 'react-bootstrap';
 
-type Props = StageProps & {
-    setStage?: (stage: number) => void;
+type Props = {
+    setStage: (stage: number) => void;
     setSchedule: (schedule: Terms) => void;
     isEdit?: boolean;
     setIsEdit?: (isEdit: boolean) => void;
@@ -54,7 +54,7 @@ export function Manual(props: Props) {
     return (
         <Center className="text-center"> 
             <h1 className="mt-5">Setup</h1>
-            <Button variant='crimson' className='mt-5' onClick={()=>{ props.setStage(420); }}>Back To Login</Button>
+            <Button variant='crimson' className={ props.isEdit ? 'hidden' : 'mt-5' } onClick={()=>{ props.setStage(420) }}>Back To Login</Button>
             <Container className='mt-5'>
                 <Row lg={2} className='justify-content-center'>
                     <Form.Group controlId="formSelectTerm">

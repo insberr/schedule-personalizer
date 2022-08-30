@@ -13,7 +13,7 @@ import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePer
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import * as api from '../../../apis/studentvue/studentVueAPI';
-
+import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
 import { Col } from "react-bootstrap";
 
@@ -26,18 +26,26 @@ type ScheduleProps = {
 }
 
 function Schedule(props: ScheduleProps) {
-    // console.log("props: ", props.sch)
-
     const studentvue = useStudentvue();
 
     const [showImageToast, setShowImageToast] = useState(false);
     const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
     const screenref = useRef<HTMLDivElement>(null)
-    const [image, takeScreenshot] = useScreenshot({
-        type: "image/png",
-        quality: 1.0
-    })
-    const getImage = () => takeScreenshot(screenref.current).then(img)
+    const [image, setImage] = useState<string | undefined>(undefined);
+    function takeScreenshot() {
+        return new Promise<string>((r,j) => {
+            if (!screenref.current) {
+                j("lmafo")
+                return;
+            }
+            toPng(screenref.current, {backgroundColor:"#272727",cacheBust:true, style:{"fontFamily":"Roboto"}}).then(dataUrl => {
+                setImage(dataUrl)
+                r(dataUrl)
+            })
+        })
+
+    }
+    const getImage = () => takeScreenshot().then(img).catch((err) => {throw new Error(err)})
     
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
@@ -99,7 +107,7 @@ function Schedule(props: ScheduleProps) {
             })
         }
         */
-    }, [])
+    }, [studentvue])
     
 
     return (
@@ -120,7 +128,7 @@ function Schedule(props: ScheduleProps) {
                         <small>Just Now</small>
                     </Toast.Header>
                     <Toast.Body>
-                        { imageCopiedToClipboard ? 'The image has been copied to your clipboard.' : <><a href={image} datatype="png" download>Download</a> the image below and save it</> } 
+                        { imageCopiedToClipboard ? 'The image has been copied to your clipboard.' : <><a href={image} rel="noreferrer" target="_parent" download="screeny.png">Download</a> the image below and save it</> } 
                         <img
                             src={image}
                             className="rounded me-2"
@@ -134,10 +142,10 @@ function Schedule(props: ScheduleProps) {
             <Center>
                 <div
                     ref={screenref}
-                    style={{ backgroundColor: "var(--bg)", padding: "3em" }}
+                    style={{ padding: "3em", fontFamily: "Roboto" }}
                 >
                     <Container style={{ width: "80vw", maxWidth: "900px" }}>
-                        <Row className="row background-clear justify-content-center text-center">
+                        <Row className="row date text-center">
                             <Center className="date">
                                 {format(props.displayDate, "EEEE: LL/dd/yyyy")}
                             </Center>

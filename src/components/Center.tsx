@@ -3,6 +3,8 @@ import React from "react";
 type CenterProps = {
     children: React.ReactNode;
     className?: string;
+    style?: React.CSSProperties;
+    ref?: React.Ref<any>;
 };
 
 function Center(props: CenterProps) {
@@ -21,12 +23,11 @@ function Center(props: CenterProps) {
     </div>
     )*/
     return (
-        <div
+        <div ref={props.ref}
             className={
                 "d-flex text-center justify-content-center vw-100" +
                 (props.className ? props.className : "")
-            }
-        >
+            } style={props.style}>
             <div className="w-auto">{props.children}</div>
         </div>
     );

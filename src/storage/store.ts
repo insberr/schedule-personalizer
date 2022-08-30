@@ -8,6 +8,7 @@ import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
 import { defaultCustomizations } from '../config/settings';
+import { RGBA } from '../types';
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -59,6 +60,21 @@ const migrations = {
     // added customizations
     1: (state: any) => {
         return {...state, customization: defaultCustomizations }
+    },
+    2: (state: any) => {
+        const colors = state.customization.theme.colors;
+        for (const c of Object.values<[string, RGBA]>(colors.schedule)) {
+            const temp = colors.schedule[parseInt(c[0])]
+            if (temp.c === undefined) {
+                colors.schedule[parseInt(c[0])] = { enabled: temp.enabled || false, c: { r: temp.r, g: temp.g, b: temp.b, a: temp.a } }
+            }
+        }
+
+        if (colors.schedule.currentClass.c === undefined) {
+            colors.schedule.currentClass = { enabled: colors.schedule.currentClass.enabled || false, c: { r: colors.schedule.currentClass.r, g: colors.schedule.currentClass.g, b: colors.schedule.currentClass.b, a: colors.schedule.currentClass.a } }
+        }
+
+        return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: colors } } }
     }
 }
 

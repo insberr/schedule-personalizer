@@ -1,4 +1,4 @@
-import { Class, Term } from "../../../types"
+import { Class, Term, timeToDate } from "../../../types"
 import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
 import { EventSchedule } from '../index';
@@ -15,7 +15,8 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import * as api from '../../../apis/studentvue/studentVueAPI';
 import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
-import { Col } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
 
 type ScheduleProps = {
     sch: Class[]
@@ -26,6 +27,8 @@ type ScheduleProps = {
 }
 
 function Schedule(props: ScheduleProps) {
+    const [dateText, setDateText] = useState('');
+
     const studentvue = useStudentvue();
 
     const [showImageToast, setShowImageToast] = useState(false);
@@ -139,6 +142,20 @@ function Schedule(props: ScheduleProps) {
                 </Toast>
             </ToastContainer>
             <SchHeader sch={props.sch} home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
+            { /*<Form.Control
+                type="text"
+                id="setTime"
+                value={dateText}
+                onChange={(e) => {
+                    setDateText(e.target.value)
+                }}
+            />
+            <Button onClick={() => {
+                // this is temporary, i left off here
+                const tds = timeToDate(JSON.parse(dateText), props.displayDate)
+                props.setDisplayDate(tds)
+            }}>Set time</Button>
+            */ }
             <Center>
                 <div
                     ref={screenref}

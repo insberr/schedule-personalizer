@@ -1,8 +1,9 @@
 // bunch of reusable functions
-import { format, parse, set } from "date-fns"
+import { format, isAfter, isBefore, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "./types";
 
 import * as api from './apis/studentvue/studentVueAPI';
+import { isEqual } from "lodash";
 
 
 export function getCurrentTerm (t: Stdata, d?: Date): number {
@@ -150,4 +151,23 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
 
 export function redactStudentVueData(data: any): any { // add types pls
     //
+}
+
+
+export function isCurrentClass(sch: Class[], period: Class, currentClassDate: Date): boolean {
+    const lastClass = sch[sch.indexOf(period) - 1];
+    if (
+        (
+            isAfter(currentClassDate, timeToDate(lastClass?.endTime || period.startTime, currentClassDate))
+            ||
+            isEqual(currentClassDate, timeToDate(lastClass?.endTime || period.startTime, currentClassDate))
+        ) && (
+            isBefore(currentClassDate, timeToDate(period.endTime, currentClassDate))
+            ||
+            isEqual(currentClassDate, timeToDate(period.endTime, currentClassDate))
+        )
+    ) {
+        return true;
+    }
+    return false;
 }

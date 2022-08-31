@@ -1,5 +1,5 @@
 // bunch of reusable functions
-import { format, isAfter, isBefore, parse, set } from "date-fns"
+import { addSeconds, format, isAfter, isBefore, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "./types";
 
 import * as api from './apis/studentvue/studentVueAPI';
@@ -154,17 +154,18 @@ export function redactStudentVueData(data: any): any { // add types pls
 }
 
 
-export function isCurrentClass(sch: Class[], period: Class, currentClassDate: Date): boolean {
-    const lastClass = sch[sch.indexOf(period) - 1];
+export function isCurrentClass(sch: Class[], period: Class, currentClassDateAndTime: Date): boolean {
+    const index = sch.indexOf(period)
+    const lastClass = sch[index - 1];
     if (
         (
-            isAfter(currentClassDate, timeToDate(lastClass?.endTime || period.startTime, currentClassDate))
+            isAfter(currentClassDateAndTime, addSeconds(timeToDate(lastClass?.endTime || period.startTime, currentClassDateAndTime), 1))
             ||
-            isEqual(currentClassDate, timeToDate(lastClass?.endTime || period.startTime, currentClassDate))
+            isEqual(currentClassDateAndTime, addSeconds(timeToDate(lastClass?.endTime || period.startTime, currentClassDateAndTime), 1))
         ) && (
-            isBefore(currentClassDate, timeToDate(period.endTime, currentClassDate))
+            isBefore(currentClassDateAndTime, timeToDate(period.endTime, currentClassDateAndTime))
             ||
-            isEqual(currentClassDate, timeToDate(period.endTime, currentClassDate))
+            isEqual(currentClassDateAndTime, timeToDate(period.endTime, currentClassDateAndTime))
         )
     ) {
         return true;

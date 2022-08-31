@@ -1,5 +1,5 @@
 import { formatClassTime, formatClassPeriodName, isCurrentClass } from "../../../lib"
-import { Class, ClassIDS, timeToDate, RGBA } from "../../../types"
+import { Class, ClassIDS, timeToDate, RGBA, Time } from "../../../types"
 import Collapse from 'react-bootstrap/Collapse';
 import { MdExpandMore } from "react-icons/md";
 import { useState, useEffect } from "react";
@@ -15,6 +15,7 @@ import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
 import tinyColor from 'tinycolor2';
 import tinycolor from "tinycolor2";
+import { BsStars } from "react-icons/bs";
 
 type ScheduleEntryProps = {
     sch: Class[]
@@ -24,6 +25,8 @@ type ScheduleEntryProps = {
     viewDate: Date,
     isForCustomizations?: boolean
     forcedColor?: RGBA
+    currentTime: Time
+    devTime?: Time | null
 }
 
 // Making this look better will be fun : )
@@ -35,11 +38,15 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     const customizations = useCustomizations();
 
     // TODO: Make this update every second and then check its still the current class and the highlight it 
-    const [currentClassDate, setCurrentClassDate] = useState(new Date()); // useState(props.viewDate);// useState(new Date("SepTember 6, 2022 08:04:59")); // new Date();
-
+    const [currentClassDateAndTime, setcurrentClassDateAndTime] = useState(new Date()); // useState(props.viewDate); // useState(new Date("SepTember 6, 2022 08:04:59")); // new Date();
     useEffect(() => {
-        setCurrentClassDate(props.viewDate)
-    }, [props.viewDate])
+        if (props.devTime) {
+            setcurrentClassDateAndTime(timeToDate(props.devTime))
+            return;
+        }
+        const nd = timeToDate(props.currentTime);
+        setcurrentClassDateAndTime(nd)
+    }, [props.currentTime, props.devTime])
 
     useEffect(() => {
         if (!doRGBParty) {
@@ -96,43 +103,21 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
         });
 
-        if (isSameDay(props.viewDate, currentClassDate)) {
-            // check if the period time is the same
-
-            // TODO: add checking for if the times are the same
-            // TODO: add check if the period before ended and this one is about to start
-            const lastClass = props.sch[props.sch.indexOf(props.period) - 1];
-
-            // console.log('time: ', lastClass, props.period)
-
-            if (isCurrentClass(props.sch, props.period, currentClassDate)) {
-                console.log('highlight class ', props.period)
+        if (isSameDay(props.viewDate, currentClassDateAndTime)) {
+            if (isCurrentClass(props.sch, props.period, currentClassDateAndTime)) {
                 setHighlightPeriodColor({
                     'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass.c).join(',') + ')',
                 });
             }
         }
-
-        // Somehow highlight the current period. THIS DOESNT WORK, I NEED HELP LOL
-        /*if (isAfter(new Date(), timeToDate(props.period.startTime)) && isBefore(new Date(), timeToDate(props.period.endTime))) {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass).join(',') + ')',
-            });
-            console.log(highlightPeriodColor)
-            return;
-        } else {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID]).join(',') + ')',
-            });
-        }
-        */
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [customizations, props?.forcedColor, currentClassDate])
+    }, [customizations, props?.forcedColor, currentClassDateAndTime])
 
     return (
     <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '') + (useCss(highlightPeriodColor)) } style={doRGBParty ? {"backgroundColor": "#"+rgb } : {}}>
-    <Row onClick={()=> { setOpen(!props.mini && !open) }} style={{"padding":"1rem"}}>
+    <Row onClick={()=> { setOpen(!props.mini && !open) }} className="classRow">
+        <Col key="classTypeIcon" className={ /* if any icons will show && customizations . show icons */ 'classTypeIcon hidden'}><BsStars className={isCurrentClass(props.sch, props.period, currentClassDateAndTime) ? '' : 'hidden'} /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
         <Col key="teacherName" className={ (props.mini || !lib.displayTeacherNamesCol(props.sch) ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>

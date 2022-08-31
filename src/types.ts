@@ -47,7 +47,8 @@ export type StudentVue = {
 
 export type Class = {
     classID: ClassIDS
-    period: number | undefined
+    // number[] is because of my start at bnuilding multiLunches
+    period: number | number[] | undefined
     name: string
     room: string | number
     teacher: Teacher

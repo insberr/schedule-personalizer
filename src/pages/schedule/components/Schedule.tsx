@@ -1,8 +1,8 @@
-import { Class, Term, timeToDate } from "../../../types"
+import { Class, dateToTime, Term, Time, timeToDate } from "../../../types"
 import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
 import { EventSchedule } from '../index';
-import { format } from 'date-fns'
+import { addSeconds, format } from 'date-fns'
 import { useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { SchHeader } from "./ScheduleHeader"
@@ -27,10 +27,7 @@ type ScheduleProps = {
 }
 
 function Schedule(props: ScheduleProps) {
-    const [dateText, setDateText] = useState('');
-
     const studentvue = useStudentvue();
-
     const [showImageToast, setShowImageToast] = useState(false);
     const [imageCopiedToClipboard, setImageCopiedToClipboard] = useState(false);
     const screenref = useRef<HTMLDivElement>(null)
@@ -49,6 +46,43 @@ function Schedule(props: ScheduleProps) {
 
     }
     const getImage = () => takeScreenshot().then(img).catch((err) => {throw new Error(err)})
+
+
+    const [currentTime, setCurrentTime] = useState<Time>(dateToTime(new Date()));
+    const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(new Date()) : null);
+    useEffect(() => {
+        const dt = setInterval(() => {
+            if (devTime) {
+                setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
+            }
+            setCurrentTime(devTime || dateToTime(new Date()))
+        }, 2000)
+
+        return () => {
+            clearInterval(dt);
+        }
+    }, [devTime])
+
+    useEffect(() => {
+        if (devTime) {
+            setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
+        }
+        setCurrentTime(devTime || dateToTime(new Date()))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.displayDate])
+
+    const [dateText, setDateText] = useState('');
+    useEffect(() => {
+        try {
+            JSON.parse(dateText)
+        } catch (e) {
+            return;
+        }
+        setDevTime(JSON.parse(dateText))
+    }, [dateText])
+
+
     
     const doMini: boolean = useMemo(() => {
         const hiddens = props.sch.map((i) => {
@@ -111,7 +145,6 @@ function Schedule(props: ScheduleProps) {
         }
         */
     }, [studentvue])
-    
 
     return (
         <div>
@@ -142,20 +175,24 @@ function Schedule(props: ScheduleProps) {
                 </Toast>
             </ToastContainer>
             <SchHeader sch={props.sch} home={()=>{props.setDisplayDate(new Date())}} setup={props.setup} getImage={getImage} displayDate={props.displayDate} setDisplayDate={props.setDisplayDate} />
-            { /*<Form.Control
-                type="text"
-                id="setTime"
-                value={dateText}
-                onChange={(e) => {
-                    setDateText(e.target.value)
-                }}
-            />
-            <Button onClick={() => {
-                // this is temporary, i left off here
-                const tds = timeToDate(JSON.parse(dateText), props.displayDate)
-                props.setDisplayDate(tds)
-            }}>Set time</Button>
-            */ }
+            { devTime &&
+                <>
+                    <Form.Control 
+                        type="text"
+                        id="currentTimeDisplay"
+                        value={JSON.stringify(currentTime)}
+                        onChange={(e) => { console.log(e.target.value) }}
+                    />
+                    <Form.Control
+                        type="text"
+                        id="setTime"
+                        value={dateText}
+                        onChange={(e) => {
+                            setDateText(e.target.value)
+                        }}
+                    />
+                </>
+            }
             <Center>
                 <div
                     ref={screenref}
@@ -176,6 +213,8 @@ function Schedule(props: ScheduleProps) {
                                         sch={props.sch}
                                         period={period}
                                         viewDate={props.displayDate}
+                                        currentTime={currentTime}
+                                        devTime={devTime}
                                     />
                                 </Row>
                                 

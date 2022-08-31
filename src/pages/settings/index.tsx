@@ -39,16 +39,23 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
 
     const [colorPickerValues, setColorPickerValues] = useState<Colors>({ ...customizations.theme.colors });
 
-    const debounceColor = debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) => {
-        const color = tinyColor(e.target.value);
+    const debounceColor = debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA], type: string) => {
+        let color;
+        if (type === 'alpha') {
+            color = tinyColor(c[1].c)
+            color.setAlpha(parseFloat(e.target.value))
+        } else if (type === 'color') {
+            color = tinyColor(e.target.value);
+        }
+
         if (c[0] === 'currentClass') {
             setColorPickerValues({ ...colorPickerValues, currentClass: { ...colorPickerValues.currentClass, c: color.toRgb() } })
         } else {
             setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS], c: color.toRgb() } } })
         }
     }, 5)
-    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) {
-        debounceColor(e, c);
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA], type: string) {
+        debounceColor(e, c, type);
     }
 
     if (editManually) {
@@ -81,14 +88,14 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <Center>
                     <h2>Customizations</h2>
                 </Center>
-                <div className="mt-4">
+                <div className="mt-4 mb-5">
                     <Center>
                         <h4>Schedule Colors</h4>
                     </Center>
                     <ListGroup variant="flush">
                         { Object.entries(customizations.theme.colors.schedule).map((c, i) => {
                             return (
-                            <ListGroup.Item key={'scheduleColors'+c[0]+i}>
+                            <ListGroup.Item key={'scheduleColors'+c[0]+i} className="mb-5">
                                 <Center>
                                     <Stack gap={2} direction="horizontal" className="mb-2">
                                         <Form.Group>
@@ -99,17 +106,35 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                                 defaultValue={ tinyColor(c[1].c).toHexString() }
                                                 title={"Pick Color For " + c[0]}
                                                 onChange={async (e) => {
-                                                    handleChange(e, c);
+                                                    handleChange(e, c, 'color');
                                                 }}
                                                 onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
                                             />
                                         </Form.Group>
-                                        <span>TODO: add alpha changer</span>
-                                        <Button onClick={() => { dispatch(setScheduleColor({sch: c[0] as unknown as ClassIDS, color: { ...c[1], enabled: false } })) } }>Reset</Button>
+                                        <Form.Group>
+                                            <Form.Label htmlFor={"classColorRange" + c[0]}>Change Transparency</Form.Label>
+                                            <Form.Range
+                                                id={"classColorRange" + c[0]}
+                                                min={0.00}
+                                                max={1.00}
+                                                step={0.01}
+                                                defaultValue={c[1].c.a}
+                                                onChange={(e) => {
+                                                    handleChange(e, c, 'alpha');
+                                                    // setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS], c: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS].c, a: parseFloat(e.target.value) } } } })
+                                                    // dispatch(setScheduleColor({ sch: parseInt(c[0]) as unknown as ClassIDS, color: { ...c[1], c: { ...c[1].c, a: parseFloat(e.target.value)}}}))
+                                                }}
+                                                onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
+                                            />
+                                        </Form.Group>
+                                        <Button onClick={() => {
+                                            dispatch(setScheduleColor({sch: c[0] as unknown as ClassIDS, color: { c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 }, enabled: false } }))
+                                            setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 }, enabled: false } } })
+                                        }}>Reset</Button>
                                     </Stack>
                                     <Container style={{ width: "80vw", maxWidth: "900px" }}>
                                         <Row className="crow">
-                                            <ScheduleEntry isForCustomizations={true} forcedColor={colorPickerValues.schedule[parseInt(c[0]) as unknown as ClassIDS]} viewDate={new Date()} sch={[]} period={{ classID: parseInt(c[0]), period: 0, name: ClassIDS[parseInt(c[0])], room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'madeupid'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+c[0]+i} />
+                                            <ScheduleEntry currentTime={dateToTime(new Date())} isForCustomizations={true} forcedColor={colorPickerValues.schedule[parseInt(c[0]) as unknown as ClassIDS]} viewDate={new Date()} sch={[]} period={{ classID: parseInt(c[0]), period: 0, name: ClassIDS[parseInt(c[0])], room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'madeupid'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+c[0]+i} />
                                         </Row>
                                     </Container>
                                 </Center>
@@ -126,18 +151,36 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                             defaultValue={ tinyColor(customizations.theme.colors.currentClass.c).toHexString()}
                                             title={"Pick Color For Current Class"}
                                             onChange={async (e) => {
-                                                handleChange(e, ['currentClass', customizations.theme.colors.currentClass]);
+                                                handleChange(e, ['currentClass', customizations.theme.colors.currentClass], 'color');
                                             }}
                                             onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
                                         />
                                     </Form.Group>
-                                    <span>TODO: add alpha changer</span>
-                                    <Button onClick={() => { dispatch(setCurrentClassColor({ ...customizations.theme.colors.currentClass, enabled: false })) } }>Reset</Button>
+                                    <Form.Group>
+                                        <Form.Label htmlFor="classColorRangeCurrentClass">Change Transparency</Form.Label>
+                                        <Form.Range
+                                            id={"classColorRangeCurrentClass"}
+                                            min={0.00}
+                                            max={1.00}
+                                            step={0.01}
+                                            defaultValue={customizations.theme.colors.currentClass.c.a}
+                                            onChange={(e) => {
+                                                handleChange(e, ['currentClass', customizations.theme.colors.currentClass], 'alpha');
+                                                // setColorPickerValues({ ...colorPickerValues, currentClass: { ...colorPickerValues.currentClass, c: { ...colorPickerValues.currentClass.c, a: parseFloat(e.target.value)}}})
+                                                // dispatch(setCurrentClassColor({ ...customizations.theme.colors.currentClass, c: { ...customizations.theme.colors.currentClass.c, a: parseFloat(e.target.value) }}))
+                                            }}
+                                            onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
+                                        />
+                                    </Form.Group>
+                                    <Button onClick={() => {
+                                        dispatch(setCurrentClassColor({ c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 }, enabled: false }))
+                                        setColorPickerValues({ ...colorPickerValues, currentClass: { c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 }, enabled: false } })
+                                    }}>Reset</Button>
                                 </Stack>
                                 
                                 <Container style={{ width: "80vw", maxWidth: "900px" }}>
                                     <Row className="crow">
-                                        <ScheduleEntry isForCustomizations={true} forcedColor={colorPickerValues.currentClass} viewDate={new Date()} sch={[]} period={{ classID: ClassIDS.Period, period: 1, name: 'Current Period', room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'currentClassColorOverride'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+customizations.theme.colors.currentClass} />
+                                        <ScheduleEntry currentTime={dateToTime(new Date())} isForCustomizations={true} forcedColor={colorPickerValues.currentClass} viewDate={new Date()} sch={[]} period={{ classID: ClassIDS.Period, period: 1, name: 'Current Period', room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'currentClassColorOverride'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+customizations.theme.colors.currentClass} />
                                     </Row>
                                 </Container>
                             </Center>

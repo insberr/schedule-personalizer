@@ -187,6 +187,15 @@ $tile-selected: shade-color($white,10%);
     border-right: $row-border solid $border-color;
     border-top: $row-border solid $border-color;
 }*/
+
+.classRow {
+    padding: 1rem;
+}
+
+.classTypeIcon {
+    max-width: 10px;
+}
+
 .crow {
     &:nth-child(n) {
         border-left: $row-border solid $date-bg;
@@ -209,7 +218,7 @@ $tile-selected: shade-color($white,10%);
 
 .map.modal-body {
     padding: 0!important;
-    background: rgba(78, 78, 78, 0.35)!important;
+    background: rgba(139, 139, 139, 0.566)!important;
     box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1)!important;
     backdrop-filter: blur(8px)!important;
     border-bottom-left-radius: 16px!important;

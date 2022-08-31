@@ -38,7 +38,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     const sch = useSchedule();
     const stv = useStudentvue();
 
-    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(process.env.NODE_ENV === "development" ? new Date("September 6, 2022") : new Date());
+    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(process.env.NODE_ENV === "development" ? new Date(/*"September 6, 2022"*/) : new Date());
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
@@ -66,7 +66,15 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
     const displayTerm = determineDisplayTerm(sch.terms, currentDisplayDate);
     if (displayTerm.isFake) {
         console.warn("No term found for the current date");
-        if (!currentDisplayDayEvent.isEvent) {
+        if (process.env.NODE_ENV === 'development') {
+            currentDisplayDayEvent = {
+                isEvent: true,
+                schedule: schedules.normal,
+                info: {
+                    message: "DEV MODE: No Term (Fake Term) | Its summer, or something is broken"
+                }
+            }
+        } else if (!currentDisplayDayEvent.isEvent) {
             currentDisplayDayEvent = {
                 isEvent: true,
                 schedule: schedules.summer,
@@ -149,10 +157,13 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     return mergedSchedule;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/**
+ * Day of the week schedule 
+ * 
+ * ie. if its tuesday or thurseday its an advisory day or if its a weekend
+*/
 function getDisplayDaySchedule(date: Date): SchedulesType {
-    /* Day of the week schedule */
-    // ie. if its tuesday or thurseday its an advisory day or if its a weekend
+    
     const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
     
     if (weekDaySchedule.length === 0) {
@@ -212,15 +223,7 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
             termIndex: 0,
             startDate: displayDate,
             endDate: displayDate,
-            classes: [{ classID: ClassIDS.Advisory, period: 0, name: 'Advisory', room: "", teacher: {name: "", email:"", id:""} }].concat(Array(5).fill({
-                classID: ClassIDS.Period,
-                period: 1, 
-                name: "Summer", 
-                room: "Home", 
-                teacher: { name: "you", email: "you@you.com", id: "you" }
-            }).map((x: CL, i) => {
-                return { ...x, period: i };
-            }))
+            classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory)
         }
     }
 
@@ -230,8 +233,8 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
 
     
     if (newTerm[0] === undefined) {
-        console.log('newterm created')
-        newTerm = [{ termIndex: 0, classes: [ { classID: ClassIDS.Period, period: 1, name: "", room: "", teacher: { name: "", email: "", id: "" } }], startDate: new Date(), endDate: new Date() }];
+        console.log('newterm created (this shouldnt run)')
+        newTerm = [{ termIndex: 0, classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory), startDate: new Date(), endDate: new Date() }];
     }
     // console.log(newTerm[0])
     return newTerm[0];

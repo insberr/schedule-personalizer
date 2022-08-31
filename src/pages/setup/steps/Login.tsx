@@ -133,33 +133,30 @@ export function Login(props: Props) {
     }
 
     return (<FadeIn>
-        <Center className="full-center">
+        <Center>
             <h1>Login with StudentVue</h1>
             <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
                 {error}
             </Alert>
-        
-        <br />
-        
-        <br />
-        <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit(); }}>
-            <Form.Group className="mb-3">
-                <Form.FloatingLabel controlId={id+"username"} label="Username">
-                    <Form.Control required placeholder="Username" disabled={loading} onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setUsername(e.currentTarget.value) } } value={username} />
-                </Form.FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-                <Form.FloatingLabel controlId={id+"password"} label="Password">
-                    <Form.Control required placeholder="Password" disabled={loading} type="password" onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setPassword(e.currentTarget.value)}} value={password} />
-                </Form.FloatingLabel>
-            </Form.Group>
-            { /* TODO: Add signup for alert emails check box */ }
-            <Button variant='crimson' disabled={loading} type="submit">
-                { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
-            </Button>
-            <br /><br />
-            <div>{ (username === '' || password === '') ? 'Please enter your username and password' : (validUser.loading) ? 'Loading...' : (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Invalid Credentails' }</div>
-        </Form>
-    <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="crimson-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
-    </Center></FadeIn>)
+            <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit(); }}>
+                <Form.Group className="mb-3">
+                    <Form.FloatingLabel controlId={id+"username"} label="Username">
+                        <Form.Control required placeholder="Username" disabled={loading} onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setUsername(e.currentTarget.value) } } value={username} />
+                    </Form.FloatingLabel>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.FloatingLabel controlId={id+"password"} label="Password">
+                        <Form.Control required placeholder="Password" disabled={loading} type="password" onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setPassword(e.currentTarget.value)}} value={password} />
+                    </Form.FloatingLabel>
+                </Form.Group>
+                { /* TODO: Add signup for alert emails check box */ }
+                <Button variant='crimson' disabled={loading} type="submit">
+                    { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
+                </Button>
+                <br /><br />
+                <div>{ (username === '' || password === '') ? 'Please enter your username and password' : (validUser.loading) ? 'Loading...' : (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Invalid Credentails' }</div>
+            </Form>
+            <Button className="mt-5 white" onClick={ () => { props.setStage(-1) }} variant="crimson-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
+        </Center>
+    </FadeIn>)
 }

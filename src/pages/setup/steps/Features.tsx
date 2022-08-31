@@ -60,7 +60,7 @@ export function Features(props: Props) {
     useChain(disappear ? [buttonapi, newsapi, tapi] : [tapi, newsapi, buttonapi], [0,0.25,0.5])
     return (<>
         <div className="text-center full-center">
-            <animated.h2 style={title}><h2>Features And Whats New?</h2></animated.h2>
+            <animated.h2 style={title}>Features And Whats New?</animated.h2>
             <ul style={{"listStyleType": "none", "margin":0, "marginTop": "1em", "padding":0}}>
             { news((style, item) => {
                 return <li><animated.span style={style}>{item}</animated.span></li>

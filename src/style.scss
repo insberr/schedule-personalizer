@@ -203,11 +203,13 @@ $tile-selected: shade-color($white,10%);
     //border-top: $row-border solid $date-bg;
 }
 
-.map.modal-content {
+.map .modal-content {
     background: none!important;
 }
+
 .map.modal-body {
-    background: rgba(78, 78, 78, 0.401)!important;
+    padding: 0!important;
+    background: rgba(78, 78, 78, 0.35)!important;
     box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1)!important;
     backdrop-filter: blur(8px)!important;
     border-bottom-left-radius: 16px!important;
@@ -215,7 +217,7 @@ $tile-selected: shade-color($white,10%);
     -webkit-backdrop-filter: blur(8px)!important;
 }
 .map.modal-header {
-    background-color: var(--bs-modal-bg)!important;
+    background-color: rgb(49, 49, 49)!important;
     border-bottom: none!important;
 }
 

@@ -15,6 +15,6 @@ export function Map(props: props) {
             <Modal.Header className="map" closeButton>
                 <Modal.Title>Map</Modal.Title>
             </Modal.Header>
-                <Modal.Body className={'map ' + classes["map-model-body"]}><MP sch={props.sch}/></Modal.Body>
+                <Modal.Body className={'map'}><MP sch={props.sch}/></Modal.Body>
             </Modal>)
 }

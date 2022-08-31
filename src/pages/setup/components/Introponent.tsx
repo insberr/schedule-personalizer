@@ -52,8 +52,13 @@ export function IntroPonent(props: Props) {
       )
       if (!stage1Complete) {
             // Maybe add 'By insberr And wackery' text too?
-            // @ts-expect-error hahaha
-            return <><animated.h1 className="text-center" style={animWelcome}><h1>Welcome</h1></animated.h1><animated.h6 style={animWelcome2}><h6 className="text-muted">Schedule Peronalizer v5</h6></animated.h6></>
+            
+            return (<>
+                <div>
+                    <animated.h1 className="text-center" style={animWelcome as never}>Welcome</animated.h1>
+                    <animated.h6 className="text-muted" style={animWelcome2 as never}>Schedule Peronalizer v5</animated.h6>
+                </div>
+            </>)
         } else {
             return props.children;
         }

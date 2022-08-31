@@ -41,7 +41,11 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
 
     const debounceColor = debounce((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) => {
         const color = tinyColor(e.target.value);
-        setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS], c: color.toRgb() } } })
+        if (c[0] === 'currentClass') {
+            setColorPickerValues({ ...colorPickerValues, currentClass: { ...colorPickerValues.currentClass, c: color.toRgb() } })
+        } else {
+            setColorPickerValues({ ...colorPickerValues, schedule: { ...colorPickerValues.schedule, [parseInt(c[0])]: { ...colorPickerValues.schedule[parseInt(c[0])  as unknown as ClassIDS], c: color.toRgb() } } })
+        }
     }, 5)
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA]) {
         debounceColor(e, c);
@@ -86,7 +90,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                             return (
                             <ListGroup.Item key={'scheduleColors'+c[0]+i}>
                                 <Center>
-                                    <Stack gap={2} direction="horizontal">
+                                    <Stack gap={2} direction="horizontal" className="mb-2">
                                         <Form.Group>
                                             <Form.Label htmlFor={"classColorInput" + c[0]}>Color picker</Form.Label>
                                             <Form.Control
@@ -121,15 +125,19 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                             id={"classColorInputCurrentClass"}
                                             defaultValue={ tinyColor(customizations.theme.colors.currentClass.c).toHexString()}
                                             title={"Pick Color For Current Class"}
-                                            onChangeCapture={(e) => { console.log(e); }}
+                                            onChange={async (e) => {
+                                                handleChange(e, ['currentClass', customizations.theme.colors.currentClass]);
+                                            }}
+                                            onBlur={() => { dispatch(setAllColors(colorPickerValues)); }}
                                         />
                                     </Form.Group>
+                                    <span>TODO: add alpha changer</span>
                                     <Button onClick={() => { dispatch(setCurrentClassColor({ ...customizations.theme.colors.currentClass, enabled: false })) } }>Reset</Button>
                                 </Stack>
                                 
                                 <Container style={{ width: "80vw", maxWidth: "900px" }}>
                                     <Row className="crow">
-                                        <ScheduleEntry isForCustomizations={true} viewDate={new Date()} sch={[]} period={{ classID: ClassIDS.Period, period: 1, name: 'Current Period', room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'currentClassColorOverride'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+customizations.theme.colors.currentClass} />
+                                        <ScheduleEntry isForCustomizations={true} forcedColor={colorPickerValues.currentClass} viewDate={new Date()} sch={[]} period={{ classID: ClassIDS.Period, period: 1, name: 'Current Period', room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'currentClassColorOverride'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+customizations.theme.colors.currentClass} />
                                     </Row>
                                 </Container>
                             </Center>

@@ -56,7 +56,7 @@ function Schedule(props: ScheduleProps) {
                 setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
             }
             setCurrentTime(devTime || dateToTime(new Date()))
-        }, 2000)
+        }, 1000)
 
         return () => {
             clearInterval(dt);

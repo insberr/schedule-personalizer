@@ -54,7 +54,7 @@
     "dev": "parcel serve",
     "check": "tsc && eslint src",
     "clean": "rimraf dist && rimraf .parcel-cache",
-    "splash": "cd src && pwa-asset-generator ../icon.svg ./splashscreens --background #272727 --splash-only --dark-mode --index index.html --type png --padding \"calc(50vh - 10%) calc(50vw - 15%)\" && pwa-asset-generator ../icon.svg ./splashscreens --splash-only --index index.html --type png --padding \"calc(50vh - 10%) calc(50vw - 15%)\"",
+    "splash": "cd src && pwa-asset-generator ../icon.svg ./splashscreens --background #272727 --splash-only --index index.html --type png --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
     "fullbuild": "yarn splash && yarn build"
   },
   "packageManager": "yarn@3.2.0",
@@ -66,10 +66,9 @@
     "genSafariPinnedTab": true,
     "appleTouchIconBG": "#272727",
     "generateIconOptions": {
-      "baseIcon": "./maskable_icon.png",
+      "baseIcon": "./icon.svg",
       "genFavicons": true,
       "purpose": [
-        "maskable",
         "any"
       ]
     },

@@ -178,7 +178,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                     }}>Reset</Button>
                                 </Stack>
                                 
-                                <Container style={{ width: "80vw", maxWidth: "900px" }}>
+                                <Container style={{ width: "90vw", maxWidth: "900px" }}>
                                     <Row className="crow">
                                         <ScheduleEntry currentTime={dateToTime(new Date())} isForCustomizations={true} forcedColor={colorPickerValues.currentClass} viewDate={new Date()} sch={[]} period={{ classID: ClassIDS.Period, period: 1, name: 'Current Period', room: '100', teacher: { name: 'Crabby', email: 'CrabbyPatty@school.edu', id: 'currentClassColorOverride'}, startTime: getTimeW(0, 0), endTime: getTimeW(23, 59) }} mini={false} key={'scheduleColors'+customizations.theme.colors.currentClass} />
                                     </Row>

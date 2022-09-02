@@ -10,7 +10,7 @@ export function LunchPicker(props: Props) {
     return (<div>
         <h3 className="mb-3">Select Lunch</h3>
         {[...Array(props.lunchamt)].map((_,ln) => {
-            return <Fragment key={"lunch"+ln}><Form.Check className="d-inline-block mb-1" onChange={() => {props.setl(ln + 1)}} checked={props.l==ln} label={ordinal_suffix_of(ln+1)} name="lunchpick" type="radio"/><br /></Fragment>
+            return <Fragment key={"lunch"+ln}><Form.Check className="d-inline-block mb-1" onChange={() => {props.setl(ln + 1)}} checked={props.l==ln +1} label={ordinal_suffix_of(ln+1)} name="lunchpick" type="radio"/><br /></Fragment>
         })}
     </div>)
 }

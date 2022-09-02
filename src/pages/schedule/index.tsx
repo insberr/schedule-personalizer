@@ -44,6 +44,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDisplayDate, sch, stv, userLunch]);
 
     // if loading shows blank schedule for a bit, maybe add a loading screen?
@@ -58,25 +59,17 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
 function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue, userLunch: number, setUserLunch: (lunch: number) => void): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
-    const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
+    const currentDisplayDaySchedule: { schedule: SchedulesType, noOverride: boolean }  = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
 
     // Override the schedule with the events scheduled for the current displayed day
     /* make this the date thats being displayed */
-    let currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule, currentDisplayDate);
+    let currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule.schedule, currentDisplayDaySchedule.noOverride, currentDisplayDate);
     // console.log(currentDisplayDayEvent);
 
     const displayTerm = determineDisplayTerm(sch.terms, currentDisplayDate);
     if (displayTerm.isFake) {
         console.warn("No term found for the current date");
-        if (process.env.NODE_ENV === 'development') {
-            currentDisplayDayEvent = {
-                isEvent: true,
-                schedule: schedules.normal,
-                info: {
-                    message: "DEV MODE: No Term (Fake Term) | Its summer, or something is broken"
-                }
-            }
-        } else if (!currentDisplayDayEvent.isEvent) {
+        if (!currentDisplayDayEvent.isEvent) {
             currentDisplayDayEvent = {
                 isEvent: true,
                 schedule: schedules.summer,
@@ -111,7 +104,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     // for now, only auto detects lunch if logged into studentvue.
     let userLunch: number = lunch;
     if (stv.isLoggedIn &&  displayTerm.classes.length > 0) {
-        const temp_basedOnPeriodLunch = lunchesConfig.lunches.filter((lunches) => {
+        const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {
             return lunches.basedOnPeriod === lunchValue.basedOnPeriod;
         });
 
@@ -121,8 +114,15 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
             });
 
             if (temp_possibleLunches.length > 0) {
+                if (temp_possibleLunches.length > 1) {
+                    // TODO: send error to sentry.io
+                    console.log('Why are there multiple lunches for the teacher ', displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name, ' : Lunches ', Object.values(temp_possibleLunches.map(p => p.lunch)).join(', '));
+                }
+
                 userLunch = temp_possibleLunches[0].lunch;
-                setUserLunch(userLunch);
+                if (userLunch !== lunch) {
+                    setUserLunch(userLunch);
+                }
             } else {
                 console.log('This should be an error because it means that the teacher id is missing from the lunches config')
             }
@@ -133,7 +133,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
     }
 
-    const lunchSchedule = lunchValue.lunches[lunch+1];
+    const lunchSchedule = lunchValue.lunches[lunch];
 
     const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod);
 
@@ -162,18 +162,18 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
  * 
  * ie. if its tuesday or thurseday its an advisory day or if its a weekend
 */
-function getDisplayDaySchedule(date: Date): SchedulesType {
+function getDisplayDaySchedule(date: Date): { schedule: SchedulesType, noOverride: boolean } {
     
     const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
     
     if (weekDaySchedule.length === 0) {
         console.log(`For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`);
-        return defaultSchedule;
+        return { schedule: defaultSchedule, noOverride: false };
     }
-    return weekDaySchedule[0].schedule;
+    return { schedule: weekDaySchedule[0].schedule, noOverride: weekDaySchedule[0]?.noOverride || false };
 }
 
-function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule {
+function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: Date): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
 
@@ -194,34 +194,33 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
     // or we could implement something to tell it we intentionally ment to overlap them and in that case also tell it what to do
     // but at that point just write the events properly????
 
-    if (displayDateEvents.length > 1) {
-        // console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
-
-        const messages = displayDateEvents.map(event => event.info.message).join('<br />');
-        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null)[0];
-
-        const event = {
-            isEvent: true,
-            schedule: eventNotNull.schedule || schedule,
-            info: {
-                message: messages,
-            }
-        }
-        return event;
-    }
-    if (displayDateEvents.length !== 0) return {
-        isEvent: true,
-        schedule: displayDateEvents[0]?.schedule || schedule,
-        info: displayDateEvents[0].info
-    };
-
-    const event = {
+    let event = {
         isEvent: false,
         schedule: schedule,
         info: {
             message: ""
         }
     }
+
+    if (displayDateEvents.length > 1) {
+        // console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
+
+        const messages = displayDateEvents.map(event => event.info.message).join('<br />');
+        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null)[0];
+
+        event = {
+            isEvent: true,
+            schedule: noOverride ? schedule : eventNotNull.schedule || schedule,
+            info: {
+                message: messages,
+            }
+        }
+    } else if (displayDateEvents.length !== 0) return {
+        isEvent: true,
+        schedule: noOverride ? schedule : displayDateEvents[0]?.schedule || schedule,
+        info: displayDateEvents[0].info
+    }
+    
     return event;
 }
 

@@ -37,17 +37,17 @@ export function ManualClassEntry(props: Props) {
             <div className="mb-2">{ props.isAdv ? "Advisory" : "Period "+props.period}</div>
             <Row xs={1} md={3}>
                 <Form.Group as={Col} className='mb-3'>
-                    <Form.FloatingLabel controlId={id+"classname"} label="Class Name"> 
+                    <Form.FloatingLabel controlId={id+"classname"} label="Class Name" className="uncenter-floating-label"> 
                         <Form.Control type="text" onChange={changeDo("name")} value={props.value.name} placeholder="Name" disabled={props.isAdv} />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} className='mb-3'>
-                    <Form.FloatingLabel controlId={id+"tname"} label="Teacher Name">
+                    <Form.FloatingLabel controlId={id+"tname"} label="Teacher Name" className="uncenter-floating-label">
                         <Form.Control value={props.value.teacher.name} onChange={changeDo("teacher")} placeholder="Teacher" />
                     </Form.FloatingLabel>
                 </Form.Group>
                 <Form.Group as={Col} className='mb-3'>
-                    <Form.FloatingLabel controlId={id+"room"} label="Room Number">
+                    <Form.FloatingLabel controlId={id+"room"} label="Room Number" className="uncenter-floating-label">
                         <Form.Control value={props.value.room} onChange={changeDo("room")} placeholder="Room" />
                     </Form.FloatingLabel>
                 </Form.Group>

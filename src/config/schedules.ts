@@ -19,6 +19,7 @@ export type Lunch = {
 
 export type SchedulesType = {
     name: string, // This is used by the event editor
+    noOverride?: boolean, // This is to be used for schedules that should not be overridden by any event, really only for weekends and summer
     classes: SCHCL[],
     lunch: {
         hasLunch: boolean,
@@ -215,6 +216,7 @@ export const schedules: Schedules = {
     },
     weekend: {
         name: 'Weekend',
+        noOverride: true,
         classes: [
             { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
         ],
@@ -235,6 +237,7 @@ export const schedules: Schedules = {
 
     summer: {
         name: 'Summer',
+        noOverride: true,
         classes: [
             { classID: ClassIDS.Summer, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
         ],
@@ -245,7 +248,7 @@ export const schedules: Schedules = {
 
     /* DOES NOT WORK YET */
     testMuliLunch: {
-        name: 'Normal',
+        name: 'test multi lunch',
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
             { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
@@ -322,8 +325,8 @@ export const defaultSchedule: SchedulesType = schedules.normal;
 */
 export const weekSchedule = [
     // Weekends
-    { day: 0, schedule: schedules.weekend }, // Sunday
-    { day: 6, schedule: schedules.weekend }, // Saturday
+    { day: 0, schedule: schedules.weekend, noOverride: true }, // Sunday
+    { day: 6, schedule: schedules.weekend, noOverride: true }, // Saturday
 
     // Weekdays
     { day: 1, schedule: schedules.normal }, // Monday

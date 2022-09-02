@@ -111,6 +111,9 @@ const migrations = {
     },
     3: (state: any) => {
         return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, icons: defaultCustomizations.theme.icons } } }
+    },
+    4: (state: any) => {
+        return { ...state, schedule: { ...state.schedule, lunch: ( state.schedule.lunch === 0 ? 1 : state.schedule.lunch ) } }
     }
 }
 
@@ -118,7 +121,7 @@ const migrations = {
 
 const persistConfig = {
     key: 'v5ReduxData',
-    version: 3,
+    version: 4,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

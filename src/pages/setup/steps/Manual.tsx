@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { setLunch, useSchedule } from '../../../storage/schedule';
 import * as settings from '../../../config/settings';
 import Form from 'react-bootstrap/Form';
-import { Container, Row } from 'react-bootstrap';
+import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
 
 type Props = {
     setStage: (stage: number) => void;
@@ -23,7 +23,7 @@ export function Manual(props: Props) {
     const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);
     const [terms, setTerms] = useState<Terms>(() => sch.terms.length > 0 ? sch.terms : settings.termsDates)
-    const [l, sl] = useState(sch.lunch || 0);
+    const [l, sl] = useState(sch.lunch || 1);
 
     const dispatch = useDispatch();
     
@@ -50,7 +50,7 @@ export function Manual(props: Props) {
         newTerms[term].classes[classNum] = clas;
         setTerms(newTerms);
     }
-    console.log(terms)
+
     return (
         <Center className="text-center"> 
             <h1 className="mt-5">Setup</h1>
@@ -58,14 +58,15 @@ export function Manual(props: Props) {
             <Container className='mt-5'>
                 <Row lg={2} className='justify-content-center'>
                     <Form.Group controlId="formSelectTerm">
-                        <Form.Label>Select Term</Form.Label>
-                        <Form.Select value={term} onChange={(n) => {setTerm(parseInt(n.target.value)); console.log("set term to "+n.target.value)}}  aria-label="Term Select">
-                            { 
-                                terms.map((t, i) => {
-                                    return <option key={"term"+i} value={t.termIndex}>Term {t.termIndex + 1}</option>
-                                })
-                            }
-                        </Form.Select>
+                        <FloatingLabel controlId="formSelectTerm" label="Select Term" className="uncenter-floating-label">
+                            <Form.Select value={term} onChange={(n) => {setTerm(parseInt(n.target.value)); console.log("set term to "+n.target.value)}}  aria-label="Term Select">
+                                { 
+                                    terms.map((t, i) => {
+                                        return <option key={"term"+i} value={t.termIndex}>Term {t.termIndex + 1}</option>
+                                    })
+                                }
+                            </Form.Select>
+                        </FloatingLabel>
                     </Form.Group>
                 </Row>
                 <Row className="paper mt-4" style={{'maxWidth': '1000px'}}>
@@ -77,8 +78,10 @@ export function Manual(props: Props) {
                     <LunchPicker l={l} lunchamt={3} setl={sl} />
                 </Row>
                 <Row className="mt-4 mb-5">
-                    { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                    <Button variant='crimson' onClick={()=>{ props.setSchedule(terms); props.isEdit ? (props as { setIsEdit: (s: boolean) => void }).setIsEdit(false) : props.setStage(69); }} disabled={!isValid}>Confirm</Button>
+                    <Col>
+                        { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
+                        <Button variant='crimson' onClick={()=>{ props.setSchedule(terms); props.isEdit ? (props as { setIsEdit: (s: boolean) => void }).setIsEdit(false) : props.setStage(69); }} disabled={!isValid}>Confirm</Button>
+                    </Col>
                 </Row>
             </Container>
         </Center>

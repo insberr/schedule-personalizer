@@ -10,4 +10,8 @@ export type LunchesBasedOnPeriod = {
     lunches: Lunch[]
 }
 
-export type LunchesType = LunchesBasedOnPeriod[]
+export type LunchesOnTerms = {
+    [key: number]: LunchesBasedOnPeriod[]
+}
+
+export type LunchesType = LunchesOnTerms

@@ -11,7 +11,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 
 const initialState: ScheduleStorage = {
-    lunch: 0,
+    lunch: 1,
     terms: []
 }
 

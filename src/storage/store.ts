@@ -108,6 +108,9 @@ const migrations = {
         colors.scheduleFrame = { enabled: false, c: { r: 0, g: 0, b: 0, a: 0 }, t: { r: 0, g: 0, b: 0, a: 0 } }
 
         return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: colors } } }
+    },
+    3: (state: any) => {
+        return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, icons: defaultCustomizations.theme.icons } } }
     }
 }
 
@@ -115,7 +118,7 @@ const migrations = {
 
 const persistConfig = {
     key: 'v5ReduxData',
-    version: 2,
+    version: 3,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

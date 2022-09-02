@@ -67,3 +67,5 @@ dist/
 # stufentvue data
 schoolinfo.json
 src/fakeStudentvueClassList.ts
+src/schoolinfo.ts
+src/schoolinfo.js

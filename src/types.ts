@@ -81,10 +81,10 @@ export type RGBA = {
     },
     // Text
     t: {
-        r: 0,
-        g: 0,
-        b: 0,
-        a: 0
+        r: number
+        g: number
+        b: number
+        a: number
     }
 }
 
@@ -102,10 +102,24 @@ export type Keybinds = {
     goToToday: string
 }
 
+export type Icon = {
+    enabled: boolean
+    color: {
+        r: number
+        g: number
+        b: number
+        a: number
+    }
+}
+
 export type Customizations = {
     theme: {
         colors: Colors
-
+        icons: {
+            class: Icon
+            lunch: Icon
+            currentClass: Icon
+        }
     }
     keybinds: Keybinds
     showInfoOnSchedule: boolean

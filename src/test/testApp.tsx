@@ -9,7 +9,6 @@ export const Demo = () => {
     const { zoomingState, pinchState } = usePinchZoom(scaleRef);
     
     const [locked, toggleLocked] = useToggle(false)
-
     useLockBodyScroll(locked);
     
     useEffect(() => {

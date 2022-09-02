@@ -1,8 +1,8 @@
-
+import * as teachersConfig from '../config/teachers';
 
 export type Lunch = {
     lunch: number
-    teacherIDs: string[]
+    teachers: teachersConfig.Teacher[]
 }
 
 export type LunchesBasedOnPeriod = {

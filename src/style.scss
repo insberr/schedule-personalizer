@@ -86,6 +86,10 @@ $row-border: .2rem;
     //transform: translate(-50%, -50%);
 }
 
+.uncenter-floating-label label {
+    width: initial;
+}
+
 //other styles go here
 
 /*.row {
@@ -134,6 +138,10 @@ a {
     color: #DC143C;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .crimsonTabs > li.nav-item > button.nav-link {
     color: white;
 }
@@ -179,14 +187,18 @@ $tile-selected: shade-color($white,10%);
 
 @import "./components/Calendar/Calendar.scss";
 
-
-
-
 /*.date {
     border-left: $row-border solid $border-color;
     border-right: $row-border solid $border-color;
     border-top: $row-border solid $border-color;
 }*/
+/*
+.scheduleList .crow.row:last-child .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
+    &:last-child {
+        border-bottom: none;
+    }
+}
+*/
 
 .classRow {
     padding: 1rem;
@@ -194,6 +206,8 @@ $tile-selected: shade-color($white,10%);
 
 .classTypeIcon {
     max-width: 10px;
+    position: absolute;
+    padding-left: 0;
 }
 
 .crow {
@@ -205,8 +219,24 @@ $tile-selected: shade-color($white,10%);
     &:last-child  {
         border-radius: 0 0 10px 10px;
         border-bottom: $row-border solid $date-bg;
+        .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
+            &:last-child {
+                border-bottom: none;
+            }
+        }
     }
 }
+
+.crow {
+    &:last-child {
+        .schedule-entry-container {
+            border-bottom-right-radius: $border-radius-table - 2px;
+            border-bottom-left-radius: $border-radius-table - 2px;
+        }
+    }
+
+}
+
 .innerbox {
     padding: 0.3em;
     //border-top: $row-border solid $date-bg;
@@ -236,4 +266,9 @@ $tile-selected: shade-color($white,10%);
 
 .highlightClassEntryRed {
     background-color: #ff00007c!important;
+}
+
+.scheduleList {
+    width: 80vw;
+    max-width: 900px;
 }

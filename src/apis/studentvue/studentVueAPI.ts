@@ -121,7 +121,7 @@ export async function getStudentInfo(username: string, password: string): Promis
     }
 }
 
-export async function getSchoolInfo(username: string, password: string): Promise<unknown> {
+export async function getSchoolInfo(username: string, password: string): Promise<Record<string, unknown>> {
     const info = await StudentSchoolInfo(username, password);
     if (!isError(info)) {
         return {"code": "SUCCESS", "content":info["StudentSchoolInfoListing"]}
@@ -129,3 +129,21 @@ export async function getSchoolInfo(username: string, password: string): Promise
         throw new Error(info.RT_ERROR.ERROR_MESSAGE)
     }
 }
+
+
+/*
+// this might need to be turned into an async function
+export function generateTeachers(username: string, password: string): { [key: string]: { id: string } } {
+    const teachers: { [key: string]: { id: string } } = {};
+    
+    getSchoolInfo(username, password).then(res => {
+        for (const teach of res.content.StaffLists.StaffList) {
+            */
+            // teachers[toTitleCase(teach.Name).replace(/ |(, )|-/ig, '_').replace(/[^a-z_]*/ig, '')] = { id: teach.StaffGU };
+            /*
+        }
+    })
+    
+    return teachers;
+}
+*/

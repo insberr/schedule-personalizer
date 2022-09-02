@@ -9,12 +9,11 @@ import Col from 'react-bootstrap/Col';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
-import {isAfter, isBefore, isSameDay, isToday, isWithinInterval} from "date-fns"
+import {isAfter, isBefore, isSameDay, isWithinInterval} from "date-fns"
 import * as lib from "../../../lib"
 import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
 import tinyColor from 'tinycolor2';
-import tinycolor from "tinycolor2";
 import { BsStars } from "react-icons/bs";
 
 type ScheduleEntryProps = {
@@ -26,7 +25,6 @@ type ScheduleEntryProps = {
     isForCustomizations?: boolean
     forcedColor?: RGBA
     currentTime: Time
-    devTime?: Time | null
 }
 
 // Making this look better will be fun : )
@@ -40,13 +38,9 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     // TODO: Make this update every second and then check its still the current class and the highlight it 
     const [currentClassDateAndTime, setcurrentClassDateAndTime] = useState(new Date()); // useState(props.viewDate); // useState(new Date("SepTember 6, 2022 08:04:59")); // new Date();
     useEffect(() => {
-        if (props.devTime) {
-            setcurrentClassDateAndTime(timeToDate(props.devTime))
-            return;
-        }
         const nd = timeToDate(props.currentTime);
         setcurrentClassDateAndTime(nd)
-    }, [props.currentTime, props.devTime])
+    }, [props.currentTime])
 
     useEffect(() => {
         if (!doRGBParty) {
@@ -63,9 +57,73 @@ function ScheduleEntry(props: ScheduleEntryProps) {
 
     const [cdate, setcdate] = useState<Date>(new Date())
     const [highlightPeriodColor, setHighlightPeriodColor] = useState({
-        'backgroundColor': (props.forcedColor !== undefined ? tinycolor(props.forcedColor.c).toRgbString() : 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass : customizations.theme.colors.schedule[props.period.classID]).join(',') + ')'),
+        'backgroundColor': tinyColor({ r: 0, g: 0, b: 0, a: 0 }).toRgbString()
     });
 
+    const [textPeriodColor, setTextPeriodColor] = useState({
+        'color': 'inherit'
+    });
+
+    useEffect(() => {
+        // Forced Color is for the customizations page in settings
+        if (props.forcedColor !== undefined) {
+            const color = tinyColor(props.forcedColor.c).toRgbString();
+            let textColor = tinyColor(props.forcedColor.t).toRgbString();
+            if (props.forcedColor.t.a === 0) {
+                textColor = tinyColor(props.forcedColor.c).isLight() ? 'black' : 'white';
+            }
+            
+            setHighlightPeriodColor({
+                'backgroundColor': color,
+            });
+            setTextPeriodColor({
+                'color': textColor,
+            });
+            return;
+        }
+
+        const custom = customizations.theme.colors.schedule[props.period.classID];
+
+        // Set the text color to the user selected colro or to black/white automatically based on the highlight color
+        let textColor = tinyColor(custom.t).toRgbString();
+        if (custom.t.a === 0) {
+            textColor = tinyColor(custom.c).isLight() ? 'black' : 'white';
+        }
+        setTextPeriodColor({
+            'color': textColor,
+        });
+
+        // Set the color of the period
+        const backgroundColor = tinyColor(custom.c).toRgbString();
+        setHighlightPeriodColor({
+            'backgroundColor': backgroundColor,
+        });
+
+        // If the period is one that shouldnt be highlighted by the current class period highlighting, then return
+        if ([ClassIDS.Summer, ClassIDS.Weekend, ClassIDS.NoSchool].includes(props.period.classID)) return;
+        
+        // If the period is the current class period, then highlight it
+        if (isSameDay(props.viewDate, currentClassDateAndTime)) {
+            if (isCurrentClass(props.sch, props.period, currentClassDateAndTime)) {
+                const currentClassBackgroundColor = tinyColor(customizations.theme.colors.currentClass.c).toRgbString();
+                setHighlightPeriodColor({
+                    'backgroundColor': currentClassBackgroundColor,
+                });
+
+                let currentClassTextColor = tinyColor(customizations.theme.colors.currentClass.t).toRgbString();
+                if (customizations.theme.colors.currentClass.t.a === 0) {
+                    currentClassTextColor = tinyColor(customizations.theme.colors.currentClass.c).isLight() ? 'black' : 'white';
+                }
+                setTextPeriodColor({
+                    'color': currentClassTextColor,
+                });
+            }
+        }
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [customizations, props?.forcedColor, currentClassDateAndTime])
+
+    // Makes the timers update I think (ask wackery he added this)
     useEffect(() => {
         const dt = setInterval(() => {
             setcdate(new Date())
@@ -74,57 +132,32 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         return () => {
             clearInterval(dt);
         }
-    },[])
-
-    useEffect(() => {
-        if (props.forcedColor !== undefined) {
-            // TODO: USE THIS EVERYWHERE
-            const color = tinycolor(props.forcedColor.c).toRgbString();
-            setHighlightPeriodColor({
-                'backgroundColor': color,
-            });
-            return;
-        }
-        if (props.period.teacher.id === 'currentClassColorOverride' || props.isForCustomizations) {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(props.period.teacher.id === 'currentClassColorOverride' ? customizations.theme.colors.currentClass.c : customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
-            });
-            return;
-        }
-
-        if ([ClassIDS.Summer, ClassIDS.Weekend, ClassIDS.NoSchool].includes(props.period.classID)) {
-            setHighlightPeriodColor({
-                'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
-            });
-            return;
-        }
-
-        setHighlightPeriodColor({
-            'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.schedule[props.period.classID].c).join(',') + ')',
-        });
-
-        if (isSameDay(props.viewDate, currentClassDateAndTime)) {
-            if (isCurrentClass(props.sch, props.period, currentClassDateAndTime)) {
-                setHighlightPeriodColor({
-                    'backgroundColor': 'rgba('+ Object.values(customizations.theme.colors.currentClass.c).join(',') + ')',
-                });
-            }
-        }
-        
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [customizations, props?.forcedColor, currentClassDateAndTime])
+    }, [])
 
     return (
-    <Container className={ (doRGBParty ? "spin " : "") + (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? 'highlightClassEntryRed' : '') + (useCss(highlightPeriodColor)) } style={doRGBParty ? {"backgroundColor": "#"+rgb } : {}}>
+    <Container
+        className={
+            " schedule-entry-container " +
+            // RGB Party Easter Egg
+            (doRGBParty ? " spin " : "") +
+            // Highlight the class based on the user customizations and current class period
+            (useCss(highlightPeriodColor) + " " +
+            // Text color for period
+            useCss(textPeriodColor) +
+            // Duplicate period highlighting
+            (props.sch.filter(pd => (pd.classID === ClassIDS.Period && pd.period === props.period.period && pd.startTime === props.period.startTime)).length > 1 ? ' highlightClassEntryRed ' : ''))
+        }
+        style={ doRGBParty ? {"backgroundColor": "#"+rgb } : {} }
+    >
     <Row onClick={()=> { setOpen(!props.mini && !open) }} className="classRow">
-        <Col key="classTypeIcon" className={ /* if any icons will show && customizations . show icons */ 'classTypeIcon hidden'}><BsStars className={isCurrentClass(props.sch, props.period, currentClassDateAndTime) ? '' : 'hidden'} /></Col>
+        <Col key="classTypeIcon" className={ /* if any icons will show && customizations . show icons */ 'classTypeIcon'}><BsStars className={isSameDay(props.viewDate, currentClassDateAndTime) && isCurrentClass(props.sch, props.period, currentClassDateAndTime) ? '' : 'hidden'} /></Col>
         <Col key="classTime" className={(props.mini ? 'hidden' : '') }>{formatClassTime(props.period.startTime, props.period.endTime)}</Col>
         <Col key="className">{props.period.name || formatClassPeriodName(props.period) }</Col>
         <Col key="teacherName" className={ (props.mini || !lib.displayTeacherNamesCol(props.sch) ? 'hidden' : 'd-none d-md-block') }>{props.period.teacher.name}</Col>
         <Col key="roomNumber" className={(props.mini || !lib.displayRoomsCol(props.sch) ? 'hidden' : 'd-none d-sm-block') }>{ props.period.room != "" ? "Room" : ""} {props.period.room}</Col>
         <Col className={ props.mini ? 'hidden' : '' } style={{'maxWidth': '10px', 'paddingLeft': '0px', 'paddingRight': '16px'}}><MdExpandMore /></Col>
     </Row>
-    <Row onClick={() => {setOpen(!props.mini && !open)}}>
+    <Row onClick={() => {setOpen(!props.mini && !open)}} className={"classInfoCollapse"}>
         <Collapse in={open} dimension="height">
             <div>
                 { isBefore(cdate, timeToDate(props.period.startTime,props.viewDate)) &&
@@ -161,7 +194,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                     && props.period.teacher.email !== '')
                     &&
                     <div className="innerbox">
-                        <a href={ "mailto:" + props.period.teacher.email }>Email Teacher</a>
+                        <a href={ (props.period.teacher.email.includes('https') ? "" : "mailto:") + props.period.teacher.email } rel="noreferrer" target="_blank">Email Teacher</a>
                     </div>
                 }
             </div>

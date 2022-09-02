@@ -58,6 +58,15 @@ const defaultColor: types.RGBA = {
         a: 0
     }
 }
+const defaultIcon: types.Icon = {
+    enabled: true,
+    color: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0
+    }
+}
 
 export const defaultCustomizations: types.Customizations = {
     theme: {
@@ -77,6 +86,11 @@ export const defaultCustomizations: types.Customizations = {
             currentClass: defaultColor,
             scheduleFrame: defaultColor,
         },
+        icons: {
+            class: defaultIcon,
+            lunch:  defaultIcon,
+            currentClass: defaultIcon,
+        }
     },
     keybinds: {
         goBackOneDay: 'ArrowLeft',

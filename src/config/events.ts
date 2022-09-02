@@ -18,8 +18,15 @@ export type ScheduleEvent = {
 
 export type ScheduleEvents = ScheduleEvent[];
 
-export function scheduleEventsDateRange(range: DateRange, currentDate: Date): Date {
-    if ((isAfter(currentDate, range.start) || isSameDay(currentDate, range.start)) && (isBefore(currentDate, range.end) || isSameDay(currentDate, range.end))){
+export function scheduleEventsDateRange(
+    range: DateRange,
+    currentDate: Date
+): Date {
+    if (
+        (isAfter(currentDate, range.start) ||
+            isSameDay(currentDate, range.start)) &&
+        (isBefore(currentDate, range.end) || isSameDay(currentDate, range.end))
+    ) {
         return currentDate;
     } else {
         return range.start;
@@ -42,8 +49,25 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "First Day Of School - (Schedule and Lunches Are Not Known Yet)",
+            message: "First Day Of School",
             date: new Date("September 6, 2022"),
+        },
+    },
+    {
+        schedule: schedules.advisory,
+        info: {
+            message: "Advisory Schedule | First Week Of School",
+            date: {
+                start: new Date("September 6, 2022"),
+                end: new Date("September 13, 2022"),
+            },
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Senior Assembly",
+            date: new Date("September 12, 2022"),
         },
     },
     {

@@ -2,6 +2,8 @@
 
 
 $body-bg: #272727;
+$body-bg-light: #ffffff;
+$body-color-light: black;
 $body-color: #fafafa;
 $font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
@@ -57,5 +59,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     --shade-bg:  #{$shade-bg};
     --shader-bg:  #{$shader-bg};
     --shaderer-bg:  #{$shaderer-bg};
-    --bg:  #{$body-bg};
 }
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --body-bg: #{$body-bg-light};
+        --body-color: #{$body-color-light};
+    }
+};
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #{$body-bg};
+        --body-color: #{$body-color};
+    }
+};

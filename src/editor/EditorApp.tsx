@@ -13,7 +13,7 @@ import { Col, Container, Row, Stack } from "react-bootstrap";
 export function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date|DateRange>(new Date());
-    const [schedule, setSchedule] = useState<SchedulesType>(schedules.normal);
+    const [schedule, setSchedule] = useState<SchedulesType | null>(schedules.normal);
     const [message, setMessage] = useState<string>("");
     // const [time, setTime] = useState<Date | string>(new Date())
 
@@ -82,6 +82,7 @@ export function EditorApp() {
                 if (property === 'schedule') {
                     const obj = object as ScheduleEvent;
                     // console.log((object as ScheduleEvent)[property])
+                    if (obj.schedule === null) return 'null';
                     for (const [i, sc] of Object.entries(schedules)) {
                         if (obj.schedule === sc) return `schedules.${i}`;
                     }

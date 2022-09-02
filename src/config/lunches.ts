@@ -1,5 +1,5 @@
 import * as types from '../types/lunchesTypes';
-// import { teachers } from './config/teachers';
+import { teachers } from './teachers';
 
 // maybe something like
 export const lunches: types.LunchesType = [
@@ -8,22 +8,18 @@ export const lunches: types.LunchesType = [
         lunches: [
             {
                 lunch: 1,
-                // TODO: change to teachers: [ teachers.Last_First ]
-                teacherIDs: [
-                    "642183792JHGKJ-HGKJH87697",
-                    ""
-                ],
+                teachers: [
+                    teachers.Officeclerk_Test
+                ]
             },
             {
                 lunch: 2,
-                teacherIDs: [
-                    "642183792JHGKJ-HGKJH87697",
+                teachers: [
                 ],
             },
             {
                 lunch: 3,
-                teacherIDs: [
-                    "642183792JHGKJ-HGKJH87697",
+                teachers: [
                 ],
             }
         ]
@@ -33,8 +29,7 @@ export const lunches: types.LunchesType = [
         lunches: [
             {
                 lunch: 1,
-                teacherIDs: [
-                    "642183792JHGKJ-HGKJH87697"
+                teachers: [
                 ],
             }
         ]

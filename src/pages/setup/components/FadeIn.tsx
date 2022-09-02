@@ -10,5 +10,5 @@ export function FadeIn(props: { children: React.ReactNode }) {
         },
         config: config.stiff,
     });
-    return <animated.span style={fadein}>{props.children}</animated.span>;
+    return <animated.div style={fadein}>{props.children}</animated.div>;
 }

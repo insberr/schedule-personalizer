@@ -5,6 +5,8 @@ type CenterProps = {
     className?: string;
     style?: React.CSSProperties;
     ref?: React.Ref<any>;
+    noDFlex?: boolean;
+    noVW?: boolean;
 };
 
 function Center(props: CenterProps) {
@@ -25,7 +27,9 @@ function Center(props: CenterProps) {
     return (
         <div ref={props.ref}
             className={
-                "d-flex text-center justify-content-center vw-100" +
+                "text-center justify-content-center  " +
+                (props.noVW ? "" : " vw-100 ") +
+                (props.noDFlex ? "" : " d-flex ") +
                 (props.className ? props.className : "")
             } style={props.style}>
             <div className="w-auto">{props.children}</div>

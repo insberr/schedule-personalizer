@@ -1,19 +1,17 @@
-import { useMemo, useState } from 'react'; 
-import { CL, Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
+import { useEffect, useMemo, useState } from 'react'; 
+import { Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
 import Schedule from "./components/Schedule";
 import LoadSpinner from '../../components/LoadSpinner';
 import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
 import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
-import { useSchedule, ScheduleStorage } from '../../storage/schedule';
+import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import { isAfter, isBefore, isDate, isSameDay } from 'date-fns'
+import { isAfter, isBefore, isSameDay } from 'date-fns'
 import { StudentVueReloader } from "../../components/StudentVueReloader"
+import { useDispatch } from 'react-redux';
 
-//import { StorageQuery, getV5Data, StorageDataLunch, StorageDataStudentvue, } from '../../storageManager';
-
-// Probably move these to types.ts and stucture it better
 export type EventSchedule = {
     isEvent: boolean,
     hasError?: boolean
@@ -31,18 +29,22 @@ type MergedSchedule = {
     sch: Terms
 }
 
-// END OF PROBABLY MOVE
-
-
 function SchedulePage(props: {setup: (b: boolean) => void}) {
+    const dispatch = useDispatch();
     const sch = useSchedule();
     const stv = useStudentvue();
 
-    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(process.env.NODE_ENV === "development" ? new Date(/*"September 6, 2022"*/) : new Date());
+    const [userLunch, setUserLunch] = useState(sch.lunch);
+    useEffect(() => {
+        dispatch(setLunch(userLunch))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userLunch])
+
+    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
-        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv);
+        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
-    }, [currentDisplayDate, sch, stv]);
+    }, [currentDisplayDate, sch, stv, userLunch]);
 
     // if loading shows blank schedule for a bit, maybe add a loading screen?
     if (!lunchifiedSchedule) {
@@ -53,7 +55,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     }
 }
 
-function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
+function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue, userLunch: number, setUserLunch: (lunch: number) => void): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
     const currentDisplayDaySchedule: SchedulesType = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
@@ -88,12 +90,12 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
     const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
 
     // Do lunch related frickery to the schedule
-    const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule, displayTerm, sch.lunch, stv);
+    const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch);
 
     return { currentDisplayDayEvent, lunchifiedSchedule };
 }
 
-function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue): MergedSchedule {
+function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue, setUserLunch: (lunch: number) => void): MergedSchedule {
     // This will prevent an error if there are no lunches on the schedule
     // Check if lunch is a thing for that day, if not return mergedSchedule
     const lunchValue = mergedSchedule.event.schedule.lunch;
@@ -115,12 +117,12 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
 
         if (temp_basedOnPeriodLunch.length > 0) {
             const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {
-                return lnc.teacherIDs.includes(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.id);
+                return lnc.teachers.map(t => t.id).includes(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.id);
             });
 
             if (temp_possibleLunches.length > 0) {
                 userLunch = temp_possibleLunches[0].lunch;
-                // TODO: SAVE LUNCH TO LOCALSTORAGE
+                setUserLunch(userLunch);
             } else {
                 console.log('This should be an error because it means that the teacher id is missing from the lunches config')
             }
@@ -130,8 +132,6 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         const temp_Message = '<br />Lunch may not be correct'
         mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
     }
-
-    // console.log('lnc ' + userLunch);
 
     const lunchSchedule = lunchValue.lunches[lunch+1];
 
@@ -194,7 +194,21 @@ function getDisplayDayEvent(schedule: SchedulesType, date: Date): EventSchedule 
     // or we could implement something to tell it we intentionally ment to overlap them and in that case also tell it what to do
     // but at that point just write the events properly????
 
-    if (displayDateEvents.length > 1) console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
+    if (displayDateEvents.length > 1) {
+        // console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
+
+        const messages = displayDateEvents.map(event => event.info.message).join('<br />');
+        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null)[0];
+
+        const event = {
+            isEvent: true,
+            schedule: eventNotNull.schedule || schedule,
+            info: {
+                message: messages,
+            }
+        }
+        return event;
+    }
     if (displayDateEvents.length !== 0) return {
         isEvent: true,
         schedule: displayDateEvents[0]?.schedule || schedule,

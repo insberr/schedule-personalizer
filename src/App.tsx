@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Terms } from './types';
@@ -11,8 +11,6 @@ import { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
 import { Header } from './components/Header';
-import { setSetupComplete } from './storage/misc';
-
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 function App() {

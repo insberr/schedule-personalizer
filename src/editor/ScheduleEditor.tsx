@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import { SchedulesType, schedules } from "../config/schedules"
 
 type Props = {
-    setSchedule: (schedule: SchedulesType) => void;
-    schedule: SchedulesType;
+    setSchedule: (schedule: SchedulesType | null) => void;
+    schedule: SchedulesType | null;
 }
 
 export function ScheduleEditor(props: Props) {
@@ -17,6 +17,7 @@ export function ScheduleEditor(props: Props) {
                 return <Button key={i} onClick={() => { props.setSchedule(schedules[k]) }}>{ schedules[k].name }</Button>
             })
         }
+            <Button key={'nullSchedule'} onClick={() => { props.setSchedule(null) }}>{ 'null (not a bug)' }</Button>
         </Stack>
 
         <div>

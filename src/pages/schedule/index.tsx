@@ -11,6 +11,7 @@ import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
 import { isAfter, isBefore, isSameDay } from 'date-fns'
 import { StudentVueReloader } from "../../components/StudentVueReloader"
 import { useDispatch } from 'react-redux';
+import * as Sentry from '@sentry/react';
 
 export type EventSchedule = {
     isEvent: boolean,
@@ -123,7 +124,9 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
             if (temp_possibleLunches.length > 0) {
                 if (temp_possibleLunches.length > 1) {
                     // TODO: send error to sentry.io
-                    console.log('Why are there multiple lunches for the teacher ', displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name, ' : Lunches ', Object.values(temp_possibleLunches.map(p => p.lunch)).join(', '));
+                    const errMsg = ('Why are there multiple lunches for the teacher ' +  displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name, ' : Lunches ', Object.values(temp_possibleLunches.map(p => p.lunch)).join(', '))
+                    Sentry.captureException(new Error(errMsg))
+                    console.log(errMsg);
                 }
 
                 userLunch = temp_possibleLunches[0].lunch;

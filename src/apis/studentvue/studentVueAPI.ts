@@ -60,9 +60,18 @@ export type StudentVueAPIDataUserDate = {
 }
 
 export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
-    const studentvueTerms = data.content.ClassLists;
-    console.log('studentVueTerms.length: ', studentvueTerms.length);
-    console.log('studentVueTerms: ', JSON.stringify(studentvueTerms));
+    // Hopefully this will catch any instance of studentvue returning an object instead of an array for the term.
+    // If theres one class in a term it retuns the calss instead of the class in an array
+    // This should fix that and probably get rid of that annoying error
+    const studentvueTerms = data.content.ClassLists.map((svueTerm) => {
+        if ((svueTerm as StudentVueAPIDataClassListsTermClass[])?.length === undefined) {
+            return [svueTerm];
+        }
+        return svueTerm;
+    });
+
+    // console.log('studentVueTerms.length: ', studentvueTerms.length);
+    // console.log('studentVueTerms: ', JSON.stringify(studentvueTerms, null, 2));
 
     const newTerms = settings.termsDates.map(t => {
         t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
@@ -76,7 +85,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
             const errMsg = `studentvueTerms[${i}] is not an array: ${JSON.stringify(studentvueTerms[i])}`;
             Sentry.captureException(new Error(errMsg));
             console.log(errMsg);
-            // do something ... ?
+            // studentvueTerms[i] = [studentvueTerms[i] as StudentVueAPIDataClassListsTermClass];
         }
         
         if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass)?.Period !== undefined) {
@@ -98,8 +107,16 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
             }]
             return t;
         }
+
+        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).length < 1) {
+            const errMsg = `studentvueTerms[${i}] is empty. This should not happen: ${JSON.stringify(studentvueTerms[i])}`;
+            Sentry.captureException(new Error(errMsg));
+            console.log(errMsg);
+            return t;
+        }
+
         t.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map(c => {
-            console.log('studentVueTerms.map => (c): ', c)
+            // console.log('studentVueTerms.map => (c): ', c)
             return {
                 classID: (parseInt(c.Period) === 0 ? ClassIDS.Zero : parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? ClassIDS.Advisory : ClassIDS.Period),
                 period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),

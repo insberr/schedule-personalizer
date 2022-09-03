@@ -99,7 +99,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
-                        <Button onClick={()=>{ navigator.serviceWorker.controller !== null ? navigator.serviceWorker.controller.postMessage("clearCache") : console.log('couldnt update') }}>Force Update Site</Button>
+                        <Button onClick={()=>{ (navigator.serviceWorker.controller !== null ? navigator.serviceWorker.controller.postMessage("clearCache") : console.log('couldnt update')); window.location.reload() }}>Force Update Site</Button>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
                     </Stack>
                 </Center>
@@ -333,7 +333,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <div>
                     <Button href="/editor">Event Editor (Devs only)</Button>
                     <Button href="/test">testing (Devs only)</Button>
-                    <Button onClick={() => { throw Error('Crash the webpage button was clicked. wonder why ... maybe the Bri ish are cuming') }}>Crash Webpage</Button>
+                    <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri ish are cuming') }}>Crash Webpage</Button>
                     <pre className="paper">
                         Redux Storeage Version: {persistConfig.version}
                         { "\n" }

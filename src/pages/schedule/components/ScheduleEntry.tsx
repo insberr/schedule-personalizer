@@ -15,6 +15,7 @@ import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
 import tinyColor from 'tinycolor2';
 import { BsStars } from "react-icons/bs";
+import { useSchedule } from "../../../storage/schedule";
 
 type ScheduleEntryProps = {
     sch: Class[]
@@ -29,6 +30,8 @@ type ScheduleEntryProps = {
 
 // Making this look better will be fun : )
 function ScheduleEntry(props: ScheduleEntryProps) {
+    const reduxSch = useSchedule();
+
     // do that here
     const [open, setOpen] = useState(false);
     const [rgb, setRgb] = useState<string>("");
@@ -187,6 +190,12 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                     &&
                     <div className="innerbox">
                         <span className="bold">{ props.period.teacher.name }</span> { props.period.room !== '' ? 'in room ' + props.period.room : '' }
+                    </div>
+                }
+                {
+                    props.period.classID === ClassIDS.Lunch &&
+                    <div className="innerbox">
+                        <span className="bold">You have lunch { reduxSch.lunch }</span>
                     </div>
                 }
                 {

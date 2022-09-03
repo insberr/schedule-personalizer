@@ -82,6 +82,14 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             endTime: getTimeW(23, 59)
         }
     }
+    function updateSW() {
+        navigator.serviceWorker.getRegistration().then((s)=>{
+            if (s == undefined) {
+                window.location.reload();
+            }
+            s.update().then(window.location.reload).catch(window.location.reload)
+        });
+    }
 
     return (<><Center>
         <h1>Settings</h1>
@@ -99,7 +107,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
-                        <Button onClick={()=>{ (navigator.serviceWorker.controller !== null ? navigator.serviceWorker.controller.postMessage("clearCache") : console.log('couldnt update')); window.location.reload() }}>Force Update Site</Button>
+                        <Button onClick={()=>{ updateSW() }}>Force Update Site</Button>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
                     </Stack>
                 </Center>

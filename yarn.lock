@@ -1751,6 +1751,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/rrweb@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@sentry/rrweb@npm:0.3.3"
+  peerDependencies:
+    "@sentry/browser": ">=4.0.0"
+    rrweb: ">=0.7.0"
+  checksum: 54c82997df63f4f9e2e8150b275e590f0dabb20d7b86db1aaef75b56b0a8db876e01224f4b0c64d6d9cd4f87e972d0559bf257037a5d640736c7bd8e0c936006
+  languageName: node
+  linkType: hard
+
 "@sentry/tracing@npm:^7.12.1":
   version: 7.12.1
   resolution: "@sentry/tracing@npm:7.12.1"
@@ -1948,6 +1958,13 @@ __metadata:
     "@popperjs/core": ^2.9.2
     "@types/jquery": "*"
   checksum: ada4c68cd8a6dbfee75eca58deabf3f2ae82706a8dd9d97a233eb303a787462f120940002ac3f58cf42c4732280c68a9f67a58cd7c4bf39112024cafe70d3028
+  languageName: node
+  linkType: hard
+
+"@types/css-font-loading-module@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@types/css-font-loading-module@npm:0.0.7"
+  checksum: a074d3b824b2232160f2353daf1cc62937e4a24154d13607f14f93feaaac6abcf069c8ae02c1396840950fa02c1b3f19ce0f119321f9735905bfb3cd4b9b2021
   languageName: node
   linkType: hard
 
@@ -2473,6 +2490,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xstate/fsm@npm:^1.4.0":
+  version: 1.6.5
+  resolution: "@xstate/fsm@npm:1.6.5"
+  checksum: da24fa4f40479223da34714640cea64ec894bbfeb2281a0a870af68882ae1d6fb6d724d6e5c0d4e6929728c699b92858f7389ef7d6a5d00ac66ba8cde3934eed
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:1, abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -2716,7 +2740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-arraybuffer@npm:^1.0.2":
+"base64-arraybuffer@npm:^1.0.1, base64-arraybuffer@npm:^1.0.2":
   version: 1.0.2
   resolution: "base64-arraybuffer@npm:1.0.2"
   checksum: 15e6400d2d028bf18be4ed97702b11418f8f8779fb8c743251c863b726638d52f69571d4cc1843224da7838abef0949c670bde46936663c45ad078e89fee5c62
@@ -4204,6 +4228,13 @@ __metadata:
   dependencies:
     pend: ~1.2.0
   checksum: c8585fd5713f4476eb8261150900d2cb7f6ff2d87f8feb306ccc8a1122efd152f1783bdb2b8dc891395744583436bfd8081d8e63ece0ec8687eeefea394d4ff2
+  languageName: node
+  linkType: hard
+
+"fflate@npm:^0.4.4":
+  version: 0.4.8
+  resolution: "fflate@npm:0.4.8"
+  checksum: 29d8cbe44d5e7f53e7f5a160ac7f9cc025480c7b3bfd85c5f898cbe20dfa2dad4732daa534982664bf30b35896a90af44ea33ede5d94c5ffd1b8b0c0a0a56ca2
   languageName: node
   linkType: hard
 
@@ -5845,6 +5876,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mitt@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mitt@npm:3.0.0"
+  checksum: f7be5049d27d18b1dbe9408452d66376fa60ae4a79fe9319869d1b90ae8cbaedadc7e9dab30b32d781411256d468be5538996bb7368941c09009ef6bbfa6bfc7
+  languageName: node
+  linkType: hard
+
 "mkdirp-classic@npm:^0.5.2, mkdirp-classic@npm:^0.5.3":
   version: 0.5.3
   resolution: "mkdirp-classic@npm:0.5.3"
@@ -7447,6 +7485,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rrdom@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "rrdom@npm:0.1.4"
+  dependencies:
+    rrweb-snapshot: ^2.0.0-alpha.1
+  checksum: 7233e3aa3d6441353a7685b8dcbcc300abb8e1a65f2eb23fc9b7e65e8e199b8a191101b6464b79e753bbf108a94860e743a790b2826b43fcceb8309c52a3e838
+  languageName: node
+  linkType: hard
+
+"rrweb-snapshot@npm:^2.0.0-alpha.1":
+  version: 2.0.0-alpha.1
+  resolution: "rrweb-snapshot@npm:2.0.0-alpha.1"
+  checksum: 4381d84a06dc439cbafa266cbd79e109aeffb53fcdb138059e975d97c21c5d63b1e3d6576ea6785714297225496d108b96e065ad32264a601aadeac84b250f6c
+  languageName: node
+  linkType: hard
+
+"rrweb@npm:^2.0.0-alpha.1":
+  version: 2.0.0-alpha.1
+  resolution: "rrweb@npm:2.0.0-alpha.1"
+  dependencies:
+    "@types/css-font-loading-module": 0.0.7
+    "@xstate/fsm": ^1.4.0
+    base64-arraybuffer: ^1.0.1
+    fflate: ^0.4.4
+    mitt: ^3.0.0
+    rrdom: ^0.1.4
+    rrweb-snapshot: ^2.0.0-alpha.1
+  checksum: 78dfad220c39543da6212ae436b5a0ae8da033b7b3ecbe6c261c57a1bffb03d1e37b4da8cb645a2106d3d92f0b60318be117b50361e78a854b0b48d97b12fdb5
+  languageName: node
+  linkType: hard
+
 "rtl-css-js@npm:^1.14.0":
   version: 1.16.0
   resolution: "rtl-css-js@npm:1.16.0"
@@ -7534,6 +7603,7 @@ __metadata:
     "@redux-devtools/extension": ^3.2.3
     "@reduxjs/toolkit": ^1.8.4
     "@sentry/react": ^7.12.1
+    "@sentry/rrweb": ^0.3.3
     "@sentry/tracing": ^7.12.1
     "@types/bootstrap": ^5.1.10
     "@types/eslint": ^8
@@ -7586,6 +7656,7 @@ __metadata:
     react-use: ^17.4.0
     redux-persist: ^6.0.0
     rimraf: ^3.0.2
+    rrweb: ^2.0.0-alpha.1
     sharp: ^0.29.1
     stream-browserify: ^3.0.0
     styled-components: ^5.3.5

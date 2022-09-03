@@ -11,7 +11,7 @@ import LoadSpinner from "./components/LoadSpinner";
 import { Provider } from 'react-redux'
 import { BrowserTracing } from '@sentry/tracing';
 // import { BrowserTracing } from "@sentry/tracing";
-
+import SentryRRWeb from "@sentry/rrweb";
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
 function startLoad() {
@@ -26,9 +26,10 @@ function startLoad() {
         
         integrations: [new BrowserTracing({
             tracingOrigins: ['localhost', 'schedule.insberr.com', 'insberr.github.io', 'schedule.insberr.live'],
-        })],
-        
-
+        }),
+            new SentryRRWeb({})
+        ],
+        normalizeDepth: 10,
         // We recommend adjusting this value in production, or using tracesSampler
         // for finer control
         tracesSampleRate,

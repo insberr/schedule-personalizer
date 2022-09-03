@@ -125,7 +125,7 @@ import * as Sentry from "@sentry/react";
 const sentryReduxEnhancer = Sentry.createReduxEnhancer({
   // Optionally pass options listed below
   stateTransformer: state => {
-    return {...state, studentvue: redactStructure(state.studentvue||{}), stv: redactStructure(state.stv||{}) }
+    return JSON.stringify({...state, studentvue: redactStructure(state.studentvue||{}), stv: redactStructure(state.stv||{}) })
   },
   actionTransformer: action => {
     if (action.type == "persist/REHYDRATE") {

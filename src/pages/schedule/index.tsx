@@ -102,6 +102,13 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     // if logged into studentvue we can determine the lunch automatically
     // just realized that students who enter their data manually will have to figure out what lunch they have. maybe we could implement a "teacher" selector to automatically put teacher ids into the valuse???
     // for now, only auto detects lunch if logged into studentvue.
+
+    if (displayTerm.classes.filter(c => c.period === lunchValue.basedOnPeriod).length === 0) {
+        const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.'
+        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
+        return mergedSchedule;
+    }
+
     let userLunch: number = lunch;
     if (stv.isLoggedIn &&  displayTerm.classes.length > 0) {
         const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {

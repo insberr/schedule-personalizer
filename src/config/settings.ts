@@ -19,7 +19,7 @@ export const studentVueAdvisoryPeriod = 8;
 
 // While site is loaded refresh from studentvue afetr this much time in milliseconds
 // setting it to a value less than 5 minutes is just cringe
-export const studentvueRefreshInterval = 2 * 60 * 1000; // 10 minutes
+export const studentvueRefreshInterval = 2 * 60 * 1000; // 2 minutes
 
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';

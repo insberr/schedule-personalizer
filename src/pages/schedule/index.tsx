@@ -279,7 +279,14 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     const unknownPeriods = displayTerm.classes.filter(p => !periodsFromEmptyCL.includes(p.period));
     
     if (unknownPeriods.length > 1) {
-        const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        // Ceck for cambridge .. let the user know we dont support it yet, but are working on implementing it
+        const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
+        let addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        if (cambridgePeriods.length > 0) {
+            // user has cambridge
+            addMessage = `<span style='color: red'>It appears you are a Cambridge student. Schedule Peronalizer does not support Cambridge schedules yet, but we are working on it!</span>`
+        }
+
         Sentry.captureException(new Error(addMessage));
         displayDaySchedule.hasError = true;
         displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;

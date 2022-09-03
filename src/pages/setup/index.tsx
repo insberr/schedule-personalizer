@@ -43,7 +43,9 @@ function SetupPage(props: SetupPageProps) {
             thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
         case 0: {// studentvue login
-            if (window.matchMedia('(display-mode: standalone)').matches) {
+            const params = new URLSearchParams(window.location.search) // id=123
+            const fromVOne = params.get('fromVOne')
+            if (window.matchMedia('(display-mode: standalone)').matches || fromVOne !== 'true') {
                 setStage(1)
             } else {
                 thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>

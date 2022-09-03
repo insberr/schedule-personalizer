@@ -4,8 +4,8 @@ import { Pin } from "./Pin";
 import { mapLocations, Location } from "../../../../config/mapLocation";
 import { useState, useRef, useEffect } from 'react';
 import { useMouseHovered } from 'react-use';
-import { Class } from "../../../../types";
-
+import { Class, ClassIDS } from "../../../../types";
+import * as Sentry from '@sentry/react';
 type Props = {
     sch: Class[]
 }
@@ -15,9 +15,17 @@ export function MP(props: Props) {
     const mouse = useMouseHovered(ref, {bound: true, whenHovered: true});
     const [cpins, setcpins] = useState<Location[]>(()=>{
         const locationsFromClasses = props.sch.map((c) => {
-            return mapLocations.find(l => l.room.toString() === c.room.toString())
+            const m = mapLocations.find(l => l.room.toString() === c.room.toString())
+            if (c.classID === ClassIDS.Period && m === undefined) {
+                console.error("Could not find location for class", c);
+                console.log(mapLocations)
+                Sentry.captureMessage(`Room ${c.room} not found in mapLocations`, "warning");
+            }
+            return m
         })
-        
+        if (process.env.NODE_ENV === 'development') {
+            return mapLocations;
+        }
         return locationsFromClasses.filter(l => l != undefined) as Location[];
     });
     useEffect(() => {
@@ -31,12 +39,15 @@ export function MP(props: Props) {
         // console.log("y%",Math.round((mouse.elY/mouse.elH)*100))
         // console.log("elpos",mouse.elX + ", " + mouse.elY);
     }, [mouse]);
+
     
     function clickedMap() {
         //console.log("clickX%",(mouse.elX/mouse.elW)*100);
         
         //console.log("clickY%",(mouse.elY/mouse.elH)*100)
         console.log("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },");
+        // REMOVE THIS SSSSSS
+        navigator.clipboard.writeText("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },")
         setcpins([...cpins, {room: Math.floor(Math.random()*16777215).toString(16), cords: [((mouse.elX/mouse.elW)*100), ((mouse.elY/mouse.elH)*100)]}])
     }
     

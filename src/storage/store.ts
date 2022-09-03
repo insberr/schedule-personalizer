@@ -8,7 +8,8 @@ import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
 import { defaultCustomizations } from '../config/settings';
-import { RGBA } from '../types';
+import { RGBA } from '../types'
+import {redactStructure} from "../lib"
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
 
@@ -117,9 +118,31 @@ const migrations = {
     }
 }
 
+import * as Sentry from "@sentry/react";
 
+// ...
 
-const persistConfig = {
+const sentryReduxEnhancer = Sentry.createReduxEnhancer({
+  // Optionally pass options listed below
+  stateTransformer: state => {
+    return {...state, studentvue: redactStructure(state.studentvue||{}), stv: redactStructure(state.stv||{}) }
+  },
+  actionTransformer: action => {
+    if (action.type == "persist/REHYDRATE") {
+        return {...action, payload: {...action.payload, studentvue: redactStructure(action.payload?.studentvue||{"nodata":"data"}), stv: redactStructure(action.payload?.stv||{"nodata":"data"}) }}
+    }
+    else if ((action.type as string).startsWith("stv/")) {
+        return {...action, payload: redactStructure(action.payload)}
+    }
+    else if ((action.type as string).startsWith("studentvue/")) {
+        return {...action, payload: redactStructure(action.payload)}
+    } else {
+        return action
+    }
+    }
+});
+
+export const persistConfig = {
     key: 'v5ReduxData',
     version: 4,
     storage,
@@ -144,6 +167,9 @@ export const store = configureStore({
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }).concat(createReduxMiddleware()),
+  enhancers: [
+    sentryReduxEnhancer
+  ]
 })
 export const persistor = persistStore(store)
 

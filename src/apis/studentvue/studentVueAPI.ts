@@ -1,6 +1,6 @@
 import { Terms, emptyCL, ClassIDS } from "../../types";
 import * as settings from "../../config/settings";
-import { courseTitleNameCase, toTitleCase } from "../../lib";
+import { courseTitleNameCase, redactStudentInfo, toTitleCase } from "../../lib";
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from "./api"
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
@@ -115,7 +115,7 @@ export async function getAllSchedules(username: string, password: string): Promi
 export async function getStudentInfo(username: string, password: string): Promise<StudentVueAPIDataUserDate> {
     const info = await StudentInfo(username, password);
     if (!isError(info)) {
-        return {"code": "SUCCESS", "content":info["StudentInfo"]}
+        return redactStudentInfo({ code: "SUCCESS", content: info["StudentInfo"]})
     } else {
         throw new Error(info.RT_ERROR.ERROR_MESSAGE)
     }

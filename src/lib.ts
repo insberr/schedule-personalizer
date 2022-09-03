@@ -149,10 +149,59 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
     return value;
 }
 
-export function redactStudentVueData(data: any): any { // add types pls
-    //
+import { StudentVueAPIDataUserDate } from "./apis/studentvue/studentVueAPI";
+
+// TODO: move to settings file
+const InfoToKeep = [
+    "CounselorEmail",
+    "CurrentSchool",
+    "FormattedName"
+
+]
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function redactStructure(obj: any): any { 
+    // recursively redact an object by replacing all values that are not an object with "REDACTED"
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let newObj: any = {}
+    if (typeof obj === "object") {
+        newObj = { ...obj };
+    } else {
+        newObj = obj;
+    }
+    if (typeof newObj === "object") {
+        for (const key in newObj) {
+            if (Object.prototype.hasOwnProperty.call(newObj,key)) {
+                newObj[key] = redactStructure(newObj[key]);
+            }
+        }  
+    } else if (Array.isArray(newObj)) {
+        return newObj.map(redactStructure);
+    } else {
+        return "<REDACTED "+(typeof newObj)+">" 
+    }
+
+    return newObj;
+    
 }
 
+export function redactStudentInfo(data: StudentVueAPIDataUserDate): StudentVueAPIDataUserDate { // add types pl\
+    // eslint-disable-next-line prefer-const
+    let out: Record<string, unknown> = {}
+    Object.entries(data.content).forEach(([key, value]) => {
+        if (InfoToKeep.includes(key)) {
+            //console.log("keeping", key)
+            out[key] = value
+        } else {
+            //console.log("redacting", key)
+            out[key] = redactStructure(value)// mm js
+            //console.log(key,"redacted to",out[key])
+        } 
+    })
+    // @ts-expect-error lmafo
+    return { code: data.code, content: out }
+}
 
 export function isCurrentClass(sch: Class[], period: Class, currentClassDateAndTime: Date): boolean {
     const index = sch.indexOf(period)

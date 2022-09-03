@@ -21,9 +21,7 @@ self.addEventListener("message", (event) => {
     console.log("SW Received Message: " + msg);
     if (msg === "clearCache") {
         console.log("Clearing Workbox Cache.");
-        const registration = new ServiceWorkerRegistration();
         if ("serviceWorker" in navigator) {
-            registration.unregister();
             caches
                 .keys()
                 .then((cacheNames) => {
@@ -32,12 +30,9 @@ self.addEventListener("message", (event) => {
                     });
                 })
                 .then(() => {
-                    registration.update();
+                    window.location.reload();
                 });
         }
-        console.log("serviceWorker" in navigator);
-        setTimeout(function () {
-            window.location.reload();
-        }, 300);
+        window.location.reload();
     }
 });

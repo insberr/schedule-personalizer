@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Terms } from './types';
@@ -11,9 +11,22 @@ import { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
 import { Header } from './components/Header';
+import { useStudentvue } from './storage/studentvue';
+import * as Sentry from '@sentry/react';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
+
 function App() {
+    const stv = useStudentvue();
+
+    useEffect(() => {
+        if (stv.isLoggedIn) {
+            Sentry.setUser({username: stv.username})
+        } else {
+            Sentry.setUser(null)
+        }
+    },[stv])
+
     const dispatch = useDispatch();
     function setSch(sch: Terms) {
         dispatch(setTerms(sch));

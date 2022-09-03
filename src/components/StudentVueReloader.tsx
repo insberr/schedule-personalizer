@@ -6,7 +6,6 @@ import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getSt
 import {setGotSchedules, useStudentvue} from '../storage/studentvue'
 import {setTerms} from '../storage/schedule'
 import {studentvueRefreshInterval} from '../config/settings';
-import * as Sentry from '@sentry/react';
 
 
 export function StudentVueReloader() {
@@ -23,7 +22,6 @@ export function StudentVueReloader() {
     const dispatch = useDispatch()
     useEffect(() => {
         if (scheduleData) {
-            Sentry.setUser({ username: stv.username });
             dispatch(setSch(scheduleData));
             dispatch(setTerms(convertStudentvueDataToTerms(scheduleData)))
             dispatch(enableSTV())

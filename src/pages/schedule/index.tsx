@@ -106,6 +106,12 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
 
     if (displayTerm.classes.filter(c => c.period === lunchValue.basedOnPeriod).length === 0) {
         const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.'
+
+        const errMsg = `User does not have a period ${lunchValue.basedOnPeriod}, so lunch can not be displayed.`;
+        Sentry.addBreadcrumb({category: "extra", message: JSON.stringify(displayTerm.classes), level: "info",});
+        Sentry.captureException(new Error(errMsg))
+        console.log(errMsg);
+
         mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
         return mergedSchedule;
     }
@@ -134,8 +140,8 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                     setUserLunch(userLunch);
                 }
             } else {
-                const errMsg = 'This should be an error because it means that the teacher id is missing from the lunches config (list teacher id here)';
-                Sentry.captureException(new Error(errMsg))
+                const errMsg = 'This should be an error because it means that the teacher id is missing from the lunches config. Teacher: ' + JSON.stringify(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher);
+                Sentry.captureException(new Error(errMsg));
                 console.log(errMsg);
             }
         }
@@ -274,6 +280,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     
     if (unknownPeriods.length > 1) {
         const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        Sentry.captureException(new Error(addMessage));
         displayDaySchedule.hasError = true;
         displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
     }

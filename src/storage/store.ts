@@ -115,6 +115,9 @@ const migrations = {
     },
     4: (state: any) => {
         return { ...state, schedule: { ...state.schedule, lunch: ( state.schedule.lunch === 0 ? 1 : state.schedule.lunch ) } }
+    },
+    5: (state: any): any => {
+        return { }
     }
 }
 
@@ -144,7 +147,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 4,
+    version: 5,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

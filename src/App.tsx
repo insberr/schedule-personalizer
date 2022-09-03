@@ -60,11 +60,13 @@ function App() {
         <>
             <div id="schpage" className={isSetup ? "hidden" : ""}>
                 <SchedulePage setup={setIsSetup} />
+                
             </div>
             <div id="settings" className={!isSetup ? "hidden" : ""}>
                 <Header setup={setIsSetup} c={isSetup} />
                 <SettingsPage setup={setIsSetup} setSchedule={setSch} />
             </div>
+            
         </>
     );
 }

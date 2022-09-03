@@ -134,7 +134,9 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                     setUserLunch(userLunch);
                 }
             } else {
-                console.log('This should be an error because it means that the teacher id is missing from the lunches config (list teacher id here)')
+                const errMsg = 'This should be an error because it means that the teacher id is missing from the lunches config (list teacher id here)';
+                Sentry.captureException(new Error(errMsg))
+                console.log(errMsg);
             }
         }
     } else if (mergedSchedule.event.isEvent || settingsConfig.normalLunchBasedOnPeriod !== lunchValue.basedOnPeriod) {

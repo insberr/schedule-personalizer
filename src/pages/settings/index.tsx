@@ -10,11 +10,12 @@ import { useState } from "react";
 import { Terms, ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from "../../types";
 import Center from "../../components/Center";
 import { Col, Container,  Form, ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
-import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors } from "../../storage/customizations";
+import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from "../../storage/customizations";
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { identifyCommit } from "../../lib";
+import * as settings from '../../config/settings';
 
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
@@ -103,12 +104,13 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             <Tab eventKey="general" title="General">
                 <Center>
                     <h2>General</h2>
-                    <Stack gap={4}>
+                    <Stack gap={4}> 
+                        <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
                         <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
+                        <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
-                        <Button onClick={()=>{ updateSW() }}>Force Update Site</Button>
-                        <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
+                        <Button className={ window.matchMedia('(display-mode: standalone)').matches ? '' : 'hidden' } onClick={()=>{ updateSW() }}>Force Update Site</Button>
                     </Stack>
                 </Center>
             </Tab>

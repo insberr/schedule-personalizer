@@ -101,4 +101,7 @@ export const defaultCustomizations: types.Customizations = {
         goToToday: 't',
     },
     showInfoOnSchedule: true,
+    tutorial: {
+        moreMap: true,
+    }
 }

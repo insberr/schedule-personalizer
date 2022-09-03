@@ -30,6 +30,9 @@ export const customizationSlice = createSlice({
         resetColors: (state) => {
             state.theme.colors = initialState.theme.colors;
         },
+        setTutorial: (state, action: PayloadAction<{[key: string]: boolean}>) => {
+            state.tutorial = {...state.tutorial, ...action.payload};
+        },
         reset: () => {
             return initialState;
         },
@@ -41,6 +44,6 @@ export function useCustomizations(): Customizations {
 }
 
 // Action creators are generated for each case reducer function
-export const { reset, setShowInfoOnSchedule, setCustomizations, setScheduleColor, setCurrentClassColor, setKeybindings, resetColors, setAllColors } = customizationSlice.actions;
+export const { reset, setTutorial, setShowInfoOnSchedule, setCustomizations, setScheduleColor, setCurrentClassColor, setKeybindings, resetColors, setAllColors } = customizationSlice.actions;
 
 export default customizationSlice.reducer;

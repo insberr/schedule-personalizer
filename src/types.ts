@@ -123,6 +123,9 @@ export type Customizations = {
     }
     keybinds: Keybinds
     showInfoOnSchedule: boolean
+    tutorial: {
+        moreMap: boolean
+    }
 }
 
 

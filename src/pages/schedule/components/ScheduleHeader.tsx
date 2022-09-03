@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { VscSettingsGear } from 'react-icons/vsc';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import {useId, useState} from 'react'
+import {useId, useRef, useState} from 'react'
 import { Map } from "./Map/Map"
 import Button from 'react-bootstrap/Button';
 import { isToday } from 'date-fns';
@@ -15,6 +15,9 @@ import { RiScreenshot2Fill } from "react-icons/ri";
 import { STVBoundery } from '../../../components/STVBoundery';
 import { Class } from '../../../types';
 import { useSTV } from '../../../storage/studentvueData';
+import { Overlay, Tooltip } from 'react-bootstrap';
+import { setTutorial, useCustomizations } from '../../../storage/customizations';
+import { useDispatch } from 'react-redux';
 type Props = {
     sch: Class[],
     setup: (s: boolean) => void,
@@ -28,6 +31,15 @@ export function SchHeader(props: Props) {
   const id = useId();
   const [map, setMap] = useState(false)
   const stv = useSTV();
+  const dispatch = useDispatch();
+
+  const customizations = useCustomizations();
+  const [showDidYouKnow, setShowDidYouKnow] = useState(customizations.tutorial.moreMap || false);
+  function hideMoreMapToolTip() {
+    setShowDidYouKnow(false);
+    dispatch(setTutorial({ ...customizations.tutorial, moreMap: false}));
+  }
+  const toolTipDidYouKnowMap = useRef(null);
 
     const calendar = (
         <Popover id={id+"popover"}>
@@ -43,10 +55,19 @@ export function SchHeader(props: Props) {
     <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand className="d-none d-md-block" href="#" onClick={props.home}>Schedule V5</Navbar.Brand>
-          <NavDropdown className="text-muted" title="More" id={id+"nav"}>
+          <NavDropdown ref={toolTipDidYouKnowMap} className="text-muted" title="More" id={id+"nav"} onClick={() => hideMoreMapToolTip()}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
             <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
           </NavDropdown>
+          <Overlay target={toolTipDidYouKnowMap.current} show={showDidYouKnow} placement="bottom">
+            {(props) => (
+                <Tooltip className="lighter-tool-tip" id="didYouKnowMap" {...props} onClick={() => { hideMoreMapToolTip() }}>
+                    Did you know you can click {"'"}More{"'"} to see the school map or email your counselor?
+                </Tooltip>
+            )}
+            </Overlay>
+                
+
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>
                 <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeSharp /></Button>

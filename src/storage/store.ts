@@ -118,7 +118,10 @@ const migrations = {
     },
     5: (state: any): any => {
         return { }
-    }
+    },
+    6: (state: any): any => {
+        return { ...state, customization: { ...state.customization, tutorial: defaultCustomizations.tutorial } }
+    },
 }
 
 import * as Sentry from "@sentry/react";
@@ -147,7 +150,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 5,
+    version: 6,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

@@ -90,6 +90,14 @@ $row-border: .2rem;
     width: initial;
 }
 
+.lighter-tool-tip {
+    .tooltip-arrow:before {
+        border-bottom-color: rgb(114, 114, 114);
+    }
+    .tooltip-inner {
+        background-color: rgb(114, 114, 114);
+    }
+}
 //other styles go here
 
 /*.row {

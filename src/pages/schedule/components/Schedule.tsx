@@ -204,7 +204,7 @@ function Schedule(props: ScheduleProps) {
                         ) : null }
                     </div>
                 </div>
-                <Alert variant="crimson">We are currently in beta. Please use <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">this</Alert.Link> feedback form if any issues arise </Alert>
+                <Alert variant="crimson">We have been experiancing problems; Please <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">submit feedback</Alert.Link> if any issues arise!</Alert>
             </Center>
         </div>
     );

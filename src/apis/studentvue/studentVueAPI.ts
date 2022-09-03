@@ -62,6 +62,7 @@ export type StudentVueAPIDataUserDate = {
 export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     const studentvueTerms = data.content.ClassLists;
     console.log('studentVueTerms.length: ', studentvueTerms.length);
+    console.log('studentVueTerms: ', studentvueTerms);
 
     const newTerms = settings.termsDates.map(t => {
         t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);

@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import Toast from 'react-bootstrap/Toast';
+import Alert from 'react-bootstrap/Alert';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
@@ -203,6 +204,7 @@ function Schedule(props: ScheduleProps) {
                         ) : null }
                     </div>
                 </div>
+                <Alert variant="crimson">We are currently in beta. Please use <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">this</Alert.Link> feedback form if any issues arise </Alert>
             </Center>
         </div>
     );

@@ -45,7 +45,9 @@ function SetupPage(props: SetupPageProps) {
         case 0: {// studentvue login
             const params = new URLSearchParams(window.location.search) // id=123
             const fromVOne = params.get('fromVOne')
-            if (window.matchMedia('(display-mode: standalone)').matches || fromVOne !== 'true') {
+            if (fromVOne === 'true') {
+                thing = <AddToHomeScreen setStage={setStage} />
+            } else if (window.matchMedia('(display-mode: standalone)').matches) {
                 setStage(1)
             } else {
                 thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>

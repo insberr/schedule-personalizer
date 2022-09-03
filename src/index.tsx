@@ -47,7 +47,7 @@ function startLoad() {
         const loadingthing = document.getElementById("loading")
         if (loadingthing) loadingthing.remove();
     const root = reactDom.createRoot(app);
-    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}</h3>}) : App;
+    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><a href="https://forms.gle/kwhHzBReokA3EEEd8">Feedback form</a></h3>}) : App;
     root.render((<Err>
                     <React.StrictMode>
                         

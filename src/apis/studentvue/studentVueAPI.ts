@@ -2,6 +2,7 @@ import { Terms, emptyCL, ClassIDS } from "../../types";
 import * as settings from "../../config/settings";
 import { courseTitleNameCase, redactStudentInfo, toTitleCase } from "../../lib";
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from "./api"
+import * as Sentry from '@sentry/react';
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
     return await validate(username, password); // mm
@@ -19,7 +20,7 @@ export type StudentVueAPIDataClassListsTermClass = {
     TeacherEmail: string
     TeacherStaffGU: string 
 };
-export type StudentVueAPIDataClassListsTerm = StudentVueAPIDataClassListsTermClass[]
+export type StudentVueAPIDataClassListsTerm = StudentVueAPIDataClassListsTermClass[] | StudentVueAPIDataClassListsTermClass;
 export type StudentVueAPIDataClassLists = StudentVueAPIDataClassListsTerm[]
 export type StudentVueAPIData = {
     code: string
@@ -70,8 +71,34 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     const combinedStudentvue = newTerms.map((t, i) => {
 
         // doing it this way means if there are more or less periods returned by studenvue then there might be problems displaying them (i think only if there are extra)
-        t.classes = studentvueTerms[i].map(c => {
-            console.log('RoomName: ', c.RoomName)
+        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[])?.length === undefined) {
+            const errMsg = `studentvueTerms[${i}] is not an array: ${JSON.stringify(studentvueTerms[i])}`;
+            Sentry.captureException(new Error(errMsg));
+            console.log(errMsg);
+            // do something ... ?
+        }
+        
+        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass)?.Period !== undefined) {
+            const errMsg = `For some reason studentvue returned a class instead of an array of classes: studentvueTerms[${i}] is not an array: ${JSON.stringify(studentvueTerms[i])}`;
+            Sentry.captureException(new Error(errMsg));
+            console.log(errMsg);
+
+            const c = studentvueTerms[i] as StudentVueAPIDataClassListsTermClass;
+            t.classes = [{
+                classID: (parseInt(c.Period) === 0 ? ClassIDS.Zero : parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? ClassIDS.Advisory : ClassIDS.Period),
+                period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
+                name: courseTitleNameCase(c.CourseTitle) || "",
+                room: c.RoomName || "",
+                teacher: {
+                    name: toTitleCase(c.Teacher),
+                    email: c.TeacherEmail,
+                    id: c.TeacherStaffGU
+                }
+            }]
+
+        }
+        t.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map(c => {
+            console.log('studentVueTerms.map => (c): ', c)
             return {
                 classID: (parseInt(c.Period) === 0 ? ClassIDS.Zero : parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? ClassIDS.Advisory : ClassIDS.Period),
                 period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
@@ -90,11 +117,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // Convert api data to terms data
     //
 
-    /* TEMPOARY UNTILL STUDENTVUE GET SCHEDULES WORKS */
-    
-
     return combinedStudentvue;
-    /* END TEMPORARY */
 }
 
 export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {

@@ -60,6 +60,7 @@ export type StudentVueAPIDataUserDate = {
 
 export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     const studentvueTerms = data.content.ClassLists;
+    console.log('studentVueTerms.length: ', studentvueTerms.length);
 
     const newTerms = settings.termsDates.map(t => {
         t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
@@ -70,11 +71,12 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 
         // doing it this way means if there are more or less periods returned by studenvue then there might be problems displaying them (i think only if there are extra)
         t.classes = studentvueTerms[i].map(c => {
+            console.log('RoomName: ', c.RoomName)
             return {
                 classID: (parseInt(c.Period) === 0 ? ClassIDS.Zero : parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? ClassIDS.Advisory : ClassIDS.Period),
                 period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
-                name: courseTitleNameCase(c.CourseTitle),
-                room: c.RoomName,
+                name: courseTitleNameCase(c.CourseTitle) || "",
+                room: c.RoomName || "",
                 teacher: {
                     name: toTitleCase(c.Teacher),
                     email: c.TeacherEmail,

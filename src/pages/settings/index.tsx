@@ -85,7 +85,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
     function updateSW() {
         navigator.serviceWorker.getRegistration().then((s)=>{
             if (s == undefined) {
-                window.location.reload();
+                return window.location.reload();
             }
             s.update().then(window.location.reload).catch(window.location.reload)
         });
@@ -331,7 +331,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             <Tab eventKey="credits" title="Credits">
                 <Center>
                     <h2>Credits</h2>
-                    <div>Jonah Matteson - Creator - @insberr on all socials</div>
+                    <div><a href="https://insberr.com">Jonah Matteson</a> - Creator - @insberr on all socials</div>
                     <div><a href="https://wackery.com">Wackery</a> - Creator</div>
                     <a href="https://github.com/insberr/schedule-personalizer">See the code on GitHub</a>
                 </Center>

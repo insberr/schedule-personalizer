@@ -122,7 +122,7 @@ export function toTitleCase(str: string): string {
 
 export function courseTitleNameCase(str: string): string {
     // add for loop or something with a list of things
-    str = str.replace('ENG', 'ENGLISH');
+    // str = str.replace('ENG', 'ENGLISH');
 
     str = toTitleCase(str);
     str = str.replace('Ap', 'AP');

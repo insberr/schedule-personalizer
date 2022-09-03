@@ -8,7 +8,7 @@ type preCacheManifestEntry = {
 
 setCacheNameDetails({
     prefix: "schedule-personalizer",
-    suffix: "v5",
+    suffix: "v5.1",
 });
 
 // @ts-expect-error cringe

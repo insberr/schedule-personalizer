@@ -30,7 +30,7 @@ self.addEventListener("message", (event) => {
                     });
                 })
                 .then(() => {
-                    new ServiceWorkerRegistration().unregister();
+                    //new ServiceWorkerRegistration().unregister();
                     window.location.reload();
                 });
         }

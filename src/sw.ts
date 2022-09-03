@@ -8,14 +8,14 @@ type preCacheManifestEntry = {
 
 setCacheNameDetails({
     prefix: "schedule-personalizer",
-    suffix: "v5.1",
+    suffix: "v5",
 });
 
 // @ts-expect-error cringe
 const manifest: preCacheManifestEntry[] = self.__precacheManifest;
 
 precacheAndRoute(manifest); // yoo caching
-/*
+
 self.addEventListener("message", (event) => {
     const msg = event.data;
     console.log("SW Received Message: " + msg);
@@ -30,10 +30,10 @@ self.addEventListener("message", (event) => {
                     });
                 })
                 .then(() => {
+                    new ServiceWorkerRegistration().unregister();
                     window.location.reload();
                 });
         }
         window.location.reload();
     }
 });
-*/

@@ -5,7 +5,8 @@ import Center from '../../../components/Center';
 const iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 const params = new URLSearchParams(window.location.search) // id=123
 const fromVOne = params.get('fromVOne')
-window.location.search = '';
+
+window.history.pushState({"pageTitle": document.title},"", window.location.href.split("?")[0]);
 
 export function AddToHomeScreen(props: { setStage: (s: number) => void }) {
     return (<Center className="text-center full-center">

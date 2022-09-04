@@ -5,13 +5,14 @@ import App from './App'
 import { identifyCommit } from "./lib";
 import { Err } from "./components/ErrBoundery"
 import * as Sentry from "@sentry/react";
-import { store, persistor } from './storage/store'
+import { store, persistor, resetStorage } from './storage/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import LoadSpinner from "./components/LoadSpinner";
 import { Provider } from 'react-redux'
 import { BrowserTracing } from '@sentry/tracing';
 // import { BrowserTracing } from "@sentry/tracing";
 import SentryRRWeb from "@sentry/rrweb";
+import { Button } from 'react-bootstrap';
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
 function startLoad() {
@@ -47,7 +48,7 @@ function startLoad() {
         const loadingthing = document.getElementById("loading")
         if (loadingthing) loadingthing.remove();
     const root = reactDom.createRoot(app);
-    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><a href="https://forms.gle/kwhHzBReokA3EEEd8">Feedback form</a></h3>}) : App;
+    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><a href="https://forms.gle/kwhHzBReokA3EEEd8">Feedback form</a><br /><Button onClick={() => { resetStorage(); location.reload();}}>Reset</Button></h3>}) : App;
     root.render((<Err>
                     <React.StrictMode>
                         

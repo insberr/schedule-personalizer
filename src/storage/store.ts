@@ -117,7 +117,8 @@ const migrations = {
         return { ...state, schedule: { ...state.schedule, lunch: ( state.schedule.lunch === 0 ? 1 : state.schedule.lunch ) } }
     },
     5: (state: any): any => {
-        return { };
+        resetStorage();
+        return { ...state };
     },
     6: (state: any): any => {
         return { ...state, customization: { ...state.customization, tutorial: defaultCustomizations.tutorial } }

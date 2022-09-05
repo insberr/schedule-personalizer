@@ -117,7 +117,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     }
 
     let userLunch: number = lunch;
-    if (stv.isLoggedIn &&  displayTerm.classes.length > 0) {
+    if (stv.isLoggedIn && displayTerm.classes.length > 0) {
         const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {
             return lunches.basedOnPeriod === lunchValue.basedOnPeriod;
         });

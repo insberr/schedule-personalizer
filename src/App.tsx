@@ -14,12 +14,14 @@ import { Header } from './components/Header';
 import { useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
+import { useSTV } from './storage/studentvueData';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();
+    const stvInf = useSTV();
     const customizations = useCustomizations();
 
     // fix weird problems ??
@@ -32,11 +34,11 @@ function App() {
 
     useEffect(() => {
         if (stv.isLoggedIn) {
-            Sentry.setUser({username: stv.username})
+            Sentry.setUser({ id: stv.username, username: stvInf.info?.content.FormattedName || 'Unknown' });
         } else {
-            Sentry.setUser(null)
+            Sentry.setUser(null);
         }
-    },[stv])
+    },[stv, stvInf])
 
     
     function setSch(sch: Terms) {

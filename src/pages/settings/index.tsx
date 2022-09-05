@@ -84,11 +84,15 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
         }
     }
     function updateSW() {
+        if (navigator.serviceWorker === undefined || navigator.serviceWorker === null) {
+            return;
+        }
+        
         navigator.serviceWorker.getRegistration().then((s)=>{
             if (s == undefined) {
-                return window.location.reload();
+                return location.reload();
             }
-            s.update().then(window.location.reload).catch(window.location.reload)
+            s.update().then(location.reload).catch(location.reload)
         });
     }
 

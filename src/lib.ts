@@ -112,12 +112,9 @@ export function refreshStudentVueSchedules(username: string, password: string): 
 }
 
 export function toTitleCase(str: string): string {
-    return str.replace(
-        /\w\S*/g,
-        function(str) {
-            return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
-        }
-    );
+    return str.toLowerCase().split(' ').map(function(word) {
+        return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
 }
 
 export function courseTitleNameCase(str: string): string {
@@ -125,8 +122,10 @@ export function courseTitleNameCase(str: string): string {
     // str = str.replace('ENG', 'ENGLISH');
 
     str = toTitleCase(str);
-    str = str.replace('Ap', 'AP');
-    str = str.replace('Ela', 'ELA');
+
+    //TODO: make this actually do what its supposed to do
+    // str = str.replace('Ap', 'AP');
+    // str = str.replace('Ela ', 'ELA');
     
     return str
 }

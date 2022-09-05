@@ -13,11 +13,22 @@ import LoadSpinner from './components/LoadSpinner';
 import { Header } from './components/Header';
 import { useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
+import { useCustomizations, reset as customizationsReset } from './storage/customizations';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 
 function App() {
+    const dispatch = useDispatch();
     const stv = useStudentvue();
+    const customizations = useCustomizations();
+
+    // fix weird problems ??
+    useEffect(() => {
+        if (customizations.theme === undefined) {
+            dispatch(customizationsReset());
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         if (stv.isLoggedIn) {
@@ -27,7 +38,7 @@ function App() {
         }
     },[stv])
 
-    const dispatch = useDispatch();
+    
     function setSch(sch: Terms) {
         dispatch(setTerms(sch));
     }

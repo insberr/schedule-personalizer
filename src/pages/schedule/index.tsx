@@ -107,7 +107,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     if (displayTerm.classes.filter(c => c.period === lunchValue.basedOnPeriod).length === 0) {
         const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.'
 
-        const errMsg = `User does not have a period ${lunchValue.basedOnPeriod}, so lunch can not be displayed.`;
+        const errMsg = `User does not have a period "${lunchValue.basedOnPeriod}", so lunch can not be displayed.`;
         Sentry.addBreadcrumb({category: "extra", message: JSON.stringify(displayTerm.classes), level: "info",});
         Sentry.captureException(new Error(errMsg))
         console.log(errMsg);
@@ -129,8 +129,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
 
             if (temp_possibleLunches.length > 0) {
                 if (temp_possibleLunches.length > 1) {
-                    // TODO: send error to sentry.io
-                    const errMsg = ('Why are there multiple lunches for the teacher ' +  displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name, ' : Lunches ', Object.values(temp_possibleLunches.map(p => p.lunch)).join(', '))
+                    const errMsg = `Teacher "${displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name}" is listed for multiple lunches: ${Object.values(temp_possibleLunches.map(p => p.lunch)).join(', ')}`
                     Sentry.captureException(new Error(errMsg))
                     console.log(errMsg);
                 }
@@ -140,7 +139,8 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                     setUserLunch(userLunch);
                 }
             } else {
-                const errMsg = 'This should be an error because it means that the teacher id is missing from the lunches config. Teacher: ' + JSON.stringify(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher);
+                const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher;
+                const errMsg = `Teacher is missing from lunches config. \nName: ${errMsgTeacher.name}, ID: ${errMsgTeacher.id}, Email: ${errMsgTeacher.email}`;
                 Sentry.captureException(new Error(errMsg));
                 console.log(errMsg);
             }
@@ -281,13 +281,17 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     if (unknownPeriods.length > 1) {
         // Ceck for cambridge .. let the user know we dont support it yet, but are working on implementing it
         const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
+        let errMsg = 'StudentVue has returned classes that are unknown.'
         let addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
         if (cambridgePeriods.length > 0) {
             // user has cambridge
+            errMsg = 'It appears this student is a Cambridge student.'
             addMessage = `<span style='color: red'>It appears you are a Cambridge student. Schedule Peronalizer does not support Cambridge schedules yet, but we are working on it!</span>`
         }
-
-        Sentry.captureException(new Error(addMessage));
+        
+        Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })
+        Sentry.addBreadcrumb({ category: 'unknown-classes', message: JSON.stringify(unknownPeriods), level: 'info' })
+        Sentry.captureException(new Error(errMsg));
         displayDaySchedule.hasError = true;
         displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
     }

@@ -111,8 +111,14 @@ export function refreshStudentVueSchedules(username: string, password: string): 
     return output;
 }
 
-export function toTitleCase(str: string): string {
-    return str.toLowerCase().split(' ').map(function(word) {
+export function toTitleCase(str: string | null | undefined): string {
+    if (str === undefined || str === null) return '';
+
+    const lowercase = str.toLowerCase().split(' ')
+    if (lowercase.length < 1) return str;
+
+    return lowercase.map(function(word) {
+        if (word === '') return word;
         return word.replace(word[0], word[0].toUpperCase());
     }).join(' ');
 }

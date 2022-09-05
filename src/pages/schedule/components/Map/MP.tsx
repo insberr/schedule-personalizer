@@ -15,11 +15,12 @@ export function MP(props: Props) {
     const mouse = useMouseHovered(ref, {bound: true, whenHovered: true});
     const [cpins, setcpins] = useState<Location[]>(()=>{
         const locationsFromClasses = props.sch.map((c) => {
+            if (['', ' '].includes(c.room.toString())) return undefined; // if no room number, prevent sentry error cause its annoying
             const m = mapLocations.find(l => l.room.toString() === c.room.toString())
             if (c.classID === ClassIDS.Period && m === undefined) {
                 console.error("Could not find location for class", c);
                 console.log(mapLocations)
-                Sentry.captureMessage(`Room ${c.room} not found in mapLocations`, "warning");
+                Sentry.captureMessage(`Room '${c.room}' not found in mapLocations`, "warning");
             }
             return m
         })
@@ -28,26 +29,19 @@ export function MP(props: Props) {
         }
         return locationsFromClasses.filter(l => l != undefined) as Location[];
     });
+    
     useEffect(() => {
-        // !!!!! maybe we should consider the element position too??????? !!!!!!!!!
         if (mouse.elX > mouse.elW || mouse.elX < 0 || mouse.elY > mouse.elH || mouse.elY < 0) {
             return;
         }
-        
-        // console.log("x%",Math.round((mouse.elX/mouse.elW)*100));
-        
-        // console.log("y%",Math.round((mouse.elY/mouse.elH)*100))
-        // console.log("elpos",mouse.elX + ", " + mouse.elY);
     }, [mouse]);
 
     
     function clickedMap() {
-        //console.log("clickX%",(mouse.elX/mouse.elW)*100);
-        
-        //console.log("clickY%",(mouse.elY/mouse.elH)*100)
         console.log("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },");
         // REMOVE THIS SSSSSS
-        navigator.clipboard.writeText("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },")
+        // navigator.clipboard.writeText("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },")
+        // END REMOVE
         setcpins([...cpins, {room: Math.floor(Math.random()*16777215).toString(16), cords: [((mouse.elX/mouse.elW)*100), ((mouse.elY/mouse.elH)*100)]}])
     }
     

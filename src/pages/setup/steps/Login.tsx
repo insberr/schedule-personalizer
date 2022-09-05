@@ -62,7 +62,7 @@ export function Login(props: Props) {
         hideError();
 
         // Set username and password to local storage so we can use them later
-        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
+        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: false, isLoggedIn: false, gotSchedules: false, lastRefresh: 0 }));
 
         // Validate user credentials to make sure the login info is correct
         const validCreds = await api.validateCredentials(username, password).then(res => {
@@ -86,6 +86,9 @@ export function Login(props: Props) {
             setLoading(false);
             return;
         }
+
+        // Set isLogged in and stayLoggedIn to true
+        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
         
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)

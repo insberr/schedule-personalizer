@@ -145,12 +145,14 @@ export async function getAllSchedules(username: string, password: string): Promi
         StudentClassList(username, password, 2),
     ])
     if (!(isError(schs[0]) || isError(schs[1]) || isError(schs[2]))) {
-        const sch = schs.map((s) => s["StudentClassSchedule"]["ClassLists"]["ClassListing"])
+        const sch = schs.map((s) => s["StudentClassSchedule"]["ClassLists"]["ClassListing"]);
+        // should probably do this
+        const newSch = sch.map(t => (t?.length === undefined) ? [t] : t);
         const fullsch = schs[0]
-        fullsch["StudentClassSchedule"]["ClassLists"] = sch
-        return {"code": "SUCCESS", "content":fullsch["StudentClassSchedule"]}
+        fullsch["StudentClassSchedule"]["ClassLists"] = newSch;
+        return {"code": "SUCCESS", "content":fullsch["StudentClassSchedule"]};
     } else {
-        throw new Error(schs[0].RT_ERROR.ERROR_MESSAGE)
+        throw new Error(schs[0].RT_ERROR.ERROR_MESSAGE);
     }
 }
 
@@ -167,7 +169,7 @@ export async function getStudentInfo(username: string, password: string): Promis
 export async function getSchoolInfo(username: string, password: string): Promise<Record<string, unknown>> {
     const info = await StudentSchoolInfo(username, password);
     if (!isError(info)) {
-        return {"code": "SUCCESS", "content":info["StudentSchoolInfoListing"]}
+        return { code: "SUCCESS", content: info["StudentSchoolInfoListing"]}
     } else {
         throw new Error(info.RT_ERROR.ERROR_MESSAGE)
     }

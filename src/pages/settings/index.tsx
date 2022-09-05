@@ -87,7 +87,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
         if (navigator.serviceWorker === undefined || navigator.serviceWorker === null) {
             return;
         }
-        
+
         navigator.serviceWorker.getRegistration().then((s)=>{
             if (s == undefined) {
                 return location.reload();
@@ -347,7 +347,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <div>
                     <Button href="/editor">Event Editor (Devs only)</Button>
                     <Button href="/test">testing (Devs only)</Button>
-                    <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri ish are cuming') }}>Crash Webpage</Button>
+                    <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
                     <pre className="paper">
                         Redux Storeage Version: {persistConfig.version}
                         { "\n" }

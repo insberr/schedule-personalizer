@@ -204,7 +204,9 @@ function Schedule(props: ScheduleProps) {
                         ) : null }
                     </div>
                 </div>
-                <Alert variant="crimson">We have been experiencing problems; Please <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">submit feedback</Alert.Link> if any issues arise!</Alert>
+                <div className="justify-content-center d-flex">
+                    <Alert variant="success">Things seem to be working as they should now! You can still <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">Submit Feedback</Alert.Link> if any issues arise!</Alert>
+                </div>
             </Center>
         </div>
     );

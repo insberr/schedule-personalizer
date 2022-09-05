@@ -136,7 +136,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                     <ListGroup variant="flush">
                         <ListGroup.Item key={'scheduleColorsCurrentClass'} className="mb-5 mt-5">
                             <Center noDFlex noVW>
-                            <Container fluid>
+                            <Container>
                                 <Row>
                                     <Col>
                                         <Row>
@@ -199,7 +199,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                                     min={0.00}
                                                     max={1.00}
                                                     step={0.01}
-                                                    defaultValue={customizations.theme.colors.currentClass.c.a}
+                                                    defaultValue={1/*customizations.theme.colors.currentClass.c.a*/}
                                                     onChange={(e) => {
                                                         handleChange(e, ['currentClass', customizations.theme.colors.currentClass], 'alpha');
                                                     }}
@@ -298,7 +298,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                                     min={0.00}
                                                     max={1.00}
                                                     step={0.01}
-                                                    defaultValue={c[1].c.a}
+                                                    defaultValue={1/*c[1].c.a*/}
                                                     onChange={(e) => {
                                                         handleChange(e, c, 'alpha');
                                                     }}

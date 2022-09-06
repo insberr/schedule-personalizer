@@ -32,17 +32,8 @@ export const lunches: types.LunchesType = {
                         teachers.Welborn_Scott_T,
 
                         // I was not given a lunch for the following, and ones that are not on the 'teachers' value are not in the staff list for some reason
+                        // Probably teachers from other schools, grr
                         teachers.Hamilton_Michelle_Y,
-                        { id: "26983501-F049-4BFF-96AE-7BDAA18B435D" }, // Ryan Kennedy
-                        { id: "D412FD5B-D005-4E74-9FA9-B98E1126D3C8" }, // Ryan Zackula
-                        { id: "8333DEF6-66D3-45EA-AE98-85AC3F9152B6" }, // Haley Johnson
-                        { id: "F1BDC4B8-A3CA-4172-9905-7DAABC5C00AB" }, // Rosalind Bailey
-                        { id: "6224203D-ADC1-413F-A990-FF10644A57A0" }, // Alyse Fritz
-                        { id: "DED150EC-6F72-426B-B63A-1611B6A14F73" }, // Courtney Paulsen
-                        { id: "3E457741-FA17-419D-B6F1-36AF8874D364" }, // Matthew Turner
-                        { id: "8D4D44D6-F318-401A-9B45-1BF960281B2B" }, // Steven White
-                        { id: "28F8338E-BEEF-41ED-8541-F151D1C104D0" }, // Jayme Donnelly
-                        { id: "7E10FE03-0045-4B76-99AE-897E659008DD" }, // Andrea Saldana
                     ],
                 },
                 {

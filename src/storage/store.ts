@@ -7,7 +7,7 @@ import customReducer, {reset as resetCustom} from './customizations';
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
-import { defaultCustomizations } from '../config/settings';
+import { defaultCustomizations, forSchoolName } from '../config/settings';
 import { RGBA } from '../types'
 import {redactStructure} from "../lib"
 import * as api from '../apis/studentvue/studentVueAPI';
@@ -143,9 +143,17 @@ const migrations = {
         }
         return { ...state, studentvue: { ...state.studentvue, isLoggedIn: false, stayLoggedIn: false } }
     },
+    8: (state: any): any => {
+        if (state.studentvue.isLoggedIn && (state.stv.info?.content.CurrentSchool || '') !== forSchoolName) {
+            resetStorage();
+            return { ...state };
+        }
+        return { ...state };
+    }
 }
 
 import * as Sentry from "@sentry/react";
+import { SettingsPage } from '../pages/settings';
 
 const sentryReduxEnhancer = Sentry.createReduxEnhancer({
   // Optionally pass options listed below
@@ -169,7 +177,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 7,
+    version: 8,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

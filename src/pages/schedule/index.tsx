@@ -12,6 +12,7 @@ import { isAfter, isBefore, isSameDay } from 'date-fns'
 import { StudentVueReloader } from "../../components/StudentVueReloader"
 import { useDispatch } from 'react-redux';
 import * as Sentry from '@sentry/react';
+import { useSTV, StvDataStorage } from '../../storage/studentvueData';
 
 export type EventSchedule = {
     isEvent: boolean,
@@ -34,6 +35,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     const dispatch = useDispatch();
     const sch = useSchedule();
     const stv = useStudentvue();
+    const studentInfo = useSTV();
 
     const [userLunch, setUserLunch] = useState(sch.lunch);
     useEffect(() => {
@@ -43,7 +45,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
 
     const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
-        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch);
+        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDisplayDate, sch, stv, userLunch]);
@@ -57,7 +59,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     }
 }
 
-function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue, userLunch: number, setUserLunch: (lunch: number) => void): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
+function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue, userLunch: number, setUserLunch: (lunch: number) => void, studentInfo: StvDataStorage): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
 
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
     const currentDisplayDaySchedule: { schedule: SchedulesType, noOverride: boolean }  = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
@@ -84,12 +86,12 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
     const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
 
     // Do lunch related frickery to the schedule
-    const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch);
+    const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
 
     return { currentDisplayDayEvent, lunchifiedSchedule };
 }
 
-function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue, setUserLunch: (lunch: number) => void): MergedSchedule {
+function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue, setUserLunch: (lunch: number) => void, studentInfo: StvDataStorage): MergedSchedule {
     // This will prevent an error if there are no lunches on the schedule
     // Check if lunch is a thing for that day, if not return mergedSchedule
     const lunchValue = mergedSchedule.event.schedule.lunch;
@@ -140,7 +142,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                 }
             } else {
                 const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher;
-                const errMsg = `Teacher is missing from lunches config. \nName: ${errMsgTeacher.name}, ID: ${errMsgTeacher.id}, Email: ${errMsgTeacher.email}`;
+                const errMsg = `Teacher is missing from lunches config. \nName: ${errMsgTeacher.name}, ID: ${errMsgTeacher.id}, Email: ${errMsgTeacher.email}. Users school: ${studentInfo.info?.content.CurrentSchool}`;
                 Sentry.captureException(new Error(errMsg));
                 console.log(errMsg);
             }

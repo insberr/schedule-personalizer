@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
     "short_name": "Schedule",
     "name": "Schedule V5",
     "icons": [

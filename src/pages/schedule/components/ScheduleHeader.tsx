@@ -62,7 +62,7 @@ export function SchHeader(props: Props) {
           <Overlay target={toolTipDidYouKnowMap.current} show={showDidYouKnow} placement="bottom">
             {(props) => (
                 <Tooltip className="lighter-tool-tip" id="didYouKnowMap" {...props} onClick={() => { hideMoreMapToolTip() }}>
-                    Did you know you can click {"'"}More{"'"} to see the school map or email your counselor?
+                    Did you know you can click {"'"}More{"'"} to see the school map or email your counselor? (Click this to hide it)
                 </Tooltip>
             )}
             </Overlay>

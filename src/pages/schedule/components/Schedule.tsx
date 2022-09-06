@@ -14,6 +14,8 @@ import Alert from 'react-bootstrap/Alert';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
+import * as Sentry from "@sentry/react";
+import { Button } from "react-bootstrap";
 
 type ScheduleProps = {
     sch: Class[]
@@ -203,9 +205,6 @@ function Schedule(props: ScheduleProps) {
                             </div>
                         ) : null }
                     </div>
-                </div>
-                <div className="justify-content-center d-flex">
-                    <Alert variant="success">Things seem to be working as they should now! You can still <Alert.Link href="https://forms.gle/kwhHzBReokA3EEEd8">Submit Feedback</Alert.Link> if any issues arise!</Alert>
                 </div>
             </Center>
         </div>

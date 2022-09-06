@@ -16,6 +16,7 @@ import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { identifyCommit } from "../../lib";
 import * as settings from '../../config/settings';
+import * as Sentry from "@sentry/react";
 
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
@@ -108,7 +109,11 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             <Tab eventKey="general" title="General">
                 <Center>
                     <h2>General</h2>
-                    <Stack gap={4}> 
+                    <Stack gap={4}>
+                        <Button onClick={() => {
+                            Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What would you like to tell us?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-settings" }) });
+                        }}>Send Feedback</Button>
+                        <div></div>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
                         <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>

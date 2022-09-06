@@ -48,7 +48,7 @@ function startLoad() {
         const loadingthing = document.getElementById("loading")
         if (loadingthing) loadingthing.remove();
     const root = reactDom.createRoot(app);
-    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><a href="https://forms.gle/kwhHzBReokA3EEEd8">Feedback form</a><br /><Button onClick={() => { resetStorage(); location.reload();}}>Reset</Button></h3>}) : App;
+    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><Button onClick={() => { Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What happened?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-page-err" }) }); }}>Send Feedback</Button><br /><Button onClick={() => { resetStorage(); location.reload();}}>Reset</Button></h3>}) : App;
     root.render((<Err>
                     <React.StrictMode>
                         

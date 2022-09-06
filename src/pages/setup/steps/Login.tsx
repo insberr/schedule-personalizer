@@ -40,6 +40,13 @@ export function Login(props: Props) {
         showError(false);
     }
 
+    useEffect(() => {
+        if (!['', settings.forSchoolName].includes(validUser.school)) {
+            // maybe add a list of links with school names
+            doError(`Unfortunately, this instance of Schedule Personalizer is for ${settings.forSchoolName}. Please make sure you are using the correct url for your school!`);
+        }
+    }, [validUser])
+
     useDebounce(() => {
         if (username === "" || password === "") {
             setValidUser({ isValid: false, loading: false, name: "", school: "" });
@@ -146,7 +153,7 @@ export function Login(props: Props) {
                             </Form.FloatingLabel>
                         </Stack>
                         { /* TODO: Add signup for alert emails check box */ }
-                        <Button className='mt-3' variant='crimson' disabled={loading} type="submit">
+                        <Button className='mt-3' variant='crimson' disabled={loading || !['', settings.forSchoolName].includes(validUser.school)} type="submit">
                             { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
                         </Button>
                         <div className='mt-3'>

@@ -14,6 +14,10 @@ export const normalLunchBasedOnPeriod = 3;
 export const studentVueApiURL = 'https://studentvue.wackery.com';
 
 export const studentvueAPIEndpoint = 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx';
+
+// School Name
+export const forSchoolName = 'Bethel High School';
+
 // The period number that studentvue uses for advisory
 export const studentVueAdvisoryPeriod = 8;
 

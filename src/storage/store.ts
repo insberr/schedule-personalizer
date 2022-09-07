@@ -10,7 +10,6 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { defaultCustomizations, forSchoolName } from '../config/settings';
 import { RGBA } from '../types'
 import {redactStructure} from "../lib"
-import * as api from '../apis/studentvue/studentVueAPI';
 
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code
@@ -125,23 +124,8 @@ const migrations = {
     6: (state: any): any => {
         return { ...state, customization: { ...state.customization, tutorial: defaultCustomizations.tutorial } }
     },
-    7: async (state: any): Promise<any> => {
-        const isValid = await api.validateCredentials(state.studentvue.username, state.studentvue.password).then((res: any) => {
-            if (res) {
-                return true;
-            } else {
-                return false;
-            }
-        }).catch((err: string) => {
-            // TODO: handle this error and send to sentry
-            console.log('Validate Credentials Error In migrations: ' + err);
-            return false;
-        })
-
-        if (isValid) {
-            return { ...state, studentvue: { ...state.studentvue, isLoggedIn: true, stayLoggedIn: true } }
-        }
-        return { ...state, studentvue: { ...state.studentvue, isLoggedIn: false, stayLoggedIn: false } }
+    7: (state: any): any => {
+        return { ...state }
     },
     8: (state: any): any => {
         if (state.studentvue.isLoggedIn && (state.stv.info?.content.CurrentSchool || '') !== forSchoolName) {

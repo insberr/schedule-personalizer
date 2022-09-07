@@ -11,10 +11,12 @@ import { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
 import { Header } from './components/Header';
-import { useStudentvue } from './storage/studentvue';
+import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
 import { useSTV } from './storage/studentvueData';
+import * as api from './apis/studentvue/studentVueAPI';
+
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 
@@ -29,6 +31,28 @@ function App() {
         if (customizations.theme === undefined) {
             dispatch(customizationsReset());
         }
+
+        async function isValid() {
+            const isValid = await api.validateCredentials(stv.username, stv.password).then((res: any) => {
+                if (res) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).catch((err: string) => {
+                // TODO: handle this error and send to sentry
+                console.log('Validate Credentials Error In migrations: ' + err);
+                return undefined;
+            })
+            
+            if (isValid === true || isValid === undefined) {
+                return;
+            }
+            dispatch(setStudentVueData({ password: stv.password, username: stv.username, stayLoggedIn: false, isLoggedIn: false, gotSchedules: false, lastRefresh: 0 }));
+            return;
+        }
+
+        isValid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

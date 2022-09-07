@@ -78,7 +78,13 @@ function Schedule(props: ScheduleProps) {
             toPng(screenref.current, {
                 backgroundColor: "#272727",
                 cacheBust: true,
-                style: { "fontFamily": "Roboto, Ariel" }
+                style: { "fontFamily": "Roboto, Ariel" },
+                filter: (node) => {
+                    if (node.className === "classTypeIcon row") {
+                        return false;
+                    }
+                    return true;
+                }
             }).then(dataUrl => {
                 setImage(dataUrl)
                 r(dataUrl)

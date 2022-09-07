@@ -78,7 +78,7 @@ function Schedule(props: ScheduleProps) {
             toPng(screenref.current, {
                 backgroundColor: "#272727",
                 cacheBust: true,
-                style: { "fontFamily": "Roboto" }
+                style: { "fontFamily": "Roboto, Ariel" }
             }).then(dataUrl => {
                 setImage(dataUrl)
                 r(dataUrl)

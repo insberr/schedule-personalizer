@@ -25,10 +25,10 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "./",
+    "start_url": "../",
     "background_color": "#272727",
     "display": "standalone",
-    "scope": "./",
+    "scope": "../",
     "theme_color": "#272727",
     "shortcuts": [],
     "description": "Schedule: Personalizered",

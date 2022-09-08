@@ -1,4 +1,4 @@
-import type { Terms, Term } from "../types"
+import type { Terms, Term, CL } from "../types"
 import { RootState } from "./store"
 import { deserify } from "@karmaniverous/serify-deserify"
 export type ScheduleStorage = {
@@ -21,6 +21,9 @@ export const scheduleSlice = createSlice({
   reducers: {
     setTerm: (state, action: PayloadAction<{ id: number, class: Term}>) => {
         state.terms[action.payload.id] = action.payload.class
+    },
+    setTermClasses: (state, action: PayloadAction<{ id: number, classes: CL[] }>) => {
+        state.terms[action.payload.id] = { ...state.terms[action.payload.id], classes: action.payload.classes }
     },
     setTerms: (state, action: PayloadAction<Terms>) => {
         state.terms = action.payload

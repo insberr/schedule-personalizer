@@ -14,6 +14,9 @@ import { useDispatch } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
 
+import { translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
+
+
 export type EventSchedule = {
     isEvent: boolean,
     hasError?: boolean
@@ -164,7 +167,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
             startTime: p.startTime,
             endTime: p.endTime,
             period: lunchValue.basedOnPeriod,
-            name: p.classID === ClassIDS.Lunch ? "Lunch" : lunchPeriod.name,
+            name: p.classID === ClassIDS.Lunch ? "Lunch "+ userLunch : lunchPeriod.name,
             room: p.classID === ClassIDS.Lunch ? '' : lunchPeriod.room,
             teacher: p.classID === ClassIDS.Lunch ? {...lunchPeriod.teacher, name: ''} : lunchPeriod.teacher,
         }
@@ -279,7 +282,11 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     // Alert the user of unknown classes from studentvue
     const periodsFromEmptyCL = emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory).map(c => c.period);
     const unknownPeriods = displayTerm.classes.filter(p => !periodsFromEmptyCL.includes(p.period));
-    
+
+    // NOTE: TEMPORARY TEMORARY TEMPORARY TEMPORARY - Not the BEST PLACE for this at all, super temorary!!!!!! - TEMPORARY TEMORARY TEMPORARY TEMPORARY
+    const cambridge_ified = translateCambridgeClassesToCLList__TEMPORARYYYYY__(displayTerm.classes);
+    displayTerm.classes = cambridge_ified;
+
     if (unknownPeriods.length > 1) {
         // Ceck for cambridge .. let the user know we dont support it yet, but are working on implementing it
         const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
@@ -288,7 +295,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         if (cambridgePeriods.length > 0) {
             // user has cambridge
             errMsg = 'It appears this student is a Cambridge student.'
-            addMessage = `<span style='color: red'>It appears you are a Cambridge student. Schedule Peronalizer does not support Cambridge schedules yet, but we are working on it!</span>`
+            addMessage = `<span style='color: red'>Schedule Peronalizer doesnt support Cambridge yet, but we are working on it!<br>Update: We have began work on implementing Cambridge schedule support!</span>`
         }
         
         Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })
@@ -298,48 +305,9 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
     }
 
-    /* Kinda just a replacement for whatever heckery the school has put upon us by messing up the schedules
-    // Commented out in case we want to use it ig?
-    const indexedUnknownPeriods: { index: number, period: CL }[] = unknownPeriods.map(p => {
-        return { index: displayTerm.classes.indexOf(p), period: p };
-    })
-    let previousIndex = 0;
-    ============================ End of replacement ============================ */
-
     for (const period of displayDaySchedule.schedule.classes) {
 
         const periodNeeded = displayTerm.classes.filter(p => (p.classID == period.classID) && (p.period == period.period));
-        
-        /* Kinda just a replacement for whatever heckery the school has put upon us by messing up the schedules
-        // Commented out in case we want to use it ig?
-        const indexOfPeriodNeeded = displayTerm.classes.indexOf(periodNeeded[0]);
-        if (indexOfPeriodNeeded !== -1) {
-            previousIndex = indexOfPeriodNeeded + (periodNeeded.length - 1);
-        } else {
-            previousIndex++;
-        }
-
-        for (const unkPd of indexedUnknownPeriods) {
-            if (unkPd.index < previousIndex + 1) {
-                indexedUnknownPeriods.splice(indexedUnknownPeriods.indexOf(unkPd), 1);
-                scheduleForDisplay.push({
-                    classID: unkPd.period.classID,
-                    period: unkPd.period.period,
-                    name: unkPd.period.name,
-                    room: unkPd.period.room,
-                    teacher: {
-                        name: unkPd.period.teacher.name,
-                        email: unkPd.period.teacher.email,
-                        id: unkPd.period.teacher.id
-                    },
-                    startTime: period.startTime,
-                    endTime: period.endTime
-                })
-            }
-        }
-        ============================ End of replacement ============================ */
-
-
 
         if (periodNeeded.length > 1) {
             const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`

@@ -46,6 +46,8 @@ export const scheduleEvents: ScheduleEvents = [
             },
         },
     },
+
+    /* Start of first week of school */
     {
         schedule: null,
         info: {
@@ -63,14 +65,39 @@ export const scheduleEvents: ScheduleEvents = [
             },
         },
     },
-    // other assemblies ????
+
+    /* Assemblies */
     {
         schedule: null,
         info: {
-            message: "Senior Assembly",
+            message: "Freshman Assembly During Advisory",
+            date: new Date("September 7, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Sophomore Assembly During Advisory",
+            date: new Date("September 8, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Junior Assembly During Advisory",
+            date: new Date("September 9, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Senior Assembly During Advisory",
             date: new Date("September 12, 2022"),
         },
     },
+    /* END of first week of school */
+
+
     {
         schedule: schedules.lateStart1Hour,
         info: {
@@ -81,7 +108,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School For Students - PD Day #2",
+            message: "No School For Students | PD Day #2",
             date: new Date("September 23, 2022"),
         },
     },
@@ -109,21 +136,21 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal (K-12)  - Grade Prep",
+            message: "Early Dismissal (K-12) | Grade Prep",
             date: new Date("October 20, 2022"),
         },
     },
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School For Students - PD Day #3",
+            message: "No School For Students | PD Day #3",
             date: new Date("October 21, 2022"),
         },
     },
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal (6-12) - Conference Week",
+            message: "Early Dismissal (6-12) | Conference Week",
             date: {
                 start: new Date("October 26, 2022"),
                 end: new Date("October 28, 2022"),
@@ -140,7 +167,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - Veterans Day",
+            message: "No School | Veterans Day",
             date: new Date("November 11, 2022"),
         },
     },
@@ -171,14 +198,14 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal (6-12) - End of Trimester 1",
+            message: "Early Dismissal (6-12) | End of Trimester 1",
             date: new Date("December 6, 2022"),
         },
     },
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School For Students - PL Day #1",
+            message: "No School For Students | PL Day #1",
             date: new Date("December 7, 2022"),
         },
     },
@@ -189,6 +216,8 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("December 14, 2022"),
         },
     },
+
+    /* Winter Break */
     {
         schedule: schedules.noSchool,
         info: {
@@ -199,6 +228,29 @@ export const scheduleEvents: ScheduleEvents = [
             },
         },
     },
+    {
+        schedule: null,
+        info: {
+            message: "Marry Christmas!",
+            date: new Date("December 25, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Happy New Year!",
+            date: new Date("December 31, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Happy New Year!",
+            date: new Date("January 1, 2023"),
+        },
+    },
+    /* END of Winter Break */
+
     {
         schedule: schedules.lateStart1Hour,
         info: {
@@ -216,7 +268,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - MLK Jr. Day",
+            message: "No School | MLK Jr. Day",
             date: new Date("January 16, 2023"),
         },
     },
@@ -230,7 +282,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - PL Day #2",
+            message: "No School | PL Day #2",
             date: new Date("January 25, 2023"),
         },
     },
@@ -258,14 +310,14 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - President's Day",
+            message: "No School | President's Day",
             date: new Date("February 20, 2023"),
         },
     },
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - Waiver Day #2",
+            message: "No School | Waiver Day #2",
             date: new Date("February 21, 2023"),
         },
     },
@@ -286,14 +338,14 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal (K-12) - End of Trimester 2",
+            message: "Early Dismissal (K-12) | End of Trimester 2",
             date: new Date("March 23, 2023"),
         },
     },
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal - Conference Week",
+            message: "Early Dismissal | Conference Week",
             date: {
                 start: new Date("March 29, 2023"),
                 end: new Date("March 31, 2023"),
@@ -362,7 +414,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - Memorial Day",
+            message: "No School  Memorial Day",
             date: new Date("May 29, 2023"),
         },
     },
@@ -376,21 +428,21 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.noSchool,
         info: {
-            message: "No School - Juneteenth",
+            message: "No School | Juneteenth",
             date: new Date("June 19, 2023"),
         },
     },
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal (K-12) - Grade Prep",
+            message: "Early Dismissal (K-12) | Grade Prep",
             date: new Date("June 20, 2023"),
         },
     },
     {
         schedule: schedules.earlyDissmissal,
         info: {
-            message: "Early Dismissal - Last Day of School",
+            message: "Early Dismissal | Last Day of School!!!",
             date: new Date("June 23, 2023"),
         },
     },

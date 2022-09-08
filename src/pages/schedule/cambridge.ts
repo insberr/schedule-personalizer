@@ -17,6 +17,6 @@ export function translateCambridgeClassesToCLList__TEMPORARYYYYY__(classes: CL[]
         return cl;
     });
 
-    console.log(newClasses);
+    // console.log(newClasses);
     return newClasses;
 }

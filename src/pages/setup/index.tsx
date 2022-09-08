@@ -1,53 +1,52 @@
 import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import { Manual } from './steps/Manual';
-import { Login } from './steps/Login';
-import { Features } from './steps/Features';
 
+// Types
 import { Terms } from '../../types';
-import { IntroPonent } from './components/Introponent';
+
+// Redux
 import { useDispatch } from "react-redux";
 import { setSetupComplete } from '../../storage/misc';
+
+// Components
+import { IntroPonent } from './components/Introponent';
+import Button from 'react-bootstrap/Button';
+
+// Steps
 import { AddToHomeScreen } from './steps/AddToHomeScreen';
+import { Features } from './steps/Features';
+import { Login } from './steps/Login';
+import { Manual } from './steps/Manual';
 
 
 type SetupPageProps = {
     setSchedule: (s: Terms) => void
 }
 
+// TODO: Im sure theres a way better way to do this ...
 function SetupPage(props: SetupPageProps) {
-    //useEffect
     const [stage, setStage] = useState(0);
     const [schedule, setLocalSchedule] = useState<Terms | undefined>(undefined);
     const dispatch = useDispatch();
+
     useEffect(() => {
         if (stage != 69) {
             return;
         }
         if (schedule) {
-            //setV5Data(StorageQuery.Setup, true);
             dispatch(setSetupComplete(true));
-
-            // TODO: Add manual setup terms
             props.setSchedule(schedule)
         }
     })
-    /*function loadTestSchedule() {
-        props.setSchedule(testData)
-    }*/
 
-    // maybe use enum for stages valuse??
+    // TODO: maybe use enum for stages valuse??
     let thing = <div />
     switch (stage) { 
-        case -1: // fuck you no importing manually
+        case -1: {// fuck you no importing manually
             thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
             break;
+        }
         case 0: {// studentvue login
-            const params = new URLSearchParams(window.location.search) // id=123
-            const fromVOne = params.get('fromVOne')
-            if (fromVOne === 'true') {
-                thing = <AddToHomeScreen setStage={setStage} />
-            } else if (window.matchMedia('(display-mode: standalone)').matches) {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
                 setStage(1)
             } else {
                 thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>
@@ -58,12 +57,6 @@ function SetupPage(props: SetupPageProps) {
             thing = <Features setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
             break;
         }
-        case 2: // lunch autodetect failure, set force lunch
-            thing = <div> todo </div>
-            break;
-        case -2: // when you skip importing, which lunch? (Should use same component as 2)
-            thing = <div> todo </div>
-            break;
         case 69: // the schedule will only be set in this state, so stages can pass schedule data between them (lunch detect failure)
             thing = <div />
             break;
@@ -71,7 +64,7 @@ function SetupPage(props: SetupPageProps) {
             thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // <WhatsNew setStage={setStage} />
             break;
         default: 
-            thing = (<div>Invalid state! <Button onClick={ () => { setStage(0) } } variant="primary">Reset</Button></div>)
+            thing = (<div>Invalid state! How did we get here? <Button onClick={ () => { setStage(0) } } variant="primary">Back To Beginning</Button></div>)
     }
     return (
         <IntroPonent>

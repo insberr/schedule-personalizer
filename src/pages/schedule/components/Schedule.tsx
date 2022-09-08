@@ -10,12 +10,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { copyImageToClipboard,canCopyImagesToClipboard, requestClipboardWritePermission } from 'copy-image-clipboard'
 import Toast from 'react-bootstrap/Toast';
-import Alert from 'react-bootstrap/Alert';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
-import * as Sentry from "@sentry/react";
-import { Button } from "react-bootstrap";
 
 type ScheduleProps = {
     sch: Class[]

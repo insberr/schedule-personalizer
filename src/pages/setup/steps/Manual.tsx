@@ -1,21 +1,30 @@
 import { useEffect, useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
+
+import * as settings from '../../../config/settings';
+
+// Types
+import { CL, emptyCL, Terms } from '../../../types';
+
+// Redux
+import { useDispatch } from "react-redux";
+import { setLunch, useSchedule } from '../../../storage/schedule';
+
+// Components
 import Center from '../../../components/Center';
 import { LunchPicker } from '../components/LunchPicker';
 import { ManualClassEntry } from '../components/ManualClassEntry';
-import { CL, ClassIDS, emptyCL, StageProps, Terms } from '../../../types';
-import { useDispatch } from "react-redux";
-import { setLunch, useSchedule } from '../../../storage/schedule';
-import * as settings from '../../../config/settings';
-import Form from 'react-bootstrap/Form';
+
 import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+
 
 type Props = {
     setStage: (stage: number) => void;
     setSchedule: (schedule: Terms) => void;
-    isEdit?: boolean;
     setIsEdit?: (isEdit: boolean) => void;
+    isEdit?: boolean;
 }
 
 export function Manual(props: Props) {
@@ -31,16 +40,18 @@ export function Manual(props: Props) {
     useEffect(() => {
         console.log('lunch ' + l)
         dispatch(setLunch(l))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [l])
 
     if (terms[0].classes.length < 1) {
         terms.map(t => {
-            t.classes = emptyCL(settings.numberOfPeriods, false);
-            t.classes[0] = {
+            t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+            /*t.classes[0] = {
                 ...t.classes[0],
                 classID: ClassIDS.Advisory,
                 name: "Advisory",
             }
+            */
             return t;
         })
     }

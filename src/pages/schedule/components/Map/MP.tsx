@@ -31,6 +31,7 @@ export function MP(props: Props) {
     });
     
     useEffect(() => {
+        if (process.env.NODE_ENV !== 'development') return;
         if (mouse.elX > mouse.elW || mouse.elX < 0 || mouse.elY > mouse.elH || mouse.elY < 0) {
             return;
         }
@@ -38,8 +39,9 @@ export function MP(props: Props) {
 
     
     function clickedMap() {
+        if (process.env.NODE_ENV !== 'development') return;
         console.log("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },");
-        // REMOVE THIS SSSSSS
+        // REMOVE THIS SSSSSS FOR PRODUCTION
         // navigator.clipboard.writeText("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },")
         // END REMOVE
         setcpins([...cpins, {room: Math.floor(Math.random()*16777215).toString(16), cords: [((mouse.elX/mouse.elW)*100), ((mouse.elY/mouse.elH)*100)]}])

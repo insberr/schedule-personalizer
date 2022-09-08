@@ -15,10 +15,10 @@ export const lunches: types.LunchesType = {
                         teachers.Bland_James_W,
                         teachers.Brendible_Jacklyn_V,
                         teachers.Brokaw_David_C,
-                        // teachers.Doyle_Suzanne_M, // why 1st and 3rd lunch?? wonder how thatll break schedule personalizer lol // I was told its 3rd lunch
                         teachers.Fowler_Ethan_T,
                         teachers.Frady_Sadie_L,
                         teachers.Gibbs_Denise_R,
+                        teachers.Hamilton_Michelle_Y,
                         teachers.Loiselle_Ryan_A,
                         teachers.Metcalf_Cody_D,
                         teachers.Morrison_Jennifer_M,
@@ -33,7 +33,7 @@ export const lunches: types.LunchesType = {
 
                         // I was not given a lunch for the following, and ones that are not on the 'teachers' value are not in the staff list for some reason
                         // Probably teachers from other schools, grr
-                        teachers.Hamilton_Michelle_Y,
+                        
                     ],
                 },
                 {
@@ -68,7 +68,7 @@ export const lunches: types.LunchesType = {
                     teachers: [
                         teachers.Adams_Jennifer_N,
                         teachers.Allen_David_M,
-                        teachers.Doyle_Suzanne_M, // why 1st and 3rd lunch?? wonder how thatll break schedule personalizer lol // I was told its 3rd lunch
+                        teachers.Doyle_Suzanne_M,
                         teachers.Gardner_Kenneth_A,
                         teachers.Greenland_Roy_F,
                         teachers.Haegele_Dennis_S,

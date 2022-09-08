@@ -191,7 +191,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                                     min={0.00}
                                                     max={1.00}
                                                     step={0.01}
-                                                    defaultValue={1/*customizations.theme.colors.currentClass.c.a*/}
+                                                    defaultValue={customizations.theme.colors.currentClass.c.a === 0 ? 1 : customizations.theme.colors.currentClass.c.a}
                                                     onChange={(e) => {
                                                         handleChange(e, ['currentClass', customizations.theme.colors.currentClass], 'alpha');
                                                     }}
@@ -290,7 +290,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                                     min={0.00}
                                                     max={1.00}
                                                     step={0.01}
-                                                    defaultValue={1/*c[1].c.a*/}
+                                                    defaultValue={c[1].c.a === 0 ? 1 : c[1].c.a}
                                                     onChange={(e) => {
                                                         handleChange(e, c, 'alpha');
                                                     }}

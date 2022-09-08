@@ -84,18 +84,6 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
             endTime: getTimeW(23, 59)
         }
     }
-    function updateSW() {
-        if (navigator.serviceWorker === undefined || navigator.serviceWorker === null) {
-            return;
-        }
-
-        navigator.serviceWorker.getRegistration().then((s)=>{
-            if (s == undefined) {
-                return location.reload();
-            }
-            s.update().then(location.reload).catch(location.reload)
-        });
-    }
 
     return (<><Center>
         <h1>Settings</h1>
@@ -119,7 +107,6 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
-                        <Button className={ window.matchMedia('(display-mode: standalone)').matches ? '' : 'hidden' } onClick={()=>{ updateSW() }}>Force Update Site</Button>
                     </Stack>
                 </Center>
             </Tab>

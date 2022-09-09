@@ -10,11 +10,12 @@ import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
 import { isAfter, isBefore, isSameDay } from 'date-fns'
 import { StudentVueReloader } from "../../components/StudentVueReloader"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
-
+import {useToggle, useInterval} from 'react-use'
 import { translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
+import { RootState } from '../../storage/store';
 
 
 export type EventSchedule = {
@@ -39,14 +40,27 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     const sch = useSchedule();
     const stv = useStudentvue();
     const studentInfo = useSTV();
+    const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
 
     const [userLunch, setUserLunch] = useState(sch.lunch);
     useEffect(() => {
         dispatch(setLunch(userLunch))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userLunch])
+    }, [userLunch,dispatch])
 
     const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
+    // probably a bad way to do ths
+    const [t, tick] = useToggle(false)
+    useInterval(()=> {
+        tick();
+    }, 1000)
+    useEffect(() => {
+        if (presentationMode) {
+            if (!isSameDay(currentDisplayDate, new Date())) {
+                setCurrentDisplayDate(new Date());
+            }
+        }
+    }, [presentationMode, currentDisplayDate, t])
+
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];

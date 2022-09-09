@@ -13,6 +13,9 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { toPng } from 'html-to-image';
 import { useStudentvue } from '../../../storage/studentvue';
+import { useSelector } from "react-redux";
+import { RootState } from "../../../storage/store";
+import { useInterval } from "react-use";
 
 type ScheduleProps = {
     sch: Class[]
@@ -27,6 +30,7 @@ function Schedule(props: ScheduleProps) {
     const [showCustomToast, setShowCustomToast] = useState(false);
     
     const studentvue = useStudentvue();
+    const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
     useEffect(() => {
         if (studentvue.isLoggedIn === true && studentvue.gotSchedules === false) {
             setCustomToast({
@@ -101,18 +105,12 @@ function Schedule(props: ScheduleProps) {
 
     const [currentTime, setCurrentTime] = useState<Time>(dateToTime(new Date()));
     const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(new Date()) : null);
-    useEffect(() => {
-        const dt = setInterval(() => {
+    useInterval(() => {
             if (devTime) {
                 setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
             }
             setCurrentTime(devTime || dateToTime(new Date()))
-        }, 1000)
-
-        return () => {
-            clearInterval(dt);
-        }
-    }, [devTime])
+    }, 1000)
 
     useEffect(() => {
         if (devTime) {
@@ -164,7 +162,7 @@ function Schedule(props: ScheduleProps) {
                 setup={ props.setup }
                 getImage={ getImage }
                 displayDate={ props.displayDate }
-                setDisplayDate={ props.setDisplayDate }
+                setDisplayDate={ presentationMode ? ()=>{return;} : props.setDisplayDate }
             />
             <Center>
                 <div

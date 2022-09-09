@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import { persistConfig, resetStorage, store } from "../../storage/store";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../storage/store";
-import { setRgbParty } from "../../storage/misc";
+import { setRgbParty, setPresentationMode } from "../../storage/misc";
 import { useKeyboardShortcut } from "../../hooks";
 import { useStudentvue } from "../../storage/studentvue";
 import { Manual } from "../setup/steps/Manual";
@@ -24,7 +24,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
     const customizations = useCustomizations();
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
-
+    const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
     const [tab, setTab] = useState('general');
 
     const [editManually, setEditManually] = useState(false);
@@ -98,6 +98,8 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                 <Center>
                     <h2>General</h2>
                     <Stack gap={4}>
+                        <Form.Switch label={"Presentation Mode"} checked={presentationMode} onChange={() => {dispatch(setPresentationMode(!presentationMode))}} />
+                        <div></div>
                         <Button onClick={() => {
                             Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What would you like to tell us?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-settings" }) });
                         }}>Send Feedback</Button>

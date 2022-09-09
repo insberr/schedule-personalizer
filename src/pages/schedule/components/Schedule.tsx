@@ -107,14 +107,14 @@ function Schedule(props: ScheduleProps) {
     const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(new Date()) : null);
     useInterval(() => {
             if (devTime) {
-                setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
+                setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd), 1)))
             }
             setCurrentTime(devTime || dateToTime(new Date()))
     }, 1000)
 
     useEffect(() => {
         if (devTime) {
-            setDevTime(dateToTime(addSeconds(timeToDate(devTime), 1)))
+            setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd), 1)))
         }
         setCurrentTime(devTime || dateToTime(new Date()))
 

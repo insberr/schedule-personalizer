@@ -1,5 +1,5 @@
 {
-  "extends": ["@parcel/config-default", "parcel-config-precache-manifest"],
+  "extends": ["@parcel/config-default"],
   "reporters":  ["parcel-reporter-clean-dist", "...", "parcel-reporter-static-files-copy"],
   "transformers": {
     "*.svg": ["...", "@parcel/transformer-svg-react"]

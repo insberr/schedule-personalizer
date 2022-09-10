@@ -1251,6 +1251,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@parcel/service-worker@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@parcel/service-worker@npm:2.7.0"
+  checksum: 3c922e95061ef66674f7c6ef3e50e373b861fca04f4605fae0dd4987094d1a49473e754f528d4e9aca59c75b56137833ab9cc9529739b74b0bd0c7ece84fe1db
+  languageName: node
+  linkType: hard
+
 "@parcel/source-map@npm:^2.0.0":
   version: 2.0.2
   resolution: "@parcel/source-map@npm:2.0.2"
@@ -6407,17 +6414,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parcel-config-precache-manifest@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "parcel-config-precache-manifest@npm:0.0.4"
-  dependencies:
-    parcel-runtime-precache-manifest: ^0.0.5
-  peerDependencies:
-    parcel: ">=2.0.0-beta.2"
-  checksum: d8ca5383fbac5486ee7fc72fee2979a5cdfae642b5b2d88736cad53acfec52b59556b3e97a783ac37a1e56c2edf0efb7c474f84b7fe0274dc798d57c906cf174
-  languageName: node
-  linkType: hard
-
 "parcel-reporter-clean-dist@npm:^1.0.4":
   version: 1.0.4
   resolution: "parcel-reporter-clean-dist@npm:1.0.4"
@@ -6436,15 +6432,6 @@ __metadata:
   dependencies:
     "@parcel/plugin": ^2.0.0-beta.1
   checksum: 025d8c03458ee34c969a8ffcd43814eed9dc4e30923b161dcd2a503b573fed67f594f8c14a3ef34c010449d573e9795fcbdbc0b971cbc5c2932d6a063aebd7c5
-  languageName: node
-  linkType: hard
-
-"parcel-runtime-precache-manifest@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "parcel-runtime-precache-manifest@npm:0.0.5"
-  peerDependencies:
-    parcel: ">=2.0.0-beta.2"
-  checksum: 93277bf076f39468ec476a3b7effbceb424ec2021f05345dfd8802f4fe750df45438bc2b656a490e8e4373f362088c3d0d672cf93d6cfd44652e1a731b753d32
   languageName: node
   linkType: hard
 
@@ -7481,6 +7468,7 @@ __metadata:
     "@parcel/core": ^2.7.0
     "@parcel/packager-raw-url": ^2.7.0
     "@parcel/packager-xml": ^2.7.0
+    "@parcel/service-worker": ^2.7.0
     "@parcel/transformer-sass": ^2.7.0
     "@parcel/transformer-svg-react": ^2.7.0
     "@parcel/transformer-webmanifest": 2.7.0
@@ -7527,7 +7515,6 @@ __metadata:
     keyboardjs: ^2.6.4
     lodash: ^4.17.21
     parcel: ^2.7.0
-    parcel-config-precache-manifest: ^0.0.4
     parcel-reporter-clean-dist: ^1.0.4
     parcel-reporter-static-files-copy: ^1.4.0
     pepjs: ^0.5.3

@@ -16,10 +16,8 @@ import { Button } from 'react-bootstrap';
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
 function startLoad() {
-    if (process.env.NODE_ENV == "production") {
-        if (navigator.serviceWorker) {
+    if (navigator.serviceWorker) {
             navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url),{type: 'module'});
-        }
     }
 
     Sentry.init({

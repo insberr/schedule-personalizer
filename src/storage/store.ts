@@ -133,6 +133,9 @@ const migrations = {
             return { ...state };
         }
         return { ...state };
+    },
+    9: (state: any) => {
+        return {...state, misc: { ...state.misc, presentationMode: false }}
     }
 }
 
@@ -161,7 +164,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 8,
+    version: 9,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

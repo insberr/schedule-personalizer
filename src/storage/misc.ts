@@ -1,6 +1,7 @@
 export type Misc = {
     setupComplete: boolean,
     rgbParty: boolean,
+    presentationMode: boolean,
   };
   
   import { createSlice } from '@reduxjs/toolkit'
@@ -8,7 +9,8 @@ export type Misc = {
   
   const initialState: Misc = {
       setupComplete: false,
-      rgbParty: false
+      rgbParty: false,
+      presentationMode: false,
   }
   
   export const miscSlice = createSlice({
@@ -21,6 +23,9 @@ export type Misc = {
       setRgbParty: (state, action: PayloadAction<boolean>) => {
         state.rgbParty = action.payload
       },
+      setPresentationMode: (state, action: PayloadAction<boolean>) => {
+        state.presentationMode = action.payload
+      },
       reset: () => {
         return initialState
     }
@@ -28,7 +33,7 @@ export type Misc = {
   })
   
   // Action creators are generated for each case reducer function
-  export const { setSetupComplete, reset, setRgbParty } = miscSlice.actions
+  export const { setSetupComplete, reset, setRgbParty, setPresentationMode } = miscSlice.actions
   
   export default miscSlice.reducer
   

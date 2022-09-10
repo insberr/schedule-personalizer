@@ -11,7 +11,7 @@ import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
 import {isAfter, isBefore, isSameDay, isWithinInterval} from "date-fns"
 import * as lib from "../../../lib"
-import { setShowInfoOnSchedule, useCustomizations } from "../../../storage/customizations";
+import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
 import tinyColor from 'tinycolor2';
 import { BsStars } from "react-icons/bs";

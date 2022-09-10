@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Time, getTimeW, timeToDate } from '../../../types';
 import { intervalToDuration, Duration,formatDuration } from 'date-fns';
 import { useInterval } from 'react-use';

@@ -9,7 +9,9 @@ const hashRegex = /.+\.(.+)\..+/
 const versioned = [
     "/",
     "/index.html",
-    "/pwa/manifest.webmanifest"
+    "/pwa/manifest.webmanifest",
+    "/test/index.html",
+    "/editor/index.html",
 ] // these use the global version and not a specific one
 
 manifest.forEach((entry: string) => {

@@ -2574,12 +2574,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "bootstrap@npm:5.2.0"
+"bootstrap@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "bootstrap@npm:5.2.1"
   peerDependencies:
-    "@popperjs/core": ^2.11.5
-  checksum: 9dbfb5d26bbdac3e27a6b46cb7456cd4dd75ae3b48644737809885b8ea9c265d3359c4cdbf25a55bb7e5046f51e441557033ba21eeaf24ef8316bfbb3d420084
+    "@popperjs/core": ^2.11.6
+  checksum: f7d733ae5d27177d813adb2ac2158f08069a558d8f664b3db8857aba0ab07423d83b4276dba6123dde52309e707bb06ec13e040fb905eaa293c53453110bb802
   languageName: node
   linkType: hard
 
@@ -7167,7 +7167,7 @@ __metadata:
     "@types/workbox-sw": ^4.3.2
     "@typescript-eslint/eslint-plugin": ^5.22.0
     "@typescript-eslint/parser": ^5.22.0
-    bootstrap: ^5.2.0
+    bootstrap: ^5.2.1
     browserslist: ^4.20.3
     copy-image-clipboard: ^2.1.2
     date-fns: ^2.28.0

@@ -160,8 +160,8 @@ import { StudentVueAPIDataUserDate } from "./apis/studentvue/studentVueAPI";
 const InfoToKeep = [
     "CounselorEmail",
     "CurrentSchool",
-    "FormattedName"
-
+    "FormattedName",
+    "Grade",
 ]
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

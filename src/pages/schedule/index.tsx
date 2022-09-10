@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
 import {useToggle, useInterval} from 'react-use'
-import { translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
+import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
 
 
@@ -99,6 +99,16 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
             }
         }
     }
+
+    // Check for Cambridge
+    if (displayTerm.classes.filter(p => settingsConfig.cambridgePeriods.includes(p.period)).length > 0) {
+        // do cambridgeMergeDataWithSchedule()
+        // NOT IMPLEMENTED YET
+        cambridgeMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || "0");
+        // cambridgeLunchify()
+        // retuen { currentDisplayDayEvent, cambridgeLunchifiedSchedule }
+    }
+
     // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
     const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
 
@@ -309,7 +319,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         if (cambridgePeriods.length > 0) {
             // user has cambridge
             errMsg = 'It appears this student is a Cambridge student.'
-            addMessage = `<span style='color: red'>Schedule Peronalizer doesnt support Cambridge yet, but we are working on it!<br>Update: We have began work on implementing Cambridge schedule support!</span>`
+            addMessage = `<span style='color: red'>It appears you are in Cambridge, Cambridge schedule support is a working progress!</span>`
         }
         
         Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })

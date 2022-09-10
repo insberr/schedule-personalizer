@@ -17,18 +17,21 @@ import { debounce } from 'lodash';
 import { identifyCommit } from "../../lib";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
+import { useSchedule } from "../../storage/schedule";
 
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
+    const dispatch = useDispatch()
     const stv = useStudentvue();
     const customizations = useCustomizations();
+    const sch = useSchedule();
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
     const [tab, setTab] = useState('general');
 
     const [editManually, setEditManually] = useState(false);
-    const dispatch = useDispatch()
+    
 
     useKeyboardShortcut("shift + r + g + b", () => {
         dispatch(setRgbParty(!doRGBParty))
@@ -342,6 +345,10 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                     <Button href="/editor">Event Editor (Devs only)</Button>
                     <Button href="/test">testing (Devs only)</Button>
                     <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Input Terms Object</Form.Label>
+                        <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { props.setSchedule(JSON.parse(e.target.value))}} />
+                    </Form.Group>
                     <pre className="paper">
                         Redux Storeage Version: {persistConfig.version}
                         { "\n" }

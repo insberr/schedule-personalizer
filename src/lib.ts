@@ -227,3 +227,22 @@ export function isCurrentClass(sch: Class[], period: Class, currentClassDateAndT
     }
     return false;
 }
+
+export function updateSW() {
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistration().then(reg => {
+            if (reg) {
+                reg.unregister().then((didun) => {
+                    if (!didun) {
+                        console.error("lmafo it didnt unregister");
+                    } 
+                    location.reload();
+                    return;
+                });
+                location.reload();
+                return;
+            }
+        })
+    }
+    location.reload()
+}

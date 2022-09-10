@@ -14,7 +14,7 @@ import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors,
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
-import { identifyCommit } from "../../lib";
+import { identifyCommit, updateSW } from "../../lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
@@ -112,6 +112,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
+                        <Button onClick={()=>{ updateSW() }}>Force update site (beta)</Button>
                     </Stack>
                 </Center>
             </Tab>

@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {useId, useRef, useState} from 'react'
 import { Map } from "./Map/Map"
 import Button from 'react-bootstrap/Button';
-import { isToday } from 'date-fns';
+import { isSameDay, isToday } from 'date-fns';
 import Popover from 'react-bootstrap/Popover';
 import Calendar from 'react-calendar'
 import { IoHomeSharp } from "react-icons/io5";
@@ -18,6 +18,7 @@ import { useSTV } from '../../../storage/studentvueData';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import { setTutorial, useCustomizations } from '../../../storage/customizations';
 import { useDispatch } from 'react-redux';
+import { today } from "../../../today";
 type Props = {
     sch: Class[],
     setup: (s: boolean) => void,
@@ -70,7 +71,7 @@ export function SchHeader(props: Props) {
 
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>
-                <Button variant="outline-crimson" key="now" size="sm" className={ isToday(props.displayDate) ? 'hidden' : '' } onClick={ () => { props.setDisplayDate(new Date()) } }><IoHomeSharp /></Button>
+                <Button variant="outline-crimson" key="now" size="sm" className={ isSameDay(today(),props.displayDate) ? 'hidden' : '' } onClick={ () => { props.setDisplayDate(today()) } }><IoHomeSharp /></Button>
                 <Button variant="outline-crimson" key="back"  size="sm" style={{"marginLeft":"1em"}} onClick={ () => {
                     const newDate = new Date(props.displayDate);
                     newDate.setDate(props.displayDate.getDate() - 1);

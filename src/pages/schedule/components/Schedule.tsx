@@ -5,6 +5,7 @@ import { EventSchedule } from '../index';
 import { addSeconds, format } from 'date-fns'
 import { useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
+import { today } from "../../../today";
 import { SchHeader } from "./ScheduleHeader"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -103,20 +104,20 @@ function Schedule(props: ScheduleProps) {
         }
     }, [image])
 
-    const [currentTime, setCurrentTime] = useState<Time>(dateToTime(new Date()));
-    const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(new Date()) : null);
+    const [currentTime, setCurrentTime] = useState<Time>(dateToTime(today()));
+    const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(today()) : null);
     useInterval(() => {
             if (devTime) {
-                setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd), 1)))
+                setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd||dateToTime(today())), 1)))
             }
-            setCurrentTime(devTime || dateToTime(new Date()))
+            setCurrentTime(devTime || dateToTime(today()))
     }, 1000)
 
     useEffect(() => {
         if (devTime) {
-            setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd), 1)))
+            setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd||dateToTime(today())), 1)))
         }
-        setCurrentTime(devTime || dateToTime(new Date()))
+        setCurrentTime(devTime || dateToTime(today()))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.displayDate])
@@ -158,7 +159,7 @@ function Schedule(props: ScheduleProps) {
             </ToastContainer>
             <SchHeader
                 sch={ props.sch }
-                home={()=>{ props.setDisplayDate(new Date()) }}
+                home={()=>{ props.setDisplayDate(today()) }}
                 setup={ props.setup }
                 getImage={ getImage }
                 displayDate={ props.displayDate }

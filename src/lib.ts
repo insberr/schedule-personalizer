@@ -37,7 +37,7 @@ export function formatClassTime(start: Time, end: Time): string {
 }
 
 export function parseTime(timeString: string): Time {
-    return dateToTime(parse(timeString, "hh:mm",set(new Date(), { seconds: 0 } )))
+    return dateToTime(parse(timeString, "hh:mm",set(today(), { seconds: 0 } )))
 }
 
 export function identifyCommit(): string | undefined  {
@@ -155,6 +155,7 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
 }
 
 import { StudentVueAPIDataUserDate } from "./apis/studentvue/studentVueAPI";
+import { today } from "./today";
 
 // TODO: move to settings file
 const InfoToKeep = [

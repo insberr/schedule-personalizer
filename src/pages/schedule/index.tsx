@@ -16,6 +16,7 @@ import { useSTV, StvDataStorage } from '../../storage/studentvueData';
 import {useToggle, useInterval} from 'react-use'
 import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
+import { today } from "../../today";
 
 
 export type EventSchedule = {
@@ -47,7 +48,7 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
         dispatch(setLunch(userLunch))
     }, [userLunch,dispatch])
 
-    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(new Date());
+    const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(today());
     // probably a bad way to do ths
     const [t, tick] = useToggle(false)
     useInterval(()=> {
@@ -55,8 +56,8 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     }, 1000)
     useEffect(() => {
         if (presentationMode) {
-            if (!isSameDay(currentDisplayDate, new Date())) {
-                setCurrentDisplayDate(new Date());
+            if (!isSameDay(currentDisplayDate, today())) {
+                setCurrentDisplayDate(today());
             }
         }
     }, [presentationMode, currentDisplayDate, t])
@@ -294,7 +295,7 @@ function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
     
     if (newTerm[0] === undefined) {
         console.log('newterm created (this shouldnt run)')
-        newTerm = [{ termIndex: 0, classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory), startDate: new Date(), endDate: new Date() }];
+        newTerm = [{ termIndex: 0, classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory), startDate: today(), endDate: today() }];
     }
     // console.log(newTerm[0])
     return newTerm[0];

@@ -17,7 +17,9 @@ const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
 function startLoad() {
     if (navigator.serviceWorker) {
+        if (process.env.NODE_ENV == "production" || new URLSearchParams(window.location.search).get("sw") == "yup") {
             navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url),{type: 'module'});
+        }
     }
 
     Sentry.init({
@@ -42,22 +44,23 @@ function startLoad() {
     }
 
     console.log("Schedule personalizer v2 ("+identifyCommit()+")");
-    Promise.all([import("react-dom/client"), import("react")]).then(([reactDom, React]) => {   
-        const loadingthing = document.getElementById("loading")
-        if (loadingthing) loadingthing.remove();
-    const root = reactDom.createRoot(app);
-    const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><Button onClick={() => { Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What happened?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-page-err" }) }); }}>Send Feedback</Button><br /><Button onClick={() => { resetStorage(); location.reload();}}>Reset</Button></h3>}) : App;
-    root.render((<Err>
-                    <React.StrictMode>
-                        
-                        <Provider store={store}>
-                            <PersistGate loading={<LoadSpinner />} persistor={persistor}>
-                                <Withsentry />
-                            </PersistGate>
-                        </Provider>
-                        
-                    </React.StrictMode>
-                </Err>));
+    import ("react-dom/client").then(({ createRoot }) => {
+        
+        const root = createRoot(app);
+        const Withsentry = process.env.NODE_ENV == "production" ? Sentry.withErrorBoundary(App, {showDialog: true, fallback: <h3 className="text-center full-center"> Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details{" "}<br /><Button onClick={() => { Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What happened?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-page-err" }) }); }}>Send Feedback</Button><br /><Button onClick={() => { resetStorage(); location.reload();}}>Reset</Button></h3>}) : App;
+        import ("react").then((React) => {
+            const loadingthing = document.getElementById("loading")
+            if (loadingthing) loadingthing.remove();
+            root.render((<Err>
+                            <React.StrictMode>
+                                <Provider store={store}>
+                                    <PersistGate loading={<LoadSpinner />} persistor={persistor}>
+                                        <Withsentry />
+                                    </PersistGate>
+                                </Provider>
+                            </React.StrictMode>
+                        </Err>));
+        });
     })
 }
 

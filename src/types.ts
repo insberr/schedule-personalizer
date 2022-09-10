@@ -1,4 +1,5 @@
 import set from "date-fns/set"
+import { today } from "./today"
 
 export type CL = {
     classID: ClassIDS
@@ -140,7 +141,7 @@ export function dateToTime(d: Date): Time {
 
 export function timeToDate(t: Time, d?: Date): Date {
     if (!d) {
-        d = new Date()
+        d = today()
     }
     return set(d, t)
 }

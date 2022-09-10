@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Time, getTimeW, timeToDate } from '../../../types';
 import { intervalToDuration, Duration,formatDuration } from 'date-fns';
-import { useInterval } from 'react-use';
+import { useHarmonicIntervalFn } from 'react-use';
+import { today } from "../../../today";
 
 export function Timer(props: { time: Time, basedDate?: Date, hidden?: boolean }) {
     const [timer, setTimer] = useState<Duration>(getTimeW(0,0,0))
     //const [stop, setStop] = useState<boolean>(false)
 
-    useInterval(() => {
+    useHarmonicIntervalFn(() => {
             const dur = intervalToDuration({
-                start: new Date(),
+                start: today(),
                 end: timeToDate(props.time, props.basedDate)
             })
             setTimer(dur)

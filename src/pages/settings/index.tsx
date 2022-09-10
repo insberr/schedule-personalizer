@@ -15,10 +15,10 @@ import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { identifyCommit } from "../../lib";
+import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
 import { useSchedule } from "../../storage/schedule";
-
 
 export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
     const dispatch = useDispatch()
@@ -216,10 +216,10 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                 </Row>
                                 <Row className="mt-3 crow">
                                     <ScheduleEntry
-                                        currentTime={dateToTime(new Date())}
+                                        currentTime={dateToTime(today())}
                                         isForCustomizations={true}
                                         forcedColor={colorPickerValues.currentClass}
-                                        viewDate={new Date()} sch={[]}
+                                        viewDate={today()} sch={[]}
                                         period={scheduleEntryFakePeriod(ClassIDS.Period, 'Current Period')}
                                         mini={false}
                                         key={'scheduleColorsCurrentClass'}
@@ -315,10 +315,10 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                                     </Row>
                                     <Row className="mt-3 crow">
                                             <ScheduleEntry
-                                                currentTime={dateToTime(new Date())}
+                                                currentTime={dateToTime(today())}
                                                 isForCustomizations={true}
                                                 forcedColor={colorPickerValues.schedule[parseInt(c[0]) as unknown as ClassIDS]}
-                                                viewDate={new Date()} sch={[]}
+                                                viewDate={today()} sch={[]}
                                                 period={scheduleEntryFakePeriod(parseInt(c[0]) as unknown as ClassIDS)}
                                                 mini={false}
                                                 key={'scheduleColors'+c[0]+i}

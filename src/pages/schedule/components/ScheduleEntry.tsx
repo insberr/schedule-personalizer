@@ -10,13 +10,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { Timer } from "./Timer";
 import {isAfter, isBefore, isSameDay, isWithinInterval} from "date-fns"
-import * as lib from "../../../lib"
+import * as lib from "../../../lib";
 import { useCustomizations } from "../../../storage/customizations";
 import { useCss } from 'react-use';
 import tinyColor from 'tinycolor2';
 import { BsStars } from "react-icons/bs";
 import { useSchedule } from "../../../storage/schedule";
-
+import { today } from "../../../today";
 type ScheduleEntryProps = {
     sch: Class[]
     key: string
@@ -58,7 +58,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
         }
     },[doRGBParty])
 
-    const [cdate, setcdate] = useState<Date>(new Date())
+    const [cdate, setcdate] = useState<Date>(today())
     const [highlightPeriodColor, setHighlightPeriodColor] = useState({
         'backgroundColor': tinyColor({ r: 0, g: 0, b: 0, a: 0 }).toRgbString()
     });
@@ -131,7 +131,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     // Makes the timers update I think (ask wackery he added this)
     useEffect(() => {
         const dt = setInterval(() => {
-            setcdate(new Date())
+            setcdate(today())
         }, 1000)
 
         return () => {

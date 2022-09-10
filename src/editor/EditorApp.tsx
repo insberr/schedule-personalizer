@@ -9,13 +9,14 @@ import { SchedulesType, schedules } from "../config/schedules";
 import stringifyObject from '../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
+import { today } from "../today";
 
 export function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
-    const [date, setDate] = useState<Date|DateRange>(new Date());
+    const [date, setDate] = useState<Date|DateRange>(today());
     const [schedule, setSchedule] = useState<SchedulesType | null>(schedules.normal);
     const [message, setMessage] = useState<string>("");
-    // const [time, setTime] = useState<Date | string>(new Date())
+    // const [time, setTime] = useState<Date | string>(today())
 
     const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
         schedule: schedule,

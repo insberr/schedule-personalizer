@@ -86,7 +86,6 @@
     "@karmaniverous/serify-deserify": "^1.2.9",
     "@parcel/core": "^2.7.0",
     "@parcel/service-worker": "^2.7.0",
-    "@parcel/transformer-svg-react": "^2.7.0",
     "@popperjs/core": "^2.11.5",
     "@react-spring/web": "^9.5.2",
     "@redux-devtools/extension": "^3.2.3",

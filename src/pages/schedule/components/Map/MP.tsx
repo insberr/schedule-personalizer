@@ -1,5 +1,5 @@
-//@ts-expect-error cirn
-import _map from "../../../../config/map.svg"
+
+const _map = new URL('../../../../config/map.svg', import.meta.url);
 import { Pin } from "./Pin";
 import { mapLocations, Location } from "../../../../config/mapLocation";
 import { useState, useRef, useEffect } from 'react';
@@ -52,7 +52,7 @@ export function MP(props: Props) {
 
     return (
         <div ref={ref} onClick={clickedMap} style={{"width":"100%", "height":"100%"}}>
-            <_map  style={{"width":"fill-parent", "height":"auto"}}  />
+            <img src={_map.href} style={{"width":"fill-parent", "height":"auto"}}  />
             {
                cpins.map(({cords, room}) => {
                     return <Pin key={room} cords={cords} />

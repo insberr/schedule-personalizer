@@ -6,23 +6,26 @@
         {
             "src": "./icons/maskable_icon.png",
             "type": "image/png",
-            "sizes": "1024x1024",
+            "sizes": "250x250",
             "purpose": "maskable"
         },
         {
             "src": "./icons/icon.svg",
             "type": "image/svg+xml",
-            "sizes": "512x512"
+            "sizes": "150x150",
+            "purpose": "any"
         },
         {
             "src": "./icons/icon.png?width=192&height=192",
             "type": "image/png",
-            "sizes": "192x192"
+            "sizes": "192x192",
+            "purpose": "any"
         },
         {
             "src": "./icons/icon.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "any"
         }
     ],
     "start_url": "../",

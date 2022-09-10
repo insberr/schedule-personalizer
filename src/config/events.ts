@@ -231,7 +231,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "Marry Christmas!",
+            message: "Merry Christmas!",
             date: new Date("December 25, 2022"),
         },
     },

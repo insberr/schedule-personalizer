@@ -171,6 +171,7 @@ export default function EditorApp() {
                     </Col>
                     <Col>
                         <h2> Output Events </h2>
+                        <Button onClick={() => { navigator.clipboard.writeText(stringifyThings(newEvents)) }}>Copy to clipboard</Button>
                         <pre style={{textAlign: "left"}} className="paper">{stringifyThings(newEvents)}</pre>
                     </Col>
                     <Button href="#" onClick={()=> navigate("/")}>Back to schedule</Button>

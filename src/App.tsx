@@ -25,7 +25,7 @@ import * as api from './apis/studentvue/studentVueAPI';
 
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
-const EditorPage = React.lazy(() => import("./editor/EditorApp"))
+const EditorPage = React.lazy(() => import("./pages/editor/EditorApp"))
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();

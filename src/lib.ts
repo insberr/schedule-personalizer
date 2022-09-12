@@ -101,7 +101,6 @@ export function refreshStudentVueSchedules(username: string, password: string): 
             successful: true
         }
     }).catch((err: string) => {
-        // TODO: handle this error and send to sentry
         console.log('Unable to get schedules from studentvue.' + err);
         output = {
             successful: false
@@ -129,7 +128,7 @@ export function courseTitleNameCase(str: string): string {
 
     str = toTitleCase(str);
 
-    //TODO: make this actually do what its supposed to do
+    // TODO: make this actually do what its supposed to do
     // str = str.replace('Ap', 'AP');
     // str = str.replace('Ela ', 'ELA');
     

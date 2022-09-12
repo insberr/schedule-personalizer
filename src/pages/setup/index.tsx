@@ -20,11 +20,6 @@ import { useNavigate } from 'react-router-dom';
 import { setTerms } from '../../storage/schedule';
 
 
-type SetupPageProps = {
-    setSchedule: (s: Terms) => void
-}
-
-// TODO: Im sure theres a way better way to do this ...
 function SetupPage() {
     const [stage, setStage] = useState(0);
     const [schedule, setLocalSchedule] = useState<Terms | undefined>(undefined);

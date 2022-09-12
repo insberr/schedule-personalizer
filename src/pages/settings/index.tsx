@@ -5,10 +5,9 @@ import { RootState } from "../../storage/store";
 import { setRgbParty, setPresentationMode } from "../../storage/misc";
 import { useKeyboardShortcut } from "../../hooks";
 import { useStudentvue } from "../../storage/studentvue";
-import { Manual } from "../setup/steps/Manual";
 import { useState, useEffect } from "react";
 
-import { Terms, ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from "../../types";
+import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from "../../types";
 import Center from "../../components/Center";
 import { Col, Container,  Form, ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
 import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from "../../storage/customizations";
@@ -19,7 +18,7 @@ import { identifyCommit, updateSW } from "../../lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
-import { setSchedule, setTerms, useSchedule } from "../../storage/schedule";
+import { setTerms, useSchedule } from "../../storage/schedule";
 import { useNavigate } from "react-router-dom";
 import { SettingsHeader } from "./SettingsHeader";
 export function SettingsPage() {

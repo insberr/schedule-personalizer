@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
 import Schedule from "./components/Schedule";
 import LoadSpinner from '../../components/LoadSpinner';
-import { CambridgeOveride, defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
+import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
 import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
 import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';

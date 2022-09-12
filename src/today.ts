@@ -3,18 +3,21 @@
 import { dateToTime, timeToDate, Time, getTimeW } from "./types";
 import { add } from 'date-fns';
 declare global {
-    interface Window { devDate: {date: Date | null, 
-                                time: Time | null, 
-                                dateToTime: (arg0: Date) => Time, 
-                                getTimeW: (arg0: number, arg1: number, arg2?: number) => Time,
-                                enableTicking: () => void,
-                                disableTicking: () => void,
-                                ticker: number | null,
-                            }; }
+    interface Window {
+        devDate: {
+            date: Date | null, 
+            time: Time | null, 
+            dateToTime: (arg0: Date) => Time, 
+            getTimeW: (arg0: number, arg1: number, arg2?: number) => Time,
+            enableTicking: () => void,
+            disableTicking: () => void,
+            ticker: number | null,
+        };
+    }
 }
 
 // \/ this doesnt actually do anything, but it might confuse someone in the future so i'm leaving it here :)
-// TODO: Explain what it does here
+// I have no clue what this does or why its here, wackery didnt explain it very well
 // @parcel-inline
 export function today(): Date {
     if (process.env.NODE_ENV != "production") {

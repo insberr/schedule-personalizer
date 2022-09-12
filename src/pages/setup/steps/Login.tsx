@@ -83,7 +83,6 @@ export function Login(props: Props) {
                 return false;
             }
         }).catch(err => {
-            // TODO: handle this error and send to sentry
             console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
             doError('Failed to validate user credentials: ' + err);
             return false;
@@ -103,11 +102,9 @@ export function Login(props: Props) {
             dispatch(setGotSchedules(true));
             props.setSchedule(api.convertStudentvueDataToTerms(res));
         }).catch(err => {
-            // TODO: handle this error and send to sentry
             console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
             dispatch(setGotSchedules(false));
-
-            // TODO: Log error to sentry
+            
             console.log('No schedule was set, so temporay data is being used');
 
             // Set the schedule to temporary data

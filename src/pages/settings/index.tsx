@@ -356,7 +356,7 @@ export function SettingsPage() {
             <Tab eventKey="devs" title="Devs">
                 <h2>Dev And Debug</h2>
                 <div>
-                    <Button href="/editor">Event Editor (Devs only)</Button>
+                    <Button href="#" onClick={() => navigate("/editor")}>Event Editor (Devs only)</Button>
                     <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Input Terms Object</Form.Label>

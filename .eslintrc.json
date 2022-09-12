@@ -31,6 +31,7 @@
     "rules": {
         "@typescript-eslint/triple-slash-reference": 0,
         "quotes": [0, "single"],
-        "react/display-name": 0
+        "react/display-name": 0,
+        "no-warning-comments": 1
     }
 }

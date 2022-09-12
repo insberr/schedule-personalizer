@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Center from "../components/Center";
+import Center from "../../components/Center";
 import Form from 'react-bootstrap/Form';
 import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
-import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../config/events";
-import { SchedulesType, schedules } from "../config/schedules";
-import stringifyObject from '../stringify-object';
+import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../../config/events";
+import { SchedulesType, schedules } from "../../config/schedules";
+import stringifyObject from '../../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import { today } from "../today";
+import { today } from "../../today";
 import { useNavigate } from "react-router-dom";
-
+import "./editor.scss";
 export default function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date|DateRange>(today());

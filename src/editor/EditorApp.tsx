@@ -10,14 +10,15 @@ import stringifyObject from '../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { today } from "../today";
+import { useNavigate } from "react-router-dom";
 
-export function EditorApp() {
+export default function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date|DateRange>(today());
     const [schedule, setSchedule] = useState<SchedulesType | null>(schedules.normal);
     const [message, setMessage] = useState<string>("");
     // const [time, setTime] = useState<Date | string>(today())
-
+    const navigate = useNavigate();
     const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
         schedule: schedule,
         info: {
@@ -172,7 +173,7 @@ export function EditorApp() {
                         <h2> Output Events </h2>
                         <pre style={{textAlign: "left"}} className="paper">{stringifyThings(newEvents)}</pre>
                     </Col>
-                    <Button href="../">Back to schedule</Button>
+                    <Button href="#" onClick={()=> navigate("/")}>Back to schedule</Button>
                 </Row>
             </Container>
         </Center>

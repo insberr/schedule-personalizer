@@ -21,10 +21,11 @@ import * as Sentry from '@sentry/react';
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
 import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
+//import { MdImportExport } from 'react-icons/md';
 
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
-
+const EditorPage = React.lazy(() => import("./editor/EditorApp"))
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();
@@ -94,6 +95,7 @@ function App() {
                 <Route path="/" element={<SchedulePage />} />
                 <Route path="/setup" element={<React.Suspense fallback={<LoadSpinner />}><SetupPage /></React.Suspense>} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/editor" element={<React.Suspense fallback={<LoadSpinner />}><EditorPage /></React.Suspense>} />
             </Routes>
         </BrowserRouter>)
 }

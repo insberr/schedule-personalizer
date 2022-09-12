@@ -3,8 +3,7 @@
   "version": "5.0.0",
   "description": "Personalized Schedule",
   "source": [
-    "src/index.html",
-    "src/editor/index.html"
+    "src/index.html"
   ],
   "repository": "https://github.com/insberr/schedule-personalizer.git",
   "author": "insberr & Wackery",

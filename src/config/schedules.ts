@@ -117,6 +117,7 @@ export const schedules: Schedules = {
             10: {
                 overides: {
                     replace: [
+                        // TODO: 
                         {
                             base: { classID: ClassIDS.Period, period: 1 },
                             type: ReplaceType.Switch,
@@ -143,23 +144,23 @@ export const schedules: Schedules = {
                         {
                             base: { classID: ClassIDS.Period, period: 2 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 50), endTime: getTimeW(9, 37) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 3 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 42), endTime: getTimeW(10, 29) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 12 },
                             type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 33), endTime: getTimeW(11, 10) }
 
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 13 },
                             type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
                         },
                     ]
                 }
@@ -205,17 +206,17 @@ export const schedules: Schedules = {
                         {
                             base: { classID: ClassIDS.Period, period: 1 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 52) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 2 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 57), endTime: getTimeW(9, 39) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 12 },
                             type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 43), endTime: getTimeW(10, 10) }
                         },
                     ]
                 }
@@ -228,17 +229,17 @@ export const schedules: Schedules = {
                         {
                             base: { classID: ClassIDS.Period, period: 2 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 52) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 3 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 57), endTime: getTimeW(10, 39) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 12 },
                             type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 43), endTime: getTimeW(11, 25) }
 
                         },
                         {

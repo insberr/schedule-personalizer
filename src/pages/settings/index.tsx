@@ -19,7 +19,7 @@ import { identifyCommit, updateSW } from "../../lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
-import { setSchedule, useSchedule } from "../../storage/schedule";
+import { setSchedule, setTerms, useSchedule } from "../../storage/schedule";
 import { useNavigate } from "react-router-dom";
 import { SettingsHeader } from "./SettingsHeader";
 export function SettingsPage() {
@@ -360,7 +360,7 @@ export function SettingsPage() {
                     <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Input Terms Object</Form.Label>
-                        <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { dispatch(setSchedule(JSON.parse(e.target.value)))}} />
+                        <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { dispatch(setTerms(JSON.parse(e.target.value)))}} />
                     </Form.Group>
                     <pre className="paper">
                         Redux Storeage Version: {persistConfig.version}

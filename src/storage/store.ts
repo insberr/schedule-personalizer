@@ -54,7 +54,7 @@ export type StorageData = {
     customizations: StorageDataCustomizations
     setUpComplete: boolean
 }
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const migrations = {
     0: (state: any) => {
         return {...state, misc: { setUpComplete: false, rgbParty: false } } //ok
@@ -138,9 +138,8 @@ const migrations = {
         return {...state, misc: { ...state.misc, presentationMode: false }}
     }
 }
-
+/* eslint-enable @typescript-eslint/no-explicit-any */
 import * as Sentry from "@sentry/react";
-import { SettingsPage } from '../pages/settings';
 
 const sentryReduxEnhancer = Sentry.createReduxEnhancer({
   // Optionally pass options listed below

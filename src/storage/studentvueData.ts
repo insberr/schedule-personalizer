@@ -22,7 +22,7 @@ export const stvSlice = createSlice({
   name: 'stv',
   initialState,
   reducers: {
-    setInfo(state, action: PayloadAction<any>) {
+    setInfo(state, action: PayloadAction<infoTypes>) {
         state['info'] = action.payload
     },
     setSch(state, action: PayloadAction<schTypes>) {

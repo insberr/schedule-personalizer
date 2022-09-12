@@ -4,8 +4,7 @@
   "description": "Personalized Schedule",
   "source": [
     "src/index.html",
-    "src/editor/index.html",
-    "src/test/index.html"
+    "src/editor/index.html"
   ],
   "repository": "https://github.com/insberr/schedule-personalizer.git",
   "author": "insberr & Wackery",
@@ -30,8 +29,8 @@
     "@types/tinycolor2": "^1",
     "@types/workbox-precaching": "^4.3.1",
     "@types/workbox-sw": "^4.3.2",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
     "eruda": "^2.4.1",
     "eslint": "^8.14.0",
     "eslint-plugin-react": "^7.29.4",

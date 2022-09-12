@@ -34,6 +34,7 @@ function startLoad() {
         // We recommend adjusting this value in production, or using tracesSampler
         // for finer control
         tracesSampleRate,
+        environment: process.env.NODE_ENV,
         release: identifyCommit()||"dev",
     });
 

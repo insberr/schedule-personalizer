@@ -1,6 +1,5 @@
 import {MP} from "./MP";
 import Modal from 'react-bootstrap/Modal';
-import * as classes from './map.module.scss';
 import { Class } from "../../../../types";
 
 

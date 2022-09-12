@@ -1,8 +1,8 @@
-import { Class, dateToTime, Time, timeToDate } from "../../../types"
+import { Class, dateToTime, Time } from "../../../types"
 import Center from "../../../components/Center"
 import ScheduleEntry from "./ScheduleEntry"
 import { EventSchedule } from '../index';
-import { addSeconds, format } from 'date-fns'
+import { format } from 'date-fns'
 import { useMemo, useRef, useEffect, useState } from "react";
 import { formatClassTimeHideElement } from "../../../lib"
 import { today } from "../../../today";
@@ -82,7 +82,7 @@ function Schedule(props: ScheduleProps) {
                 cacheBust: true,
                 style: { "fontFamily": "Roboto, Ariel" },
                 filter: (node) => {
-                    if (node.className === "classTypeIcon row") {
+                    if (typeof node.className === 'string' && node.className.split(" ").includes("classTypeIcon")) {
                         return false;
                     }
                     return true;
@@ -105,19 +105,13 @@ function Schedule(props: ScheduleProps) {
     }, [image])
 
     const [currentTime, setCurrentTime] = useState<Time>(dateToTime(today()));
-    const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(today()) : null);
+    //const [devTime, setDevTime] = useState<Time | null>(process.env.NODE_ENV === 'development' ? dateToTime(today()) : null);
     useInterval(() => {
-            if (devTime) {
-                setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd||dateToTime(today())), 1)))
-            }
-            setCurrentTime(devTime || dateToTime(today()))
+            setCurrentTime(dateToTime(today()))
     }, 1000)
 
     useEffect(() => {
-        if (devTime) {
-            setDevTime((pd) => dateToTime(addSeconds(timeToDate(pd||dateToTime(today())), 1)))
-        }
-        setCurrentTime(devTime || dateToTime(today()))
+        setCurrentTime(dateToTime(today()))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.displayDate])

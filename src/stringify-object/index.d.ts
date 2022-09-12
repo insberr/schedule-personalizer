@@ -1,4 +1,4 @@
-export default function stringifyObject(input: any, options?: Options, pad?: string): string;
+export default function stringifyObject(input: unknown, options?: Options, pad?: string): string;
 
 export interface Options {
     /**
@@ -14,7 +14,7 @@ export interface Options {
     /**
      * Expected to return a boolean of whether to include the property property of the object object in the output.
      */
-    filter?(input: any, prop: string | symbol): boolean;
+    filter?(input: unknown, prop: string | symbol): boolean;
     /**
      * When set, will inline values up to inlineCharacterLimit length for the sake of more terse output.
      */
@@ -24,5 +24,5 @@ export interface Options {
      * This can be used to detect special types of objects that need to be stringified in a particular way.
      * The transform function might return an alternate string in this case, otherwise returning the originalResult.
      */
-    transform?: ((input: any[] | object, prop: number | string | symbol, originalResult: string) => string) | undefined;
+    transform?: ((input: unknown[] | object, prop: number | string | symbol, originalResult: string) => string) | undefined;
 }

@@ -1,6 +1,10 @@
 import { ClassIDS, getTimeW, Time } from '../types';
 import '../types/schedulesTypes';
 
+export type CLIdentifier = {
+    classID: ClassIDS;
+    period: number;
+}
 
 export type SCHCL = {
     classID: ClassIDS,
@@ -17,10 +21,38 @@ export type Lunch = {
     }[]
 }
 
+export enum ReplaceType {
+    Switch,
+    Before,
+    After,
+}
+export type Replace = {
+    type: ReplaceType
+    base: CLIdentifier
+    with: SCHCL;
+}
+
+export type Overides = {
+    replace: Replace[]
+}
+
+export type CambridgeOverideGrade = {
+    forceLunch?: number,
+    ignoreLunchConfig?: boolean,
+    overides: Overides,
+}
+
+export type CambridgeOveride = {
+    // grade number
+    [key: number]: CambridgeOverideGrade;
+}
+
 export type SchedulesType = {
     name: string, // This is used by the event editor
     noOverride?: boolean, // This is to be used for schedules that should not be overridden by any event, really only for weekends and summer
     classes: SCHCL[],
+    // Might be a bade idea having it optional ...
+    cambridge?: CambridgeOveride,
     lunch: {
         hasLunch: boolean,
         basedOnPeriod?: number | number[],
@@ -68,6 +100,7 @@ export type Schedules = {
     }
 */
 
+// TODO: Correct cambridge class times ...
 export const schedules: Schedules = {
     normal: {
         name: 'Normal',
@@ -80,6 +113,58 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 0), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 13 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                        },
+                    ]
+                }
+            }
+        },
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -113,6 +198,58 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 5), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 13 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                        },
+                    ]
+                }
+            }
+        },
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -145,6 +282,58 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 15), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 13 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                        },
+                    ]
+                }
+            }
+        },
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -177,6 +366,58 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 25), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 13 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                        },
+                    ]
+                }
+            }
+        },
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -210,6 +451,53 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(9, 35), endTime: getTimeW(10, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
         ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                        },
+                    ]
+                }
+            }
+        },
         lunch: {
             hasLunch: false,
         }
@@ -330,8 +618,8 @@ export const weekSchedule = [
 
     // Weekdays
     { day: 1, schedule: schedules.normal }, // Monday
-    { day: 2, schedule: schedules.advisory },
-    { day: 3, schedule: schedules.normal },
-    { day: 4, schedule: schedules.advisory },
-    { day: 5, schedule: schedules.normal },
+    { day: 2, schedule: schedules.advisory }, // Tuesday
+    { day: 3, schedule: schedules.normal }, // Wednesday
+    { day: 4, schedule: schedules.advisory }, // Thursday
+    { day: 5, schedule: schedules.normal }, // Friday
 ]

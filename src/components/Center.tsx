@@ -4,7 +4,7 @@ type CenterProps = {
     children: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
-    ref?: React.Ref<any>;
+    ref?: React.Ref<HTMLDivElement>;
     noDFlex?: boolean;
     noVW?: boolean;
 };

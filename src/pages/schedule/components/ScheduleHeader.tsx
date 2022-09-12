@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {useId, useRef, useState} from 'react'
 import { Map } from "./Map/Map"
 import Button from 'react-bootstrap/Button';
-import { isSameDay, isToday } from 'date-fns';
+import { isSameDay } from 'date-fns';
 import Popover from 'react-bootstrap/Popover';
 import Calendar from 'react-calendar'
 import { IoHomeSharp } from "react-icons/io5";

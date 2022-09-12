@@ -8,6 +8,7 @@ export type Locations = Location[];
 
 export const mapLocations: Locations = [
     { room: 'Greenhouse', cords: [ 24.868189806678384, 14.86970977627336 ] },
+    { room: 'Cafeteria', cords: [ 74.69879518072288, 55.74753415566286 ] },
     { room: 'P10', cords: [ 14.938488576449913, 20.509944518997735 ] },
     { room: 'P9', cords: [ 20.913884007029875, 20.63813167224147 ] },
     { room: 'P8', cords: [ 26.801405975395433, 20.509944518997735 ] },

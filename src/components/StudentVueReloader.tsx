@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { setSch, enableSTV, setInfo, disableSTV } from '../storage/studentvueData'
-import { getAllSchedules, StudentVueAPIData, convertStudentvueDataToTerms, getStudentInfo } from '../apis/studentvue/studentVueAPI'
+import { getAllSchedules, convertStudentvueDataToTerms, getStudentInfo } from '../apis/studentvue/studentVueAPI'
 import {setGotSchedules, useStudentvue} from '../storage/studentvue'
 import {setTerms} from '../storage/schedule'
 import {studentvueRefreshInterval} from '../config/settings';
@@ -31,7 +31,7 @@ export function StudentVueReloader() {
             dispatch(setGotSchedules(false))
             dispatch(disableSTV())
         }
-    },[scheduleData, scheduleError])
+    },[scheduleData, scheduleError, dispatch])
     useEffect(() => {
         if (studentData != undefined) {
             dispatch(setInfo(studentData));
@@ -40,7 +40,7 @@ export function StudentVueReloader() {
         if (studentError) {
             dispatch(disableSTV());
         }
-    },[studentData, studentError])
+    },[studentData, studentError, dispatch])
     useEffect(() => {
         console.log("student data", studentData)
         console.log("schedule data", scheduleData)

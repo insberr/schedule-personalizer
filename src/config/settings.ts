@@ -37,7 +37,7 @@ export const numberOfPeriods= 6;
 export const cambridgePeriods = [11, 12, 13];
 
 // TODO: add explanition to this variable
-export const cambridgePeriodMapping = {
+export const cambridgePeriodMapping: types.cambridgeMapping = {
     10: {
         switch: [1, 2],
         with: [11, 12, 13]

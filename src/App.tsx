@@ -33,7 +33,7 @@ function App() {
         }
 
         async function isValid() {
-            const isValid = await api.validateCredentials(stv.username, stv.password).then((res: any) => {
+            const isValid = await api.validateCredentials(stv.username, stv.password).then((res: boolean) => {
                 if (res) {
                     return true;
                 } else {
@@ -58,7 +58,7 @@ function App() {
 
     useEffect(() => {
         if (stv.isLoggedIn) {
-            Sentry.setUser({ id: stv.username, username: stvInf.info?.content.FormattedName || 'Unknown' });
+            Sentry.setUser({ id: stv.username });
         } else {
             Sentry.setUser(null);
         }

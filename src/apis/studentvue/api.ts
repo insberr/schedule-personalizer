@@ -17,7 +17,7 @@ export async function Calendar(username: string, password: string): Promise<any>
 }
 
 export async function StudentClassList(username: string, password: string, term: number | undefined): Promise<any> {
-    const params: Record<string,any> = {}
+    const params: Record<string, unknown> = {}
     if (term != undefined) {
         params["TermIndex"] = term
     }

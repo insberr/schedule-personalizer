@@ -1,6 +1,15 @@
 import set from "date-fns/set"
 import { today } from "./today"
 
+// for config/settings.ts
+export type cambridgeMapping = {
+    [key: number]: {
+        switch: number[],
+        with: number[]
+    }
+}
+
+
 export type CL = {
     classID: ClassIDS
     period: number

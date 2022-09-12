@@ -6,6 +6,6 @@ function useKeyboardShortcut(shortcut: string, func: () => void) {
         if (s[0]) {
             func()
         }
-    },[s])
+    },[s, func])
 }
 export default useKeyboardShortcut;

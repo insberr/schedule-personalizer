@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
 import Schedule from "./components/Schedule";
 import LoadSpinner from '../../components/LoadSpinner';
-import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
+import { CambridgeOveride, defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
 import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
 import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
@@ -52,7 +52,9 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     // probably a bad way to do ths
     const [t, tick] = useToggle(false)
     useInterval(()=> {
-        tick();
+        if (presentationMode) {
+            tick();
+        }
     }, 1000)
     useEffect(() => {
         if (presentationMode) {
@@ -103,11 +105,50 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
 
     // Check for Cambridge
     if (displayTerm.classes.filter(p => settingsConfig.cambridgePeriods.includes(p.period)).length > 0) {
-        // do cambridgeMergeDataWithSchedule()
-        // NOT IMPLEMENTED YET
-        cambridgeMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || "0");
-        // cambridgeLunchify()
-        // retuen { currentDisplayDayEvent, cambridgeLunchifiedSchedule }
+        const mergedCambridgeSchedule = cambridgeMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || "0");
+        let lunchifiedScheduleCambridge: MergedSchedule = {
+            schedule: [],
+            event: currentDisplayDayEvent,
+            sch: sch.terms,
+        }
+        
+        if (mergedCambridgeSchedule === null) {
+            const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
+            lunchifiedScheduleCambridge = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+        } else {
+            const cambridgeCurrentDisplayDayEvent = {
+                ...currentDisplayDayEvent,
+                schedule: {
+                    ...currentDisplayDayEvent.schedule,
+                    classes: mergedCambridgeSchedule.newClasses
+                },
+            }
+
+            lunchifiedScheduleCambridge = {
+                schedule: mergedCambridgeSchedule.scheduleForDisplay,
+                event: cambridgeCurrentDisplayDayEvent,
+                sch: sch.terms,
+            }
+
+            if (mergedCambridgeSchedule.overides.ignoreLunchConfig !== true) {
+                lunchifiedScheduleCambridge = lunchify(lunchifiedScheduleCambridge, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+            }
+        }
+
+        const msg = '<br>Cambridge schedule support is in beta.<br>Class times are not correct, and the order of periods 11, 12, and 13 mqy not be correct.'
+        lunchifiedScheduleCambridge = {
+            ...lunchifiedScheduleCambridge,
+            event: {
+                ...lunchifiedScheduleCambridge.event,
+                hasError: true,
+                info: {
+                    ...lunchifiedScheduleCambridge.event.info,
+                    error: (lunchifiedScheduleCambridge.event.info?.error || '').includes(msg) ? (lunchifiedScheduleCambridge.event.info.error || '') : (lunchifiedScheduleCambridge.event.info.error || '') + msg,
+                }
+            }
+        }
+
+        return { currentDisplayDayEvent: lunchifiedScheduleCambridge.event, lunchifiedSchedule: lunchifiedScheduleCambridge };
     }
 
     // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
@@ -320,7 +361,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
         if (cambridgePeriods.length > 0) {
             // user has cambridge
             errMsg = 'It appears this student is a Cambridge student.'
-            addMessage = `<span style='color: red'>It appears you are in Cambridge, Cambridge schedule support is a working progress!</span>`
+            addMessage = `<span style='color: red'>Cambridge schedule support is in beta.<br>Class Times are not correct and periods 11, 12, 13 may not be in the correct order.</span>`
         }
         
         Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })

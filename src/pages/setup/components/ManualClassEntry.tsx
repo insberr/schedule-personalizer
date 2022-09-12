@@ -16,10 +16,11 @@ export function ManualClassEntry(props: Props) {
     const id = useId()
     
     function changeDo(tomas: string) {
-        return (evt: any) => {
-            let val = evt.target.value
+        return (evt: React.ChangeEvent<HTMLInputElement>) => {
+            const val = evt.target.value;
+            let out: string | { [key: string]: string } = val;
             if (tomas == "teacher") {
-                val = {
+                out = {
                     name: val,
                     email: "",
                     id: ""
@@ -27,7 +28,7 @@ export function ManualClassEntry(props: Props) {
             }
             props.change({
                 ...props.value,
-                [tomas]: val
+                [tomas]: out
             })
         }
     }

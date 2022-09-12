@@ -18,13 +18,15 @@ import { identifyCommit, updateSW } from "../../lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
-import { useSchedule } from "../../storage/schedule";
-
-export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s: boolean) => void }) {
+import { setSchedule, useSchedule } from "../../storage/schedule";
+import { useNavigate } from "react-router-dom";
+import { SettingsHeader } from "./SettingsHeader";
+export function SettingsPage() {
     const dispatch = useDispatch()
     const stv = useStudentvue();
     const customizations = useCustomizations();
     const sch = useSchedule();
+    const navigate = useNavigate();
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
@@ -66,12 +68,13 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, c: [string, RGBA], type: string) {
         debounceColor(e, c, type);
     }
-
+    //@todo reimplement.
+    /*
     if (editManually) {
         // the satStage thing is not the best but itll be fine lol
         return (<Manual setStage={(a: number) => { console.log('setStage is not defined, oops (settings/index.tsx). attempted to set stage to: ', a) }} setSchedule={props.setSchedule} isEdit={editManually} setIsEdit={setEditManually}></Manual>)
     }
-
+    */
     function scheduleEntryFakePeriod(classID: ClassIDS, name?: string): Class {
         return {
             classID: classID,
@@ -88,7 +91,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
         }
     }
 
-    return (<><Center>
+    return (<><SettingsHeader /><Center>
         <h1>Settings</h1>
         </Center>
         <Tabs
@@ -108,8 +111,8 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                         }}>Send Feedback</Button>
                         <div></div>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
-                        <Button variant="danger" onClick={()=>{ props.setup(false); resetStorage(); location.reload(); }}>Reset</Button>
-                        <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { props.setup(false) }, 100); }}>Reset Custom Colors</Button>
+                        <Button variant="danger" onClick={()=>{ navigate("/"); resetStorage(); location.reload(); }}>Reset</Button>
+                        <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { navigate("/") }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
                         <Button onClick={()=>{ updateSW() }}>Force update site (beta)</Button>
@@ -347,7 +350,7 @@ export function SettingsPage(props: { setSchedule: (s: Terms) => void, setup: (s
                     <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Input Terms Object</Form.Label>
-                        <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { props.setSchedule(JSON.parse(e.target.value))}} />
+                        <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { dispatch(setSchedule(JSON.parse(e.target.value)))}} />
                     </Form.Group>
                     <pre className="paper">
                         Redux Storeage Version: {persistConfig.version}

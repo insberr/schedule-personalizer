@@ -19,9 +19,9 @@ import { Overlay, Tooltip } from 'react-bootstrap';
 import { setTutorial, useCustomizations } from '../../../storage/customizations';
 import { useDispatch } from 'react-redux';
 import { today } from "../../../today";
+import { useNavigate } from 'react-router-dom';
 type Props = {
     sch: Class[],
-    setup: (s: boolean) => void,
     home: () => void,
     getImage: () => void,
     displayDate: Date,
@@ -33,7 +33,7 @@ export function SchHeader(props: Props) {
   const [map, setMap] = useState(false)
   const stv = useSTV();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   const customizations = useCustomizations();
   const [showDidYouKnow, setShowDidYouKnow] = useState(customizations.tutorial.moreMap || false);
   function hideMoreMapToolTip() {
@@ -85,7 +85,7 @@ export function SchHeader(props: Props) {
                 }}><VscArrowRight /></Button>
                 <Button variant="outline-crimson" key="screeny" size="sm" style={{"marginLeft":"1em"}} onClick={()=> { props.getImage() }}><RiScreenshot2Fill /></Button>
             </span>
-            <a onClick={() => { props.setup(true) }}><VscSettingsGear className={"white-icon"}/></a>
+            <a onClick={() => { navigate("/settings") }}><VscSettingsGear className={"white-icon"}/></a>
           </Navbar.Collapse>
         </Container>
     </Navbar>

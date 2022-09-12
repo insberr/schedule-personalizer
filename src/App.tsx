@@ -6,11 +6,16 @@ import { Terms } from './types';
 import SchedulePage from './pages/schedule';
 import { SettingsPage } from './pages/settings';
 
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+  } from "react-router-dom";
+
 import { RootState } from "./storage/store";
-import { setTerms } from "./storage/schedule";
+import Schedule, { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
-import { Header } from './components/Header';
 import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
@@ -84,28 +89,13 @@ function App() {
         setSch(newSch)
     }
     */
-
-    if (!isSetupComplete) {
-        return (
-            <React.Suspense fallback={<LoadSpinner />}>
-                <SetupPage setSchedule={setSch} />
-            </React.Suspense> // replace loading text with a spinner
-        );
-    }
-
-    return (
-        <>
-            <div id="schpage" className={isSetup ? "hidden" : ""}>
-                <SchedulePage setup={setIsSetup} />
-                
-            </div>
-            <div id="settings" className={!isSetup ? "hidden" : ""}>
-                <Header setup={setIsSetup} c={isSetup} />
-                <SettingsPage setup={setIsSetup} setSchedule={setSch} />
-            </div>
-            
-        </>
-    );
+   return (<BrowserRouter>
+            <Routes>
+                <Route path="/" element={<SchedulePage />} />
+                <Route path="/setup" element={<SetupPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+            </Routes>
+        </BrowserRouter>)
 }
 
 export default App;

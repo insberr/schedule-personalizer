@@ -17,6 +17,7 @@ import {useToggle, useInterval} from 'react-use'
 import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
 import { today } from "../../today";
+import { useNavigate } from 'react-router';
 
 
 export type EventSchedule = {
@@ -36,13 +37,16 @@ type MergedSchedule = {
     sch: Terms
 }
 
-function SchedulePage(props: {setup: (b: boolean) => void}) {
+function SchedulePage() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const sch = useSchedule();
     const stv = useStudentvue();
     const studentInfo = useSTV();
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
-
+    const isSetupComplete = useSelector(
+        (state: RootState) => state.misc.setupComplete
+    );
     const [userLunch, setUserLunch] = useState(sch.lunch);
     useEffect(() => {
         dispatch(setLunch(userLunch))
@@ -65,17 +69,24 @@ function SchedulePage(props: {setup: (b: boolean) => void}) {
     }, [presentationMode, currentDisplayDate, t])
 
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
+        if (sch.terms.length == 0) {
+            return [undefined, undefined]
+        }
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDisplayDate, sch, stv, userLunch]);
-
+    useEffect(() => {
+        if (!isSetupComplete) {
+            navigate("/setup")
+        }
+    },[isSetupComplete, navigate])
     // if loading shows blank schedule for a bit, maybe add a loading screen?
     if (!lunchifiedSchedule) {
         return <LoadSpinner />
     } else {
         // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
-        return <><Schedule setup={props.setup} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
+        return <><Schedule setup={() => {navigate("/setup")}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
     }
 }
 

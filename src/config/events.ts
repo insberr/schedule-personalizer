@@ -106,6 +106,13 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: schedules.normal,
+        info: {
+            message: 'Pep Assembly | Schedule Unknown',
+            date: new Date('September 16, 2022')
+        }
+    },
+    {
         schedule: schedules.noSchool,
         info: {
             message: "No School For Students | PD Day #2",

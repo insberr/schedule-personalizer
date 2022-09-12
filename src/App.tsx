@@ -6,20 +6,26 @@ import { Terms } from './types';
 import SchedulePage from './pages/schedule';
 import { SettingsPage } from './pages/settings';
 
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+  } from "react-router-dom";
+
 import { RootState } from "./storage/store";
-import { setTerms } from "./storage/schedule";
+import Schedule, { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
-import { Header } from './components/Header';
 import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
 import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
+//import { MdImportExport } from 'react-icons/md';
 
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
-
+const EditorPage = React.lazy(() => import("./pages/editor"))
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();
@@ -84,28 +90,14 @@ function App() {
         setSch(newSch)
     }
     */
-
-    if (!isSetupComplete) {
-        return (
-            <React.Suspense fallback={<LoadSpinner />}>
-                <SetupPage setSchedule={setSch} />
-            </React.Suspense> // replace loading text with a spinner
-        );
-    }
-
-    return (
-        <>
-            <div id="schpage" className={isSetup ? "hidden" : ""}>
-                <SchedulePage setup={setIsSetup} />
-                
-            </div>
-            <div id="settings" className={!isSetup ? "hidden" : ""}>
-                <Header setup={setIsSetup} c={isSetup} />
-                <SettingsPage setup={setIsSetup} setSchedule={setSch} />
-            </div>
-            
-        </>
-    );
+   return (<BrowserRouter>
+            <Routes>
+                <Route path="/" element={<SchedulePage />} />
+                <Route path="/setup" element={<React.Suspense fallback={<LoadSpinner />}><SetupPage /></React.Suspense>} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/editor" element={<React.Suspense fallback={<LoadSpinner />}><EditorPage /></React.Suspense>} />
+            </Routes>
+        </BrowserRouter>)
 }
 
 export default App;

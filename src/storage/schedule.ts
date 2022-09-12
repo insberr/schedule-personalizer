@@ -31,6 +31,9 @@ export const scheduleSlice = createSlice({
     setLunch: (state, action: PayloadAction<number>) => {
         state.lunch = action.payload
     },
+    setSchedule: (state, action: PayloadAction<ScheduleStorage>) => {
+        return {...action.payload}
+    },
     reset: () => {
         return initialState
     }
@@ -42,6 +45,6 @@ export function useSchedule(): ScheduleStorage  {
 }
 
 // Action creators are generated for each case reducer function
-export const { setTerm, setTerms, setLunch, reset } = scheduleSlice.actions
+export const { setTerm, setTerms, setLunch, reset, setSchedule } = scheduleSlice.actions
 
 export default scheduleSlice.reducer

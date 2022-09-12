@@ -3,8 +3,7 @@
   "version": "5.0.0",
   "description": "Personalized Schedule",
   "source": [
-    "src/index.html",
-    "src/editor/index.html"
+    "src/index.html"
   ],
   "repository": "https://github.com/insberr/schedule-personalizer.git",
   "author": "insberr & Wackery",
@@ -116,6 +115,7 @@
     "react-icons": "^4.4.0",
     "react-is": "^18.2.0",
     "react-redux": "^8.0.2",
+    "react-router-dom": "6",
     "react-use": "^17.4.0",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",

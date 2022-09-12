@@ -1,6 +1,6 @@
 import { Stack } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { SchedulesType, schedules } from "../config/schedules"
+import { SchedulesType, schedules } from "../../config/schedules"
 
 type Props = {
     setSchedule: (schedule: SchedulesType | null) => void;

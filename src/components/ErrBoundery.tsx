@@ -11,6 +11,7 @@ export class Err extends Component<props, state> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     static getDerivedStateFromError(_: Error) {
         // Update state so the next render will show the fallback UI.
+        console.error(_)
         return { hasError: true };
     }
 

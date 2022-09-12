@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Center from "../components/Center";
+import Center from "../../components/Center";
 import Form from 'react-bootstrap/Form';
 import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
-import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../config/events";
-import { SchedulesType, schedules } from "../config/schedules";
-import stringifyObject from '../stringify-object';
+import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../../config/events";
+import { SchedulesType, schedules } from "../../config/schedules";
+import stringifyObject from '../../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import { today } from "../today";
-
-export function EditorApp() {
+import { today } from "../../today";
+import { useNavigate } from "react-router-dom";
+import "./editor.scss";
+export default function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date|DateRange>(today());
     const [schedule, setSchedule] = useState<SchedulesType | null>(schedules.normal);
     const [message, setMessage] = useState<string>("");
     // const [time, setTime] = useState<Date | string>(today())
-
+    const navigate = useNavigate();
     const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
         schedule: schedule,
         info: {
@@ -172,7 +173,7 @@ export function EditorApp() {
                         <h2> Output Events </h2>
                         <pre style={{textAlign: "left"}} className="paper">{stringifyThings(newEvents)}</pre>
                     </Col>
-                    <Button href="../">Back to schedule</Button>
+                    <Button href="#" onClick={()=> navigate("/")}>Back to schedule</Button>
                 </Row>
             </Container>
         </Center>

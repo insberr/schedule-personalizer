@@ -154,7 +154,6 @@ function Schedule(props: ScheduleProps) {
             <SchHeader
                 sch={ props.sch }
                 home={()=>{ props.setDisplayDate(today()) }}
-                setup={ props.setup }
                 getImage={ getImage }
                 displayDate={ props.displayDate }
                 setDisplayDate={ presentationMode ? ()=>{return;} : props.setDisplayDate }

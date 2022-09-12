@@ -16,6 +16,8 @@ import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
+import { useNavigate } from 'react-router-dom';
+import { setTerms } from '../../storage/schedule';
 
 
 type SetupPageProps = {
@@ -23,18 +25,19 @@ type SetupPageProps = {
 }
 
 // TODO: Im sure theres a way better way to do this ...
-function SetupPage(props: SetupPageProps) {
+function SetupPage() {
     const [stage, setStage] = useState(0);
     const [schedule, setLocalSchedule] = useState<Terms | undefined>(undefined);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (stage != 69) {
             return;
         }
         if (schedule) {
             dispatch(setSetupComplete(true));
-            props.setSchedule(schedule)
+            dispatch(setTerms(schedule));
+            navigate("/")
         }
     })
 

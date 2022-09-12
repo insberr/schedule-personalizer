@@ -6,7 +6,8 @@ import { setRgbParty, setPresentationMode } from "../../storage/misc";
 import { useKeyboardShortcut } from "../../hooks";
 import { useStudentvue } from "../../storage/studentvue";
 import { Manual } from "../setup/steps/Manual";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { Terms, ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from "../../types";
 import Center from "../../components/Center";
 import { Col, Container,  Form, ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
@@ -27,6 +28,15 @@ export function SettingsPage() {
     const customizations = useCustomizations();
     const sch = useSchedule();
     const navigate = useNavigate();
+    const isSetupComplete = useSelector(
+        (state: RootState) => state.misc.setupComplete
+    );
+    // setup guard
+    useEffect(() => {
+        if (!isSetupComplete) {
+            navigate("/setup")
+        }
+    },[isSetupComplete, navigate])
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty)
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)

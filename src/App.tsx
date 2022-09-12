@@ -92,7 +92,7 @@ function App() {
    return (<BrowserRouter>
             <Routes>
                 <Route path="/" element={<SchedulePage />} />
-                <Route path="/setup" element={<SetupPage />} />
+                <Route path="/setup" element={<React.Suspense fallback={<LoadSpinner />}><SetupPage /></React.Suspense>} />
                 <Route path="/settings" element={<SettingsPage />} />
             </Routes>
         </BrowserRouter>)

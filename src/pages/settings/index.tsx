@@ -104,7 +104,7 @@ export function SettingsPage() {
         }
     }
 
-    return (<><div className={props.show ? '' : 'hidden'}><SettingsHeader toggleShow={props.toggleShow}/><Center>
+    return (<><div><SettingsHeader /><Center>
         <h1>Settings</h1>
         </Center>
         <Tabs

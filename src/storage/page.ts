@@ -4,7 +4,8 @@ export enum Page {
   SCHEDULE,
   SETTINGS,
   SETUP,
-  EDITOR
+  EDITOR,
+  PATHOFPAIN
 }
 
 // todo: make this an object and not 2 functions;
@@ -18,6 +19,8 @@ function findDefaultRoute(): Page {
       return Page.SETTINGS;
     case "/":
       return Page.SCHEDULE;
+    case "/pain":
+      return Page.PATHOFPAIN;
     default:
       return Page.SCHEDULE
   }
@@ -32,6 +35,8 @@ export function page2url(p: Page): string {
       return "/"
     case Page.SETUP:
       return "/setup"
+    case Page.PATHOFPAIN:
+      return "/pain"
     default:
       return "/"
   }

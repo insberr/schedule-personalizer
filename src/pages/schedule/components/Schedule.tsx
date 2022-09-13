@@ -24,9 +24,7 @@ type ScheduleProps = {
     event: EventSchedule
     displayDate: Date
     setDisplayDate: (date: Date) => void,
-    setup: (b: boolean) => void
-    show: boolean
-    toggleShow: (a: boolean) => void
+    setup: () => void,
 }
 
 function Schedule(props: ScheduleProps) {
@@ -127,7 +125,7 @@ function Schedule(props: ScheduleProps) {
     },[props.sch])
 
     return (
-        <div className={props.show ? 'hidden' : ''}>
+        <div>
             <ToastContainer className="p-3" position={'bottom-end'}>
                 <Toast onClose={() => setShowCustomToast(false)} show={showCustomToast} delay={30000} autohide>
                     <Toast.Header closeButton={true}>
@@ -161,7 +159,6 @@ function Schedule(props: ScheduleProps) {
                 displayDate={ props.displayDate }
                 setDisplayDate={ presentationMode ? ()=>{return;} : props.setDisplayDate }
                 presentationMode={ presentationMode }
-                toggleShow={ props.toggleShow }
             />
             <Center>
                 <div

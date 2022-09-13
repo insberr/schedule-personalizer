@@ -19,9 +19,9 @@ import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
 //import { MdImportExport } from 'react-icons/md';
 import SchedulePage from "./pages/schedule";
-import SettingsPage from "./pages/settings";
+import { SettingsPage } from "./pages/settings";
 import tinyColor from 'tinycolor2';
-window.tinyColor = tinyColor;
+//window.tinyColor = tinyColor;
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
@@ -99,7 +99,7 @@ function App() {
             <Route routes={[Page.SCHEDULE]} hide={true}>
                 <SchedulePage />
             </Route>
-            <Route routes={[Page.SETTINGS]} hide={true}>
+            <Route routes={[Page.SETTINGS]} hide={false}>
                 <SettingsPage />
             </Route>
         </Route>
@@ -108,6 +108,9 @@ function App() {
         </Route>
         <Route routes={[Page.EDITOR]}>
             <EditorPage />
+        </Route>
+        <Route routes={[Page.PATHOFPAIN]}>
+            <PathOfPain />
         </Route>
     </React.Suspense>
    )

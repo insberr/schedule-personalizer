@@ -28,7 +28,6 @@ type Props = {
     displayDate: Date,
     setDisplayDate: (date: Date) => void
     presentationMode?: boolean,
-    toggleShow: (a: boolean) => void
 }
 
 export function SchHeader(props: Props) {
@@ -56,7 +55,7 @@ export function SchHeader(props: Props) {
     )
 
     if (props?.presentationMode) {
-        return <><a onClick={() => { props.toggleShow(true) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
+        return <><a onClick={() => { navigate(Page.SETTINGS) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
     }
 
   return (

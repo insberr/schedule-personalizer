@@ -1,5 +1,5 @@
 import { Teachers } from '../../config/teachers'
-import { toTitleCase } from '../../lib';
+import { toTitleCase } from '../../lib/lib';
 import * as api from './studentVueAPI'
 
 export function getTeachers(username: string, password: string): Teachers {

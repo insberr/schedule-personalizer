@@ -2,7 +2,7 @@
 //import { StrictMode } from "react";
 import eruda from './eruda'
 import App from './App'
-import { identifyCommit } from "./lib";
+import { identifyCommit } from "./lib/lib";
 import { Err } from "./components/ErrBoundery"
 import * as Sentry from "@sentry/react";
 import { store, persistor, resetStorage } from './storage/store'

@@ -1,7 +1,7 @@
-import { precacheAndRoute, PrecacheEntry } from "workbox-precaching";
+import { precacheAndRoute, PrecacheEntry, addPlugins } from "workbox-precaching";
 import { setCacheNameDetails } from "workbox-core";
 import {manifest, version} from '@parcel/service-worker';
-
+import { BackgroundSyncPlugin } from 'workbox-background-sync'
 const precacheList: PrecacheEntry[] = []
 
 const hashRegex = /.+\.(.+)\..+/
@@ -48,6 +48,9 @@ setCacheNameDetails({
     suffix: "v5",
 });
 
+addPlugins([
+    new BackgroundSyncPlugin("background-sync")
+])
 
 precacheAndRoute(precacheList); // yoo caching
 /*

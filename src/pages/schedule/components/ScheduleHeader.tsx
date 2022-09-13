@@ -26,9 +26,12 @@ type Props = {
     getImage: () => void,
     displayDate: Date,
     setDisplayDate: (date: Date) => void
+    presentationMode?: boolean,
+    toggleShow: (a: boolean) => void
 }
 
 export function SchHeader(props: Props) {
+    
   const id = useId();
   const [map, setMap] = useState(false)
   const stv = useSTV();
@@ -50,6 +53,10 @@ export function SchHeader(props: Props) {
             </Popover.Body>
         </Popover>
     )
+
+    if (props?.presentationMode) {
+        return <><a onClick={() => { props.toggleShow(true) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
+    }
 
   return (
     <>
@@ -85,7 +92,7 @@ export function SchHeader(props: Props) {
                 }}><VscArrowRight /></Button>
                 <Button variant="outline-crimson" key="screeny" size="sm" style={{"marginLeft":"1em"}} onClick={()=> { props.getImage() }}><RiScreenshot2Fill /></Button>
             </span>
-            <a onClick={() => { navigate("/settings") }}><VscSettingsGear className={"white-icon"}/></a>
+            <a onClick={() => { props.toggleShow(true) }}><VscSettingsGear className={"white-icon"}/></a>
           </Navbar.Collapse>
         </Container>
     </Navbar>

@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Form from "react-bootstrap/Form"
-import { ordinal_suffix_of } from "../../../lib"
+import { ordinal_suffix_of } from "../../../lib/lib"
 type Props = {
     lunchamt: number,
     setl: (lunch: number) => void

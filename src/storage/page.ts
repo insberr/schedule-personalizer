@@ -1,3 +1,5 @@
+
+
 export enum Page {
   SCHEDULE,
   SETTINGS,
@@ -5,14 +7,37 @@ export enum Page {
   EDITOR
 }
 
+// todo: make this an object and not 2 functions;
 function findDefaultRoute(): Page {
   switch (window.location.pathname) {
     case "/editor":
       return Page.EDITOR;
+    case "/setup":
+      return Page.SETUP;
+    case "/settings":
+      return Page.SETTINGS;
+    case "/":
+      return Page.SCHEDULE;
     default:
       return Page.SCHEDULE
   }
 }
+export function page2url(p: Page): string {
+  switch (p) {
+    case Page.EDITOR:
+      return "/editor"
+    case Page.SETTINGS:
+      return "/settings"
+    case Page.SCHEDULE:
+      return "/"
+    case Page.SETUP:
+      return "/setup"
+    default:
+      return "/"
+  }
+}
+
+
 
 export type PageStorage = {
 

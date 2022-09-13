@@ -4,6 +4,7 @@ import studentvueReducer, {reset as resetStudentvue} from './studentvue';
 import miscReducer, {reset as resetMisc} from './misc';
 import stvReducer, {reset as resetStv} from './studentvueData';
 import customReducer, {reset as resetCustom} from './customizations';
+import pageReducer, {reset as resetPage} from "./page"
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
@@ -177,7 +178,8 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     studentvue: studentvueReducer,
     misc: miscReducer,
     stv: stvReducer,
-    customization: customReducer
+    customization: customReducer,
+    router: pageReducer
 }))
 
 
@@ -203,6 +205,7 @@ export const resetStorage = () => {
         store.dispatch(resetMisc())
         store.dispatch(resetStv())
         store.dispatch(resetCustom())
+        store.dispatch(resetPage())
     })
     
 }

@@ -4363,6 +4363,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"heap@npm:0.2.5":
+  version: 0.2.5
+  resolution: "heap@npm:0.2.5"
+  checksum: 1f178a62cef3a29c1dc19783b2a478f4b8f1b85bd2ceb70fa535cf368fdd8fee141f08af0af5c55cd32e1b8a6b1ed200d8d18cd33fa4700ba97476d9c27162d3
+  languageName: node
+  linkType: hard
+
 "hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"

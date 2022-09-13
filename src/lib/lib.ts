@@ -31,6 +31,7 @@ export function formatClassPeriodName(classData: Class): string {
     if (classData.classID === ClassIDS.Assembly) return "Assembly"
     if (classData.classID === ClassIDS.Weekend) return "Weekend"
     if (classData.classID === ClassIDS.Summer) return "Summer"
+    if (classData.classID === ClassIDS.Passing) return "Passing"
     return "Period " + classData.period;
 }
 

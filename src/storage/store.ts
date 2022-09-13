@@ -8,7 +8,7 @@ import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
 import { defaultCustomizations, forSchoolName } from '../config/settings';
-import { RGBA } from '../types'
+import { ClassIDS, RGBA } from '../types'
 import {redactStructure} from "../lib/lib"
 
 // I left off here, trying to implement terms now. shouldve done that from the beginning
@@ -136,6 +136,9 @@ const migrations = {
     },
     9: (state: any) => {
         return {...state, misc: { ...state.misc, presentationMode: false }}
+    },
+    10: (state: any) => {
+        return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: { ...state.customization.theme.colors, schedule: { ...state.customization.theme.colors.schedule, [ClassIDS.Passing]: defaultCustomizations.theme.colors.schedule[ClassIDS.Passing] } } } }}
     }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -163,7 +166,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 9,
+    version: 10,
     storage,
     blacklist: [],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),

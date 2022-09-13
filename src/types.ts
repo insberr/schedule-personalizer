@@ -37,6 +37,7 @@ export enum ClassIDS {
     Lunch,
     Period,
     Assembly,
+    Passing,
     Dismissal,
     NoSchool,
     Weekend,

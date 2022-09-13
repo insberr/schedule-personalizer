@@ -6,6 +6,7 @@ import { identifyCommit } from "./lib/lib";
 import { Err } from "./components/ErrBoundery"
 import * as Sentry from "@sentry/react";
 import { store, persistor, resetStorage } from './storage/store'
+import "./router/events";
 import { PersistGate } from 'redux-persist/integration/react';
 import LoadSpinner from "./components/LoadSpinner";
 import { Provider } from 'react-redux'

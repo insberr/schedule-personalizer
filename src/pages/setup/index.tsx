@@ -16,8 +16,9 @@ import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "../../router/hooks";
 import { setTerms } from '../../storage/schedule';
+import { Page } from '../../storage/page';
 
 
 function SetupPage() {
@@ -32,7 +33,7 @@ function SetupPage() {
         if (schedule) {
             dispatch(setSetupComplete(true));
             dispatch(setTerms(schedule));
-            navigate("/")
+            navigate(Page.SCHEDULE);
         }
     })
 

@@ -4,6 +4,7 @@ import studentvueReducer, {reset as resetStudentvue} from './studentvue';
 import miscReducer, {reset as resetMisc} from './misc';
 import stvReducer, {reset as resetStv} from './studentvueData';
 import customReducer, {reset as resetCustom} from './customizations';
+import pageReducer, {reset as resetPage} from "./page"
 import { createReduxMiddleware } from "@karmaniverous/serify-deserify"
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
@@ -168,7 +169,9 @@ export const persistConfig = {
     key: 'v5ReduxData',
     version: 10,
     storage,
-    blacklist: [],
+    blacklist: [
+        "router"
+    ],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),
 }
 
@@ -177,13 +180,14 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     studentvue: studentvueReducer,
     misc: miscReducer,
     stv: stvReducer,
-    customization: customReducer
+    customization: customReducer,
+    router: pageReducer
 }))
 
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: (process.env.NODE_ENV !== 'production'),
+  devTools: true,
   middleware: (gDM) => gDM({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -203,6 +207,7 @@ export const resetStorage = () => {
         store.dispatch(resetMisc())
         store.dispatch(resetStv())
         store.dispatch(resetCustom())
+        store.dispatch(resetPage())
     })
     
 }

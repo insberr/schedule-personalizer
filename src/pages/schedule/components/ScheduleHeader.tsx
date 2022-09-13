@@ -19,7 +19,8 @@ import { Overlay, Tooltip } from 'react-bootstrap';
 import { setTutorial, useCustomizations } from '../../../storage/customizations';
 import { useDispatch } from 'react-redux';
 import { today } from "../../../today";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../../../router/hooks';
+import { Page } from '../../../storage/page';
 type Props = {
     sch: Class[],
     home: () => void,
@@ -27,7 +28,6 @@ type Props = {
     displayDate: Date,
     setDisplayDate: (date: Date) => void
     presentationMode?: boolean,
-    toggleShow: (a: boolean) => void
 }
 
 export function SchHeader(props: Props) {
@@ -55,7 +55,7 @@ export function SchHeader(props: Props) {
     )
 
     if (props?.presentationMode) {
-        return <><a onClick={() => { props.toggleShow(true) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
+        return <><a onClick={() => { navigate(Page.SETTINGS) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
     }
 
   return (
@@ -92,7 +92,7 @@ export function SchHeader(props: Props) {
                 }}><VscArrowRight /></Button>
                 <Button variant="outline-crimson" key="screeny" size="sm" style={{"marginLeft":"1em"}} onClick={()=> { props.getImage() }}><RiScreenshot2Fill /></Button>
             </span>
-            <a onClick={() => { props.toggleShow(true) }}><VscSettingsGear className={"white-icon"}/></a>
+            <a onClick={() => { navigate(Page.SETTINGS) }}><VscSettingsGear className={"white-icon"}/></a>
           </Navbar.Collapse>
         </Container>
     </Navbar>

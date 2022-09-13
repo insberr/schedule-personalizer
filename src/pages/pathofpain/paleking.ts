@@ -22,7 +22,7 @@ const getColor = (x: number, y: number, ctx: CanvasRenderingContext2D, canvas: H
     return data;
   }
   function makeArray<T>(w: number, h: number, val: T): T[][] {
-    var arr: any[] = [];
+    const arr: any[] = [];
     for(let i = 0; i < h; i++) {
         arr[i] = [];
         for(let j = 0; j < w; j++) {
@@ -49,7 +49,6 @@ class PaleKing implements IPaleKing {
                 const b = data.data[i + 2];
                 const a = data.data[i + 3];
                 //console.log(r, g, b, a);
-                //@ts-ignore
                 matrix[y][x] = determinePassable(r,g,b,a);
             }
             console.log("col",y,data.width);

@@ -17,8 +17,8 @@ import {useToggle, useInterval} from 'react-use'
 import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
 import { today } from "../../today";
-import { useNavigate } from 'react-router';
-import SettingsPage from '../settings';
+import { useNavigate } from '../../router/hooks';
+import { Page } from '../../storage/page';
 
 
 export type EventSchedule = {
@@ -79,23 +79,19 @@ function SchedulePage() {
     }, [currentDisplayDate, sch, stv, userLunch]);
     useEffect(() => {
         if (!isSetupComplete) {
-            navigate("/setup")
+            navigate(Page.SETUP);
         }
     },[isSetupComplete, navigate])
     // if loading shows blank schedule for a bit, maybe add a loading screen?
 
-    const [showSettings, setShowSettings] = useState(false);
-    window.show = setShowSettings;
+    //const [showSettings, setShowSettings] = useState(false);
+    //window.show = setShowSettings;
 
     if (!lunchifiedSchedule) {
         return <LoadSpinner />
     } else {
-            
-            // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
-            return (<>
-            <SettingsPage show={showSettings} toggleShow={setShowSettings} />
-            <Schedule show={showSettings} toggleShow={setShowSettings} setup={() => {setShowSettings(true)}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader />
-            </>)
+        // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+        return <><Schedule setup={() => {navigate(Page.SETUP)}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
     }
 }
 

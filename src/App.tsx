@@ -6,12 +6,8 @@ import { Terms } from './types';
 //import SchedulePage from './pages/schedule';
 //import { SettingsPage } from './pages/settings';
 
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-  } from "react-router-dom";
-
+import { Route } from "./router/Route";
+import { Page } from './storage/page';
 import { RootState } from "./storage/store";
 import Schedule, { setTerms } from "./storage/schedule";
 
@@ -23,9 +19,9 @@ import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
 //import { MdImportExport } from 'react-icons/md';
 import SchedulePage from "./pages/schedule";
-import SettingsPage from "./pages/settings";
+import { SettingsPage } from "./pages/settings";
 import tinyColor from 'tinycolor2';
-window.tinyColor = tinyColor;
+//window.tinyColor = tinyColor;
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
@@ -97,15 +93,27 @@ function App() {
         setSch(newSch)
     }
     */
-   return (<React.Suspense fallback={<LoadSpinner />}><BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SchedulePage />} />
-                <Route path="/setup" element={<SetupPage />} />
-                <Route path="/editor" element={<EditorPage />} />
-                <Route path="/pain" element={<PathOfPain />} />
-                <Route path="*" element={<div>i have no idea where you are</div>} />
-            </Routes>
-        </BrowserRouter></React.Suspense>)
+   return (
+    <React.Suspense fallback={<LoadSpinner />}>
+        <Route routes={[Page.SCHEDULE, Page.SETTINGS]}>
+            <Route routes={[Page.SCHEDULE]} hide={true}>
+                <SchedulePage />
+            </Route>
+            <Route routes={[Page.SETTINGS]} hide={false}>
+                <SettingsPage />
+            </Route>
+        </Route>
+        <Route routes={[Page.SETUP]}> 
+            <SetupPage />
+        </Route>
+        <Route routes={[Page.EDITOR]}>
+            <EditorPage />
+        </Route>
+        <Route routes={[Page.PATHOFPAIN]}>
+            <PathOfPain />
+        </Route>
+    </React.Suspense>
+   )
 }
 
 export default App;

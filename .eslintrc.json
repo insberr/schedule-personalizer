@@ -32,6 +32,6 @@
         "@typescript-eslint/triple-slash-reference": 0,
         "quotes": [0, "single"],
         "react/display-name": 0,
-        "no-warning-comments": 1,
+        "no-warning-comments": 1
     }
 }

@@ -27,9 +27,12 @@ type Props = {
     getImage: () => void,
     displayDate: Date,
     setDisplayDate: (date: Date) => void
+    presentationMode?: boolean,
+    toggleShow: (a: boolean) => void
 }
 
 export function SchHeader(props: Props) {
+    
   const id = useId();
   const [map, setMap] = useState(false)
   const stv = useSTV();
@@ -51,6 +54,10 @@ export function SchHeader(props: Props) {
             </Popover.Body>
         </Popover>
     )
+
+    if (props?.presentationMode) {
+        return <><a onClick={() => { props.toggleShow(true) }} style={{ 'position': 'fixed', 'top': '1rem', 'right': '1rem' }}><VscSettingsGear className={"white-icon"}/></a></>
+    }
 
   return (
     <>

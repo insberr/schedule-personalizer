@@ -113,7 +113,7 @@ html, body{
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .collapse.show > div:last-child {

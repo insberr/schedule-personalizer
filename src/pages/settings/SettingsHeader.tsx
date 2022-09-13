@@ -4,8 +4,7 @@ import { VscSettingsGear } from 'react-icons/vsc';
 import { useNavigate } from '../../router/hooks';
 import { Page } from '../../storage/page';
 
-export function SettingsHeader() {
-  const navigate = useNavigate();
+export function SettingsHeader(props: { toggleShow: (a: boolean) => void }) {
   return (
     <Navbar bg="dark" variant="dark">
         <Container>

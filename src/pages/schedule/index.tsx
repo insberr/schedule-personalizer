@@ -83,6 +83,10 @@ function SchedulePage() {
         }
     },[isSetupComplete, navigate])
     // if loading shows blank schedule for a bit, maybe add a loading screen?
+
+    const [showSettings, setShowSettings] = useState(false);
+    window.show = setShowSettings;
+
     if (!lunchifiedSchedule) {
         return <LoadSpinner />
     } else {

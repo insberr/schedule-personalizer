@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Terms } from './types';
 
-import SchedulePage from './pages/schedule';
-import { SettingsPage } from './pages/settings';
+//import SchedulePage from './pages/schedule';
+//import { SettingsPage } from './pages/settings';
 
 import { Route } from "./router/Route";
 import { Page } from './storage/page';
@@ -18,10 +18,17 @@ import { useCustomizations, reset as customizationsReset } from './storage/custo
 import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
 //import { MdImportExport } from 'react-icons/md';
-
+import SchedulePage from "./pages/schedule";
+import SettingsPage from "./pages/settings";
+import tinyColor from 'tinycolor2';
+window.tinyColor = tinyColor;
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
-const EditorPage = React.lazy(() => import("./pages/editor"))
+const EditorPage = React.lazy(() => import("./pages/editor"));
+const PathOfPain = React.lazy(() => import("./pages/pathofpain"))
+//const SchedulePage = React.lazy(() => import("./pages/schedule"))
+//const SettingsPage = React.lazy(() => import("./pages/settings"))
+
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();

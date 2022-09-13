@@ -14,7 +14,7 @@ import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors,
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
-import { identifyCommit, updateSW } from "../../lib";
+import { identifyCommit, updateSW } from "../../lib/lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
@@ -104,7 +104,7 @@ export function SettingsPage() {
         }
     }
 
-    return (<><SettingsHeader /><Center>
+    return (<><div className={props.show ? '' : 'hidden'}><SettingsHeader toggleShow={props.toggleShow}/><Center>
         <h1>Settings</h1>
         </Center>
         <Tabs
@@ -378,5 +378,5 @@ export function SettingsPage() {
             </Tab>
         </Tabs>
         <Center>
-    </Center></>)
+    </Center></div></>)
 }

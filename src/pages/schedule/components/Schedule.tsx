@@ -4,7 +4,7 @@ import ScheduleEntry from "./ScheduleEntry"
 import { EventSchedule } from '../index';
 import { format } from 'date-fns'
 import { useMemo, useRef, useEffect, useState } from "react";
-import { formatClassTimeHideElement } from "../../../lib"
+import { formatClassTimeHideElement } from "../../../lib/lib"
 import { today } from "../../../today";
 import { SchHeader } from "./ScheduleHeader"
 import Container from 'react-bootstrap/Container';
@@ -17,6 +17,7 @@ import { useStudentvue } from '../../../storage/studentvue';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { useInterval } from "react-use";
+import React from "react";
 
 type ScheduleProps = {
     sch: Class[]
@@ -24,6 +25,8 @@ type ScheduleProps = {
     displayDate: Date
     setDisplayDate: (date: Date) => void,
     setup: (b: boolean) => void
+    show: boolean
+    toggleShow: (a: boolean) => void
 }
 
 function Schedule(props: ScheduleProps) {
@@ -124,7 +127,7 @@ function Schedule(props: ScheduleProps) {
     },[props.sch])
 
     return (
-        <div>
+        <div className={props.show ? 'hidden' : ''}>
             <ToastContainer className="p-3" position={'bottom-end'}>
                 <Toast onClose={() => setShowCustomToast(false)} show={showCustomToast} delay={30000} autohide>
                     <Toast.Header closeButton={true}>
@@ -157,6 +160,8 @@ function Schedule(props: ScheduleProps) {
                 getImage={ getImage }
                 displayDate={ props.displayDate }
                 setDisplayDate={ presentationMode ? ()=>{return;} : props.setDisplayDate }
+                presentationMode={ presentationMode }
+                toggleShow={ props.toggleShow }
             />
             <Center>
                 <div

@@ -9,7 +9,7 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
 import { defaultCustomizations, forSchoolName } from '../config/settings';
 import { ClassIDS, RGBA } from '../types'
-import {redactStructure} from "../lib/lib"
+import { redactStructure } from '../lib/lib'
 
 // I left off here, trying to implement terms now. shouldve done that from the beginning
 // Also adding the storage manager to the rest of the code

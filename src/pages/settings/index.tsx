@@ -14,14 +14,18 @@ import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors,
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
-import { identifyCommit, updateSW } from "../../lib";
+import { identifyCommit, updateSW } from "../../lib/lib";
 import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
 import { setTerms, useSchedule } from "../../storage/schedule";
 import { useNavigate } from "react-router-dom";
 import { SettingsHeader } from "./SettingsHeader";
-export function SettingsPage() {
+
+export default function SettingsPage(props: {
+    show: boolean;
+    toggleShow: () => void;
+}) {
     const dispatch = useDispatch()
     const stv = useStudentvue();
     const customizations = useCustomizations();
@@ -103,7 +107,7 @@ export function SettingsPage() {
         }
     }
 
-    return (<><SettingsHeader /><Center>
+    return (<><div className={props.show ? '' : 'hidden'}><SettingsHeader toggleShow={props.toggleShow}/><Center>
         <h1>Settings</h1>
         </Center>
         <Tabs
@@ -377,5 +381,5 @@ export function SettingsPage() {
             </Tab>
         </Tabs>
         <Center>
-    </Center></>)
+    </Center></div></>)
 }

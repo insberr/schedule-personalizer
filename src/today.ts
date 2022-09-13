@@ -16,18 +16,12 @@ declare global {
     }
 }
 
-// \/ this doesnt actually do anything, but it might confuse someone in the future so i'm leaving it here :)
-// I have no clue what this does or why its here, wackery didnt explain it very well
-// @parcel-inline
 export function today(): Date {
     if (process.env.NODE_ENV != "production") {
-        //console.log("today() called");
         return timeToDate(window.devDate.time || dateToTime(new Date()), window.devDate.date || new Date());
     }
-    //console.log("today prod");
     return new Date();
 }
-
 
 window.devDate = {
     date: null,

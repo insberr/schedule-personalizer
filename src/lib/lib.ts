@@ -1,10 +1,12 @@
 // bunch of reusable functions
 import { addSeconds, format, isAfter, isBefore, parse, set } from "date-fns"
-import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "./types";
+import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "../types";
 
-import * as api from './apis/studentvue/studentVueAPI';
+import * as api from '../apis/studentvue/studentVueAPI';
 import { isEqual } from "lodash";
 
+import { StudentVueAPIDataUserDate } from "../apis/studentvue/studentVueAPI";
+import { today } from "../today";
 
 export function getCurrentTerm (t: Stdata, d?: Date): number {
     if (!d) {
@@ -153,9 +155,6 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
 
     return value;
 }
-
-import { StudentVueAPIDataUserDate } from "./apis/studentvue/studentVueAPI";
-import { today } from "./today";
 
 // TODO: move to settings file
 const InfoToKeep = [

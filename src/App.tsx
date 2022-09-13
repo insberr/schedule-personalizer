@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Terms } from './types';
 
-import SchedulePage from './pages/schedule';
-import { SettingsPage } from './pages/settings';
+//import SchedulePage from './pages/schedule';
+//import { SettingsPage } from './pages/settings';
 
 import {
     BrowserRouter,
@@ -22,10 +22,17 @@ import { useCustomizations, reset as customizationsReset } from './storage/custo
 import { useSTV } from './storage/studentvueData';
 import * as api from './apis/studentvue/studentVueAPI';
 //import { MdImportExport } from 'react-icons/md';
-
+import SchedulePage from "./pages/schedule";
+import SettingsPage from "./pages/settings";
+import tinyColor from 'tinycolor2';
+window.tinyColor = tinyColor;
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
-const EditorPage = React.lazy(() => import("./pages/editor"))
+const EditorPage = React.lazy(() => import("./pages/editor"));
+const PathOfPain = React.lazy(() => import("./pages/pathofpain"))
+//const SchedulePage = React.lazy(() => import("./pages/schedule"))
+//const SettingsPage = React.lazy(() => import("./pages/settings"))
+
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();
@@ -90,14 +97,15 @@ function App() {
         setSch(newSch)
     }
     */
-   return (<BrowserRouter>
+   return (<React.Suspense fallback={<LoadSpinner />}><BrowserRouter>
             <Routes>
                 <Route path="/" element={<SchedulePage />} />
-                <Route path="/setup" element={<React.Suspense fallback={<LoadSpinner />}><SetupPage /></React.Suspense>} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/editor" element={<React.Suspense fallback={<LoadSpinner />}><EditorPage /></React.Suspense>} />
+                <Route path="/setup" element={<SetupPage />} />
+                <Route path="/editor" element={<EditorPage />} />
+                <Route path="/pain" element={<PathOfPain />} />
+                <Route path="*" element={<div>i have no idea where you are</div>} />
             </Routes>
-        </BrowserRouter>)
+        </BrowserRouter></React.Suspense>)
 }
 
 export default App;

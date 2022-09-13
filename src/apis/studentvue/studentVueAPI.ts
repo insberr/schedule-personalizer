@@ -1,6 +1,6 @@
 import { Terms, emptyCL, ClassIDS } from "../../types";
 import * as settings from "../../config/settings";
-import { courseTitleNameCase, redactStudentInfo, toTitleCase } from "../../lib";
+import { courseTitleNameCase, redactStudentInfo, toTitleCase } from "../../lib/lib";
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from "./api"
 import * as Sentry from '@sentry/react';
 

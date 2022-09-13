@@ -6,12 +6,8 @@ import { Terms } from './types';
 import SchedulePage from './pages/schedule';
 import { SettingsPage } from './pages/settings';
 
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-  } from "react-router-dom";
-
+import { Route } from "./router/Route";
+import { Page } from './storage/page';
 import { RootState } from "./storage/store";
 import Schedule, { setTerms } from "./storage/schedule";
 
@@ -90,14 +86,24 @@ function App() {
         setSch(newSch)
     }
     */
-   return (<BrowserRouter>
-            <Routes>
-                <Route path="/" element={<SchedulePage />} />
-                <Route path="/setup" element={<React.Suspense fallback={<LoadSpinner />}><SetupPage /></React.Suspense>} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/editor" element={<React.Suspense fallback={<LoadSpinner />}><EditorPage /></React.Suspense>} />
-            </Routes>
-        </BrowserRouter>)
+   return (
+    <React.Suspense fallback={<LoadSpinner />}>
+        <Route routes={[Page.SCHEDULE, Page.SETTINGS]}>
+            <Route routes={[Page.SCHEDULE]} hide={true}>
+                <SchedulePage />
+            </Route>
+            <Route routes={[Page.SETTINGS]} hide={true}>
+                <SettingsPage />
+            </Route>
+        </Route>
+        <Route routes={[Page.SETUP]}> 
+            <SetupPage />
+        </Route>
+        <Route routes={[Page.EDITOR]}>
+            <EditorPage />
+        </Route>
+    </React.Suspense>
+   )
 }
 
 export default App;

@@ -17,7 +17,8 @@ import {useToggle, useInterval} from 'react-use'
 import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
 import { today } from "../../today";
-import { useNavigate } from 'react-router';
+import { useNavigate } from '../../router/hooks';
+import { Page } from '../../storage/page';
 
 
 export type EventSchedule = {
@@ -78,7 +79,7 @@ function SchedulePage() {
     }, [currentDisplayDate, sch, stv, userLunch]);
     useEffect(() => {
         if (!isSetupComplete) {
-            navigate("/setup")
+            navigate(Page.SETUP);
         }
     },[isSetupComplete, navigate])
     // if loading shows blank schedule for a bit, maybe add a loading screen?
@@ -86,7 +87,7 @@ function SchedulePage() {
         return <LoadSpinner />
     } else {
         // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
-        return <><Schedule setup={() => {navigate("/setup")}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
+        return <><Schedule setup={() => {navigate(Page.SETUP)}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
     }
 }
 

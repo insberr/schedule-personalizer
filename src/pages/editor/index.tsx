@@ -10,8 +10,9 @@ import stringifyObject from '../../stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { today } from "../../today";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../router/hooks";
 import "./editor.scss";
+import { Page } from "../../storage/page";
 export default function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date|DateRange>(today());
@@ -174,7 +175,7 @@ export default function EditorApp() {
                         <Button onClick={() => { navigator.clipboard.writeText(stringifyThings(newEvents)) }}>Copy to clipboard</Button>
                         <pre style={{textAlign: "left"}} className="paper">{stringifyThings(newEvents)}</pre>
                     </Col>
-                    <Button href="#" onClick={()=> navigate("/")}>Back to schedule</Button>
+                    <Button href="#" onClick={()=> navigate(Page.SCHEDULE)}>Back to schedule</Button>
                 </Row>
             </Container>
         </Center>

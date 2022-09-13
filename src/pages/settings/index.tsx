@@ -19,8 +19,9 @@ import { today } from "../../today";
 import * as settings from '../../config/settings';
 import * as Sentry from "@sentry/react";
 import { setTerms, useSchedule } from "../../storage/schedule";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../router/hooks";
 import { SettingsHeader } from "./SettingsHeader";
+import { Page } from "../../storage/page";
 export function SettingsPage() {
     const dispatch = useDispatch()
     const stv = useStudentvue();
@@ -33,7 +34,7 @@ export function SettingsPage() {
     // setup guard
     useEffect(() => {
         if (!isSetupComplete) {
-            navigate("/setup")
+            navigate(Page.SETUP);
         }
     },[isSetupComplete, navigate])
 
@@ -123,8 +124,8 @@ export function SettingsPage() {
                         }}>Send Feedback</Button>
                         <div></div>
                         <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { console.log('set manually'); setEditManually(true) }}>Edit Schedule</Button>
-                        <Button variant="danger" onClick={()=>{ navigate("/"); resetStorage(); location.reload(); }}>Reset</Button>
-                        <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { navigate("/") }, 100); }}>Reset Custom Colors</Button>
+                        <Button variant="danger" onClick={()=>{ navigate(Page.SCHEDULE); resetStorage(); location.reload(); }}>Reset</Button>
+                        <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { navigate(Page.SCHEDULE) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>
                         <Button onClick={()=>{ location.reload() }}>Reload</Button>
                         <Button onClick={()=>{ updateSW() }}>Force update site (beta)</Button>
@@ -358,7 +359,7 @@ export function SettingsPage() {
             <Tab eventKey="devs" title="Devs">
                 <h2>Dev And Debug</h2>
                 <div>
-                    <Button href="#" onClick={() => navigate("/editor")}>Event Editor (Devs only)</Button>
+                    <Button href="#" onClick={() => navigate(Page.EDITOR)}>Event Editor (Devs only)</Button>
                     <Button onClick={() => { throw new Error('Crash the webpage button was clicked. wonder why ... maybe the Bri-ish are coming') }}>Send fake error to Sentry.io</Button>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Input Terms Object</Form.Label>

@@ -5,6 +5,15 @@ export enum Page {
   EDITOR
 }
 
+function findDefaultRoute(): Page {
+  switch (window.location.pathname) {
+    case "/editor":
+      return Page.EDITOR;
+    default:
+      return Page.SCHEDULE
+  }
+}
+
 export type PageStorage = {
 
     currentPage: Page
@@ -14,7 +23,7 @@ export type PageStorage = {
   import type { PayloadAction } from '@reduxjs/toolkit'
   
   const initialState: PageStorage = {
-      currentPage: Page.SCHEDULE
+      currentPage: findDefaultRoute()
   }
   
   export const routeSlice = createSlice({

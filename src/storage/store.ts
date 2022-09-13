@@ -169,7 +169,9 @@ export const persistConfig = {
     key: 'v5ReduxData',
     version: 10,
     storage,
-    blacklist: [],
+    blacklist: [
+        "router"
+    ],
     migrate: createMigrate(migrations, { debug: process.env.NODE_ENV !== 'production' }),
 }
 
@@ -185,7 +187,7 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: (process.env.NODE_ENV !== 'production'),
+  devTools: true,
   middleware: (gDM) => gDM({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

@@ -37,7 +37,7 @@ class PaleKing implements IPaleKing {
             diagonalMovement: PF.DiagonalMovement.OnlyWhenNoObstacles
         });
         const pfgrid = new PF.Grid(grid);
-        return PF.Util.smoothenPath(pfgrid.clone(), finder.findPath(start[0], start[1], end[0], end[1], pfgrid.clone()));
+        return PF.Util.smoothenPath(pfgrid,finder.findPath(start[0], start[1], end[0], end[1], pfgrid.clone()));
     }
     buildMatrix(data: ImageData): number[][] {
         const matrix: number[][] = makeArray<number>(data.width, data.height, -1);

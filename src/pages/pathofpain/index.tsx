@@ -3,9 +3,9 @@
 // This is so good
 // DO NOT REMOVE THESE COMMENTS OR YOU WILL BE FIRED OR A MONSTER WILL APPEAR UNDER YOUR BED
 import { wrap, transfer } from "comlink";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useAsync } from "react-use";
+import { useAsync, useStartTyping } from "react-use";
 import { IPaleKing } from "./type"
 
 function getCursorPosition(canvas: HTMLCanvasElement, event: MouseEvent) {
@@ -26,10 +26,12 @@ const height = 780*mult;
 const ThePaleKing = wrap<IPaleKing>(new Worker(new URL("./paleking.ts", import.meta.url), {type: "module"}));
 export default function PathOfPain() {
     const ref = useRef<HTMLDivElement | null>(null);
+    const [building, setBuilding] = useState(false);
     async function constructPath() {
         if (!ref.current) {
             return;
         }
+        setBuilding(true);
         const canvas = document.createElement("canvas");
             if (ref.current.lastChild) {
                 if (ref.current.lastChild instanceof HTMLCanvasElement) {
@@ -92,25 +94,38 @@ export default function PathOfPain() {
                 const path = await ThePaleKing.pathfind(grid, e[0], e[1])
                 console.log(path);
                 ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                if (path.length == 0) {
+                    throw new Error(`No path found between ${e[0]} and ${e[1]}`)
+                }
+                ctx.fillStyle = "red";
                 ctx.beginPath();
-                ctx.moveTo(path[0][0], path[0][1])
+                
+                ctx.fillRect(path[0][0]-5, path[0][1]-5, 10, 10);
+                ctx.fillRect(path[path.length-1][0]-5, path[path.length-1][1]-5, 10, 10);
+                ctx.moveTo(e[0][0], e[0][1])
                 for (const item of path) {
                     const [x,y] = item;
                     ctx.lineTo(x,y)
                     ctx.stroke();
                 }
-                ctx.endPath();
                 
             }
-            drawPathfinding(d, ctx, [[152, 172], [856,466]], "red")
-            drawPathfinding(d, ctx, [[856,466], [524,369]], "green")
-            drawPathfinding(d, ctx, [[524, 369], [277,622]], "blue")
+            const path2draw = [[382,215], [378,252], [156,170], [523,373], [847,421], [544,313], [382,215]]
+            const f = path2draw[0]
+            while (path2draw.length > 1) {
+                const e = [path2draw.shift()  || [0,0], path2draw[0]]
+                drawPathfinding(d, ctx, e, "blue")
+                
+            }
+            drawPathfinding(d, ctx, [path2draw.shift() || [0,0], f], "blue")
+            setBuilding(false);
         }
         img.src = _map.href;
     }
     return (<>
             <div >Path of Pain</div>
-            <Button variant="crimson" onClick={() => { constructPath() }}>Build Path</Button>
+            <Button variant="crimson" disabled={building} onClick={() => { constructPath() }}>Build Path</Button>
             <div ref={ref} style={{ overflowX: "clip", width: width/mult, height: height/mult }}><img src={_map.href} style={{ pointerEvents: "none", opacity:0.25, position:"absolute", zIndex: 1, width: width/mult, height: height/mult}} /></div>
             </>);  
 }

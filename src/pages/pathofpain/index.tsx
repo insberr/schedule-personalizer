@@ -92,13 +92,15 @@ export default function PathOfPain() {
                 const path = await ThePaleKing.pathfind(grid, e[0], e[1])
                 console.log(path);
                 ctx.strokeStyle = color;
+                ctx.beginPath();
                 ctx.moveTo(path[0][0], path[0][1])
                 for (const item of path) {
                     const [x,y] = item;
                     ctx.lineTo(x,y)
                     ctx.stroke();
                 }
-                ctx.closePath();
+                ctx.endPath();
+                
             }
             drawPathfinding(d, ctx, [[152, 172], [856,466]], "red")
             drawPathfinding(d, ctx, [[856,466], [524,369]], "green")

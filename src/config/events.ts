@@ -106,9 +106,9 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
-        schedule: schedules.normal,
+        schedule: schedules.assemblyPM,
         info: {
-            message: 'Pep Assembly | Schedule Unknown',
+            message: 'Pep Assembly',
             date: new Date('September 16, 2022')
         }
     },

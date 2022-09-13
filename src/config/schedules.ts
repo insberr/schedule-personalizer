@@ -100,7 +100,6 @@ export type Schedules = {
     }
 */
 
-// TODO: Correct cambridge class times ...
 export const schedules: Schedules = {
     normal: {
         name: 'Normal',
@@ -121,17 +120,17 @@ export const schedules: Schedules = {
                         {
                             base: { classID: ClassIDS.Period, period: 1 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(8, 22) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 2 },
                             type: ReplaceType.Switch,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 27), endTime: getTimeW(9, 14) }
                         },
                         {
                             base: { classID: ClassIDS.Period, period: 12 },
                             type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 19), endTime: getTimeW(9, 55) }
                         },
                     ]
                 }
@@ -440,7 +439,92 @@ export const schedules: Schedules = {
             }
         }
     },
+    assemblyPM: {
+        name: 'PM Assembly',
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 35) },
+            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(8, 40), endTime: getTimeW(9, 35) },
+            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(9, 40), endTime: getTimeW(11, 20) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(11, 25), endTime: getTimeW(12, 15) },
+            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(12, 20), endTime: getTimeW(13, 10) },
+            { classID: ClassIDS.Passing, period: 0, startTime: getTimeW(13, 10), endTime: getTimeW(13, 20) },
+            { classID: ClassIDS.Assembly, period: 0, startTime: getTimeW(13, 20), endTime: getTimeW(14, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
+        ],
+        cambridge: {
+            10: {
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 1 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(8, 22) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 27), endTime: getTimeW(9, 14) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 19), endTime: getTimeW(9, 55) }
+                        },
+                    ]
+                }
+            },
+            11: {
+                forceLunch: 3,
+                ignoreLunchConfig: true,
+                overides: {
+                    replace: [
+                        {
+                            base: { classID: ClassIDS.Period, period: 2 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 50), endTime: getTimeW(9, 37) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 3 },
+                            type: ReplaceType.Switch,
+                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 42), endTime: getTimeW(10, 29) }
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 12 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 33), endTime: getTimeW(10, 50) }
 
+                        },
+                        {
+                            base: { classID: ClassIDS.Period, period: 13 },
+                            type: ReplaceType.After,
+                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(10, 50), endTime: getTimeW(11, 20) }
+                        },
+                    ]
+                }
+            }
+        },
+        lunch: {
+            hasLunch: true,
+            basedOnPeriod: 3,
+            numberOfLunches: 3,
+            lunches: {
+                1: { order: [
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(9, 40), endTime: getTimeW(10, 10) },
+                    { classID: ClassIDS.Period, startTime: getTimeW(10, 15), endTime: getTimeW(11, 20) }
+                ]},
+                2: { order: [
+                    { classID: ClassIDS.Period, startTime: getTimeW(9, 40), endTime: getTimeW(10, 15) },
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(10, 15), endTime: getTimeW(10, 45) },
+                    { classID: ClassIDS.Period, startTime: getTimeW(10, 50), endTime: getTimeW(11, 20) }
+                ]},
+                3: { order: [
+                    { classID: ClassIDS.Period, startTime: getTimeW(9, 40), endTime: getTimeW(10, 50) },
+                    { classID: ClassIDS.Lunch, startTime: getTimeW(10, 50), endTime: getTimeW(11, 20) }
+                ]},
+            }
+        }
+    },
     earlyDissmissal: {
         name: 'Early Dissmissal',
         classes: [

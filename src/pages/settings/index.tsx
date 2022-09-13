@@ -57,6 +57,9 @@ export function SettingsPage() {
             color.setAlpha(parseFloat(e.target.value))
         } else if (type === 'color') {
             color = tinyColor(e.target.value);
+            if (c[1].c.a > 0) {
+                color.setAlpha(c[1].c.a);
+            }
         } else if (type === 'text') {
             color = tinyColor(e.target.value);
 

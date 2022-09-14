@@ -8,7 +8,7 @@ export enum Page {
   PATHOFPAIN
 }
 
-// todo: make this an object and not 2 functions;
+// to do: make this an object and not 2 functions;
 function findDefaultRoute(): Page {
   switch (window.location.pathname) {
     case "/editor":

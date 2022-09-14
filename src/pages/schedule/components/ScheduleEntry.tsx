@@ -39,7 +39,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     const presentationMode = useSelector((state: RootState)=> state.misc.presentationMode)
     const customizations = useCustomizations();
 
-    // TODO: Make this update every second and then check its still the current class and the highlight it 
+    // TO DO: Make this update every second and then check its still the current class and the highlight it 
     const currentClassDateAndTime = useMemo(() => { // useState(props.viewDate); // useState(new Date("SepTember 6, 2022 08:04:59")); //  {
         const nd = timeToDate(props.currentTime);
         return nd;

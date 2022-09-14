@@ -1,4 +1,3 @@
-import React from "react"
 import { Page } from "../storage/page"
 import { useRoute } from "./hooks"
 

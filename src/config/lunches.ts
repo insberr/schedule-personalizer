@@ -1,8 +1,7 @@
 import * as types from "../types/lunchesTypes";
 import { teachers } from "./teachers";
 
-// maybe something like
-// TODO: I just realized this will have to be updated each term ... grrr gotta implement that
+// I just realized this will have to be updated each term ... grrr gotta implement that
 export const lunches: types.LunchesType = {
     0: [
         {

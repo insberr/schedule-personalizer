@@ -5,7 +5,6 @@
 import { wrap, transfer } from "comlink";
 import { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useAsync, useStartTyping } from "react-use";
 import { IPaleKing } from "./type"
 
 function getCursorPosition(canvas: HTMLCanvasElement, event: MouseEvent) {

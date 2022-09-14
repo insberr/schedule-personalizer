@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { doOperation } from "./soap";
 
 export function isError(obj: any): boolean {

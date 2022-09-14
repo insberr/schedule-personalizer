@@ -2,14 +2,15 @@ import { expose } from 'comlink'
 import {IPaleKing} from "./type"
 import PF from "pathfinding";
 
-
+/*
+    Ununsed Variable
 const mapColoring = {
     hallway: { r: 183, g: 183, b: 183, a: 255 },
     door: { r: 255, g: 255, b: 255, a: 255 },
     wall: { r: 0, g: 0, b: 0, a: 255 },
     outside: { r: 0, g: 0, b: 0, a: 0 },
 }
-
+*/
 function determinePassable(r: number, g: number, b: number, a: number) {
     if (r < 75 && g < 75 && b < 75 && a > 1) {
         return 1;
@@ -17,11 +18,16 @@ function determinePassable(r: number, g: number, b: number, a: number) {
     return 0;
 }
 
+/*
+Unused Variable
 const getColor = (x: number, y: number, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
     const data = ctx.getImageData(x, y, 1, 1).data;
     return data;
-  }
-  function makeArray<T>(w: number, h: number, val: T): T[][] {
+}
+*/
+
+function makeArray<T>(w: number, h: number, val: T): T[][] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const arr: any[] = [];
     for(let i = 0; i < h; i++) {
         arr[i] = [];

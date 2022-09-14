@@ -37,7 +37,7 @@ function SetupPage() {
         }
     })
 
-    // TODO: maybe use enum for stages valuse??
+    // TO DO: maybe use enum for stages valuse??
     let thing = <div />
     switch (stage) { 
         case -1: {// fuck you no importing manually

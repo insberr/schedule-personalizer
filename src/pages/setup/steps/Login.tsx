@@ -149,7 +149,7 @@ export function Login(props: Props) {
                                 <Form.Control required placeholder="Password" disabled={loading} type="password" onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setPassword(e.currentTarget.value)}} value={password} />
                             </Form.FloatingLabel>
                         </Stack>
-                        { /* TODO: Add signup for alert emails check box */ }
+                        { /* TO DO: Add signup for alert emails check box */ }
                         <Button className='mt-3' variant='crimson' disabled={loading || !['', settings.forSchoolName].includes(validUser.school)} type="submit">
                             { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
                         </Button>

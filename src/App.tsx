@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Terms } from './types';
+// import { Terms } from './types';
 
-//import SchedulePage from './pages/schedule';
-//import { SettingsPage } from './pages/settings';
+// import SchedulePage from './pages/schedule';
+// import { SettingsPage } from './pages/settings';
 
 import { Route } from "./router/Route";
 import { Page } from './storage/page';
-import { RootState } from "./storage/store";
-import Schedule, { setTerms } from "./storage/schedule";
+// import { RootState } from "./storage/store";
+// import { setTerms } from "./storage/schedule";
 
 import LoadSpinner from './components/LoadSpinner';
 import { setStudentVueData, useStudentvue } from './storage/studentvue';
@@ -20,8 +20,6 @@ import * as api from './apis/studentvue/studentVueAPI';
 //import { MdImportExport } from 'react-icons/md';
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
-import tinyColor from 'tinycolor2';
-//window.tinyColor = tinyColor;
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
@@ -49,7 +47,6 @@ function App() {
                     return false;
                 }
             }).catch((err: string) => {
-                // TODO: handle this error and send to sentry
                 console.log('Validate Credentials Error In migrations: ' + err);
                 return undefined;
             })
@@ -73,26 +70,6 @@ function App() {
         }
     },[stv, stvInf])
 
-    
-    function setSch(sch: Terms) {
-        dispatch(setTerms(sch));
-    }
-
-    const isSetupComplete = useSelector(
-        (state: RootState) => state.misc.setupComplete
-    );
-
-    const [isSetup, setIsSetup] = useState<boolean>(false);
-
-    /*
-    // TODO: Add customizations woo
-    // Someday we will implement this
-    function setTheme(theme: Customizations) {
-        if (!sch) return
-        const newSch = Object.assign({}, sch, { customization: theme })
-        setSch(newSch)
-    }
-    */
    return (
     <React.Suspense fallback={<LoadSpinner />}>
         <Route routes={[Page.SCHEDULE, Page.SETTINGS]}>

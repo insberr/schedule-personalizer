@@ -51,7 +51,7 @@ export type SchedulesType = {
     name: string, // This is used by the event editor
     noOverride?: boolean, // This is to be used for schedules that should not be overridden by any event, really only for weekends and summer
     classes: SCHCL[],
-    // Might be a bade idea having it optional ...
+    // Might be a bad idea having it optional ...
     cambridge?: CambridgeOveride,
     lunch: {
         hasLunch: boolean,
@@ -116,7 +116,6 @@ export const schedules: Schedules = {
             10: {
                 overides: {
                     replace: [
-                        // TODO: 
                         {
                             base: { classID: ClassIDS.Period, period: 1 },
                             type: ReplaceType.Switch,

@@ -17,7 +17,6 @@ import { useStudentvue } from '../../../storage/studentvue';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { useInterval } from "react-use";
-import React from "react";
 
 type ScheduleProps = {
     sch: Class[]
@@ -188,7 +187,7 @@ function Schedule(props: ScheduleProps) {
                         })}
                     </Container>
                     <div>{props.event.isEvent ? (
-                        // TODO: add timer for multi day event
+                        // TO DO: add timer for multi day event
                         <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.message }}>
                         </div>
                     ) : null}

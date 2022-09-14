@@ -7,13 +7,14 @@ Schedule Personalizer is a self hosted school schedule website/web app that disp
 Components that are only used for one page should be put into `src/pages/<page>/components` while components used for multiple pages go into `src/components`
 
 ### Possible features to consider adding?
-- lunches can be based on multiple periods (oh goodness thatll be complex as hell)
+- Allow storing config (or schedules and events) in a database and make it writeable from a UI ?
+- Multipe school config, so a school district can host one instance of schedule personalizer for all their schools
+- Lunches can be based on multiple periods (oh goodness thatll be complex as hell)
 - Support for other gradebook/student info sites other than StudentVue
-- Support for multiple schedules in a day for support of studdents who are in other during school programs like Cambridge and Running Start ???
+- Support for multiple schedules in a day for support of studdents who are in other during school programs like Cambridge and Running Start ??? (Working progress)
 - Customizable teacher and class name character case (upper, lower, title, regex, array of class abbreviations to be changed)?
-- add a “view full schedule mode” that shows the times for all lunches
+- add a “view full schedule mode” that shows the times for all lunches (Create issue for this and actually implement)
 - support for other languages, might be somewhat pointless because of google translate but might be a good idea still
-
 
 ### Setup
 You will need

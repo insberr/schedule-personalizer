@@ -90,7 +90,7 @@ function SchedulePage() {
     if (!lunchifiedSchedule) {
         return <LoadSpinner />
     } else {
-        // todo: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
+        // to do: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
         return <><Schedule setup={() => {navigate(Page.SETUP)}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
     }
 }
@@ -294,7 +294,7 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
         return (isSameDay(eventDate, date))
     });
 
-    // TODO: make it so if there are more than one event on the same day, combine them into one event of choose one over the other
+    // TO DO: make it so if there are more than one event on the same day, combine them into one event of choose one over the other
     // Its probably best to send an error to sentry if there are more than one event on the same day
     // or we could implement something to tell it we intentionally ment to overlap them and in that case also tell it what to do
     // but at that point just write the events properly????

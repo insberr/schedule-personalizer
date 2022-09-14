@@ -31,23 +31,10 @@ export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.inge
 
 // This is for the number of classes in the day
 // advisory should be included
-export const numberOfPeriods= 6;
+export const numberOfPeriods = 6;
 
 // For adding cambridge support, thatll be fun
 export const cambridgePeriods = [11, 12, 13];
-
-// TODO: add explanition to this variable
-export const cambridgePeriodMapping: types.cambridgeMapping = {
-    10: {
-        switch: [1, 2],
-        with: [11, 12, 13]
-    },
-    11: {
-        switch: [2, 3],
-        with: [11, 12, 13]
-    }
-}
-
 
 // If your school has an advisory period, set this to true
 export const hasAdvisory = true;

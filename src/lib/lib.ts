@@ -25,6 +25,7 @@ export function formatTime(t: Time | Date): string {
 
 export function formatClassPeriodName(classData: Class): string {
     if (classData.classID === ClassIDS.Zero) return "Zero Hour"
+    if (classData.classID === ClassIDS.Arrival) return "Arrival"
     if (classData.classID === ClassIDS.Advisory) return "Advisory"
     if (classData.classID === ClassIDS.NoSchool) return "No School"
     if (classData.classID === ClassIDS.Dismissal) return "Dismissal"
@@ -131,7 +132,7 @@ export function courseTitleNameCase(str: string): string {
 
     str = toTitleCase(str);
 
-    // TODO: make this actually do what its supposed to do
+    // to do: make this actually do what its supposed to do
     // str = str.replace('Ap', 'AP');
     // str = str.replace('Ela ', 'ELA');
     
@@ -156,7 +157,7 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
     return value;
 }
 
-// TODO: move to settings file
+// TO DO: move to settings file
 const InfoToKeep = [
     "CounselorEmail",
     "CurrentSchool",

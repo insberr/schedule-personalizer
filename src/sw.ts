@@ -1,7 +1,13 @@
 import { precacheAndRoute, PrecacheEntry, addPlugins } from "workbox-precaching";
-import { setCacheNameDetails } from "workbox-core";
+import { clientsClaim, setCacheNameDetails } from "workbox-core";
 import {manifest, version} from '@parcel/service-worker';
 import { BackgroundSyncPlugin } from 'workbox-background-sync'
+
+self.addEventListener("install", () => {
+    self.skipWaiting().then(clientsClaim);
+    console.log("oh shit guess who it fuckin is, its the gamer service worker here with offline support.")
+})
+
 const precacheList: PrecacheEntry[] = []
 
 const hashRegex = /.+\.(.+)\..+/

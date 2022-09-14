@@ -1970,6 +1970,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/serviceworker@npm:^0.0.51":
+  version: 0.0.51
+  resolution: "@types/serviceworker@npm:0.0.51"
+  checksum: 4a7bf4a4d89a22bf8e0832c458bd32c3b2a348aa8d547c1653057a909e197b4e688176a5bb37fd0d099ca5c182ac8f85ddbb0baa1120cc86f761f1d31b3b5732
+  languageName: node
+  linkType: hard
+
 "@types/sharp@npm:^0":
   version: 0.30.5
   resolution: "@types/sharp@npm:0.30.5"
@@ -7199,6 +7206,7 @@ __metadata:
     "@types/react-calendar": ^3
     "@types/react-dom": ^18
     "@types/rimraf": ^3
+    "@types/serviceworker": ^0.0.51
     "@types/sharp": ^0
     "@types/styled-components": ^5
     "@types/tinycolor2": ^1

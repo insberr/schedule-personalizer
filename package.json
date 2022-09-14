@@ -24,6 +24,7 @@
     "@types/react-calendar": "^3",
     "@types/react-dom": "^18",
     "@types/rimraf": "^3",
+    "@types/serviceworker": "^0.0.51",
     "@types/sharp": "^0",
     "@types/styled-components": "^5",
     "@types/tinycolor2": "^1",

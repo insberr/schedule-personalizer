@@ -33,7 +33,7 @@ function Schedule(props: ScheduleProps) {
     const studentvue = useStudentvue();
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
     useEffect(() => {
-        if (studentvue.isLoggedIn === true && studentvue.gotSchedules === false) {
+        if (navigator.onLine && studentvue.isLoggedIn === true && studentvue.gotSchedules === false) {
             setCustomToast({
                 header: "StudentVue Error",
                 body: "We were unable to get your classes from StudentVue. StudentVue may be down/your schedule may have an issue or you are not connected to the internet."

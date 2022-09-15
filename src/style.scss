@@ -169,7 +169,7 @@ $tile-selected: shade-color($white,10%);
     color: inherit;
 }
 .react-calendar__tile--now {
-    background-color: shade-color($body-bg, 70%);
+    background-color: $primary;
 }
 .react-calendar__tile, .react-calendar__navigation__arrow, .react-calendar__navigation__label {
     color: $body-color;

@@ -51,7 +51,7 @@
   "browserslist": "defaults and not ie >0 and not ie_mob >0",
   "scripts": {
     "build": "parcel build --detailed-report",
-    "build-gh-pages": "parcel build --public-url ./schedule-personalizer --detailed-report",
+    "build-gh-pages": "parcel build --public-url . --detailed-report",
     "build-config-repo": "echo \"Set this up\"",
     "dev": "parcel serve",
     "check": "tsc && eslint src",

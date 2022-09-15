@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "short_name": "Schedule",
+    "name": "Schedule V5",
+    "icons": [
+        {
+            "src": "./icons/maskable_icon.png",
+            "type": "image/png",
+            "sizes": "250x250",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./icons/icon.svg",
+            "type": "image/svg+xml",
+            "sizes": "150x150",
+            "purpose": "any"
+        },
+        {
+            "src": "./icons/icon.png?width=192&height=192",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any"
+        },
+        {
+            "src": "./icons/icon.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        }
+    ],
+    "start_url": "../",
+    "background_color": "#272727",
+    "display": "standalone",
+    "scope": "../",
+    "theme_color": "#272727",
+    "shortcuts": [],
+    "description": "Schedule: Personalizered",
+    "screenshots": []
+}

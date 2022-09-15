@@ -1,0 +1,282 @@
+@import "./variables.scss";
+@import "npm:@fontsource/roboto/index.css";
+
+// Include any default variable overrides here (though functions won't be available)
+// see the sass section in each bootstrap module
+
+// some stuff from another site
+
+
+@import "npm:bootstrap/scss/bootstrap";
+
+.white-icon {
+    fill: white!important;
+    stroke: white!important;
+}
+
+.whiteass {
+    color: white; // why?
+}
+
+.spin {
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+    /* transform: rotate(3deg); */
+     /* transform: rotate(0.3rad);/ */
+     /* transform: rotate(3grad); */ 
+     /* transform: rotate(.03turn);  */
+  }
+  
+  @keyframes spin {
+      from {
+          transform:rotate(0deg);
+      }
+      to {
+          transform:rotate(360deg);
+      }
+  }
+
+.paper {
+    @extend .p-3;
+    @extend .rounded;
+    background-color: $shade-bg;
+    border: 1px solid tint-color($shade-bg, $paper-border-tint);
+    /*
+    @
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    */
+
+}
+.paperer {
+    @extend .paper;
+    background-color: $shader-bg;
+    //background: rgba(255, 255, 255, 0.15);
+    border-color: tint-color($shader-bg, $paper-border-tint);
+}
+
+$date-bg: #DC143C;
+$row-border: .2rem;
+
+
+.date {
+    padding: .2rem;
+    background-color: $date-bg;
+    border-top: $row-border solid $date-bg;
+    border-radius: $border-radius-table $border-radius-table 0 0;
+    color: white;
+}
+
+
+.full-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.full-center-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    //transform: translate(-50%, -50%);
+}
+
+.uncenter-floating-label label {
+    width: initial;
+}
+
+.lighter-tool-tip {
+    .tooltip-arrow:before {
+        border-bottom-color: rgb(114, 114, 114);
+    }
+    .tooltip-inner {
+        background-color: rgb(114, 114, 114);
+    }
+}
+//other styles go here
+
+/*.row {
+    margin-right: calc(.5 * var(--bs-gutter-x) )!important;
+}*/
+.background-clear {
+    background-color: rgba($color: #000000, $alpha: 0);
+}
+
+html, body{
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.collapse.show > div:last-child {
+    border-bottom-color: #DC143C;
+    border-bottom-width: .1rem;
+    border-bottom-style: solid;
+}
+
+.bold {
+    font-weight: 100;
+}
+
+.collapse > div > a {
+    color: #DC143C;
+}
+.collapsing > div > a {
+    color: #DC143C;
+}
+
+a {
+    color: #dc535c;
+}
+
+.btn-crimson {
+    background-color: #DC143C;
+    color: white;
+}
+
+.crimson-btn-link {
+    color: #DC143C;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.crimsonTabs > li.nav-item > button.nav-link {
+    color: white;
+}
+.crimsonTabs > li.nav-item > button.nav-link.active {
+    color: #DC143C;
+}
+
+$tile-selected: shade-color($white,10%);
+@import "npm:react-calendar/dist/Calendar.css";
+
+.react-calendar  {
+    font-family: $font-family-sans-serif;
+    background-color: $shade-bg;
+    color: $body-color;
+}
+.react-calendar__navigation__label__labelText {
+    color: inherit;
+}
+.react-calendar__tile--now {
+    background-color: shade-color($body-bg, 70%);
+}
+.react-calendar__tile, .react-calendar__navigation__arrow, .react-calendar__navigation__label {
+    color: $body-color;
+    &:hover {
+        background-color: $tile-selected!important;
+        color: black;
+    }
+    &:focus {
+        background-color: shade-color($tile-selected, 10%)!important;
+        color: black;
+    }
+}
+.react-calendar__month-view__days__day {
+    color: $body-color;
+    
+}
+.react-calendar__month-view__days__day--weekend {
+    color: $danger;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: $primary;
+}
+
+@import "./components/Calendar/Calendar.scss";
+
+/*.date {
+    border-left: $row-border solid $border-color;
+    border-right: $row-border solid $border-color;
+    border-top: $row-border solid $border-color;
+}*/
+/*
+.scheduleList .crow.row:last-child .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
+    &:last-child {
+        border-bottom: none;
+    }
+}
+*/
+
+.classRow {
+    padding: 1rem;
+}
+
+.classTypeIcon {
+    max-width: 10px;
+    position: absolute;
+    padding-left: 0;
+}
+
+.crow {
+    &:nth-child(n) {
+        border-left: $row-border solid $date-bg;
+        border-right: $row-border solid $date-bg;
+        //border-bottom: $row-border solid $date-bg;
+    };
+    &:last-child  {
+        border-radius: 0 0 10px 10px;
+        border-bottom: $row-border solid $date-bg;
+        .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.crow {
+    &:last-child {
+        .schedule-entry-container {
+            border-bottom-right-radius: $border-radius-table - 2px;
+            border-bottom-left-radius: $border-radius-table - 2px;
+        }
+    }
+
+}
+
+.innerbox {
+    padding: 0.3em;
+    //border-top: $row-border solid $date-bg;
+}
+
+.map .modal-content {
+    background: none!important;
+}
+
+.map.modal-body {
+    padding: 0!important;
+    background: rgba(139, 139, 139, 0.566)!important;
+    box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1)!important;
+    backdrop-filter: blur(8px)!important;
+    border-bottom-left-radius: 16px!important;
+    border-bottom-right-radius: 16px!important;
+    -webkit-backdrop-filter: blur(8px)!important;
+}
+.map.modal-header {
+    background-color: rgb(49, 49, 49)!important;
+    border-bottom: none!important;
+}
+
+
+@import "./eggs.scss";
+
+
+.highlightClassEntryRed {
+    background-color: #ff00007c!important;
+}
+
+.scheduleList {
+    width: 80vw;
+    max-width: 900px;
+}

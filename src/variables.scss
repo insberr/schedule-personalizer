@@ -1,0 +1,87 @@
+@import "npm:bootstrap/scss/functions";
+
+
+$body-bg: #272727;
+$body-bg-light: #ffffff;
+$body-color-light: black;
+$body-color: #fafafa;
+$font-family-sans-serif: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$shade-bg: shade-color($body-bg, 30%);
+$shader-bg: shade-color($body-bg, 40%);
+$shaderer-bg: shade-color($body-bg, 50%);
+
+
+$border-radius-table: 10px;
+$list-group-color: $body-color;
+$list-group-bg: rgba(white, 0);
+$list-group-border-width: 0;
+$input-bg: $body-bg;
+$form-check-input-border: white;
+$form-check-input-bg: red;
+$form-check-input-checked-bg-color: green;
+$form-check-input-indeterminate-color: blue;
+$form-check-input-checked-color: blue;
+$input-disabled-bg: tint-color($body-bg, 20%);
+$paper-border-tint: 10%;
+$popover-bg: $shade-bg;
+$component-active-bg: $shade-bg;
+$accordion-button-active-bg: $shade-bg;
+$toast-background-color: $shade-bg;
+$toast-header-background-color: $shader-bg;
+$dropdown-bg: $shade-bg;
+$dropdown-color: $body-color;
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: shade-color($body-color, 20%);
+$dropdown-link-hover-bg: shade-color($body-bg, 20%);
+$modal-bg: $shade-bg;
+$modal-content-bg: $modal-bg;
+$bs-modal-bg: rgb(0,0,0,0);
+
+$grid-breakpoints: (
+  xs: 0,
+  break: 350px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$custom-colors: (
+  "crimson": #DC143C,
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+.btn-close {
+    color: $body-color;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFF'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center / 1em no-repeat !important;
+}
+.form-switch .form-check-input {
+    background-image: url("data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='-4%20-4%208%208'%3e%3ccircle%20r='3'%20fill='%23ffffff'/%3e%3c/svg%3e")!important; fill: white; color: white;
+}
+/*.form-check-input {
+    color:#ffffff;
+    fill: white;
+}*/
+:root {
+    --shade-bg:  #{$shade-bg};
+    --shader-bg:  #{$shader-bg};
+    --shaderer-bg:  #{$shaderer-bg};
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --body-bg: #{$body-bg-light};
+        --body-color: #{$body-color-light};
+    }
+};
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #{$body-bg};
+        --body-color: #{$body-color};
+    }
+};

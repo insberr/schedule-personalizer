@@ -1,0 +1,21 @@
+name: Build And Publish To GitHub Pages
+# TODO: Make this use example config files instead of ours,
+#   tho that means we gotta figure out a better way to store the config smh
+on:
+push:
+  branches: [ master ]
+
+jobs:
+publish-gh-pages:
+  runs-on: ubuntu-latest
+  steps:
+     - uses: actions/checkout@v2
+     - uses: actions/setup-node@v1
+     with:
+        node-version: 16.16.0
+     - run: yarn
+     # Should propbably use the api for getting username and email
+     - run: git config user.name "insberr" && git config user.email "jonahmatteson@gmail.com"
+     - run: yarn gh-pages-deploy
+     env:
+        GH_TOKEN: ${{secrets.SECRET_GITHUB_TOKEN}}

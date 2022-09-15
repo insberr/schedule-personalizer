@@ -2,8 +2,8 @@ name: "Build And Publish To GitHub Pages"
 # TODO: Make this use example config files instead of ours,
 #   tho that means we gotta figure out a better way to store the config smh
 on:
-push:
-  branches: [ "master" ]
+  push:
+    branches: [ "master" ]
 
 jobs:
   publish-gh-pages:

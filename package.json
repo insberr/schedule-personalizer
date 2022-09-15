@@ -10,6 +10,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@octokit/types": "^7.5.0",
     "@parcel/packager-raw-url": "^2.7.0",
     "@parcel/packager-xml": "^2.7.0",
     "@parcel/transformer-sass": "^2.7.0",
@@ -110,6 +111,7 @@
     "is-regexp": "^3.1.0",
     "keyboardjs": "^2.6.4",
     "lodash": "^4.17.21",
+    "octokit": "^2.0.7",
     "pathfinding": "^0.4.18",
     "pepjs": "^0.5.3",
     "pwa-asset-generator": "^6.1.1",

@@ -22,7 +22,9 @@ import { setTerms, useSchedule } from "../../storage/schedule";
 import { useNavigate } from "../../router/hooks";
 import { SettingsHeader } from "./SettingsHeader";
 import { Page } from "../../storage/page";
-
+import { useAsync, useAsyncFn } from "react-use";
+//import { Endpoints } from "@octokit/types";
+import {latestCommit, cloudflarePagesBuilt, shouldUpdate} from "../../apis/github"
 
 export function SettingsPage() {
     const dispatch = useDispatch()
@@ -30,6 +32,9 @@ export function SettingsPage() {
     const customizations = useCustomizations();
     const sch = useSchedule();
     const navigate = useNavigate();
+    const lcommit = useAsync(latestCommit)
+    const clBuild = useAsync(cloudflarePagesBuilt);
+    const shouldDoTheUpdate = useAsync(shouldUpdate)
     const isSetupComplete = useSelector(
         (state: RootState) => state.misc.setupComplete
     );
@@ -368,13 +373,21 @@ export function SettingsPage() {
                         <Form.Label>Input Terms Object</Form.Label>
                         <Form.Control as="textarea" rows={2} cols={5} value={JSON.stringify(sch.terms)} onChange={(e) => { dispatch(setTerms(JSON.parse(e.target.value)))}} />
                     </Form.Group>
+                    
                     <pre className="paper">
-                        Redux Storeage Version: {persistConfig.version}
-                        { "\n" }
+                        { "==Dev info==\n\nStorage Info\n\n"}
+                        Redux Storage Version: {persistConfig.version}
+                        { "\n\nUpdate info\n\n" }
                         Build Version: {identifyCommit() || 'Unknown'}
                         { "\n" }
-                        Mode: {process.env.NODE_ENV}
+                        Latest Commit: {lcommit.loading ? "loading..." : (lcommit.error ? lcommit.error.message : JSON.stringify(lcommit.value))}
                         { "\n" }
+                        Cloudflare Pages Build Status: {clBuild.loading ? "loading..." : (clBuild.error ? clBuild.error.message : JSON.stringify(clBuild.value))}
+                        { "\n" }
+                        shouldUpdate: {shouldDoTheUpdate.loading ? "loading..." : (shouldDoTheUpdate.error ? shouldDoTheUpdate.error.message : JSON.stringify(shouldDoTheUpdate.value))}
+                        {"\n\nOther\n\n"}
+                        Mode: {process.env.NODE_ENV}
+                        { "\nStorage Contents: " }
                         {JSON.stringify(store.getState(), null, 1)}
                     </pre>
                 </div>

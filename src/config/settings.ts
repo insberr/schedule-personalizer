@@ -110,3 +110,5 @@ export const defaultCustomizations: types.Customizations = {
         moreMap: true,
     }
 }
+
+export const multiplayer = true;

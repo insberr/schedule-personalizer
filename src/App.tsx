@@ -14,18 +14,19 @@ import { Page } from './storage/page';
 import LoadSpinner from './components/LoadSpinner';
 import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
+
 import { useCustomizations, reset as customizationsReset } from './storage/customizations';
 import { useSTV } from './storage/studentvueData';
+
 import * as api from './apis/studentvue/studentVueAPI';
-//import { MdImportExport } from 'react-icons/md';
+
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
+
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
 const PathOfPain = React.lazy(() => import("./pages/pathofpain"))
-//const SchedulePage = React.lazy(() => import("./pages/schedule"))
-//const SettingsPage = React.lazy(() => import("./pages/settings"))
 
 function App() {
     const dispatch = useDispatch();

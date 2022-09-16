@@ -11,15 +11,15 @@ export enum Page {
 // to do: make this an object and not 2 functions;
 function findDefaultRoute(): Page {
   switch (window.location.pathname) {
-    case "/editor":
+    case "./editor":
       return Page.EDITOR;
-    case "/setup":
+    case "./setup":
       return Page.SETUP;
-    case "/settings":
+    case "./settings":
       return Page.SETTINGS;
-    case "/":
+    case "./":
       return Page.SCHEDULE;
-    case "/pain":
+    case "./pain":
       return Page.PATHOFPAIN;
     default:
       return Page.SCHEDULE
@@ -28,17 +28,17 @@ function findDefaultRoute(): Page {
 export function page2url(p: Page): string {
   switch (p) {
     case Page.EDITOR:
-      return "/editor"
+      return "./editor"
     case Page.SETTINGS:
-      return "/settings"
+      return "./settings"
     case Page.SCHEDULE:
       return "/"
     case Page.SETUP:
-      return "/setup"
+      return "./setup"
     case Page.PATHOFPAIN:
-      return "/pain"
+      return "./pain"
     default:
-      return "/"
+      return "./"
   }
 }
 

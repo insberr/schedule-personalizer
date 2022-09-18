@@ -1,9 +1,12 @@
+
 export type Teacher = {
     id: string;
 };
+
 export type Teachers = {
     [key: string]: Teacher;
 };
+
 export const teachers: Teachers = {
     Adams_Jennifer_N: { id: "8BB5913B-8501-4333-B5F3-3948508F47CA" },
     Ainslie_John_R: { id: "189C95B7-E411-4998-8B75-999707DBF85C" },

@@ -1,45 +1,33 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
-// import { Terms } from './types';
-
-// import SchedulePage from './pages/schedule';
-// import { SettingsPage } from './pages/settings';
-
-import { Route } from "./router/Route";
-import { Page } from './storage/page';
-// import { RootState } from "./storage/store";
-// import { setTerms } from "./storage/schedule";
-
-import LoadSpinner from './components/LoadSpinner';
-import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import * as Sentry from '@sentry/react';
-
-import { useCustomizations, reset as customizationsReset } from './storage/customizations';
-import { useSTV } from './storage/studentvueData';
 
 import * as api from './apis/studentvue/studentVueAPI';
 
+import LoadSpinner from './components/LoadSpinner';
+
+import { useDispatch } from 'react-redux';
+import { setStudentVueData, useStudentvue } from './storage/studentvue';
+import { useSTV } from './storage/studentvueData';
+
+import { Page } from './storage/page';
+import { Route } from "./router/Route";
+
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
-
+import { Manual } from './pages/setup/steps/Manual';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
 const PathOfPain = React.lazy(() => import("./pages/pathofpain"))
 
+
 function App() {
     const dispatch = useDispatch();
     const stv = useStudentvue();
     const stvInf = useSTV();
-    const customizations = useCustomizations();
 
-    // fix weird problems ??
     useEffect(() => {
-        if (customizations.theme === undefined) {
-            dispatch(customizationsReset());
-        }
-
         async function isValid() {
             const isValid = await api.validateCredentials(stv.username, stv.password).then((res: boolean) => {
                 if (res) {
@@ -71,17 +59,20 @@ function App() {
         }
     },[stv, stvInf])
 
-   return (
+    return (
     <React.Suspense fallback={<LoadSpinner />}>
-        <Route routes={[Page.SCHEDULE, Page.SETTINGS]}>
+        <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY]}>
             <Route routes={[Page.SCHEDULE]} hide={true}>
                 <SchedulePage />
             </Route>
             <Route routes={[Page.SETTINGS]} hide={false}>
                 <SettingsPage />
             </Route>
+            <Route routes={[Page.EDITMANUALLY]} hide={false}>
+                <Manual isEdit={true} setStage={(n: number) => {n}}/>
+            </Route>
         </Route>
-        <Route routes={[Page.SETUP]}> 
+        <Route routes={[Page.SETUP]}>
             <SetupPage />
         </Route>
         <Route routes={[Page.EDITOR]}>
@@ -91,7 +82,7 @@ function App() {
             <PathOfPain />
         </Route>
     </React.Suspense>
-   )
+    )
 }
 
 export default App;

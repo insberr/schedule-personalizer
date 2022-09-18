@@ -126,7 +126,7 @@ export function SettingsPage() {
                             Sentry.showReportDialog({ title: "Submit User Feedback.", subtitle: "This feedback will be sent to the developers or managers of this instance of Schedule Personalizer.", subtitle2: "", labelComments: "What would you like to tell us?", labelSubmit: "Submit", eventID: Sentry.captureEvent({ message: "btn-user-input-settings" }) });
                         }}>Send Feedback</Button>
                         <div></div>
-                        <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { setEditManually(true) }}>Edit Schedule</Button>
+                        <Button className={ stv.isLoggedIn ? 'hidden' : '' } onClick={() => { navigate(Page.EDITMANUALLY) /*setEditManually(true)*/ }}>Edit Schedule</Button>
                         <Button variant="danger" onClick={()=>{ navigate(Page.SCHEDULE); resetStorage(); location.reload(); }}>Reset</Button>
                         <Button onClick={()=>{ dispatch(resetColors()); setTimeout(() => { navigate(Page.SCHEDULE) }, 100); }}>Reset Custom Colors</Button>
                         <Button onClick={() => { dispatch(setTutorial(settings.defaultCustomizations.tutorial))}}>Reset Tutorial ToolTips</Button>

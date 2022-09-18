@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 import * as settings from '../../../config/settings';
 
 // Types
-import { CL, emptyCL, Terms } from '../../../types';
+import { CL, emptyCL } from '../../../types';
 
-// Redux
+// Redux And Navigation
 import { useDispatch } from "react-redux";
-import { setLunch, useSchedule } from '../../../storage/schedule';
+import { setLunch, useSchedule, setTerms } from '../../../storage/schedule';
+
+import { useNavigate } from '../../../router/hooks';
 
 // Components
 import Center from '../../../components/Center';
@@ -18,20 +20,22 @@ import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import { Page } from '../../../storage/page';
 
 
 type Props = {
     setStage: (stage: number) => void;
-    setSchedule: (schedule: Terms) => void;
-    setIsEdit?: (isEdit: boolean) => void;
+    // setSchedule: (schedule: Terms) => void;
+    // setIsEdit?: (isEdit: boolean) => void;
     isEdit?: boolean;
 }
 
 export function Manual(props: Props) {
+    const navigate = useNavigate();
     const classAmount = settings.numberOfPeriods;
     const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);
-    const [terms, setTerms] = useState<Terms>(() => sch.terms.length > 0 ? sch.terms : settings.termsDates)
+    // const [terms, setTermsD] = useState<Terms>(() => sch.terms.length > 0 ? sch.terms : settings.termsDates)
     const [l, sl] = useState(sch.lunch || 1);
 
     const dispatch = useDispatch();
@@ -43,23 +47,19 @@ export function Manual(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [l])
 
-    if (terms[0].classes.length < 1) {
-        terms.map(t => {
+    if (sch.terms[0].classes.length < 1) {
+        sch.terms.map(t => {
             t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
-            /*t.classes[0] = {
-                ...t.classes[0],
-                classID: ClassIDS.Advisory,
-                name: "Advisory",
-            }
-            */
             return t;
         })
     }
 
     function setClass(classNum: number, clas: CL) {
-        const newTerms = [...terms];
+        const newTerms = [...sch.terms];
         newTerms[term].classes[classNum] = clas;
-        setTerms(newTerms);
+        
+        // setTermsD(newTerms);
+        dispatch(setTerms(newTerms));
     }
 
     return (
@@ -72,7 +72,7 @@ export function Manual(props: Props) {
                         <FloatingLabel controlId="formSelectTerm" label="Select Term" className="uncenter-floating-label">
                             <Form.Select value={term} onChange={(n) => {setTerm(parseInt(n.target.value)); console.log("set term to "+n.target.value)}}  aria-label="Term Select">
                                 { 
-                                    terms.map((t, i) => {
+                                    sch.terms.map((t, i) => {
                                         return <option key={"term"+i} value={t.termIndex}>Term {t.termIndex + 1}</option>
                                     })
                                 }
@@ -82,7 +82,7 @@ export function Manual(props: Props) {
                 </Row>
                 <Row className="paper mt-4" style={{'maxWidth': '1000px'}}>
                     {[...Array(classAmount)].map((_, i) => {
-                        return <ManualClassEntry  value={terms[term].classes[i]} change={ (c: CL) => {setClass(i,c)} } isAdv={i==0} period={i} key={"class"+i} />
+                        return <ManualClassEntry  value={sch.terms[term].classes[i]} change={ (c: CL) => {setClass(i,c)} } isAdv={i==0} period={i} key={"class"+i} />
                     })}
                 </Row>
                 <Row className="mt-4">
@@ -91,7 +91,7 @@ export function Manual(props: Props) {
                 <Row className="mt-4 mb-5">
                     <Col>
                         { isValid ? "" : <Alert variant="danger">You need to fill out all boxes</Alert>}
-                        <Button variant='crimson' onClick={()=>{ props.setSchedule(terms); props.isEdit ? (props as { setIsEdit: (s: boolean) => void }).setIsEdit(false) : props.setStage(69); }} disabled={!isValid}>Confirm</Button>
+                        <Button variant='crimson' onClick={()=>{ props.isEdit ? navigate(Page.SETTINGS) : props.setStage(69); }} disabled={!isValid}>Confirm</Button>
                     </Col>
                 </Row>
             </Container>

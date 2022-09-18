@@ -6,13 +6,6 @@ import { ClassIDS } from '../types';
 // The usual period lunch is based on.
 export const normalLunchBasedOnPeriod = 3;
 
-
-// StudentVue API URL (You can host it yourself (WE SHOULD PUBLISH THE SERVER CODE OR SOMETHING IDK))
-// Do Not Add Trailing Slash (/), else the code will error [IMPLEMENT THIS]
-//     (I should make sure the code auto detects a trailing slash, this is just a reminder)
-// If no api url is provided, then the studentvue login page will not be shown in setup [IMPLEMENT THIS]
-export const studentVueApiURL = 'https://studentvue.wackery.com';
-
 export const studentvueAPIEndpoint = 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx';
 
 // School Name
@@ -38,6 +31,26 @@ export const cambridgePeriods = [11, 12, 13];
 
 // If your school has an advisory period, set this to true
 export const hasAdvisory = true;
+
+// NOT IMPLEMENTED
+export const scheduleConfigs = {
+    normal: {
+        // Should not include advisory or zero hour
+        numberOfPeriods: 5,
+        hasAdvisory: true,
+        hasZeroHour: false,
+    },
+    /* Overides */
+    overides: [
+        {
+            nameame: 'Cambridge',
+            valueName: 'cambridge',
+            trigger: {
+                hasPeriods: [11, 12, 13],
+            },
+        }
+]
+}
 
 export const lastDayOfSchool = new Date('June 23, 2023');
 // Terms
@@ -111,4 +124,5 @@ export const defaultCustomizations: types.Customizations = {
     }
 }
 
+// This is partly a joke,,,, (I think)
 export const multiplayer = true;

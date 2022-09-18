@@ -39,6 +39,7 @@ type MergedSchedule = {
 }
 
 function SchedulePage() {
+    console.log("Schedule Page")
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const sch = useSchedule();
@@ -51,7 +52,10 @@ function SchedulePage() {
     const [userLunch, setUserLunch] = useState(sch.lunch);
     useEffect(() => {
         dispatch(setLunch(userLunch))
-    }, [userLunch,dispatch])
+    }, [userLunch, dispatch])
+    useEffect(() => {
+        setUserLunch(sch.lunch)
+    }, [sch.lunch])
 
     const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(today());
     // probably a bad way to do ths
@@ -77,6 +81,7 @@ function SchedulePage() {
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDisplayDate, sch, stv, userLunch]);
+
     useEffect(() => {
         if (!isSetupComplete) {
             navigate(Page.SETUP);

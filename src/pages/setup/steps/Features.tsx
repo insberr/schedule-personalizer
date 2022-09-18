@@ -14,7 +14,7 @@ type Props = {
 
 const whatsnew = [
     'Completely redesigned the UI',
-    'The map shows you where your classes are! (working progress)',
+    'The map shows you where your classes are!',
     'Login with StudentVue to have all your classes automatically added.',
     'Auto schedules for events like 2 hour delays (coming soon)',
     'You can now screenshot the schedule on site!',

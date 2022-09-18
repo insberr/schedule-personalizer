@@ -19,7 +19,7 @@ export function IntroPonent(props: Props) {
         immediate: stage1Complete,
         config: {
             tension: 290,
-            friction: 80
+            friction: 50
         },
         }
         
@@ -35,7 +35,7 @@ export function IntroPonent(props: Props) {
         immediate: stage1Complete,
         config: {
             tension: 280,
-            friction: 80
+            friction: 50
         },
         onChange: {
             special: (result: AnimationResult<SpringValue<number>>) => {
@@ -60,6 +60,6 @@ export function IntroPonent(props: Props) {
                 </div>
             </>)
         } else {
-            return props.children;
+            return (<><span>test</span><span>{props.children}</span></>);
         }
 }

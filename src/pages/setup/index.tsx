@@ -19,7 +19,16 @@ import { Manual } from './steps/Manual';
 import { useNavigate } from "../../router/hooks";
 import { setTerms } from '../../storage/schedule';
 import { Page } from '../../storage/page';
+import LoadSpinner from '../../components/LoadSpinner';
 
+export enum SetupStages {
+    AddToHomeScreen,
+    Features,
+    Login,
+    Manual,
+    Schedule,
+    Edit,
+}
 
 function SetupPage() {
     const [stage, setStage] = useState(0);
@@ -38,32 +47,32 @@ function SetupPage() {
     })
 
     // TO DO: maybe use enum for stages valuse??
-    let thing = <div />
+    let thing = <LoadSpinner />
     switch (stage) { 
-        case -1: {// fuck you no importing manually
-            thing = <Manual setStage={setStage} setSchedule={ setLocalSchedule }  />
+        case -1: { // fork you no importing manually
+            thing = <Manual setStage={setStage} />
             break;
         }
-        case 0: {// studentvue login
+        case 0: {
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                setStage(1)
+                setStage(420)
             } else {
                 thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>
             }
             break;
         }
         case 1: {
-            thing = <Features setStage={setStage} /> // <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // use a special setStudentvue hook?
+            thing = <Features setStage={setStage} />
             break;
         }
-        case 69: // the schedule will only be set in this state, so stages can pass schedule data between them (lunch detect failure)
-            thing = <div />
+        case 69: // The schedule will only be set in this state
+            thing = <LoadSpinner />
             break;
         case 420:
-            thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} /> // <WhatsNew setStage={setStage} />
+            thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} />
             break;
         default: 
-            thing = (<div>Invalid state! How did we get here? <Button onClick={ () => { setStage(0) } } variant="primary">Back To Beginning</Button></div>)
+            thing = (<div>Unknown Setup Page! How did we get here? <Button onClick={ () => { setStage(0) } } variant="primary">Back To Beginning</Button></div>)
     }
     return (
         <IntroPonent>

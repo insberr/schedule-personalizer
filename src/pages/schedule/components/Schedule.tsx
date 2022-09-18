@@ -36,7 +36,7 @@ function Schedule(props: ScheduleProps) {
         if (navigator.onLine && studentvue.isLoggedIn === true && studentvue.gotSchedules === false) {
             setCustomToast({
                 header: "StudentVue Error",
-                body: "We were unable to get your classes from StudentVue. StudentVue may be down/your schedule may have an issue or you are not connected to the internet."
+                body: "We were unable to get your classes from StudentVue. StudentVue may be down. Try refreshing Schedule Personalizer."
             })
             setShowCustomToast(true);
         }

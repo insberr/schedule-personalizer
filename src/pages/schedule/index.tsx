@@ -231,6 +231,9 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                 }
             } else {
                 const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher;
+                if (errMsgTeacher.id === '') {
+                    console.log('StudentVue login mustve failed for some reason...')
+                }
                 const errMsg = `Teacher is missing from lunches config. \nName: ${errMsgTeacher.name}, ID: ${errMsgTeacher.id}, Email: ${errMsgTeacher.email}. Users school: ${studentInfo.info?.content.CurrentSchool}`;
                 Sentry.captureException(new Error(errMsg));
                 console.log(errMsg);

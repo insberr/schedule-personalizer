@@ -60,6 +60,6 @@ export function IntroPonent(props: Props) {
                 </div>
             </>)
         } else {
-            return (<><span>test</span><span>{props.children}</span></>);
+            return props.children;
         }
 }

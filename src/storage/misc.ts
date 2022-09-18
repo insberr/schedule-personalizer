@@ -6,6 +6,8 @@ export type Misc = {
   
   import { createSlice } from '@reduxjs/toolkit'
   import type { PayloadAction } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
   
   const initialState: Misc = {
       setupComplete: false,
@@ -32,6 +34,9 @@ export type Misc = {
     },
   })
   
+export function useMisc(): Misc {
+    return useSelector((state: RootState) => state.misc)
+}
   // Action creators are generated for each case reducer function
   export const { setSetupComplete, reset, setRgbParty, setPresentationMode } = miscSlice.actions
   

@@ -39,7 +39,6 @@ type MergedSchedule = {
 }
 
 function SchedulePage() {
-    console.log("Schedule Page")
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const sch = useSchedule();

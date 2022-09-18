@@ -32,7 +32,7 @@ export function page2url(p: Page): string {
     case Page.SETTINGS:
       return "./settings"
     case Page.SCHEDULE:
-      return "/"
+      return "./"
     case Page.SETUP:
       return "./setup"
     case Page.PATHOFPAIN:

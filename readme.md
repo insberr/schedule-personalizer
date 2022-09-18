@@ -7,6 +7,7 @@ Schedule Personalizer is a self hosted school schedule website/web app that disp
 Components that are only used for one page should be put into `src/pages/<page>/components` while components used for multiple pages go into `src/components`
 
 ### Possible features to consider adding?
+- Site updates in the background when theres a new commit to the git repo
 - Allow storing config (or schedules and events) in a database and make it writeable from a UI ?
 - Multipe school config, so a school district can host one instance of schedule personalizer for all their schools
 - Lunches can be based on multiple periods (oh goodness thatll be complex as hell)

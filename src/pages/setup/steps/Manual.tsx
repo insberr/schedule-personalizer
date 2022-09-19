@@ -47,8 +47,9 @@ export function Manual(props: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [l])
 
-    if (sch.terms[0].classes.length < 1) {
-        sch.terms.map(t => {
+    if (sch.terms.length === 0) {
+        console.log('this shouldnt run,, ever. EVER. IF IT RUNS YOU WILL BE FIRED')
+        settings.termsDates.map(t => {
             t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
             return t;
         })

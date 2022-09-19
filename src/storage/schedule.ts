@@ -1,6 +1,8 @@
-import type { Terms, Term, CL } from "../types"
+import { Terms, Term, CL, emptyCL } from "../types"
 import { RootState } from "./store"
-import { deserify } from "@karmaniverous/serify-deserify"
+import { serify, deserify } from "@karmaniverous/serify-deserify"
+import * as settings from '../config/settings'
+
 export type ScheduleStorage = {
     terms: Terms,
     lunch: number
@@ -12,7 +14,10 @@ import { useSelector } from 'react-redux'
 
 const initialState: ScheduleStorage = {
     lunch: 1,
-    terms: []
+    terms: serify(settings.termsDates.map(t => {
+        t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+        return t;
+    }))
 }
 
 export const scheduleSlice = createSlice({

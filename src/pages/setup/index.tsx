@@ -17,7 +17,7 @@ import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
 import { useNavigate } from "../../router/hooks";
-import { setTerms } from '../../storage/schedule';
+import { setTerms, useSchedule } from '../../storage/schedule';
 import { Page } from '../../storage/page';
 import LoadSpinner from '../../components/LoadSpinner';
 
@@ -31,8 +31,9 @@ export enum SetupStages {
 }
 
 function SetupPage() {
+    const sch = useSchedule();
     const [stage, setStage] = useState(0);
-    const [schedule, setLocalSchedule] = useState<Terms | undefined>(undefined);
+    const [schedule, setLocalSchedule] = useState<Terms>(sch.terms);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -47,11 +48,9 @@ function SetupPage() {
         if (stage != 69) {
             return;
         }
-        if (schedule) {
-            dispatch(setSetupComplete(true));
-            dispatch(setTerms(schedule));
-            navigate(Page.SCHEDULE);
-        }
+        dispatch(setSetupComplete(true));
+        dispatch(setTerms(schedule));
+        navigate(Page.SCHEDULE);
     })
 
     // TO DO: maybe use enum for stages valuse??

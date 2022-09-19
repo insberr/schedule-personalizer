@@ -1,5 +1,3 @@
-//import { createRoot } from "react-dom/client";
-//import { StrictMode } from "react";
 import eruda from './eruda'
 import App from './App'
 import { identifyCommit } from "./lib/lib";
@@ -11,9 +9,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import LoadSpinner from "./components/LoadSpinner";
 import { Provider } from 'react-redux'
 import { BrowserTracing } from '@sentry/tracing';
-// import { BrowserTracing } from "@sentry/tracing";
 import SentryRRWeb from "@sentry/rrweb";
 import { Button } from 'react-bootstrap';
+
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0
 
 function startLoad() {

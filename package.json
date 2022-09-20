@@ -12,6 +12,7 @@
     "devDependencies": {
         "@parcel/packager-raw-url": "^2.7.0",
         "@parcel/packager-xml": "^2.7.0",
+        "@parcel/transformer-mdx": "2.7.0",
         "@parcel/transformer-sass": "^2.7.0",
         "@parcel/transformer-webmanifest": "2.7.0",
         "@types/bootstrap": "^5.1.10",
@@ -87,6 +88,7 @@
     "dependencies": {
         "@fontsource/roboto": "^4.5.8",
         "@karmaniverous/serify-deserify": "^1.2.9",
+        "@mdx-js/react": "^1",
         "@parcel/core": "^2.7.0",
         "@parcel/service-worker": "^2.7.0",
         "@popperjs/core": "^2.11.6",

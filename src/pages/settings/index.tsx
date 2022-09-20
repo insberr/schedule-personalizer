@@ -22,7 +22,10 @@ import { setTerms, useSchedule } from "../../storage/schedule";
 import { useNavigate } from "../../router/hooks";
 import { SettingsHeader } from "./SettingsHeader";
 import { Page } from "../../storage/page";
-
+import React from "react"
+//mport { envelopeItemTypeToDataCategory } from "@sentry/utils";
+const _legal = React.lazy(() => import("../../legal.mdx"))
+const Legal = () => <React.Suspense fallback={<div>Loading...</div>}><_legal /></React.Suspense>
 
 export function SettingsPage() {
     const dispatch = useDispatch()
@@ -357,6 +360,11 @@ export function SettingsPage() {
                     <div><a href="https://insberr.com">Jonah Matteson</a> - Creator - @insberr on all socials</div>
                     <div><a href="https://wackery.com">Wackery</a> - Creator</div>
                     <a href="https://github.com/insberr/schedule-personalizer">See the code on GitHub</a>
+                    <hr style={{"marginTop":"3em", "marginBottom": "1em"}} />
+                    <h3 style={{"marginBottom":"1em"}}>Licenses</h3>
+                    <div style={{"width": "75vw"}} className="paper"><Legal /></div>
+                    
+
                 </Center>
             </Tab>
             <Tab eventKey="devs" title="Devs">

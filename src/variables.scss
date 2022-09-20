@@ -1,4 +1,4 @@
-@import "npm:bootstrap/scss/functions";
+ @import "npm:bootstrap/scss/functions";
 
 
 $body-bg: #272727;
@@ -47,8 +47,8 @@ $grid-breakpoints: (
   xxl: 1400px
 );
 
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/mixins";
+@import "npm:bootstrap/scss/variables";
+@import "npm:bootstrap/scss/mixins";
 
 $custom-colors: (
   "crimson": #DC143C,

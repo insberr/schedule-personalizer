@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 0bc093616241ab68c7edaeffc975032c1d7e96c8..66997125a008b14e8c3c065bffffc4e24c38691e 100644
+--- a/index.js
++++ b/index.js
+@@ -91,7 +91,7 @@ export default function stringifyObject(input, options, pad) {
+ 		if (isObject(input)) {
+ 			let objectKeys = [
+ 				...Object.keys(input),
+-				...getOwnEnumPropSymbols.default(input),
++				...getOwnEnumPropSymbols(input),
+ 			];
+ 
+ 			if (options.filter) {

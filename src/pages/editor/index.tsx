@@ -6,7 +6,7 @@ import { DateEditor } from "./DateEditor";
 import { ScheduleEditor } from "./ScheduleEditor";
 import { scheduleEvents, ScheduleEvents, ScheduleEvent, DateRange } from "../../config/events";
 import { SchedulesType, schedules } from "../../config/schedules";
-import stringifyObject from '../../lib/stringify-object';
+import stringifyObject from 'stringify-object';
 import { format } from "date-fns"
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { today } from "../../today";

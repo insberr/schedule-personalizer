@@ -1993,6 +1993,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/stringify-object@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@types/stringify-object@npm:4.0.1"
+  checksum: 5c30bb6604ff903bf0e5ddd90cceef289f836a6607d55c622abb7d77c6c569ab0928b456ecb6291b1556a60bfbbba62714013fb418837a086f79bb76f56901ba
+  languageName: node
+  linkType: hard
+
 "@types/styled-components@npm:^5":
   version: 5.1.26
   resolution: "@types/styled-components@npm:5.1.26"
@@ -4979,7 +4986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-regexp@npm:^3.1.0":
+"is-regexp@npm:^3.0.0, is-regexp@npm:^3.1.0":
   version: 3.1.0
   resolution: "is-regexp@npm:3.1.0"
   checksum: d39dbd9892f0a25d01ee1a8e650c3f2e045bf7b1fa87eafb50b31dd29342869aa9135fd372628202254398956bf7f4b62094bdda39283ec2a9bb749fbb7f427c
@@ -7362,6 +7369,7 @@ __metadata:
     "@types/rimraf": ^3
     "@types/serviceworker": ^0.0.51
     "@types/sharp": ^0
+    "@types/stringify-object": ^4.0.1
     "@types/styled-components": ^5
     "@types/tinycolor2": ^1
     "@types/workbox-precaching": ^4.3.1
@@ -7407,6 +7415,7 @@ __metadata:
     rrweb: ^2.0.0-alpha.1
     sharp: ^0.29.1
     stream-browserify: ^3.0.0
+    stringify-object: ^4.0.1
     styled-components: ^5.3.5
     swr: ^1.3.0
     tinycolor2: ^1.4.2
@@ -7832,6 +7841,28 @@ __metadata:
   dependencies:
     safe-buffer: ~5.2.0
   checksum: 8417646695a66e73aefc4420eb3b84cc9ffd89572861fe004e6aeb13c7bc00e2f616247505d2dbbef24247c372f70268f594af7126f43548565c68c117bdeb56
+  languageName: node
+  linkType: hard
+
+"stringify-object@npm:4.0.1":
+  version: 4.0.1
+  resolution: "stringify-object@npm:4.0.1"
+  dependencies:
+    get-own-enumerable-property-symbols: ^3.0.2
+    is-obj: ^3.0.0
+    is-regexp: ^3.0.0
+  checksum: 97fc5473bc726effe8b39e7eb96009fc573716497a0b00005bb68250150c4d086682356f4cee1823d404ac40ac36c0e643d5b9960ecfd3e96bb1ae20225e467b
+  languageName: node
+  linkType: hard
+
+"stringify-object@patch:stringify-object@npm%3A4.0.1#./.yarn/patches/stringify-object-npm-4.0.1-47b9ca5893.patch::locator=schedule-personalizer%40workspace%3A.":
+  version: 4.0.1
+  resolution: "stringify-object@patch:stringify-object@npm%3A4.0.1#./.yarn/patches/stringify-object-npm-4.0.1-47b9ca5893.patch::version=4.0.1&hash=f5332a&locator=schedule-personalizer%40workspace%3A."
+  dependencies:
+    get-own-enumerable-property-symbols: ^3.0.2
+    is-obj: ^3.0.0
+    is-regexp: ^3.0.0
+  checksum: aed8c003caae14de57ecb9f6ee3b4503ac5b32c4a4a5ccac3d61ab2fde0341c699178344fee5349850a5cca02629cc45887330a92f02da811fbc1dbf9c0038e0
   languageName: node
   linkType: hard
 

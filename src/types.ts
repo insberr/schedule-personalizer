@@ -1,4 +1,5 @@
 import set from "date-fns/set"
+import { ScheduleEvents } from "./config/events"
 import { today } from "./today"
 
 // for config/settings.ts
@@ -211,3 +212,9 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
 }
 
 // STAGES TYPES END
+
+declare global {
+    interface Window {
+        sch: ScheduleEvents | undefined
+    }
+}

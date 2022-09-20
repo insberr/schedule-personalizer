@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 
 import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from "../../types";
 import Center from "../../components/Center";
-import { Col, Container,  Form, ListGroup, Row, Stack, Tab, Tabs } from "react-bootstrap";
+import { Col, Collapse, Container,  Form, ListGroup, Row, Stack, Tab, Tabs, Accordion } from "react-bootstrap";
 import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from "../../storage/customizations";
 import ScheduleEntry from "../schedule/components/ScheduleEntry";
 import tinyColor from 'tinycolor2';
@@ -361,8 +361,17 @@ export function SettingsPage() {
                     <div><a href="https://wackery.com">Wackery</a> - Creator</div>
                     <a href="https://github.com/insberr/schedule-personalizer">See the code on GitHub</a>
                     <hr style={{"marginTop":"3em", "marginBottom": "1em"}} />
-                    <h3 style={{"marginBottom":"1em"}}>Licenses</h3>
-                    <div style={{"width": "75vw"}} className="paper"><Legal /></div>
+                    <div style={{"width": "75vw"}} className="paper">
+                        <Accordion>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>3rd Party Licences</Accordion.Header>
+                                <Accordion.Body>
+                                    <Legal />
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+
+                    </div>
                     
 
                 </Center>

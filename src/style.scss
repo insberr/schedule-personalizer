@@ -1,11 +1,10 @@
 @import "./variables.scss";
-@import "npm:@fontsource/roboto/index.css";
 
 // Include any default variable overrides here (though functions won't be available)
 // see the sass section in each bootstrap module
 
 // some stuff from another site
-
+@import "roboto.scss";
 
 @import "npm:bootstrap/scss/bootstrap";
 

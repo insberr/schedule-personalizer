@@ -91,7 +91,6 @@
         ]
     },
     "dependencies": {
-        "@fontsource/roboto": "^4.5.8",
         "@karmaniverous/serify-deserify": "^1.2.9",
         "@mdx-js/react": "^1",
         "@parcel/service-worker": "^2.7.0",
@@ -136,6 +135,7 @@
         "tinycolor2": "^1.4.2",
         "use-react-screenshot": "^3.0.0",
         "workbox-background-sync": "^6.5.4",
+        "workbox-cacheable-response": "^6.5.4",
         "workbox-core": "^6.5.4",
         "workbox-precaching": "^6.5.4",
         "workbox-sw": "^6.5.4",

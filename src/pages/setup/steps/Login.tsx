@@ -62,7 +62,7 @@ export function Login(props: Props) {
                 setValidUser({ isValid: false, loading: false, name: "", school: "" });
             }
         }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
-    }, 1000, [username, password])
+    }, 300, [username, password])
 
     async function Submit() {
         setLoading(true);
@@ -98,7 +98,7 @@ export function Login(props: Props) {
         
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
-        api.getAllSchedules(username, password).then(res => {
+        await api.getAllSchedules(username, password).then(res => {
             dispatch(setGotSchedules(true));
             props.setSchedule(api.convertStudentvueDataToTerms(res));
         }).catch(err => {

@@ -1,14 +1,30 @@
-import { precacheAndRoute, PrecacheEntry, addPlugins } from "workbox-precaching";
-import { clientsClaim, setCacheNameDetails } from "workbox-core";
+/*import { precacheAndRoute, PrecacheEntry, addPlugins } from "workbox-precaching";*/
+import { clientsClaim } from "workbox-core";
 import {manifest, version} from '@parcel/service-worker';
 import { BackgroundSyncPlugin } from 'workbox-background-sync'
+import {registerRoute} from 'workbox-routing';
+import {CacheFirst, NetworkFirst} from 'workbox-strategies';
+//import { ExpirationPlugin }  from "workbox-expiration";
+//import { request } from "http";
 
 self.addEventListener("install", () => {
     self.skipWaiting().then(clientsClaim);
     console.log("oh shit guess who it fuckin is, its the gamer service worker here with offline support.")
 })
+const toNetwork = [
+    "document",
+    "manifest"
+]
 
-const precacheList: PrecacheEntry[] = []
+const opt = {
+    plugins: [new BackgroundSyncPlugin("syncy")],
+    "cacheName": "schedulecache"
+}
+registerRoute((r) => toNetwork.includes(r.request.destination), new NetworkFirst(opt))
+registerRoute((r) => !toNetwork.includes(r.request.destination)&&new URL(r.request.url).origin==location.origin,  new CacheFirst(opt))
+
+
+/*const precacheList: PrecacheEntry[] = []
 
 const hashRegex = /.+\.(.+)\..+/
 
@@ -58,7 +74,7 @@ addPlugins([
     new BackgroundSyncPlugin("background-sync")
 ])
 
-precacheAndRoute(precacheList); // yoo caching
+precacheAndRoute(precacheList); */// yoo caching
 /*
 self.addEventListener("message", (event) => {
     const msg = event.data;

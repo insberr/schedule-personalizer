@@ -16,6 +16,7 @@ import { Route } from "./router/Route";
 import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
 import { Manual } from './pages/setup/steps/Manual';
+import { StudentID } from './pages/studentID';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
@@ -61,7 +62,7 @@ function App() {
 
     return (
     <React.Suspense fallback={<LoadSpinner />}>
-        <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY]}>
+        <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY, Page.STUDENTID]}>
             <Route routes={[Page.SCHEDULE]} hide={true}>
                 <SchedulePage />
             </Route>
@@ -70,6 +71,9 @@ function App() {
             </Route>
             <Route routes={[Page.EDITMANUALLY]} hide={false}>
                 <Manual isEdit={true} setStage={(n: number) => {n}}/>
+            </Route>
+            <Route routes={[Page.STUDENTID]} hide={false}>
+                <StudentID />
             </Route>
         </Route>
         <Route routes={[Page.SETUP]}>

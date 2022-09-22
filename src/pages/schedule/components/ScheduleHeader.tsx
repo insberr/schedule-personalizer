@@ -65,6 +65,7 @@ export function SchHeader(props: Props) {
           <Navbar.Brand className="d-none d-md-block" href="#" onClick={props.home}>Schedule V5</Navbar.Brand>
           <NavDropdown ref={toolTipDidYouKnowMap} className="text-muted" title="More" id={id+"nav"} onClick={() => hideMoreMapToolTip()}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
+            <NavDropdown.Item onClick={()=>{ navigate(Page.STUDENTID) }}>Student ID</NavDropdown.Item>
             <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
           </NavDropdown>
           <Overlay target={toolTipDidYouKnowMap.current} show={showDidYouKnow} placement="bottom">

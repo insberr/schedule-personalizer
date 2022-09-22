@@ -67,11 +67,12 @@ export function SchHeader(props: Props) {
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
             <NavDropdown.Item onClick={()=>{ navigate(Page.STUDENTID) }}>Student ID</NavDropdown.Item>
             <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
+            <NavDropdown.Item disabled onClick={()=>{ return; }}>Tutorial</NavDropdown.Item>
           </NavDropdown>
           <Overlay target={toolTipDidYouKnowMap.current} show={showDidYouKnow} placement="bottom">
             {(props) => (
                 <Tooltip className="lighter-tool-tip" id="didYouKnowMap" {...props} onClick={() => { hideMoreMapToolTip() }}>
-                    Did you know you can click {"'"}More{"'"} to see the school map or email your counselor? (Click this to hide it)
+                    Check out more cool features! (Click to dismiss)
                 </Tooltip>
             )}
             </Overlay>

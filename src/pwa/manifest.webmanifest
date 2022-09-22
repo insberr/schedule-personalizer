@@ -39,32 +39,7 @@
             "short_name": "ID",
             "description": "Display Student ID Card",
             "url": "./?studentID",
-            "icons": [
-                {
-                    "src": "./icons/maskable_icon.png",
-                    "type": "image/png",
-                    "sizes": "250x250",
-                    "purpose": "maskable"
-                },
-                {
-                    "src": "./icons/icon.svg",
-                    "type": "image/svg+xml",
-                    "sizes": "150x150",
-                    "purpose": "any"
-                },
-                {
-                    "src": "./icons/icon.png?width=192&height=192",
-                    "type": "image/png",
-                    "sizes": "192x192",
-                    "purpose": "any"
-                },
-                {
-                    "src": "./icons/icon.png",
-                    "type": "image/png",
-                    "sizes": "512x512",
-                    "purpose": "any"
-                }
-            ]
+            "icons": []
         }
     ],
     "description": "Schedule: Personalizered",

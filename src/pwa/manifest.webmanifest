@@ -38,8 +38,13 @@
             "name": "Student ID",
             "short_name": "ID",
             "description": "Display Student ID Card",
-            "url": "./?studentID",
-            "icons": []
+            "url": "?studentID"
+        },
+        {
+            "name": "Test",
+            "short_name": "test /uh",
+            "description": "uh",
+            "url": "/uh"
         }
     ],
     "description": "Schedule: Personalizered",

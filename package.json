@@ -112,6 +112,7 @@
         "html2canvas": "^1.4.1",
         "is-obj": "^3.0.0",
         "is-regexp": "^3.1.0",
+        "jsbarcode": "^3.11.5",
         "keyboardjs": "^2.6.4",
         "lodash": "^4.17.21",
         "pathfinding": "^0.4.18",

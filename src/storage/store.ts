@@ -140,6 +140,9 @@ const migrations = {
     },
     10: (state: any) => {
         return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: { ...state.customization.theme.colors, schedule: { ...state.customization.theme.colors.schedule, [ClassIDS.Passing]: defaultCustomizations.theme.colors.schedule[ClassIDS.Passing] } } } }}
+    },
+    11: (state: any) => {
+        return { ...state, customization: { ...state.customization, theme: { ...state.customization.theme, colors: { ...state.customization.theme.colors, schedule: { ...state.customization.theme.colors.schedule, [ClassIDS.Custom]: defaultCustomizations.theme.colors.schedule[ClassIDS.Custom] } } } }}
     }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -167,7 +170,7 @@ const sentryReduxEnhancer = Sentry.createReduxEnhancer({
 
 export const persistConfig = {
     key: 'v5ReduxData',
-    version: 10,
+    version: 11,
     storage,
     blacklist: [
         "router"

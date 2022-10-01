@@ -1,4 +1,5 @@
 import * as teachersConfig from '../config/teachers';
+import { ClassIDS } from '../types';
 
 export type Lunch = {
     lunch: number
@@ -6,7 +7,9 @@ export type Lunch = {
 }
 
 export type LunchesBasedOnPeriod = {
+    forOveride?: boolean;
     basedOnPeriod: number
+    basedOnPeriodID?: ClassIDS,
     lunches: Lunch[]
 }
 

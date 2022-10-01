@@ -42,6 +42,7 @@ export enum ClassIDS {
     NoSchool,
     Weekend,
     Summer,
+    Custom,
 }
 
 export type Stdata = {
@@ -58,6 +59,7 @@ export type StudentVue = {
 
 export type Class = {
     classID: ClassIDS
+    customID?: number
     // number[] is because of my start at bnuilding multiLunches
     period: number | number[] | undefined
     name: string

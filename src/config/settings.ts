@@ -103,6 +103,7 @@ export const defaultCustomizations: types.Customizations = {
                 [ClassIDS.Weekend]: defaultColor,
                 [ClassIDS.Summer]: defaultColor,
                 [ClassIDS.Passing]: defaultColor,
+                [ClassIDS.Custom]: defaultColor,
             },
             currentClass: defaultColor,
             scheduleFrame: defaultColor,

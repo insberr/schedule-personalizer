@@ -25,6 +25,9 @@ export const stvSlice = createSlice({
     setInfo(state, action: PayloadAction<infoTypes>) {
         state['info'] = action.payload
     },
+    setInfoGrade(state, action: PayloadAction<string>) {
+        state['info'] ? state['info'].content.Grade = action.payload : null;
+    },
     setSch(state, action: PayloadAction<schTypes>) {
         state['sch'] = action.payload
     },

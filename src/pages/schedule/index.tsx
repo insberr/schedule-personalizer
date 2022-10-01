@@ -19,7 +19,7 @@ import { RootState } from '../../storage/store';
 import { today } from "../../today";
 import { useNavigate } from '../../router/hooks';
 import { Page } from '../../storage/page';
-
+import { overidesMergeDataWithSchedule } from './handleOverides';
 
 export type EventSchedule = {
     isEvent: boolean,
@@ -124,7 +124,42 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
     }
 
     // Check for Cambridge
-    if (displayTerm.classes.filter(p => settingsConfig.cambridgePeriods.includes(p.period)).length > 0) {
+    if (currentDisplayDayEvent.schedule.overides !== undefined) {
+        const mergedOverideSchedule = overidesMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || 'manual', currentDisplayDayEvent);
+
+        let lunchifiedScheduleOveride: MergedSchedule = {
+            schedule: [],
+            event: currentDisplayDayEvent,
+            sch: sch.terms,
+        }
+
+        if (mergedOverideSchedule === null) {
+            console.log('overide schedule is null');
+            const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
+            lunchifiedScheduleOveride = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+        } else {
+            const cambridgeCurrentDisplayDayEvent = {
+                ...currentDisplayDayEvent,
+                schedule: {
+                    ...currentDisplayDayEvent.schedule,
+                    classes: mergedOverideSchedule.newClasses
+                },
+            }
+
+            lunchifiedScheduleOveride = {
+                schedule: mergedOverideSchedule.scheduleForDisplay,
+                event: cambridgeCurrentDisplayDayEvent,
+                sch: sch.terms,
+            }
+
+            if (mergedOverideSchedule.overideForGrade.ignoreLunchConfig !== true) {
+                lunchifiedScheduleOveride = lunchify(lunchifiedScheduleOveride, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+            }
+        }
+
+        return { currentDisplayDayEvent: lunchifiedScheduleOveride.event, lunchifiedSchedule: lunchifiedScheduleOveride };
+   
+    } else if (displayTerm.classes.filter(p => settingsConfig.cambridgePeriods.includes(p.period)).length > 0) {
         const mergedCambridgeSchedule = cambridgeMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || "0");
         let lunchifiedScheduleCambridge: MergedSchedule = {
             schedule: [],
@@ -210,17 +245,17 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     let userLunch: number = lunch;
     if (stv.isLoggedIn && displayTerm.classes.length > 0) {
         const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {
-            return lunches.basedOnPeriod === lunchValue.basedOnPeriod;
+            return lunches.basedOnPeriod === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? lunches.basedOnPeriodID === lunchValue.basedOnPeriodID : true);
         });
 
         if (temp_basedOnPeriodLunch.length > 0) {
             const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {
-                return lnc.teachers.map(t => t.id).includes(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.id);
+                return lnc.teachers.map(t => t.id).includes(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher.id);
             });
 
             if (temp_possibleLunches.length > 0) {
                 if (temp_possibleLunches.length > 1) {
-                    const errMsg = `Teacher "${displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher.name}" is listed for multiple lunches: ${Object.values(temp_possibleLunches.map(p => p.lunch)).join(', ')}`
+                    const errMsg = `Teacher "${displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher.name}" is listed for multiple lunches: ${Object.values(temp_possibleLunches.map(p => p.lunch)).join(', ')}`
                     Sentry.captureException(new Error(errMsg))
                     console.log(errMsg);
                 }
@@ -230,7 +265,7 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                     setUserLunch(userLunch);
                 }
             } else {
-                const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod })[0].teacher;
+                const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher;
                 if (errMsgTeacher.id === '') {
                     console.log('StudentVue login mustve failed for some reason...')
                 }
@@ -245,9 +280,9 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
     }
 
-    const lunchSchedule = lunchValue.lunches[lunch];
+    const lunchSchedule = lunchValue.lunches[userLunch];
 
-    const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod);
+    const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? period.classID === lunchValue.basedOnPeriodID : true));
 
     const lunchPeriod = mergedSchedule.schedule[indexOfLunchPeriod];
     const replacePeriodClassEntries = lunchSchedule.order.map((p) => {

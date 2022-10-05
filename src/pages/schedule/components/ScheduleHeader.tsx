@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import { today } from "../../../today";
 import { useNavigate } from '../../../router/hooks';
 import { Page } from '../../../storage/page';
+
 type Props = {
     sch: Class[],
     home: () => void,
@@ -66,6 +67,7 @@ export function SchHeader(props: Props) {
           <NavDropdown ref={toolTipDidYouKnowMap} className="text-muted" title="More" id={id+"nav"} onClick={() => hideMoreMapToolTip()}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>Map</NavDropdown.Item>
             <NavDropdown.Item onClick={()=>{ navigate(Page.STUDENTID) }}>Student ID</NavDropdown.Item>
+            <NavDropdown.Item onClick={()=>{ navigate(Page.SCHOOL) }}>School Info</NavDropdown.Item>
             <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
             <NavDropdown.Item disabled onClick={()=>{ return; }}>Tutorial</NavDropdown.Item>
           </NavDropdown>

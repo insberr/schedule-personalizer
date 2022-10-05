@@ -17,6 +17,8 @@ import SchedulePage from "./pages/schedule";
 import { SettingsPage } from "./pages/settings";
 import { Manual } from './pages/setup/steps/Manual';
 import { StudentID } from './pages/studentID';
+import { SchoolInfo } from './pages/schoolInfo';
+import { BetaMap } from './pages/beta';
 
 const SetupPage = React.lazy(() => import("./pages/setup"));
 const EditorPage = React.lazy(() => import("./pages/editor"));
@@ -62,7 +64,7 @@ function App() {
 
     return (
     <React.Suspense fallback={<LoadSpinner />}>
-        <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY, Page.STUDENTID]}>
+        <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY, Page.STUDENTID, Page.SCHOOL, Page.BETA]}>
             <Route routes={[Page.SCHEDULE]} hide={true}>
                 <SchedulePage />
             </Route>
@@ -74,6 +76,12 @@ function App() {
             </Route>
             <Route routes={[Page.STUDENTID]} hide={false}>
                 <StudentID />
+            </Route>
+            <Route routes={[Page.SCHOOL]} hide={false}>
+                <SchoolInfo />
+            </Route>
+            <Route routes={[Page.BETA]} hide={false}>
+                <BetaMap />
             </Route>
         </Route>
         <Route routes={[Page.SETUP]}>

@@ -4,7 +4,9 @@ import { useNavigate } from "../../router/hooks";
 import { Page } from "../../storage/page";
 import { useStudentvue } from "../../storage/studentvue";
 import { useCallback, useEffect, useId, useRef } from "react"
+import Center from "../../components/Center";
 //mport { notDeepEqual } from "assert";
+
 export function StudentID() {
     const navigate = useNavigate();
     const stv = useStudentvue();
@@ -23,9 +25,11 @@ export function StudentID() {
         barcoder.CODE39(stv.username)
     }, [stv.username,id])*/
     return (<>
+    <Center>
         <div>Working Progress</div>
         <div>Student Number: { stv.username }</div>
         <canvas ref={barcode}></canvas>
-        <Button onClick={() => { navigate(Page.SCHEDULE) }}>Back to schedule</Button>
+        <br /><Button onClick={() => { navigate(Page.SCHEDULE) }}>Back to schedule</Button>
+    </Center>
     </>)
 }

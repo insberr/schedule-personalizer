@@ -1,5 +1,4 @@
-import { useSpring, animated, config } from "@react-spring/web";
-import { useEffect } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 export function Slide(props: { children: React.ReactNode }) {
     const slide = useSpring({

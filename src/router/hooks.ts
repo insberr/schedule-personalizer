@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Page, page2url, route } from "../storage/page";
+import { Page, route } from "../storage/page";
 import { RootState } from "../storage/store";
 
 export function useRoute() {
@@ -10,7 +10,7 @@ export function useRoute() {
 export function useNavigate(): (p: Page) => void {
     const dispatch = useDispatch();
     return (p: Page) => {
-        window.history.replaceState(null,"",page2url(p));
+        // window.history.replaceState(null,"",page2url(p));
         dispatch(route(p));
     }
 }

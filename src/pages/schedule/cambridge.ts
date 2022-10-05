@@ -53,7 +53,7 @@ export function cambridgeMergeDataWithSchedule(displayTermClasses: CL[], display
         if (index === -1) continue;
 
         switch (overide.type) {
-            case ReplaceType.Switch: {
+            case ReplaceType.Replace: {
                 newClasses.splice(index, 1, overide.with);
                 break;
             }

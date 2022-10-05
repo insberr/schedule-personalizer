@@ -1,3 +1,4 @@
+import { ClassIDS } from "../types";
 import * as types from "../types/lunchesTypes";
 import { teachers } from "./teachers";
 
@@ -95,11 +96,39 @@ export const lunches: types.LunchesType = {
         },
         {
             // cringe
-            basedOnPeriod: 4,
+            forOveride: true,
+            basedOnPeriod: 0,
+            basedOnPeriodID: ClassIDS.Advisory,
             lunches: [
                 {
                     lunch: 1,
-                    teachers: [],
+                    teachers: [
+                        teachers.Fowler_Ethan_T,
+                        teachers.Grimaldi_Marseille,
+                        teachers.Hodges_Denise_L,
+                        teachers.Beatty_Matthew,
+                        teachers.Mcmullen_Michael_L,
+                        teachers.Partin_Mariah_F,
+                        teachers.Reisch_Rebecca_D,
+                        teachers.Welborn_Scott_T,
+                        teachers.Wilson_Anne_M,
+                    ],
+                },
+                {
+                    lunch: 3,
+                    teachers: [
+                        teachers.Bland_James_W,
+                        teachers.Doyle_Suzanne_M,
+                        teachers.Gardner_Kenneth_A,
+                        teachers.Greenland_Roy_F,
+                        teachers.Haegele_Dennis_S,
+                        teachers.Hilsabeck_Erika_M,
+                        teachers.Rath_Patricia_E,
+                        teachers.Sauer_Kyle_D,
+                        teachers.Southworth_Gregory_W,
+                        teachers.Whitehead_Ryan_D,
+                        teachers.Wiggins_Malissa_J,
+                    ],
                 },
             ],
         },

@@ -17,6 +17,7 @@ import { useStudentvue } from '../../../storage/studentvue';
 import { useSelector } from "react-redux";
 import { RootState } from "../../../storage/store";
 import { useInterval } from "react-use";
+import { Slide } from './scheduleSlide';
 
 type ScheduleProps = {
     sch: Class[]
@@ -159,11 +160,13 @@ function Schedule(props: ScheduleProps) {
                 setDisplayDate={ presentationMode ? ()=>{return;} : props.setDisplayDate }
                 presentationMode={ presentationMode }
             />
+            <Slide>
             <Center>
                 <div
                     ref={screenref}
                     style={{ padding: "3em", fontFamily: "Roboto" }}
                 >
+                    
                     <Container className={'scheduleList'}>
                         <Row className="row date text-center">
                             <Center className="date">
@@ -186,6 +189,7 @@ function Schedule(props: ScheduleProps) {
                             );
                         })}
                     </Container>
+                    
                     <div>{props.event.isEvent ? (
                         // TO DO: add timer for multi day event
                         <div style={{ marginTop: "1em" }} dangerouslySetInnerHTML={{ __html: props.event.info.message }}>
@@ -203,6 +207,7 @@ function Schedule(props: ScheduleProps) {
                     </div>
                 </div>
             </Center>
+            </Slide>
         </div>
     );
 }

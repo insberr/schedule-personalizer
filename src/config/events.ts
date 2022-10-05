@@ -126,13 +126,26 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("September 28, 2022"),
         },
     },
+    
+    // No advisory because the next day.
     {
-        schedule: schedules.lateStart1Hour,
+        schedule: schedules.normal,
         info: {
-            message: "Late Start",
+            message: "Normal Schedule | The Next Day Has Advisory : )",
+            date: new Date("October 4, 2022"),
+        },
+    },
+    
+    // College/Career Fair, gunna be fun to make that schedule work.
+    {
+        schedule: schedules.careerOneHourLateStart,
+        info: {
+            message: "Late Start & College/Career Fair",
             date: new Date("October 5, 2022"),
         },
     },
+
+
     {
         schedule: schedules.lateStart1Hour,
         info: {

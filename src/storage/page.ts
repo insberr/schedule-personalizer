@@ -1,13 +1,14 @@
 
-
 export enum Page {
-  SCHEDULE,
-  SETTINGS,
-  SETUP,
-  EDITOR,
-  PATHOFPAIN,
-  EDITMANUALLY,
-  STUDENTID,
+    SCHEDULE,
+    SETTINGS,
+    SETUP,
+    EDITOR,
+    PATHOFPAIN,
+    EDITMANUALLY,
+    STUDENTID,
+    SCHOOL,
+    BETA
 }
 
 // to do: make this an object and not 2 functions;
@@ -27,6 +28,10 @@ export function findDefaultRoute(): Page {
         return Page.EDITMANUALLY;
     case "?studentID":
         return Page.STUDENTID;
+    case "?school":
+        return Page.SCHOOL;
+    case "?beta":
+        return Page.BETA;
     default:
       return Page.SCHEDULE
   }
@@ -47,6 +52,10 @@ export function page2url(p: Page): string {
       return "./?editManual";
     case Page.STUDENTID:
         return "./?studentID";
+    case Page.SCHOOL:
+        return "./?school";
+    case Page.BETA:
+        return "./?beta";
     default:
       return "./"
   }

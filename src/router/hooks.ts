@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Page, page2url, route } from "../storage/page";
+import { Page, route } from "../storage/page";
 import { RootState } from "../storage/store";
 
 export function useRoute() {

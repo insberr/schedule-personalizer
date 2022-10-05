@@ -28,10 +28,10 @@
             "purpose": "any"
         }
     ],
-    "start_url": "../",
+    "start_url": "./",
     "background_color": "#272727",
     "display": "standalone",
-    "scope": "../",
+    "scope": "./",
     "theme_color": "#272727",
     "shortcuts": [
         {

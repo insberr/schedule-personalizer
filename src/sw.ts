@@ -1,6 +1,6 @@
 /*import { precacheAndRoute, PrecacheEntry, addPlugins } from "workbox-precaching";*/
 import { clientsClaim } from "workbox-core";
-import {manifest, version} from '@parcel/service-worker';
+import { version } from '@parcel/service-worker';
 import { BackgroundSyncPlugin } from 'workbox-background-sync'
 import {registerRoute} from 'workbox-routing';
 import {CacheFirst, NetworkFirst} from 'workbox-strategies';

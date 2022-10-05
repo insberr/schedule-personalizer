@@ -1,7 +1,7 @@
 import { useSpring, animated, config } from "@react-spring/web";
 import { useEffect } from "react";
 
-export function Slide(props: { children: React.ReactNode, viewDate: Date }) {
+export function Slide(props: { children: React.ReactNode }) {
     const slide = useSpring({
         from: {
             opacity: 0,

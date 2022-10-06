@@ -1725,6 +1725,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/fast-redact@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@types/fast-redact@npm:3.0.2"
+  checksum: d53f271ef024aebe292d0fad7863554ba3d7ad930faa7c53d3cc5b7c059639b579de5775f9944b6be7cb4ae878da8a78df1b8f9c1de9b803026c176dd067ceb0
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:*":
   version: 8.0.0
   resolution: "@types/glob@npm:8.0.0"
@@ -3990,6 +3997,13 @@ __metadata:
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: 92cfec0a8dfafd9c7a15fba8f2cc29cd0b62b85f056d99ce448bbcd9f708e18ab2764bda4dd5158364f4145a7c72788538994f0d1787b956ef0d1062b0f7c24c
+  languageName: node
+  linkType: hard
+
+"fast-redact@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "fast-redact@npm:3.1.2"
+  checksum: a30eb6b6830333ab213e0def55f46453ca777544dbd3a883016cb590a0eeb95e6fdf546553c1a13d509896bfba889b789991160a6d0996ceb19fce0a02e8b753
   languageName: node
   linkType: hard
 
@@ -7672,6 +7686,7 @@ __metadata:
     "@types/bootstrap": ^5.1.10
     "@types/eslint": ^8
     "@types/events": ^3
+    "@types/fast-redact": ^3.0.2
     "@types/keyboardjs": ^2
     "@types/lodash": ^4.14.184
     "@types/node": ^17.0.31
@@ -7699,6 +7714,7 @@ __metadata:
     eslint-plugin-react: ^7.29.4
     eslint-plugin-react-hooks: ^4.6.0
     events: ^3.3.0
+    fast-redact: ^3.1.2
     get-own-enumerable-property-symbols: ^3.0.2
     gh-pages: ^4.0.0
     html-to-image: ^1.10.6
@@ -7734,6 +7750,7 @@ __metadata:
     ts-node: ^10.9.1
     typescript: ^4.8.2
     typescript-plugin-css-modules: ^3.4.0
+    vm-browserify: ^1.1.2
     workbox-background-sync: ^6.5.4
     workbox-cacheable-response: ^6.5.4
     workbox-core: ^6.5.4
@@ -8944,6 +8961,13 @@ __metadata:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: ee5726e10d170472cde778fc22e0f7499caa096eb85babea5d0ce0941455b721037ee1c9e6ae506ca2803250acd313d0f464328ead0b55cfe7cb6315f1b462d6
+  languageName: node
+  linkType: hard
+
+"vm-browserify@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "vm-browserify@npm:1.1.2"
+  checksum: 10a1c50aab54ff8b4c9042c15fc64aefccce8d2fb90c0640403242db0ee7fb269f9b102bdb69cfb435d7ef3180d61fd4fb004a043a12709abaf9056cfd7e039d
   languageName: node
   linkType: hard
 

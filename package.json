@@ -50,7 +50,8 @@
         "stream-browserify": "^3.0.0",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.2",
-        "typescript-plugin-css-modules": "^3.4.0"
+        "typescript-plugin-css-modules": "^3.4.0",
+        "vm-browserify": "^1.1.2"
     },
     "browserslist": "defaults and not ie >0 and not ie_mob >0",
     "scripts": {
@@ -101,11 +102,13 @@
         "@sentry/react": "^7.13.0",
         "@sentry/rrweb": "^0.3.3",
         "@sentry/tracing": "^7.13.0",
+        "@types/fast-redact": "^3.0.2",
         "bootstrap": "^5.2.1",
         "browserslist": "^4.20.3",
         "comlink": "^4.3.1",
         "copy-image-clipboard": "^2.1.2",
         "date-fns": "^2.28.0",
+        "fast-redact": "^3.1.2",
         "get-own-enumerable-property-symbols": "^3.0.2",
         "html-to-image": "^1.10.6",
         "is-obj": "^3.0.0",

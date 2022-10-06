@@ -148,6 +148,7 @@ const migrations = {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 import * as Sentry from "@sentry/react";
 
+// I left off here, trying to redact student info 
 const sentryReduxEnhancer = Sentry.createReduxEnhancer({
   // Optionally pass options listed below
   stateTransformer: state => {

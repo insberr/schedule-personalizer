@@ -1,4 +1,5 @@
 // bunch of reusable functions
+import fastRedact from 'fast-redact'
 import { addSeconds, format, isAfter, isBefore, parse, set } from "date-fns"
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from "../types";
 
@@ -158,12 +159,17 @@ export function displayTeacherNamesCol(sch: Class[]): boolean {
 }
 
 // TO DO: move to settings file
-const InfoToKeep = [
+const InfoToKeep_Used = [
     "CounselorEmail",
     "CurrentSchool",
     "FormattedName",
     "Grade",
     "BirthDate"
+]
+
+const InfoToKeep_Logged = [
+    "CurrentSchool",
+    "Grade",
 ]
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -193,21 +199,38 @@ export function redactStructure(obj: any): any {
     
 }
 
-export function redactStudentInfo(data: StudentVueAPIDataUserDate): StudentVueAPIDataUserDate { // add types pl\
+export enum RedactOperation {
+    Used,
+    Logged
+}
+
+export function redactStudentInfo(data: StudentVueAPIDataUserDate, operation?: RedactOperation): StudentVueAPIDataUserDate { // add types pl\
     // eslint-disable-next-line prefer-const
     let out: Record<string, unknown> = {}
     Object.entries(data.content).forEach(([key, value]) => {
-        if (InfoToKeep.includes(key)) {
-            //console.log("keeping", key)
-            out[key] = value
-        } else {
-            //console.log("redacting", key)
-            out[key] = redactStructure(value)// mm js
-            //console.log(key,"redacted to",out[key])
-        } 
+        if (operation === undefined || operation === RedactOperation.Used) {
+            if (InfoToKeep_Used.includes(key)) {
+                //console.log("keeping", key)
+                out[key] = value
+            } else {
+                //console.log("redacting", key)
+                out[key] = "<REDACTED "+(typeof out[key])+">" // redactStructure(value)// mm js
+                //console.log(key,"redacted to",out[key])
+            }
+        } else if (operation === RedactOperation.Logged) {
+            if (InfoToKeep_Logged.includes(key)) {
+                //console.log("keeping", key)
+                out[key] = value
+            } else {
+                //console.log("redacting", key)
+                out[key] = "<REDACTED "+(typeof out[key])+">" // redactStructure(value)// mm js
+                //console.log(key,"redacted to",out[key])
+            }
+        }
     })
     // @ts-expect-error lmafo
     return { code: data.code, content: out }
+    
 }
 
 export function isCurrentClass(sch: Class[], period: Class, currentClassDateAndTime: Date): boolean {

@@ -163,6 +163,7 @@ const InfoToKeep = [
     "CurrentSchool",
     "FormattedName",
     "Grade",
+    "BirthDate"
 ]
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

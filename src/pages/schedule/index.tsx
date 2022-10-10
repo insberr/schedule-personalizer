@@ -353,13 +353,23 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
         // console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
 
         const messages = displayDateEvents.map(event => event.info.message).join('<br />');
-        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null)[0];
+        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null);
 
-        event = {
-            isEvent: true,
-            schedule: noOverride ? schedule : eventNotNull.schedule || schedule,
-            info: {
-                message: messages,
+        if (eventNotNull.length === 0) {
+            event = {
+                isEvent: true,
+                schedule: schedule,
+                info: {
+                    message: messages
+                }
+            }
+        } else {
+            event = {
+                isEvent: true,
+                schedule: noOverride ? schedule : eventNotNull[0].schedule || schedule,
+                info: {
+                    message: messages,
+                }
             }
         }
     } else if (displayDateEvents.length !== 0) return {

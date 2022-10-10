@@ -36,6 +36,19 @@ export function scheduleEventsDateRange(
 
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
 export const scheduleEvents: ScheduleEvents = [
+    /*
+    // TODO: Better Event Idea:
+    {
+        date: { start: Date, endL Data } | Date,
+        events: [
+            {
+                type?: messgae, schedule, holiday, break// make enum for this
+                schedule: SchedulesType | null,
+                message: string
+            }
+        ]
+    }
+    */
     {
         schedule: schedules.summer,
         info: {
@@ -146,6 +159,22 @@ export const scheduleEvents: ScheduleEvents = [
     },
 
 
+    // Homecoming Spirit Week
+    {
+        schedule: null,
+        info: {
+            message: "Homecoming Spirit Week<br>Sidekick Day; Bring A Stuffed Animal",
+            date: new Date("October 10, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Homecoming Spirit Week<br>PJs vs Profesional; Wear Your PJs or Formal Attire",
+            date: new Date("October 11, 2022"),
+        },
+    },
+    
     {
         schedule: schedules.lateStart1Hour,
         info: {
@@ -153,6 +182,52 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("October 12, 2022"),
         },
     },
+    {
+        schedule: null,
+        info: {
+            message: "",
+            date: new Date("October 12, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Homecoming Spirit Week<br>Miming Around; Twin With Someone",
+            date: new Date("October 12, 2022"),
+        },
+    },
+
+    {
+        schedule: null,
+        info: {
+            message: "Homecoming Spirit Week<br>Cotten Candy Day; Wear Something Pink",
+            date: new Date("October 13, 2022"),
+        },
+    },
+
+    {
+        schedule: null,
+        info: {
+            message: "Hoco Pep Assemby | Schedule Unknown",
+            date: new Date("October 14, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "",
+            date: new Date("October 14, 2022"),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: "Homecoming Spirit Week<br>Color Wars; Freshmen: Crimson, Sophomores: Grey, Juniors: Black, Seniors: White, Staff: Gold",
+            date: new Date("October 14, 2022"),
+        },
+    },
+
+
     {
         schedule: schedules.earlyDissmissal,
         info: {

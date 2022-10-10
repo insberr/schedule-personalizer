@@ -42,10 +42,10 @@ export const scheduleEvents: ScheduleEvents = [
         date: { start: Date, endL Data } | Date,
         events: [
             {
-                type?: messgae, schedule, holiday, break// make enum for this
+                type?: messgae, schedule, holiday, break, // make enum for this
                 schedule: SchedulesType | null,
                 message: string
-            }
+            },
         ]
     }
     */

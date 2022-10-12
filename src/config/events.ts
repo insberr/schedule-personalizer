@@ -206,9 +206,9 @@ export const scheduleEvents: ScheduleEvents = [
     },
 
     {
-        schedule: null,
+        schedule: schedules.assemblyPM,
         info: {
-            message: "Hoco Pep Assemby | Schedule Unknown",
+            message: "Hoco Pep Assemby",
             date: new Date("October 14, 2022"),
         },
     },

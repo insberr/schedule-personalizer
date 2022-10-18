@@ -190,7 +190,7 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
             }
         }
 
-        const msg = '<br>Cambridge schedule support is in beta.<br>Class times are not correct, and the order of periods 11, 12, and 13 mqy not be correct.'
+        const msg = '<br>Cambridge schedule support is in beta.<br>Class times are not correct, and the order of periods 11, 12, and 13 may not be correct.'
         lunchifiedScheduleCambridge = {
             ...lunchifiedScheduleCambridge,
             event: {

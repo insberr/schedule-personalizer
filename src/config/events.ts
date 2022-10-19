@@ -16,7 +16,25 @@ export type ScheduleEvent = {
     };
 };
 
+export enum ScheduleEventEventType {
+    Message,
+    Schedule,
+}
+
+export type ScheduleEventEvent = {
+    type: ScheduleEventEventType;
+    schedule: SchedulesType | null;
+    message: string;
+    thisDateOnly?: Date | DateRange;
+};
+
+export type ScheduleEvent2 = {
+    date: Date | DateRange;
+    events: ScheduleEventEvent[];
+};
+
 export type ScheduleEvents = ScheduleEvent[];
+export type ScheduleEvents2 = ScheduleEvent2[];
 
 export function scheduleEventsDateRange(
     range: DateRange,
@@ -35,7 +53,7 @@ export function scheduleEventsDateRange(
 }
 
 // schedule can be written out or you can make the schedule in schedules.ts and use the vulue here
-export const scheduleEvents: ScheduleEvents = [
+export const scheduleEvents: ScheduleEvents2 = [
     /*
     // TODO: Better Event Idea:
     {
@@ -49,67 +67,102 @@ export const scheduleEvents: ScheduleEvents = [
         ]
     }
     */
+
+    /*
+    // IDEA: Different event list types, if that makes any sense. More organized
+
+
+    // IDEA same event, list of dates. for example late starts that occur almost every week
     {
-        schedule: schedules.summer,
-        info: {
-            message: "Its Summer Silly",
-            date: {
-                start: new Date("August 20, 2022"),
-                end: new Date("September 5, 2022"),
+        name: "Late Start",
+        type: type.DateList,
+        dates: [
+            new Date("October 19, 2022")
+        ]
+    },
+    
+    // or a type for a list of break events
+    {
+        name: "Breaks",
+        type: type.EventsList,
+        events: [
+            {
+                date: {
+                    start: new Date("October 19, 2022"),
+                    end: new Date("October 19, 2022"),
+                },
+                events: [] // ScheduleEventEvent[]
             },
+        ]
+    },
+    */
+    {
+        date: {
+            start: new Date("August 20, 2022"),
+            end: new Date("September 5, 2022"),
         },
+        events: [
+            {
+                type: ScheduleEventEventType.Schedule,
+                schedule: schedules.summer,
+                message: "Its Summer Silly",
+            },
+        ],
     },
 
     /* Start of first week of school */
     {
-        schedule: null,
-        info: {
-            message: "First Day Of School",
-            date: new Date("September 6, 2022"),
+        date: {
+            start: new Date("September 6, 2022"),
+            end: new Date("September 13, 2022"),
         },
-    },
-    {
-        schedule: schedules.advisory,
-        info: {
-            message: "Advisory Schedule | First Week Of School",
-            date: {
-                start: new Date("September 6, 2022"),
-                end: new Date("September 13, 2022"),
+        events: [
+            {
+                type: ScheduleEventEventType.Message,
+                schedule: null,
+                message: "First Day Of School",
+                thisDateOnly: new Date("September 6, 2022"),
             },
-        },
+            {
+                type: ScheduleEventEventType.Schedule,
+                schedule: schedules.advisory,
+                message: "Advisory Schedule | First Week Of School",
+            },
+        ],
     },
 
-    /* Assemblies */
     {
-        schedule: null,
-        info: {
-            message: "Freshman Assembly During Advisory",
-            date: new Date("September 7, 2022"),
+        date: {
+            start: new Date("September 7, 2022"),
+            end: new Date("September 12, 2022"),
         },
+        events: [
+            {
+                type: ScheduleEventEventType.Message,
+                schedule: null,
+                message: "Freshman Assembly During Advisory",
+                thisDateOnly: new Date("September 7, 2022"),
+            },
+            {
+                type: ScheduleEventEventType.Message,
+                schedule: null,
+                message: "Sophomore Assembly During Advisory",
+                thisDateOnly: new Date("September 8, 2022"),
+            },
+            {
+                type: ScheduleEventEventType.Message,
+                schedule: null,
+                message: "Junior Assembly During Advisory",
+                thisDateOnly: new Date("September 9, 2022"),
+            },
+            {
+                type: ScheduleEventEventType.Message,
+                schedule: null,
+                message: "Senior Assembly During Advisory",
+                thisDateOnly: new Date("September 12, 2022"),
+            },
+        ],
     },
-    {
-        schedule: null,
-        info: {
-            message: "Sophomore Assembly During Advisory",
-            date: new Date("September 8, 2022"),
-        },
-    },
-    {
-        schedule: null,
-        info: {
-            message: "Junior Assembly During Advisory",
-            date: new Date("September 9, 2022"),
-        },
-    },
-    {
-        schedule: null,
-        info: {
-            message: "Senior Assembly During Advisory",
-            date: new Date("September 12, 2022"),
-        },
-    },
-    /* END of first week of school */
-
 
     {
         schedule: schedules.lateStart1Hour,
@@ -121,9 +174,9 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.assemblyPM,
         info: {
-            message: 'Pep Assembly',
-            date: new Date('September 16, 2022')
-        }
+            message: "Pep Assembly",
+            date: new Date("September 16, 2022"),
+        },
     },
     {
         schedule: schedules.noSchool,
@@ -139,7 +192,7 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("September 28, 2022"),
         },
     },
-    
+
     // No advisory because the next day.
     {
         schedule: schedules.normal,
@@ -148,7 +201,7 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("October 4, 2022"),
         },
     },
-    
+
     // College/Career Fair, gunna be fun to make that schedule work.
     {
         schedule: schedules.careerOneHourLateStart,
@@ -158,23 +211,24 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
 
-
     // Homecoming Spirit Week
     {
         schedule: null,
         info: {
-            message: "Homecoming Spirit Week<br>Sidekick Day; Bring A Stuffed Animal",
+            message:
+                "Homecoming Spirit Week<br>Sidekick Day; Bring A Stuffed Animal",
             date: new Date("October 10, 2022"),
         },
     },
     {
         schedule: null,
         info: {
-            message: "Homecoming Spirit Week<br>PJs vs Profesional; Wear Your PJs or Formal Attire",
+            message:
+                "Homecoming Spirit Week<br>PJs vs Profesional; Wear Your PJs or Formal Attire",
             date: new Date("October 11, 2022"),
         },
     },
-    
+
     {
         schedule: schedules.lateStart1Hour,
         info: {
@@ -192,7 +246,8 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "Homecoming Spirit Week<br>Miming Around; Twin With Someone",
+            message:
+                "Homecoming Spirit Week<br>Miming Around; Twin With Someone",
             date: new Date("October 12, 2022"),
         },
     },
@@ -200,7 +255,8 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "Homecoming Spirit Week<br>Cotten Candy Day; Wear Something Pink",
+            message:
+                "Homecoming Spirit Week<br>Cotten Candy Day; Wear Something Pink",
             date: new Date("October 13, 2022"),
         },
     },
@@ -222,11 +278,11 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: "Homecoming Spirit Week<br>Color Wars; Freshmen: Crimson, Sophomores: Grey, Juniors: Black, Seniors: White, Staff: Gold",
+            message:
+                "Homecoming Spirit Week<br>Color Wars; Freshmen: Crimson, Sophomores: Grey, Juniors: Black, Seniors: White, Staff: Gold",
             date: new Date("October 14, 2022"),
         },
     },
-
 
     {
         schedule: schedules.earlyDissmissal,

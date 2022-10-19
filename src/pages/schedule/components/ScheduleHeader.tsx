@@ -67,10 +67,9 @@ export function SchHeader(props: Props) {
           <NavDropdown ref={toolTipDidYouKnowMap} className="text-muted" title="More" id={id+"nav"} onClick={() => hideMoreMapToolTip()}>
             <NavDropdown.Item onClick={()=>{setMap(!map)}}>School Map</NavDropdown.Item>
             <NavDropdown.Item onClick={()=>{ navigate(Page.STUDENTID) }}>Student ID</NavDropdown.Item>
-            <NavDropdown.Item onClick={()=>{ navigate(Page.SCHOOL) }}>School Info</NavDropdown.Item>
+            { /* <NavDropdown.Item onClick={()=>{ navigate(Page.SCHOOL) }}>School Info</NavDropdown.Item> */ }
             <STVBoundery><NavDropdown.Item href={"mailto:"+stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item></STVBoundery>
-            <NavDropdown.Item disabled onClick={()=>{ return; }}>Tutorial (Soon™️)</NavDropdown.Item>
-            <NavDropdown.Item onClick={()=>{ navigate(Page.BETA) }}>Beta Features</NavDropdown.Item>
+            { /* <NavDropdown.Item disabled onClick={()=>{ return; }}>Tutorial (Soon™️)</NavDropdown.Item> */ }
           </NavDropdown>
           <Overlay target={toolTipDidYouKnowMap.current} show={showDidYouKnow} placement="bottom">
             {(props) => (
@@ -79,13 +78,6 @@ export function SchHeader(props: Props) {
                 </Tooltip>
             )}
             </Overlay>
-                
-            <Navbar.Collapse className="justify-content-start">
-                <span style={{"marginLeft":"2em"}}>
-                    <Button variant="outline-crimson" size="sm" onClick={()=>{setMap(!map)}}>Map</Button>
-                </span>
-
-            </Navbar.Collapse>
             
           <Navbar.Collapse className="justify-content-end" >
             <span style={{"marginRight":"2em"}}>

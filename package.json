@@ -23,6 +23,7 @@
         "@types/lodash": "^4.14.184",
         "@types/node": "^17.0.31",
         "@types/pathfinding": "^0",
+        "@types/prettier": "^2",
         "@types/react": "^18",
         "@types/react-calendar": "^3",
         "@types/react-dom": "^18",
@@ -63,7 +64,8 @@
         "splash": "cd src && pwa-asset-generator ../icon.svg ./splashscreens --background #272727 --splash-only --index index.html --type png --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
         "fullbuild": "yarn splash && yarn build",
         "legal": "yarn licenses generate-disclaimer --production > src/legal.mdx",
-        "postinstall": "yarn legal"
+        "postinstall": "yarn legal",
+        "format": "prettier --write ."
     },
     "packageManager": "yarn@3.2.3",
     "pwaManifest": {
@@ -114,6 +116,7 @@
         "lodash": "^4.17.21",
         "pathfinding": "^0.4.18",
         "pepjs": "^0.5.3",
+        "prettier": "^2.7.1",
         "pwa-asset-generator": "^6.1.1",
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",

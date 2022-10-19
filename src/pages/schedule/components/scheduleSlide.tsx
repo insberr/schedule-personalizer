@@ -1,4 +1,4 @@
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated } from '@react-spring/web';
 
 export function Slide(props: { children: React.ReactNode }) {
     const slide = useSpring({
@@ -10,7 +10,7 @@ export function Slide(props: { children: React.ReactNode }) {
         },
         config: {
             tension: 290,
-            friction: 50
+            friction: 50,
         },
     });
     return <animated.div style={slide}>{props.children}</animated.div>;

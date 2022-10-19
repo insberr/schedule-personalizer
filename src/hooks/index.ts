@@ -1,1 +1,1 @@
-export {default as useKeyboardShortcut} from "./useKeyboardShortcut";
+export { default as useKeyboardShortcut } from './useKeyboardShortcut';

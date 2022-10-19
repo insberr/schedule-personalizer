@@ -1,42 +1,42 @@
-import { useEffect, useMemo, useState } from 'react'; 
-import { Class, ClassIDS,Terms, Term, emptyCL  } from "../../types";
-import Schedule from "./components/Schedule";
+import { useEffect, useMemo, useState } from 'react';
+import { Class, ClassIDS, Terms, Term, emptyCL } from '../../types';
+import Schedule from './components/Schedule';
 import LoadSpinner from '../../components/LoadSpinner';
 import { defaultSchedule, schedules, SchedulesType, weekSchedule } from '../../config/schedules';
-import { scheduleEvents, DateRange, scheduleEventsDateRange,  } from '../../config/events';
+import { scheduleEvents, DateRange, scheduleEventsDateRange } from '../../config/events';
 import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import { isAfter, isBefore, isSameDay } from 'date-fns'
-import { StudentVueReloader } from "../../components/StudentVueReloader"
+import { isAfter, isBefore, isSameDay } from 'date-fns';
+import { StudentVueReloader } from '../../components/StudentVueReloader';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
-import {useToggle, useInterval} from 'react-use'
+import { useToggle, useInterval } from 'react-use';
 // import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
-import { today } from "../../today";
+import { today } from '../../today';
 import { useNavigate } from '../../router/hooks';
 import { Page } from '../../storage/page';
 import { overidesMergeDataWithSchedule } from './handleOverides';
 
 export type EventSchedule = {
-    isEvent: boolean,
-    hasError?: boolean
-    schedule: SchedulesType
+    isEvent: boolean;
+    hasError?: boolean;
+    schedule: SchedulesType;
     info: {
-        error?: string
-        message: string
-        date?: Date | DateRange
-    }
-}
+        error?: string;
+        message: string;
+        date?: Date | DateRange;
+    };
+};
 
 type MergedSchedule = {
-    schedule: Class[]
-    event: EventSchedule
-    sch: Terms
-}
+    schedule: Class[];
+    event: EventSchedule;
+    sch: Terms;
+};
 
 function SchedulePage() {
     const navigate = useNavigate();
@@ -44,95 +44,123 @@ function SchedulePage() {
     const sch = useSchedule();
     const stv = useStudentvue();
     const studentInfo = useSTV();
-    const presentationMode = useSelector((state: RootState) => state.misc.presentationMode)
-    const isSetupComplete = useSelector(
-        (state: RootState) => state.misc.setupComplete
-    );
+    const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
+    const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete);
     const [userLunch, setUserLunch] = useState(sch.lunch);
     useEffect(() => {
-        dispatch(setLunch(userLunch))
-    }, [userLunch, dispatch])
+        dispatch(setLunch(userLunch));
+    }, [userLunch, dispatch]);
     useEffect(() => {
-        setUserLunch(sch.lunch)
-    }, [sch.lunch])
+        setUserLunch(sch.lunch);
+    }, [sch.lunch]);
 
     const [currentDisplayDate, setCurrentDisplayDate] = useState<Date>(today());
     // probably a bad way to do ths
-    const [t, tick] = useToggle(false)
-    useInterval(()=> {
+    const [t, tick] = useToggle(false);
+    useInterval(() => {
         if (presentationMode) {
             tick();
         }
-    }, 1000)
+    }, 1000);
     useEffect(() => {
         if (presentationMode) {
             if (!isSameDay(currentDisplayDate, today())) {
                 setCurrentDisplayDate(today());
             }
         }
-    }, [presentationMode, currentDisplayDate, t])
+    }, [presentationMode, currentDisplayDate, t]);
 
     const [currentDisplayDayEvent, lunchifiedSchedule] = useMemo(() => {
         if (sch.terms.length == 0) {
-            return [undefined, undefined]
+            return [undefined, undefined];
         }
         const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentDisplayDate, sch, stv, userLunch]);
 
     useEffect(() => {
         if (!isSetupComplete) {
             navigate(Page.SETUP);
         }
-    },[isSetupComplete, navigate])
+    }, [isSetupComplete, navigate]);
     // if loading shows blank schedule for a bit, maybe add a loading screen?
 
     //const [showSettings, setShowSettings] = useState(false);
     //window.show = setShowSettings;
 
     if (!lunchifiedSchedule) {
-        return <LoadSpinner />
+        return <LoadSpinner />;
     } else {
         // to do: convert the schedule from CL[] to Class[], by merging it with the data in the database/studentvue data
-        return <><Schedule setup={() => {navigate(Page.SETUP)}} event={ currentDisplayDayEvent as EventSchedule } sch={ lunchifiedSchedule.schedule } displayDate={ currentDisplayDate } setDisplayDate={ setCurrentDisplayDate } /><StudentVueReloader /></>
+        return (
+            <>
+                <Schedule
+                    setup={() => {
+                        navigate(Page.SETUP);
+                    }}
+                    event={currentDisplayDayEvent as EventSchedule}
+                    sch={lunchifiedSchedule.schedule}
+                    displayDate={currentDisplayDate}
+                    setDisplayDate={setCurrentDisplayDate}
+                />
+                <StudentVueReloader />
+            </>
+        );
     }
 }
 
-function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: StorageDataStudentvue, userLunch: number, setUserLunch: (lunch: number) => void, studentInfo: StvDataStorage): { currentDisplayDayEvent: EventSchedule, lunchifiedSchedule: MergedSchedule } {
-
+function doSchedule(
+    sch: ScheduleStorage,
+    currentDisplayDate: Date,
+    stv: StorageDataStudentvue,
+    userLunch: number,
+    setUserLunch: (lunch: number) => void,
+    studentInfo: StvDataStorage
+): { currentDisplayDayEvent: EventSchedule; lunchifiedSchedule: MergedSchedule } {
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
-    const currentDisplayDaySchedule: { schedule: SchedulesType, noOverride: boolean }  = getDisplayDaySchedule(currentDisplayDate /* make this the date thats being displayed */);
+    const currentDisplayDaySchedule: { schedule: SchedulesType; noOverride: boolean } = getDisplayDaySchedule(
+        currentDisplayDate /* make this the date thats being displayed */
+    );
 
     // Override the schedule with the events scheduled for the current displayed day
     /* make this the date thats being displayed */
-    let currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(currentDisplayDaySchedule.schedule, currentDisplayDaySchedule.noOverride, currentDisplayDate);
+    let currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(
+        currentDisplayDaySchedule.schedule,
+        currentDisplayDaySchedule.noOverride,
+        currentDisplayDate
+    );
     // console.log(currentDisplayDayEvent);
 
     const displayTerm = determineDisplayTerm(sch.terms, currentDisplayDate);
     if (displayTerm.isFake) {
-        console.warn("No term found for the current date");
+        console.warn('No term found for the current date');
         if (!currentDisplayDayEvent.isEvent) {
             currentDisplayDayEvent = {
                 isEvent: true,
                 schedule: schedules.summer,
                 info: {
-                    message: "Its summer, or something is broken"
-                }
-            }
+                    message: 'Its summer, or something is broken',
+                },
+            };
         }
     }
 
     /* Handle schedule overides */
-    
+
     // Returns a modified schedule with the overides applied OR null if there are no overides
-    const mergedOverideSchedule = overidesMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || 'manual', currentDisplayDayEvent);
+    const mergedOverideSchedule = overidesMergeDataWithSchedule(
+        displayTerm.classes,
+        currentDisplayDayEvent.schedule,
+        studentInfo.info?.content.Grade || 'manual',
+        currentDisplayDayEvent
+    );
 
     let lunchifiedScheduleOveride: MergedSchedule = {
         schedule: [],
         event: currentDisplayDayEvent,
         sch: sch.terms,
-    }
+    };
 
     if (mergedOverideSchedule === null) {
         /* There are no overides */
@@ -148,25 +176,35 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
             ...currentDisplayDayEvent,
             schedule: {
                 ...currentDisplayDayEvent.schedule,
-                classes: mergedOverideSchedule.newClasses
+                classes: mergedOverideSchedule.newClasses,
             },
-        }
+        };
 
         lunchifiedScheduleOveride = {
             schedule: mergedOverideSchedule.scheduleForDisplay,
             event: newCurrentDisplayDayEvent,
             sch: sch.terms,
-        }
+        };
 
         if (mergedOverideSchedule.overideForGrade.ignoreLunchConfig !== true) {
             lunchifiedScheduleOveride = lunchify(lunchifiedScheduleOveride, displayTerm, userLunch, stv, setUserLunch, studentInfo);
         }
     }
 
-    return { currentDisplayDayEvent: lunchifiedScheduleOveride.event, lunchifiedSchedule: lunchifiedScheduleOveride };
+    return {
+        currentDisplayDayEvent: lunchifiedScheduleOveride.event,
+        lunchifiedSchedule: lunchifiedScheduleOveride,
+    };
 }
 
-function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue, setUserLunch: (lunch: number) => void, studentInfo: StvDataStorage): MergedSchedule {
+function lunchify(
+    mergedSchedule: MergedSchedule,
+    displayTerm: Term,
+    lunch: number,
+    stv: StorageDataStudentvue,
+    setUserLunch: (lunch: number) => void,
+    studentInfo: StvDataStorage
+): MergedSchedule {
     // This will prevent an error if there are no lunches on the schedule
     // Check if lunch is a thing for that day, if not return mergedSchedule
     const lunchValue = mergedSchedule.event.schedule.lunch;
@@ -176,38 +214,63 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
     if (lunchValue.lunches === undefined) return mergedSchedule;
 
     //const lunch = (getV5Data(StorageQuery.Lunch) as StorageDataLunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
-    
+
     // if logged into studentvue we can determine the lunch automatically
     // just realized that students who enter their data manually will have to figure out what lunch they have. maybe we could implement a "teacher" selector to automatically put teacher ids into the valuse???
     // for now, only auto detects lunch if logged into studentvue.
 
-    if (displayTerm.classes.filter(c => c.period === lunchValue.basedOnPeriod).length === 0) {
-        const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.'
+    if (displayTerm.classes.filter((c) => c.period === lunchValue.basedOnPeriod).length === 0) {
+        const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.';
 
         const errMsg = `User does not have a period "${lunchValue.basedOnPeriod}", so lunch can not be displayed.`;
-        Sentry.addBreadcrumb({category: "extra", message: JSON.stringify(displayTerm.classes), level: "info",});
-        Sentry.captureException(new Error(errMsg))
+        Sentry.addBreadcrumb({
+            category: 'extra',
+            message: JSON.stringify(displayTerm.classes),
+            level: 'info',
+        });
+        Sentry.captureException(new Error(errMsg));
         console.log(errMsg);
 
-        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
+        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message)
+            ? mergedSchedule.event.info.message
+            : mergedSchedule.event.info.message + temp_Message;
         return mergedSchedule;
     }
 
     let userLunch: number = lunch;
     if (stv.isLoggedIn && displayTerm.classes.length > 0) {
         const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {
-            return lunches.basedOnPeriod === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? lunches.basedOnPeriodID === lunchValue.basedOnPeriodID : true);
+            return (
+                lunches.basedOnPeriod === lunchValue.basedOnPeriod &&
+                (lunchValue.basedOnPeriodID !== undefined ? lunches.basedOnPeriodID === lunchValue.basedOnPeriodID : true)
+            );
         });
 
         if (temp_basedOnPeriodLunch.length > 0) {
             const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {
-                return lnc.teachers.map(t => t.id).includes(displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher.id);
+                return lnc.teachers
+                    .map((t) => t.id)
+                    .includes(
+                        displayTerm.classes.filter((cl) => {
+                            return (
+                                cl.period === lunchValue.basedOnPeriod &&
+                                (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true)
+                            );
+                        })[0].teacher.id
+                    );
             });
 
             if (temp_possibleLunches.length > 0) {
                 if (temp_possibleLunches.length > 1) {
-                    const errMsg = `Teacher "${displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher.name}" is listed for multiple lunches: ${Object.values(temp_possibleLunches.map(p => p.lunch)).join(', ')}`
-                    Sentry.captureException(new Error(errMsg))
+                    const errMsg = `Teacher "${
+                        displayTerm.classes.filter((cl) => {
+                            return (
+                                cl.period === lunchValue.basedOnPeriod &&
+                                (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true)
+                            );
+                        })[0].teacher.name
+                    }" is listed for multiple lunches: ${Object.values(temp_possibleLunches.map((p) => p.lunch)).join(', ')}`;
+                    Sentry.captureException(new Error(errMsg));
                     console.log(errMsg);
                 }
 
@@ -216,9 +279,14 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
                     setUserLunch(userLunch);
                 }
             } else {
-                const errMsgTeacher = displayTerm.classes.filter(cl => { return cl.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true) })[0].teacher;
+                const errMsgTeacher = displayTerm.classes.filter((cl) => {
+                    return (
+                        cl.period === lunchValue.basedOnPeriod &&
+                        (lunchValue.basedOnPeriodID !== undefined ? cl.classID === lunchValue.basedOnPeriodID : true)
+                    );
+                })[0].teacher;
                 if (errMsgTeacher.id === '') {
-                    console.log('StudentVue login mustve failed for some reason...')
+                    console.log('StudentVue login mustve failed for some reason...');
                 }
                 const errMsg = `Teacher is missing from lunches config. \nName: ${errMsgTeacher.name}, ID: ${errMsgTeacher.id}, Email: ${errMsgTeacher.email}. Users school: ${studentInfo.info?.content.CurrentSchool}`;
                 Sentry.captureException(new Error(errMsg));
@@ -227,13 +295,19 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
         }
     } else if (mergedSchedule.event.isEvent || settingsConfig.normalLunchBasedOnPeriod !== lunchValue.basedOnPeriod) {
         // NOTE: THIS IS NOT TESTED, PLEASE TEST
-        const temp_Message = '<br />Lunch may not be correct'
-        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message) ? mergedSchedule.event.info.message : mergedSchedule.event.info.message + temp_Message;
+        const temp_Message = '<br />Lunch may not be correct';
+        mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message)
+            ? mergedSchedule.event.info.message
+            : mergedSchedule.event.info.message + temp_Message;
     }
 
     const lunchSchedule = lunchValue.lunches[userLunch];
 
-    const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(period => period.period === lunchValue.basedOnPeriod && (lunchValue.basedOnPeriodID !== undefined ? period.classID === lunchValue.basedOnPeriodID : true));
+    const indexOfLunchPeriod = mergedSchedule.event.schedule.classes.findIndex(
+        (period) =>
+            period.period === lunchValue.basedOnPeriod &&
+            (lunchValue.basedOnPeriodID !== undefined ? period.classID === lunchValue.basedOnPeriodID : true)
+    );
 
     const lunchPeriod = mergedSchedule.schedule[indexOfLunchPeriod];
     const replacePeriodClassEntries = lunchSchedule.order.map((p) => {
@@ -242,13 +316,12 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
             startTime: p.startTime,
             endTime: p.endTime,
             period: lunchValue.basedOnPeriod,
-            name: p.classID === ClassIDS.Lunch ? "Lunch "+ userLunch : lunchPeriod.name,
+            name: p.classID === ClassIDS.Lunch ? 'Lunch ' + userLunch : lunchPeriod.name,
             room: p.classID === ClassIDS.Lunch ? '' : lunchPeriod.room,
-            teacher: p.classID === ClassIDS.Lunch ? {...lunchPeriod.teacher, name: ''} : lunchPeriod.teacher,
-        }
-    })
-    
-    
+            teacher: p.classID === ClassIDS.Lunch ? { ...lunchPeriod.teacher, name: '' } : lunchPeriod.teacher,
+        };
+    });
+
     // Because the way JS works, this modifies the value of mergedSchedule.schedule.
     mergedSchedule.schedule.splice(indexOfLunchPeriod, 1, ...replacePeriodClassEntries);
 
@@ -256,26 +329,30 @@ function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: numb
 }
 
 /**
- * Day of the week schedule 
- * 
+ * Day of the week schedule
+ *
  * ie. if its tuesday or thurseday its an advisory day or if its a weekend
-*/
-function getDisplayDaySchedule(date: Date): { schedule: SchedulesType, noOverride: boolean } {
-    
-    const weekDaySchedule = weekSchedule.filter(s => s.day === date.getDay());
-    
+ */
+function getDisplayDaySchedule(date: Date): { schedule: SchedulesType; noOverride: boolean } {
+    const weekDaySchedule = weekSchedule.filter((s) => s.day === date.getDay());
+
     if (weekDaySchedule.length === 0) {
-        console.log(`For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`);
+        console.log(
+            `For some odd reason the day of the week '${date.getDay()}' is not defined in weekSchedule.\nThis is probably because some dumbass forgot to add it to the weekSchedule array in 'src/config/schedules.ts'.`
+        );
         return { schedule: defaultSchedule, noOverride: false };
     }
-    return { schedule: weekDaySchedule[0].schedule, noOverride: weekDaySchedule[0]?.noOverride || false };
+    return {
+        schedule: weekDaySchedule[0].schedule,
+        noOverride: weekDaySchedule[0]?.noOverride || false,
+    };
 }
 
 function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: Date): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
 
-    const displayDateEvents = scheduleEvents.filter(event => {
+    const displayDateEvents = scheduleEvents.filter((event) => {
         let eventDate = event.info.date;
         if ((eventDate as DateRange).start !== undefined) {
             eventDate = scheduleEventsDateRange(event.info.date as DateRange, date) as Date;
@@ -284,7 +361,7 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
         // to keep vscode from complaining
         eventDate = eventDate as Date;
 
-        return (isSameDay(eventDate, date))
+        return isSameDay(eventDate, date);
     });
 
     // TO DO: make it so if there are more than one event on the same day, combine them into one event of choose one over the other
@@ -296,81 +373,91 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
         isEvent: false,
         schedule: schedule,
         info: {
-            message: ""
-        }
-    }
+            message: '',
+        },
+    };
 
     if (displayDateEvents.length > 1) {
         // console.log("Why are there multiple evnts??? " + JSON.stringify(displayDateEvents)) // We should send this "error" to sentry
 
-        const messages = displayDateEvents.map(event => event.info.message).join('<br />');
-        const eventNotNull = displayDateEvents.filter(event => event.schedule !== null);
+        const messages = displayDateEvents.map((event) => event.info.message).join('<br />');
+        const eventNotNull = displayDateEvents.filter((event) => event.schedule !== null);
 
         if (eventNotNull.length === 0) {
             event = {
                 isEvent: true,
                 schedule: schedule,
                 info: {
-                    message: messages
-                }
-            }
+                    message: messages,
+                },
+            };
         } else {
             event = {
                 isEvent: true,
                 schedule: noOverride ? schedule : eventNotNull[0].schedule || schedule,
                 info: {
                     message: messages,
-                }
-            }
+                },
+            };
         }
-    } else if (displayDateEvents.length !== 0) return {
-        isEvent: true,
-        schedule: noOverride ? schedule : displayDateEvents[0]?.schedule || schedule,
-        info: displayDateEvents[0].info
-    }
-    
+    } else if (displayDateEvents.length !== 0)
+        return {
+            isEvent: true,
+            schedule: noOverride ? schedule : displayDateEvents[0]?.schedule || schedule,
+            info: displayDateEvents[0].info,
+        };
+
     return event;
 }
 
-function determineDisplayTerm(sch: Terms, displayDate: Date, ): Term {
+function determineDisplayTerm(sch: Terms, displayDate: Date): Term {
     /*
         If you go passed the first term or the last term, return a fake term
         This prevents the site from crashing lol
     */
-    if (isBefore(displayDate, sch[0].startDate) || isAfter(displayDate, sch[sch.length-1].endDate)) {
+    if (isBefore(displayDate, sch[0].startDate) || isAfter(displayDate, sch[sch.length - 1].endDate)) {
         console.log('A fake term was created because there was no term for the current display date');
         return {
             isFake: true,
             termIndex: 0,
             startDate: displayDate,
             endDate: displayDate,
-            classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory)
-        }
+            classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory),
+        };
     }
 
-    let newTerm = sch.filter(term => {
-        return (isAfter(displayDate, term.startDate) || isSameDay(displayDate, term.startDate)) && (isBefore(displayDate, term.endDate) || isSameDay(displayDate, term.endDate))
+    let newTerm = sch.filter((term) => {
+        return (
+            (isAfter(displayDate, term.startDate) || isSameDay(displayDate, term.startDate)) &&
+            (isBefore(displayDate, term.endDate) || isSameDay(displayDate, term.endDate))
+        );
     });
 
-    
     if (newTerm[0] === undefined) {
-        console.log('newterm created (this shouldnt run)')
-        newTerm = [{ termIndex: 0, classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory), startDate: today(), endDate: today() }];
+        console.log('newterm created (this shouldnt run)');
+        newTerm = [
+            {
+                termIndex: 0,
+                classes: emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory),
+                startDate: today(),
+                endDate: today(),
+            },
+        ];
     }
     // console.log(newTerm[0])
     return newTerm[0];
 }
 
-function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule: EventSchedule): MergedSchedule{
+function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule: EventSchedule): MergedSchedule {
     const scheduleForDisplay: Class[] = [];
 
     // Alert the user of unknown classes from studentvue
-    const periodsFromEmptyCL = emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory).map(c => c.period);
+    const periodsFromEmptyCL = emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory).map((c) => c.period);
     if (settingsConfig.cambridgePeriods) {
         // Add cambridge periods to the known periods
         periodsFromEmptyCL.push(...settingsConfig.cambridgePeriods);
     }
-    const unknownPeriods = displayTerm.classes.filter(p => !periodsFromEmptyCL.includes(p.period));
+    const unknownPeriods = displayTerm.classes.filter((p) => !periodsFromEmptyCL.includes(p.period));
 
     // NOTE: TEMPORARY TEMORARY TEMPORARY TEMPORARY - Not the BEST PLACE for this at all, super temorary!!!!!! - TEMPORARY TEMORARY TEMPORARY TEMPORARY
     // const cambridge_ified = translateCambridgeClassesToCLList__TEMPORARYYYYY__(displayTerm.classes);
@@ -379,44 +466,57 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
     if (unknownPeriods.length > 1) {
         // Ceck for cambridge .. let the user know we dont support it yet, but are working on implementing it
         // const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
-        const errMsg = 'StudentVue has returned classes that are unknown.'
-        const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. <pre>${unknownPeriods.map(p => `[${p.period}, ${p.name}]`).join(' | ')}</pre>. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        const errMsg = 'StudentVue has returned classes that are unknown.';
+        const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. <pre>${unknownPeriods
+            .map((p) => `[${p.period}, ${p.name}]`)
+            .join(' | ')}</pre>. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`;
         // if (cambridgePeriods.length > 0) {
         //     // user has cambridge
         //     errMsg = 'It appears this student is a Cambridge student.'
         //     addMessage = `<span style='color: red'>Cambridge schedule support is in beta.<br>Class Times are not correct and periods 11, 12, 13 may not be in the correct order.</span>`
         // }
-        Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })
-        Sentry.addBreadcrumb({ category: 'unknown-classes', message: JSON.stringify(unknownPeriods), level: 'info' })
+        Sentry.addBreadcrumb({
+            category: 'displayTerm.classes',
+            message: JSON.stringify(displayTerm.classes),
+            level: 'info',
+        });
+        Sentry.addBreadcrumb({
+            category: 'unknown-classes',
+            message: JSON.stringify(unknownPeriods),
+            level: 'info',
+        });
         Sentry.captureException(new Error(errMsg));
         displayDaySchedule.hasError = true;
-        displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
+        displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage)
+            ? displayDaySchedule.info.error
+            : (displayDaySchedule.info?.error || '') + '<br />' + addMessage;
     }
 
     for (const period of displayDaySchedule.schedule.classes) {
-
-        const periodNeeded = displayTerm.classes.filter(p => (p.classID == period.classID) && (p.period == period.period));
+        const periodNeeded = displayTerm.classes.filter((p) => p.classID == period.classID && p.period == period.period);
 
         if (periodNeeded.length > 1) {
-            const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`
+            const addMessage = `<span style='color: red'>Period '${period.period}' has multiple classes and is highlighted red. (This should not happen, and is likely an issue with your schedule in StudentVue)</span>`;
             displayDaySchedule.hasError = true;
-            displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage) ? displayDaySchedule.info.error : displayDaySchedule.info.error + '<br />' + addMessage;
+            displayDaySchedule.info.error = (displayDaySchedule.info?.error || '').includes(addMessage)
+                ? displayDaySchedule.info.error
+                : displayDaySchedule.info.error + '<br />' + addMessage;
         }
 
         if (periodNeeded.length === 0) {
             scheduleForDisplay.push({
                 classID: period.classID,
                 period: period.period,
-                name: "",
-                room: "",
+                name: '',
+                room: '',
                 teacher: {
-                    name: "",
-                    email: "",
-                    id: ""
+                    name: '',
+                    email: '',
+                    id: '',
                 },
                 startTime: period.startTime,
-                endTime: period.endTime
-            })
+                endTime: period.endTime,
+            });
             continue;
         }
 
@@ -424,26 +524,26 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
             const h: Class = {
                 classID: period.classID,
                 period: period.period,
-                name: pd?.name || "",
-                room: pd?.room || "",
+                name: pd?.name || '',
+                room: pd?.room || '',
                 teacher: {
-                    name: pd?.teacher.name || "",
-                    email: pd?.teacher.email || "",
-                    id: pd?.teacher.id || ""
+                    name: pd?.teacher.name || '',
+                    email: pd?.teacher.email || '',
+                    id: pd?.teacher.id || '',
                 },
                 startTime: period.startTime,
-                endTime: period.endTime
-            }
-            scheduleForDisplay.push(h)
+                endTime: period.endTime,
+            };
+            scheduleForDisplay.push(h);
         }
     }
 
     return {
         schedule: scheduleForDisplay,
         event: displayDaySchedule,
-        sch: sch
-    }
+        sch: sch,
+    };
 }
 
-export default SchedulePage
+export default SchedulePage;
 // err

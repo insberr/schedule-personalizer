@@ -2,8 +2,8 @@
     position: absolute;
     border: 4px solid rgba(0, 0, 0, 0.7);
     border-radius: 50%;
-    width: .6em;
-    height: .6em;
+    width: 0.6em;
+    height: 0.6em;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
     transform: translate(-50%, -50%);
@@ -15,6 +15,5 @@
 }
 
 .map-model-body {
-    padding: 0px!important;
+    padding: 0px !important;
 }
-

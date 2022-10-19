@@ -1,3 +1,3 @@
-declare module "eruda" {
-    export function init()
+declare module 'eruda' {
+    export function init();
 }

@@ -17,17 +17,22 @@ import { useDebounce } from 'react-use';
 import { Container, Row, Stack } from 'react-bootstrap';
 
 type Props = {
-    setStage:  (stage: number) => void;
+    setStage: (stage: number) => void;
     setSchedule: (schedule: Terms) => void;
-}
+};
 
 export function Login(props: Props) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState<string>("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string>('');
     const [errorshow, showError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [validUser, setValidUser] = useState<{ isValid: boolean, loading: boolean, name: string, school: string }>({ isValid: true, loading: true, name: "", school: "" });
+    const [validUser, setValidUser] = useState<{
+        isValid: boolean;
+        loading: boolean;
+        name: string;
+        school: string;
+    }>({ isValid: true, loading: true, name: '', school: '' });
     const id = useId();
     const dispatch = useDispatch();
 
@@ -43,50 +48,82 @@ export function Login(props: Props) {
     useEffect(() => {
         if (!['', settings.forSchoolName].includes(validUser.school)) {
             // maybe add a list of links with school names
-            doError(`Unfortunately, this instance of Schedule Personalizer is for ${settings.forSchoolName}. Please make sure you are using the correct url for your school!`);
+            doError(
+                `Unfortunately, this instance of Schedule Personalizer is for ${settings.forSchoolName}. Please make sure you are using the correct url for your school!`
+            );
         }
-    }, [validUser])
+    }, [validUser]);
 
-    useDebounce(() => {
-        if (username === "" || password === "") {
-            setValidUser({ isValid: false, loading: false, name: "", school: "" });
-            return;
-        }
-
-        api.validateCredentials(username, password).then(res => {
-            if (res) {
-                api.getStudentInfo(username, password).then(res => {
-                    setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
-                })
-            } else {
-                setValidUser({ isValid: false, loading: false, name: "", school: "" });
+    useDebounce(
+        () => {
+            if (username === '' || password === '') {
+                setValidUser({ isValid: false, loading: false, name: '', school: '' });
+                return;
             }
-        }).catch(err => { console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err) });
-    }, 300, [username, password])
+
+            api.validateCredentials(username, password)
+                .then((res) => {
+                    if (res) {
+                        api.getStudentInfo(username, password).then((res) => {
+                            setValidUser({
+                                isValid: true,
+                                loading: false,
+                                name: res.content.FormattedName,
+                                school: res.content.CurrentSchool,
+                            });
+                        });
+                    } else {
+                        setValidUser({ isValid: false, loading: false, name: '', school: '' });
+                    }
+                })
+                .catch((err) => {
+                    console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
+                });
+        },
+        300,
+        [username, password]
+    );
 
     async function Submit() {
         setLoading(true);
         hideError();
 
         // Set username and password to local storage so we can use them later
-        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: false, isLoggedIn: false, gotSchedules: false, lastRefresh: 0 }));
+        dispatch(
+            setStudentVueData({
+                password: password,
+                username: username,
+                stayLoggedIn: false,
+                isLoggedIn: false,
+                gotSchedules: false,
+                lastRefresh: 0,
+            })
+        );
 
         // Validate user credentials to make sure the login info is correct
-        const validCreds = await api.validateCredentials(username, password).then(res => {
-            if (res) {
-                api.getStudentInfo(username, password).then(res => {
-                    setValidUser({ isValid: true, loading: false, name: res.content.FormattedName, school: res.content.CurrentSchool });
-                })
-                return true;
-            } else {
-                setValidUser({ isValid: false, loading: false, name: "", school: "" });
+        const validCreds = await api
+            .validateCredentials(username, password)
+            .then((res) => {
+                if (res) {
+                    api.getStudentInfo(username, password).then((res) => {
+                        setValidUser({
+                            isValid: true,
+                            loading: false,
+                            name: res.content.FormattedName,
+                            school: res.content.CurrentSchool,
+                        });
+                    });
+                    return true;
+                } else {
+                    setValidUser({ isValid: false, loading: false, name: '', school: '' });
+                    return false;
+                }
+            })
+            .catch((err) => {
+                console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
+                doError('Failed to validate user credentials: ' + err);
                 return false;
-            }
-        }).catch(err => {
-            console.log('Validate Credentials Error In pages/setup/steps/Login.tsx: ' + err);
-            doError('Failed to validate user credentials: ' + err);
-            return false;
-        });
+            });
 
         if (!validCreds) {
             setLoading(false);
@@ -94,74 +131,132 @@ export function Login(props: Props) {
         }
 
         // Set isLogged in and stayLoggedIn to true
-        dispatch(setStudentVueData({ password: password, username: username, stayLoggedIn: true, isLoggedIn: true, gotSchedules: false, lastRefresh: 0 }));
-        
+        dispatch(
+            setStudentVueData({
+                password: password,
+                username: username,
+                stayLoggedIn: true,
+                isLoggedIn: true,
+                gotSchedules: false,
+                lastRefresh: 0,
+            })
+        );
+
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
-        await api.getAllSchedules(username, password).then(res => {
-            dispatch(setGotSchedules(true));
-            props.setSchedule(api.convertStudentvueDataToTerms(res));
-        }).catch(err => {
-            console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
-            dispatch(setGotSchedules(false));
-            
-            console.log('No schedule was set, so temporay data is being used');
+        await api
+            .getAllSchedules(username, password)
+            .then((res) => {
+                dispatch(setGotSchedules(true));
+                props.setSchedule(api.convertStudentvueDataToTerms(res));
+            })
+            .catch((err) => {
+                console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
+                dispatch(setGotSchedules(false));
 
-            // Set the schedule to temporary data
-            const newTerms = settings.termsDates.map(t => {
-                t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
-                return t;
+                console.log('No schedule was set, so temporay data is being used');
+
+                // Set the schedule to temporary data
+                const newTerms = settings.termsDates.map((t) => {
+                    t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+                    return t;
+                });
+
+                props.setSchedule(newTerms);
             });
 
-            props.setSchedule(newTerms);
-        });
-
-        
         setLoading(false);
         props.setStage(69);
     }
 
-    return (<FadeIn>
-        <Center>
-            <h1 className="mt-5">Login with StudentVue</h1>
+    return (
+        <FadeIn>
+            <Center>
+                <h1 className="mt-5">Login with StudentVue</h1>
 
-            <Alert variant="danger" dismissible onClose={() => { hideError() }} show={ errorshow }>
-                {error}
-            </Alert>
+                <Alert
+                    variant="danger"
+                    dismissible
+                    onClose={() => {
+                        hideError();
+                    }}
+                    show={errorshow}
+                >
+                    {error}
+                </Alert>
 
-            <Container className='mt-5'>
-                <Row>
-                    <Form className="paper" onSubmit={ (evt) => { evt.preventDefault(); evt.stopPropagation(); Submit(); }}>
-                        <Stack gap={3}>
-                            <Form.FloatingLabel
-                                controlId={ id + "username" }
-                                label="Username"
-                                className='uncenter-floating-label'
+                <Container className="mt-5">
+                    <Row>
+                        <Form
+                            className="paper"
+                            onSubmit={(evt) => {
+                                evt.preventDefault();
+                                evt.stopPropagation();
+                                Submit();
+                            }}
+                        >
+                            <Stack gap={3}>
+                                <Form.FloatingLabel controlId={id + 'username'} label="Username" className="uncenter-floating-label">
+                                    <Form.Control
+                                        required
+                                        placeholder="Username"
+                                        disabled={loading}
+                                        onChange={(e) => {
+                                            setValidUser({ ...validUser, loading: true });
+                                            setUsername(e.currentTarget.value);
+                                        }}
+                                        value={username}
+                                    />
+                                </Form.FloatingLabel>
+
+                                <Form.FloatingLabel controlId={id + 'password'} label="Password" className="uncenter-floating-label">
+                                    <Form.Control
+                                        required
+                                        placeholder="Password"
+                                        disabled={loading}
+                                        type="password"
+                                        onChange={(e) => {
+                                            setValidUser({ ...validUser, loading: true });
+                                            setPassword(e.currentTarget.value);
+                                        }}
+                                        value={password}
+                                    />
+                                </Form.FloatingLabel>
+                            </Stack>
+                            {/* TO DO: Add signup for alert emails check box */}
+                            <Button
+                                className="mt-3"
+                                variant="crimson"
+                                disabled={loading || !['', settings.forSchoolName].includes(validUser.school)}
+                                type="submit"
                             >
-                                <Form.Control required placeholder="Username" disabled={loading} onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setUsername(e.currentTarget.value) } } value={username} />
-                            </Form.FloatingLabel>
-
-                            <Form.FloatingLabel
-                                controlId={ id + "password" }
-                                label="Password"
-                                className='uncenter-floating-label'
-                            >
-                                <Form.Control required placeholder="Password" disabled={loading} type="password" onChange={ (e) => { setValidUser({ ...validUser, loading: true }); setPassword(e.currentTarget.value)}} value={password} />
-                            </Form.FloatingLabel>
-                        </Stack>
-                        { /* TO DO: Add signup for alert emails check box */ }
-                        <Button className='mt-3' variant='crimson' disabled={loading || !['', settings.forSchoolName].includes(validUser.school)} type="submit">
-                            { loading ? <Spinner as="span" animation="border" size="sm" /> : "Login" }
+                                {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Login'}
+                            </Button>
+                            <div className="mt-3">
+                                {username === '' || password === ''
+                                    ? 'Please enter your username and password'
+                                    : validUser.loading
+                                    ? 'Loading...'
+                                    : validUser.isValid && validUser.loading === false
+                                    ? validUser.name + ' At ' + validUser.school
+                                    : 'Invalid Credentails'}
+                            </div>
+                        </Form>
+                    </Row>
+                    <Row>
+                        <Button
+                            className="mt-5 underline"
+                            onClick={() => {
+                                props.setStage(-1);
+                            }}
+                            variant="btn-link"
+                            size="sm"
+                        >
+                            Enter data manually (Recommended For Teachers)
                         </Button>
-                        <div className='mt-3'>
-                            { (username === '' || password === '') ? 'Please enter your username and password' : (validUser.loading) ? 'Loading...' : (validUser.isValid && validUser.loading === false) ? validUser.name + ' At ' + validUser.school: 'Invalid Credentails' }
-                        </div>
-                    </Form>
-                </Row>
-                <Row>
-                    <Button className="mt-5 underline" onClick={ () => { props.setStage(-1) }} variant="btn-link" size="sm">Enter data manually (Recommended For Teachers)</Button>
-                </Row>
-            </Container>
-        </Center>
-    </FadeIn>)
+                    </Row>
+                </Container>
+            </Center>
+        </FadeIn>
+    );
 }

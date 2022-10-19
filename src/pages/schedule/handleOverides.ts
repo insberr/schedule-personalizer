@@ -4,7 +4,7 @@ import { CL, Class, ClassIDS } from '../../types';
 import { EventSchedule } from './index';
 
 
-// Should only return null if there is no cambridge overide for the display day schedule
+// Should only return null if there is no overide for the display day schedule or user grade
 export function overidesMergeDataWithSchedule(displayTermClasses: CL[], displayDaySchedule: SchedulesType, userGrade: string, displayDayEvent: EventSchedule): null | { newClasses: SCHCL[], scheduleForDisplay: Class[], overideForGrade: OverideForName } {
     // log to sentry user grade and schedule
 
@@ -14,24 +14,24 @@ export function overidesMergeDataWithSchedule(displayTermClasses: CL[], displayD
 
     const newClasses = [ ...displayDaySchedule.classes ]
 
-    if (displayDaySchedule?.overides === undefined) {
-        console.log('overides is not defined on displayDaySchedule. How did this happen?');
-        return null; // probably should also error
-    }
+    // No overides on the schedule
+    if (displayDaySchedule?.overides === undefined) return null;
+    if (displayDaySchedule?.overides.length === 0) return null;
 
     // PROBably need a condition to detect which overide name to use
-    const overidesForCondition = displayDaySchedule.overides.filter(o => o.condition(displayDayEvent, config)); // temporary PLS FIX
+    const overidesForCondition = displayDaySchedule.overides.filter(o => o.condition(displayDayEvent, config, displayTermClasses));
     if (overidesForCondition.length > 1) {
         console.log('Why are there multiple overides for the same condition?');
-        // probably should also error
+        // probably should error
     }
 
-    // check if overides is undefined and throw error to sentry
-    if (overidesForCondition === undefined) return null; // probably should also error
-
-    // To DO check overide grade
+    // Check if there are any overides that might apply to this user
+    if (overidesForCondition === undefined) return null; // No matching overides for this user
+    if (overidesForCondition.length === 0) return null; // No matching overides for this user
+    if (overidesForCondition[0].overides.length === 0) return null; // No overides for condition specified
+    // Check if there are any overides for the users grade level
     const overideForGrade = overidesForCondition[0].overides.filter(o => o.forGrade === gradeAsNumber)[0];
-    if (overideForGrade === undefined) return null; // probably should also error
+    if (overideForGrade === undefined) return null; // No overide for this grade, use default schedule
 
     // If no overides are given. That should mean theres some other config values that are used after the function
     if (overideForGrade.overides !== undefined) {

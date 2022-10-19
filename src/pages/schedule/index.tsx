@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
 import {useToggle, useInterval} from 'react-use'
-import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
+// import { cambridgeMergeDataWithSchedule, translateCambridgeClassesToCLList__TEMPORARYYYYY__ } from './cambridge';
 import { RootState } from '../../storage/store';
 import { today } from "../../today";
 import { useNavigate } from '../../router/hooks';
@@ -123,96 +123,47 @@ function doSchedule(sch: ScheduleStorage, currentDisplayDate: Date, stv: Storage
         }
     }
 
-    // Check for Cambridge
-    if (currentDisplayDayEvent.schedule.overides !== undefined) {
-        const mergedOverideSchedule = overidesMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || 'manual', currentDisplayDayEvent);
+    /* Handle schedule overides */
+    
+    // Returns a modified schedule with the overides applied OR null if there are no overides
+    const mergedOverideSchedule = overidesMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || 'manual', currentDisplayDayEvent);
 
-        let lunchifiedScheduleOveride: MergedSchedule = {
-            schedule: [],
-            event: currentDisplayDayEvent,
-            sch: sch.terms,
-        }
-
-        if (mergedOverideSchedule === null) {
-            console.log('overide schedule is null');
-            const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
-            lunchifiedScheduleOveride = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
-        } else {
-            const cambridgeCurrentDisplayDayEvent = {
-                ...currentDisplayDayEvent,
-                schedule: {
-                    ...currentDisplayDayEvent.schedule,
-                    classes: mergedOverideSchedule.newClasses
-                },
-            }
-
-            lunchifiedScheduleOveride = {
-                schedule: mergedOverideSchedule.scheduleForDisplay,
-                event: cambridgeCurrentDisplayDayEvent,
-                sch: sch.terms,
-            }
-
-            if (mergedOverideSchedule.overideForGrade.ignoreLunchConfig !== true) {
-                lunchifiedScheduleOveride = lunchify(lunchifiedScheduleOveride, displayTerm, userLunch, stv, setUserLunch, studentInfo);
-            }
-        }
-
-        return { currentDisplayDayEvent: lunchifiedScheduleOveride.event, lunchifiedSchedule: lunchifiedScheduleOveride };
-   
-    } else if (displayTerm.classes.filter(p => settingsConfig.cambridgePeriods.includes(p.period)).length > 0) {
-        const mergedCambridgeSchedule = cambridgeMergeDataWithSchedule(displayTerm.classes, currentDisplayDayEvent.schedule, studentInfo.info?.content.Grade || "0");
-        let lunchifiedScheduleCambridge: MergedSchedule = {
-            schedule: [],
-            event: currentDisplayDayEvent,
-            sch: sch.terms,
-        }
-        
-        if (mergedCambridgeSchedule === null) {
-            const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
-            lunchifiedScheduleCambridge = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
-        } else {
-            const cambridgeCurrentDisplayDayEvent = {
-                ...currentDisplayDayEvent,
-                schedule: {
-                    ...currentDisplayDayEvent.schedule,
-                    classes: mergedCambridgeSchedule.newClasses
-                },
-            }
-
-            lunchifiedScheduleCambridge = {
-                schedule: mergedCambridgeSchedule.scheduleForDisplay,
-                event: cambridgeCurrentDisplayDayEvent,
-                sch: sch.terms,
-            }
-
-            if (mergedCambridgeSchedule.overides.ignoreLunchConfig !== true) {
-                lunchifiedScheduleCambridge = lunchify(lunchifiedScheduleCambridge, displayTerm, userLunch, stv, setUserLunch, studentInfo);
-            }
-        }
-
-        const msg = '<br>Cambridge schedule support is in beta.<br>Class times are not correct, and the order of periods 11, 12, and 13 mqy not be correct.'
-        lunchifiedScheduleCambridge = {
-            ...lunchifiedScheduleCambridge,
-            event: {
-                ...lunchifiedScheduleCambridge.event,
-                hasError: true,
-                info: {
-                    ...lunchifiedScheduleCambridge.event.info,
-                    error: (lunchifiedScheduleCambridge.event.info?.error || '').includes(msg) ? (lunchifiedScheduleCambridge.event.info.error || '') : (lunchifiedScheduleCambridge.event.info.error || '') + msg,
-                }
-            }
-        }
-
-        return { currentDisplayDayEvent: lunchifiedScheduleCambridge.event, lunchifiedSchedule: lunchifiedScheduleCambridge };
+    let lunchifiedScheduleOveride: MergedSchedule = {
+        schedule: [],
+        event: currentDisplayDayEvent,
+        sch: sch.terms,
     }
 
-    // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
-    const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
+    if (mergedOverideSchedule === null) {
+        /* There are no overides */
+        console.log('Overide schedule is null. There are either no overides, or there is no overide for the users grade');
 
-    // Do lunch related frickery to the schedule
-    const lunchifiedSchedule: MergedSchedule = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+        // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
+        const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
 
-    return { currentDisplayDayEvent, lunchifiedSchedule };
+        // Do lunch related frickery to the schedule
+        lunchifiedScheduleOveride = lunchify(mergedSchedule, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+    } else {
+        const newCurrentDisplayDayEvent = {
+            ...currentDisplayDayEvent,
+            schedule: {
+                ...currentDisplayDayEvent.schedule,
+                classes: mergedOverideSchedule.newClasses
+            },
+        }
+
+        lunchifiedScheduleOveride = {
+            schedule: mergedOverideSchedule.scheduleForDisplay,
+            event: newCurrentDisplayDayEvent,
+            sch: sch.terms,
+        }
+
+        if (mergedOverideSchedule.overideForGrade.ignoreLunchConfig !== true) {
+            lunchifiedScheduleOveride = lunchify(lunchifiedScheduleOveride, displayTerm, userLunch, stv, setUserLunch, studentInfo);
+        }
+    }
+
+    return { currentDisplayDayEvent: lunchifiedScheduleOveride.event, lunchifiedSchedule: lunchifiedScheduleOveride };
 }
 
 function lunchify(mergedSchedule: MergedSchedule, displayTerm: Term, lunch: number, stv: StorageDataStudentvue, setUserLunch: (lunch: number) => void, studentInfo: StvDataStorage): MergedSchedule {
@@ -415,23 +366,26 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
 
     // Alert the user of unknown classes from studentvue
     const periodsFromEmptyCL = emptyCL(settingsConfig.numberOfPeriods, settingsConfig.hasAdvisory).map(c => c.period);
+    if (settingsConfig.cambridgePeriods) {
+        // Add cambridge periods to the known periods
+        periodsFromEmptyCL.push(...settingsConfig.cambridgePeriods);
+    }
     const unknownPeriods = displayTerm.classes.filter(p => !periodsFromEmptyCL.includes(p.period));
 
     // NOTE: TEMPORARY TEMORARY TEMPORARY TEMPORARY - Not the BEST PLACE for this at all, super temorary!!!!!! - TEMPORARY TEMORARY TEMPORARY TEMPORARY
-    const cambridge_ified = translateCambridgeClassesToCLList__TEMPORARYYYYY__(displayTerm.classes);
-    displayTerm.classes = cambridge_ified;
+    // const cambridge_ified = translateCambridgeClassesToCLList__TEMPORARYYYYY__(displayTerm.classes);
+    // displayTerm.classes = cambridge_ified;
 
     if (unknownPeriods.length > 1) {
         // Ceck for cambridge .. let the user know we dont support it yet, but are working on implementing it
-        const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
-        let errMsg = 'StudentVue has returned classes that are unknown.'
-        let addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
-        if (cambridgePeriods.length > 0) {
-            // user has cambridge
-            errMsg = 'It appears this student is a Cambridge student.'
-            addMessage = `<span style='color: red'>Cambridge schedule support is in beta.<br>Class Times are not correct and periods 11, 12, 13 may not be in the correct order.</span>`
-        }
-        
+        // const cambridgePeriods = unknownPeriods.filter(p => settingsConfig.cambridgePeriods.includes(p.period))
+        const errMsg = 'StudentVue has returned classes that are unknown.'
+        const addMessage = `<span style='color: red'>StudentVue has returned classes that are unknown. <pre>${unknownPeriods.map(p => `[${p.period}, ${p.name}]`).join(' | ')}</pre>. Schedule Peronalizer does not display them due to the complexity of such a problem.</span>`
+        // if (cambridgePeriods.length > 0) {
+        //     // user has cambridge
+        //     errMsg = 'It appears this student is a Cambridge student.'
+        //     addMessage = `<span style='color: red'>Cambridge schedule support is in beta.<br>Class Times are not correct and periods 11, 12, 13 may not be in the correct order.</span>`
+        // }
         Sentry.addBreadcrumb({ category: 'displayTerm.classes', message: JSON.stringify(displayTerm.classes), level: 'info' })
         Sentry.addBreadcrumb({ category: 'unknown-classes', message: JSON.stringify(unknownPeriods), level: 'info' })
         Sentry.captureException(new Error(errMsg));

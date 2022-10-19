@@ -1,6 +1,8 @@
 import { EventSchedule } from '../pages/schedule';
-import { ClassIDS, getTimeW, Time } from '../types';
+import { CL, ClassIDS, getTimeW, Time } from '../types';
 import '../types/schedulesTypes';
+
+
 
 export type CLIdentifier = {
     classID: ClassIDS;
@@ -68,7 +70,7 @@ export type OverideForName = {
 export type ScheduleOverride = {
     name: string,
     // PLS ADD TYPES LMAO
-    condition: (event: EventSchedule, config: unknown) => boolean,
+    condition: (event: EventSchedule, config: Record<string, unknown>, termSchedule: CL[]) => boolean,
     overides: OverideForName[]
 }
 
@@ -139,58 +141,70 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 0), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(8, 22) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 27), endTime: getTimeW(9, 14) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 19), endTime: getTimeW(9, 55) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 50), endTime: getTimeW(9, 37) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 42), endTime: getTimeW(10, 29) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 33), endTime: getTimeW(11, 10) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(8, 22) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 27), endTime: getTimeW(9, 14) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 19), endTime: getTimeW(9, 55) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 50), endTime: getTimeW(9, 37) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 42), endTime: getTimeW(10, 29) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 33), endTime: getTimeW(11, 10) }
 
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
-                        },
-                    ]
-                }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
+                                },
+                            ]
+                        }
+                    },
+                ]
             }
-        },
+        ],
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -224,58 +238,70 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 5), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 52) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 57), endTime: getTimeW(9, 39) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 43), endTime: getTimeW(10, 10) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 52) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 57), endTime: getTimeW(10, 39) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 43), endTime: getTimeW(11, 25) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 52) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 57), endTime: getTimeW(9, 39) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 43), endTime: getTimeW(10, 10) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 52) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 57), endTime: getTimeW(10, 39) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 43), endTime: getTimeW(11, 25) }
 
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
-                        },
-                    ]
-                }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                                },
+                            ]
+                        }
+                    }
+                ]
             }
-        },
+        ],
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -297,6 +323,8 @@ export const schedules: Schedules = {
             }
         }
     },
+
+    // Pls verify cambridge times
     lateStart1Hour: {
         name: '1 Hour Late Start',
         classes: [
@@ -308,58 +336,70 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 15), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
 
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
-                        },
-                    ]
-                }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                                },
+                            ]
+                        }
+                    }
+                ]
             }
-        },
+        ],
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -392,58 +432,70 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 25), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
 
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
-                        },
-                    ]
-                }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                                },
+                            ]
+                        }
+                    }
+                ]
             }
-        },
+        ],
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -478,58 +530,70 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Assembly, period: 0, startTime: getTimeW(13, 20), endTime: getTimeW(14, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(8, 22) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 27), endTime: getTimeW(9, 14) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 19), endTime: getTimeW(9, 55) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 50), endTime: getTimeW(9, 37) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 42), endTime: getTimeW(10, 29) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 33), endTime: getTimeW(10, 50) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
 
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(10, 50), endTime: getTimeW(11, 20) }
-                        },
-                    ]
-                }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                                },
+                            ]
+                        }
+                    }
+                ]
             }
-        },
+        ],
         lunch: {
             hasLunch: true,
             basedOnPeriod: 3,
@@ -562,140 +626,130 @@ export const schedules: Schedules = {
             { classID: ClassIDS.Period, period: 5, startTime: getTimeW(9, 35), endTime: getTimeW(10, 5) },
             { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(7, 35), endTime: getTimeW(7, 50) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(7, 55), endTime: getTimeW(8, 10) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(8, 15), endTime: getTimeW(8, 30) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 5), endTime: getTimeW(8, 20) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 25), endTime: getTimeW(8, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(8, 45), endTime: getTimeW(9, 0) }
 
-                        },
-                    ]
-                }
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
-        },
-        lunch: {
-            hasLunch: false,
-        }
-    },
-    weekend: {
-        name: 'Weekend',
-        noOverride: true,
-        classes: [
-            { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
-        ],
-        lunch: {
-            hasLunch: false
-        }
-    },
-    
-    noSchool: {
-        name: 'No School',
-        classes: [
-            { classID: ClassIDS.NoSchool, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
         ],
         lunch: {
             hasLunch: false,
         }
     },
-
-    summer: {
-        name: 'Summer',
-        noOverride: true,
-        classes: [
-            { classID: ClassIDS.Summer, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
-        ],
-        lunch: {
-            hasLunch: false,
-        }
-    },
-
-    /* DOES NOT WORK YET */
-    testMuliLunch: {
-        name: 'test multi lunch',
+    earlyDiss_A_1: {
+        name: 'Early Dissmissal [Advisory, Period 1]',
         classes: [
             { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
-            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
-            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(8, 50), endTime: getTimeW(9, 55) },
-            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(9, 55), endTime: getTimeW(11, 40) },
-            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(11, 45), endTime: getTimeW(12, 55) },
-            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 0), endTime: getTimeW(14, 5) },
-            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
+            { classID: ClassIDS.Advisory, period: 0, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
+            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(8, 50), endTime: getTimeW(10, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
+        ],
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [], // Figure out cambridge
+            }
         ],
         lunch: {
-            hasLunch: true,
-            isMultiLunch: true,
-            basedOnPeriod: [3, 4],
-            numberOfLunches: 3,
-            multiLunches: {
-                3: {
-                    1: { order: [
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(9, 55), endTime: getTimeW(10, 25) },
-                        { classID: ClassIDS.Period, startTime: getTimeW(10, 30), endTime: getTimeW(11, 40) }
-                    ]},
-                    2: { order: [
-                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(10, 30) },
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(10, 30), endTime: getTimeW(11, 0) },
-                        { classID: ClassIDS.Period, startTime: getTimeW(11, 5), endTime: getTimeW(11, 40) }
-                    ]},
-                    3: { order: [
-                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(11, 10) },
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
-                    ]},
-                },
-                4: {
-                    1: { order: [
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 40), endTime: getTimeW(12, 10) },
-                        { classID: ClassIDS.Period, startTime: getTimeW(12, 15), endTime: getTimeW(12, 55) }
-                    ]},
-                    2: { order: [
-                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 15), endTime: getTimeW(12, 30) },
-                        { classID: ClassIDS.Period, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
-                    ]},
-                    3: { order: [
-                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
-                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
-                    ]},
-                }
-            }
+            hasLunch: false,
         }
     },
+    earlyDiss_2_3: {
+        name: 'Early Dissmissal [Period 2, Period 3]',
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
+            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(8, 50), endTime: getTimeW(10, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
+        ],
+        overides: [
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [], // Figure out cambridge
+            }
+        ],
+        lunch: {
+            hasLunch: false,
+        }
+    },
+    earlyDiss_4_5: {
+        name: 'Early Dissmissal [Period 4, Period 5]',
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
+            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(8, 50), endTime: getTimeW(10, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(10, 5), endTime: getTimeW(10, 10) },
+        ],
+        overides: [], // Figure out cambridge
+        lunch: {
+            hasLunch: false,
+        }
+    },
+
+    /* Messed up schedules that I had to write more code to support */
     careerOneHourLateStart: {
         name: 'Career Fair 1 Hour Late Start',
         classes: [
@@ -814,60 +868,70 @@ export const schedules: Schedules = {
                         }
                     }
                 ]
+            },
+            {
+                name: "cambridge",
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter(c => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
+
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
+                                },
+                            ]
+                        }
+                    }
+                ]
             }
         ],
-        cambridge: {
-            10: {
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 1 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(8, 10), endTime: getTimeW(8, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(8, 45), endTime: getTimeW(9, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(9, 30), endTime: getTimeW(10, 10) }
-                        },
-                    ]
-                }
-            },
-            11: {
-                forceLunch: 3,
-                ignoreLunchConfig: true,
-                overides: {
-                    replace: [
-                        {
-                            base: { classID: ClassIDS.Period, period: 2 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 11, startTime: getTimeW(9, 10), endTime: getTimeW(9, 40) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 3 },
-                            type: ReplaceType.Replace,
-                            with: { classID: ClassIDS.Period, period: 12, startTime: getTimeW(9, 45), endTime: getTimeW(10, 25) }
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 12 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Period, period: 13, startTime: getTimeW(10, 30), endTime: getTimeW(11, 25) }
-
-                        },
-                        {
-                            base: { classID: ClassIDS.Period, period: 13 },
-                            type: ReplaceType.After,
-                            with: { classID: ClassIDS.Lunch, period: 13, startTime: getTimeW(11, 25), endTime: getTimeW(11, 55) }
-                        },
-                    ]
-                }
-            }
-        },
         lunch: {
             hasLunch: true,
             basedOnPeriod: 0,
@@ -890,8 +954,92 @@ export const schedules: Schedules = {
             }
         }
     },
-}
+    /* =========== */
 
+    weekend: {
+        name: 'Weekend',
+        noOverride: true,
+        classes: [
+            { classID: ClassIDS.Weekend, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false
+        }
+    },
+    
+    noSchool: {
+        name: 'No School',
+        classes: [
+            { classID: ClassIDS.NoSchool, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false,
+        }
+    },
+
+    summer: {
+        name: 'Summer',
+        noOverride: true,
+        classes: [
+            { classID: ClassIDS.Summer, period: 0, startTime: getTimeW(0, 0), endTime: getTimeW(24, 0) },
+        ],
+        lunch: {
+            hasLunch: false,
+        }
+    },
+
+    /* DOES NOT WORK YET */
+    testMuliLunch: {
+        name: 'test multi lunch',
+        classes: [
+            { classID: ClassIDS.Zero, period: 0, startTime: getTimeW(6, 35), endTime: getTimeW(7, 30) },
+            { classID: ClassIDS.Period, period: 1, startTime: getTimeW(7, 35), endTime: getTimeW(8, 45) },
+            { classID: ClassIDS.Period, period: 2, startTime: getTimeW(8, 50), endTime: getTimeW(9, 55) },
+            { classID: ClassIDS.Period, period: 3, startTime: getTimeW(9, 55), endTime: getTimeW(11, 40) },
+            { classID: ClassIDS.Period, period: 4, startTime: getTimeW(11, 45), endTime: getTimeW(12, 55) },
+            { classID: ClassIDS.Period, period: 5, startTime: getTimeW(13, 0), endTime: getTimeW(14, 5) },
+            { classID: ClassIDS.Dismissal, period: 0, startTime: getTimeW(14, 5), endTime: getTimeW(14, 10) },
+        ],
+        lunch: {
+            hasLunch: true,
+            isMultiLunch: true,
+            basedOnPeriod: [3, 4],
+            numberOfLunches: 3,
+            multiLunches: {
+                3: {
+                    1: { order: [
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(9, 55), endTime: getTimeW(10, 25) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 30), endTime: getTimeW(11, 40) }
+                    ]},
+                    2: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(10, 30) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(10, 30), endTime: getTimeW(11, 0) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 5), endTime: getTimeW(11, 40) }
+                    ]},
+                    3: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(10, 0), endTime: getTimeW(11, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 10), endTime: getTimeW(11, 40) }
+                    ]},
+                },
+                4: {
+                    1: { order: [
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(11, 40), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(12, 15), endTime: getTimeW(12, 55) }
+                    ]},
+                    2: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 15), endTime: getTimeW(12, 30) },
+                        { classID: ClassIDS.Period, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
+                    ]},
+                    3: { order: [
+                        { classID: ClassIDS.Period, startTime: getTimeW(11, 45), endTime: getTimeW(12, 10) },
+                        { classID: ClassIDS.Lunch, startTime: getTimeW(12, 35), endTime: getTimeW(12, 55) }
+                    ]},
+                }
+            }
+        }
+    },
+}
 /*
     Anytime no schedule is defined for some odd reason, this will be used as the default.
     However, I highly recommend NOT relying on the default fallback;

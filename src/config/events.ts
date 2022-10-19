@@ -242,16 +242,31 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date("October 21, 2022"),
         },
     },
+
+
     {
-        schedule: schedules.earlyDissmissal,
+        schedule: schedules.earlyDiss_A_1,
         info: {
             message: "Early Dismissal (6-12) | Conference Week",
-            date: {
-                start: new Date("October 26, 2022"),
-                end: new Date("October 28, 2022"),
-            },
+            date: new Date("October 26, 2022"),
         },
     },
+    {
+        schedule: schedules.earlyDiss_2_3,
+        info: {
+            message: "Early Dismissal (6-12) | Conference Week",
+            date: new Date("October 27, 2022"),
+        },
+    },
+    {
+        schedule: schedules.earlyDiss_4_5,
+        info: {
+            message: "Early Dismissal (6-12) | Conference Week",
+            date: new Date("October 28, 2022"),
+        },
+    },
+
+
     {
         schedule: schedules.lateStart1Hour,
         info: {

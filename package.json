@@ -63,7 +63,7 @@
         "clean": "rimraf dist && rimraf .parcel-cache",
         "splash": "cd src && pwa-asset-generator ../icon.svg ./splashscreens --background #272727 --splash-only --index index.html --type png --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
         "fullbuild": "yarn splash && yarn build",
-        "legal": "yarn licenses generate-disclaimer --production > src/legal.mdx",
+        "legal": "yarn licenses list --production > src/legal.mdx",
         "postinstall": "yarn legal",
         "format": "prettier --write ."
     },

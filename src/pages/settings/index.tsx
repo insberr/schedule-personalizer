@@ -684,11 +684,12 @@ export function SettingsPage() {
                             </div>
                             <a href="https://github.com/insberr/schedule-personalizer">See the code on GitHub</a>
                             <hr style={{ marginTop: '3em', marginBottom: '1em' }} />
+
                             <div style={{ width: '75vw' }} className="paper">
                                 <Accordion>
                                     <Accordion.Item eventKey="0">
                                         <Accordion.Header>3rd Party Licences</Accordion.Header>
-                                        <Accordion.Body>
+                                        <Accordion.Body style={{ textAlign: 'left' }}>
                                             <Legal />
                                         </Accordion.Body>
                                     </Accordion.Item>
@@ -733,7 +734,6 @@ export function SettingsPage() {
                         </div>
                     </Tab>
                 </Tabs>
-                <Center></Center>
             </div>
         </>
     );

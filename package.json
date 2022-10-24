@@ -23,6 +23,7 @@
         "@types/lodash": "^4.14.186",
         "@types/node": "^18.11.3",
         "@types/pathfinding": "^0.0.6",
+        "@types/prettier": "^2.7.1",
         "@types/react": "^18.0.21",
         "@types/react-calendar": "^3.5.3",
         "@types/react-dom": "^18.0.6",
@@ -37,7 +38,7 @@
         "@typescript-eslint/eslint-plugin": "^5.40.1",
         "@typescript-eslint/parser": "^5.40.1",
         "eruda": "^2.5.0",
-        "eslint": "^8.25.0",
+        "eslint": "^8.26.0",
         "eslint-plugin-react": "^7.31.10",
         "eslint-plugin-react-hooks": "^4.6.0",
         "events": "^3.3.0",
@@ -62,9 +63,10 @@
         "clean": "rimraf dist && rimraf .parcel-cache",
         "splash": "cd src && pwa-asset-generator ../src/icons/icon.svg ./splashscreens --background #272727 --splash-only --index index.html --type png --padding \"calc(50vh - 20%) calc(50vw - 40%)\"",
         "fullbuild": "yarn splash && yarn build",
-        "legal": "echo '# Licenses' > src/legal.mdx && yarn licenses generate-disclaimer --production >> src/legal.mdx",
+        "legal": "echo '# Licenses\n```\n' > src/legal.mdx && yarn licenses generate-disclaimer --production >> src/legal.mdx && echo '\n```' >> src/legal.mdx",
         "postinstall": "yarn legal",
-        "upgrade:latest:dont-use-because-of-parcel": "yarn up \"*\" \"@*/*\""
+        "upgrade:latest:dont-use-because-of-parcel": "yarn up \"*\" \"@*/*\"",
+        "format": "prettier --write ."
     },
     "packageManager": "yarn@3.2.3",
     "pwaManifest": {
@@ -115,6 +117,7 @@
         "lodash": "^4.17.21",
         "pathfinding": "^0.4.18",
         "pepjs": "^0.5.3",
+        "prettier": "^2.7.1",
         "pwa-asset-generator": "^6.2.0",
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",

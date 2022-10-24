@@ -2,19 +2,19 @@ import * as teachersConfig from '../config/teachers';
 import { ClassIDS } from '../types';
 
 export type Lunch = {
-    lunch: number
-    teachers: teachersConfig.Teacher[]
-}
+    lunch: number;
+    teachers: teachersConfig.Teacher[];
+};
 
 export type LunchesBasedOnPeriod = {
     forOveride?: boolean;
-    basedOnPeriod: number
-    basedOnPeriodID?: ClassIDS,
-    lunches: Lunch[]
-}
+    basedOnPeriod: number;
+    basedOnPeriodID?: ClassIDS;
+    lunches: Lunch[];
+};
 
 export type LunchesOnTerms = {
-    [key: number]: LunchesBasedOnPeriod[]
-}
+    [key: number]: LunchesBasedOnPeriod[];
+};
 
-export type LunchesType = LunchesOnTerms
+export type LunchesType = LunchesOnTerms;

@@ -4,8 +4,6 @@ declare global {
     }
 }
 
-export class AStar {
-
-}
+export class AStar {}
 
 window.astar = new AStar();

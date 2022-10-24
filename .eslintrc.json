@@ -8,7 +8,7 @@
             "version": "18.1"
         }
     },
-    "ignorePatterns": [ "**/*.js", "dist/*"] ,
+    "ignorePatterns": ["**/*.js", "dist/*"],
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
@@ -24,10 +24,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
+    "plugins": ["react", "@typescript-eslint"],
     "rules": {
         "@typescript-eslint/triple-slash-reference": 0,
         "quotes": [0, "single"],

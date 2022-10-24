@@ -1,6 +1,6 @@
-import { expose } from 'comlink'
-import {IPaleKing} from "./type"
-import PF from "pathfinding";
+import { expose } from 'comlink';
+import { IPaleKing } from './type';
+import PF from 'pathfinding';
 
 /*
     Ununsed Variable
@@ -29,21 +29,21 @@ const getColor = (x: number, y: number, ctx: CanvasRenderingContext2D, canvas: H
 function makeArray<T>(w: number, h: number, val: T): T[][] {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const arr: any[] = [];
-    for(let i = 0; i < h; i++) {
+    for (let i = 0; i < h; i++) {
         arr[i] = [];
-        for(let j = 0; j < w; j++) {
+        for (let j = 0; j < w; j++) {
             arr[i][j] = val;
         }
     }
     return arr;
 }
-class PaleKing implements IPaleKing { 
+class PaleKing implements IPaleKing {
     pathfind(grid: number[][], start: number[], end: number[]): number[][] {
         const finder = new PF.AStarFinder({
-            diagonalMovement: PF.DiagonalMovement.OnlyWhenNoObstacles
+            diagonalMovement: PF.DiagonalMovement.OnlyWhenNoObstacles,
         });
         const pfgrid = new PF.Grid(grid);
-        return PF.Util.smoothenPath(pfgrid,finder.findPath(start[0], start[1], end[0], end[1], pfgrid.clone()));
+        return PF.Util.smoothenPath(pfgrid, finder.findPath(start[0], start[1], end[0], end[1], pfgrid.clone()));
     }
     buildMatrix(data: ImageData): number[][] {
         const matrix: number[][] = makeArray<number>(data.width, data.height, -1);
@@ -55,9 +55,9 @@ class PaleKing implements IPaleKing {
                 const b = data.data[i + 2];
                 const a = data.data[i + 3];
                 //console.log(r, g, b, a);
-                matrix[y][x] = determinePassable(r,g,b,a);
+                matrix[y][x] = determinePassable(r, g, b, a);
             }
-            console.log("col",y,data.width);
+            console.log('col', y, data.width);
         }
         return matrix;
     }

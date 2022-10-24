@@ -21,7 +21,6 @@ export const studentvueRefreshInterval = 2 * 60 * 1000; // 2 minutes
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';
 
-
 // This is for the number of classes in the day
 // advisory should be included
 export const numberOfPeriods = 6;
@@ -48,20 +47,29 @@ export const scheduleConfigs = {
             trigger: {
                 hasPeriods: [11, 12, 13],
             },
-        }
-]
-}
+        },
+    ],
+};
 
 export const lastDayOfSchool = new Date('June 23, 2023');
 // Terms
 // This is also used to determine the number of terms in the school year
 // This valuse is REQUIRED else there will be an error
 export const termsDates: types.Terms = [
-    { termIndex: 0, startDate: new Date("September 6, 2022"), endDate: new Date("December 6, 2022"), classes: [] },
-    { termIndex: 1, startDate: new Date("December 8, 2022"), endDate: new Date("March 27, 2023"), classes: [] },
-    { termIndex: 2, startDate: new Date("March 28, 2023"), endDate: lastDayOfSchool, classes: [] },
+    {
+        termIndex: 0,
+        startDate: new Date('September 6, 2022'),
+        endDate: new Date('December 6, 2022'),
+        classes: [],
+    },
+    {
+        termIndex: 1,
+        startDate: new Date('December 8, 2022'),
+        endDate: new Date('March 27, 2023'),
+        classes: [],
+    },
+    { termIndex: 2, startDate: new Date('March 28, 2023'), endDate: lastDayOfSchool, classes: [] },
 ];
-
 
 const defaultColor: types.RGBA = {
     enabled: false,
@@ -69,24 +77,24 @@ const defaultColor: types.RGBA = {
         r: 0,
         g: 0,
         b: 0,
-        a: 0
+        a: 0,
     },
     t: {
         r: 0,
         g: 0,
         b: 0,
-        a: 0
-    }
-}
+        a: 0,
+    },
+};
 const defaultIcon: types.Icon = {
     enabled: true,
     color: {
         r: 0,
         g: 0,
         b: 0,
-        a: 0
-    }
-}
+        a: 0,
+    },
+};
 
 export const defaultCustomizations: types.Customizations = {
     theme: {
@@ -110,9 +118,9 @@ export const defaultCustomizations: types.Customizations = {
         },
         icons: {
             class: defaultIcon,
-            lunch:  defaultIcon,
+            lunch: defaultIcon,
             currentClass: defaultIcon,
-        }
+        },
     },
     keybinds: {
         goBackOneDay: 'ArrowLeft',
@@ -122,8 +130,8 @@ export const defaultCustomizations: types.Customizations = {
     showInfoOnSchedule: true,
     tutorial: {
         moreMap: true,
-    }
-}
+    },
+};
 
 // This is partly a joke,,,, (I think)
 export const multiplayer = true;

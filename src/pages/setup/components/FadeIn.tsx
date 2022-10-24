@@ -1,4 +1,4 @@
-import { useSpring, animated, config } from "@react-spring/web";
+import { useSpring, animated, config } from '@react-spring/web';
 
 export function FadeIn(props: { children: React.ReactNode }) {
     const fadein = useSpring({

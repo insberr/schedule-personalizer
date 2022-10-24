@@ -1,21 +1,21 @@
-import type { Customizations, ClassIDS, RGBA, Colors } from "../types";
-import { defaultCustomizations as initialState } from "../config/settings";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
-import { RootState } from "./store";
+import type { Customizations, ClassIDS, RGBA, Colors } from '../types';
+import { defaultCustomizations as initialState } from '../config/settings';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
 
 export const customizationSlice = createSlice({
-    name: "customization",
+    name: 'customization',
     initialState,
     reducers: {
         setShowInfoOnSchedule: (state, action: PayloadAction<boolean>) => {
             state.showInfoOnSchedule = action.payload;
         },
         setCustomizations: (state, action: PayloadAction<Customizations>) => {
-            return {...state, ...action.payload};
+            return { ...state, ...action.payload };
         },
-        setScheduleColor: (state, action: PayloadAction<{sch: ClassIDS, color: RGBA}>) => {
+        setScheduleColor: (state, action: PayloadAction<{ sch: ClassIDS; color: RGBA }>) => {
             state.theme.colors.schedule[action.payload.sch] = action.payload.color;
         },
         setAllColors: (state, action: PayloadAction<Colors>) => {
@@ -24,14 +24,14 @@ export const customizationSlice = createSlice({
         setCurrentClassColor: (state, action: PayloadAction<RGBA>) => {
             state.theme.colors.currentClass = action.payload;
         },
-        setKeybindings: (state, action: PayloadAction<{[key: string]: string}>) => {
-            state.keybinds = {...state.keybinds, ...action.payload};
+        setKeybindings: (state, action: PayloadAction<{ [key: string]: string }>) => {
+            state.keybinds = { ...state.keybinds, ...action.payload };
         },
         resetColors: (state) => {
             state.theme.colors = initialState.theme.colors;
         },
-        setTutorial: (state, action: PayloadAction<{[key: string]: boolean}>) => {
-            state.tutorial = {...state.tutorial, ...action.payload};
+        setTutorial: (state, action: PayloadAction<{ [key: string]: boolean }>) => {
+            state.tutorial = { ...state.tutorial, ...action.payload };
         },
         reset: () => {
             return initialState;
@@ -44,6 +44,16 @@ export function useCustomizations(): Customizations {
 }
 
 // Action creators are generated for each case reducer function
-export const { reset, setTutorial, setShowInfoOnSchedule, setCustomizations, setScheduleColor, setCurrentClassColor, setKeybindings, resetColors, setAllColors } = customizationSlice.actions;
+export const {
+    reset,
+    setTutorial,
+    setShowInfoOnSchedule,
+    setCustomizations,
+    setScheduleColor,
+    setCurrentClassColor,
+    setKeybindings,
+    resetColors,
+    setAllColors,
+} = customizationSlice.actions;
 
 export default customizationSlice.reducer;

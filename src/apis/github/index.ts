@@ -54,7 +54,7 @@ export async function shouldUpdate() {
 }
 
 export function useUpdateStatus() {
-    const dt = useSWR("update", shouldUpdate);
+    const dt = useSWR("update", shouldUpdate, { refreshInterval: 60*1000 }); // 60 seconds bc github api is rate limited to 60 per hour
     if (dt.error) {
         return false;
     }

@@ -57,7 +57,7 @@ function startLoad() {
         throw new Error('God is dead and we have killed him');
     }
 
-    console.log("Schedule personalizer v2 (" + identifyCommit() + ")");
+    console.log("Schedule personalizer v5 (" + identifyCommit() + ")");
     import("react-dom/client").then(({ createRoot }) => {
         const root = createRoot(app);
         const Withsentry =

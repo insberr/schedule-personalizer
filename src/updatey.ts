@@ -3,25 +3,30 @@ export function update() {
     if (root) {
         root.unmount();
     }
+    if (process.env.NODE_ENV != "production") {
+      location.reload()
+    }
     // fetch new page
     fetch("/").then(async (r) => {
-        document.getElementsByTagName("html")[0].innerHTML = await r.text();
-        //https://stackoverflow.com/a/69190644
-        function executeScriptElements(containerElement: HTMLElement) {
-            const scriptElements = containerElement.querySelectorAll("script");
-          
-            Array.from(scriptElements).forEach((scriptElement) => {
-              const clonedElement = document.createElement("script");
-          
-              Array.from(scriptElement.attributes).forEach((attribute) => {
-                clonedElement.setAttribute(attribute.name, attribute.value);
-              });
-              
-              clonedElement.text = scriptElement.text;
-          
-              scriptElement.parentNode?.replaceChild(clonedElement, scriptElement);
-            });
+        document.querySelectorAll("script").forEach(r => r.remove())
+        const data = await r.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, "text/html");
+        doc.querySelectorAll("script").forEach((s) => {
+          if (!s.noModule) {
+            return
           }
-        executeScriptElements(document.body)
+          if (s.src) {
+            fetch(s.src).then(r => r.text()).then((sc) => {
+              console.log("loading script", s.src);
+              const f = new Function(sc) // oh god oh fuck
+              console.log("starting...")
+              f();
+            })
+          } else {
+            const f = new Function(s.innerHTML) // oh god
+            f();
+          }
+        })
     })
 }

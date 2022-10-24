@@ -30,9 +30,6 @@ export const lunches: types.LunchesType = {
                         teachers.Talen_Michael_H,
                         teachers.Vallier_Heather_M,
                         teachers.Welborn_Scott_T,
-
-                        // I was not given a lunch for the following, and ones that are not on the 'teachers' value are not in the staff list for some reason
-                        // Probably teachers from other schools, grr
                     ],
                 },
                 {
@@ -54,7 +51,7 @@ export const lunches: types.LunchesType = {
                         teachers.Reisch_Rebecca_D,
                         teachers.Saffle_Teal_H,
                         teachers.Stickney_Christopher_L,
-                        teachers.Strom_Rachel_A,
+                        teachers.Angotti_Rachel_A,
                         teachers.Taylor_Claire_V,
                         teachers.Ito_Megumi,
                         teachers.Wolff_Laural_A,

@@ -6,22 +6,22 @@ export function update() {
     // fetch new page
     fetch("/").then(async (r) => {
         document.getElementsByTagName("html")[0].innerHTML = await r.text();
-        document.querySelectorAll("script").forEach((e) => {
-            const src = e.attributes.getNamedItem("src")?.value
-            if (!src) {
-                const data = e.innerHTML;
-                e.remove()
-                const n = document.createElement("script");
-                n.innerHTML = data;
-                document.body.append(n)
-            } else {
-                e.remove()
-                const n = document.createElement("script");
-                n.src = src;
-                document.body.append(n)
-            }
-            
-            
-        })
+        //https://stackoverflow.com/a/69190644
+        function executeScriptElements(containerElement: HTMLElement) {
+            const scriptElements = containerElement.querySelectorAll("script");
+          
+            Array.from(scriptElements).forEach((scriptElement) => {
+              const clonedElement = document.createElement("script");
+          
+              Array.from(scriptElement.attributes).forEach((attribute) => {
+                clonedElement.setAttribute(attribute.name, attribute.value);
+              });
+              
+              clonedElement.text = scriptElement.text;
+          
+              scriptElement.parentNode?.replaceChild(clonedElement, scriptElement);
+            });
+          }
+        executeScriptElements(document.body)
     })
 }

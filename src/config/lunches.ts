@@ -1,6 +1,6 @@
-import { ClassIDS } from "../types";
-import * as types from "../types/lunchesTypes";
-import { teachers } from "./teachers";
+import { ClassIDS } from '../types';
+import * as types from '../types/lunchesTypes';
+import { teachers } from './teachers';
 
 // I just realized this will have to be updated each term ... grrr gotta implement that
 export const lunches: types.LunchesType = {
@@ -33,7 +33,6 @@ export const lunches: types.LunchesType = {
 
                         // I was not given a lunch for the following, and ones that are not on the 'teachers' value are not in the staff list for some reason
                         // Probably teachers from other schools, grr
-                        
                     ],
                 },
                 {

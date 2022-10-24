@@ -1,5 +1,5 @@
-import { Component, ErrorInfo } from "react";
-type props = { children: JSX.Element | JSX.Element[]; };
+import { Component, ErrorInfo } from 'react';
+type props = { children: JSX.Element | JSX.Element[] };
 type state = { hasError: boolean };
 
 export class Err extends Component<props, state> {
@@ -11,7 +11,7 @@ export class Err extends Component<props, state> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     static getDerivedStateFromError(_: Error) {
         // Update state so the next render will show the fallback UI.
-        console.error(_)
+        console.error(_);
         return { hasError: true };
     }
 
@@ -27,8 +27,7 @@ export class Err extends Component<props, state> {
             //  You can render any custom fallback UI
             return (
                 <h3 className="text-center full-center">
-                    Something went wrong, Please try again later. <br /> If you
-                    are a developer, check the console for more details{" "} <br />
+                    Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details <br />
                     <a href="https://forms.gle/kwhHzBReokA3EEEd8">Feedback form</a>
                 </h3>
             );

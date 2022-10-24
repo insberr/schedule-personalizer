@@ -51,10 +51,10 @@ function startLoad() {
         release: identifyCommit() || "dev",
     });
 
-    const app = document.getElementById("app");
+    const app = document.getElementById('app');
     if (!app) {
-        console.error("What the fuck? theres no app element? wtf?");
-        throw new Error("God is dead and we have killed him");
+        console.error('What the fuck? theres no app element? wtf?');
+        throw new Error('God is dead and we have killed him');
     }
 
     console.log("Schedule personalizer v2 (" + identifyCommit() + ")");
@@ -123,7 +123,7 @@ function startLoad() {
     });
 }
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV == 'production') {
     startLoad();
 } else {
     eruda(startLoad);

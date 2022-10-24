@@ -1,35 +1,34 @@
-import set from "date-fns/set"
-import { today } from "./today"
+import set from 'date-fns/set';
+import { today } from './today';
 
 // for config/settings.ts
 export type cambridgeMapping = {
     [key: number]: {
-        switch: number[],
-        with: number[]
-    }
-}
-
+        switch: number[];
+        with: number[];
+    };
+};
 
 export type CL = {
-    classID: ClassIDS
-    period: number
-    name: string
+    classID: ClassIDS;
+    period: number;
+    name: string;
     teacher: {
-        name: string,
-        email: string,
-        id: string
-    }
-    room: string,
-}
+        name: string;
+        email: string;
+        id: string;
+    };
+    room: string;
+};
 export type Term = {
-    isFake?: boolean
-    termIndex: number
-    startDate: Date
-    endDate: Date
-    classes: CL[] | []
-}
+    isFake?: boolean;
+    termIndex: number;
+    startDate: Date;
+    endDate: Date;
+    classes: CL[] | [];
+};
 
-export type Terms = Term[]
+export type Terms = Term[];
 export enum ClassIDS {
     Zero,
     Arrival,
@@ -46,129 +45,126 @@ export enum ClassIDS {
 }
 
 export type Stdata = {
-    studentVue: StudentVue
-    terms: Term[]
-    customizations: Customizations
-}
+    studentVue: StudentVue;
+    terms: Term[];
+    customizations: Customizations;
+};
 
 export type StudentVue = {
-    stayLoggedIn: boolean
-    username: string
-    password: string
-}
+    stayLoggedIn: boolean;
+    username: string;
+    password: string;
+};
 
 export type Class = {
-    classID: ClassIDS
-    customID?: number
+    classID: ClassIDS;
+    customID?: number;
     // number[] is because of my start at bnuilding multiLunches
-    period: number | number[] | undefined
-    name: string
-    room: string | number
-    teacher: Teacher
+    period: number | number[] | undefined;
+    name: string;
+    room: string | number;
+    teacher: Teacher;
     // these times should be what studentvue says
-    startTime: Time
-    endTime: Time
-}
+    startTime: Time;
+    endTime: Time;
+};
 
 export type Teacher = {
-    name: string
-    email: string
-    id: string
-}
+    name: string;
+    email: string;
+    id: string;
+};
 
 export type Time = {
-    hours: number
-    minutes: number
-    seconds?: number
-}
-
+    hours: number;
+    minutes: number;
+    seconds?: number;
+};
 
 export type RGBA = {
-    enabled: boolean
+    enabled: boolean;
     // Highlight
     c: {
-        r: number
-        g: number
-        b: number
-        a: number
-    },
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+    };
     // Text
     t: {
-        r: number
-        g: number
-        b: number
-        a: number
-    }
-}
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+    };
+};
 
 export type Colors = {
     schedule: {
-        [key in ClassIDS]: RGBA
-    }
-    currentClass: RGBA
-    scheduleFrame: RGBA
-}
+        [key in ClassIDS]: RGBA;
+    };
+    currentClass: RGBA;
+    scheduleFrame: RGBA;
+};
 
 export type Keybinds = {
-    goForwardOneDay: string
-    goBackOneDay: string
-    goToToday: string
-}
+    goForwardOneDay: string;
+    goBackOneDay: string;
+    goToToday: string;
+};
 
 export type Icon = {
-    enabled: boolean
+    enabled: boolean;
     color: {
-        r: number
-        g: number
-        b: number
-        a: number
-    }
-}
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+    };
+};
 
 export type Customizations = {
     theme: {
-        colors: Colors
+        colors: Colors;
         icons: {
-            class: Icon
-            lunch: Icon
-            currentClass: Icon
-        }
-    }
-    keybinds: Keybinds
-    showInfoOnSchedule: boolean
+            class: Icon;
+            lunch: Icon;
+            currentClass: Icon;
+        };
+    };
+    keybinds: Keybinds;
+    showInfoOnSchedule: boolean;
     tutorial: {
-        moreMap: boolean
-    }
-}
-
-
+        moreMap: boolean;
+    };
+};
 
 export function dateToTime(d: Date): Time {
     return {
         hours: d.getHours(),
         minutes: d.getMinutes(),
-        seconds: d.getSeconds()
-    }
+        seconds: d.getSeconds(),
+    };
 }
 
 export function timeToDate(t: Time, d?: Date): Date {
     if (!d) {
-        d = today()
+        d = today();
     }
-    return set(d, t)
+    return set(d, t);
 }
 
 export function getTimeW(h: number, m: number, s = 0): Time {
     return {
         hours: h,
         minutes: m,
-        seconds: s
-    }
+        seconds: s,
+    };
 }
 
 export type schObject = {
-    [key: string]: CL
-}
+    [key: string]: CL;
+};
 
 // Stages Types
 export enum Stages {
@@ -179,34 +175,34 @@ export enum Stages {
 }
 
 export type StageProps = {
-    setStage: (stage: number) => void
-}
+    setStage: (stage: number) => void;
+};
 
 export type ManualResult = {
-    classes: CL[],
-    lunch: number
-}
+    classes: CL[];
+    lunch: number;
+};
 
 export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
     const classes = [...Array(amt)].map((v, i) => {
         return {
             classID: ClassIDS.Period,
             period: i,
-            name: "",
+            name: '',
             teacher: {
-                name: "",
-                email: "",
-                id: ""
+                name: '',
+                email: '',
+                id: '',
             },
-            room: ""
-        }
-    })
+            room: '',
+        };
+    });
     if (hasAdvisory) {
         classes[0] = {
             ...classes[0],
             classID: ClassIDS.Advisory,
-            name: "Advisory",
-        }
+            name: 'Advisory',
+        };
     }
 
     return classes;

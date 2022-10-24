@@ -22,10 +22,10 @@ const localizer = dateFnsLocalizer({
 type Props = {
     date: Date;
     setDate: (date: Date) => void;
-}
+};
 
 export function Calendar(props: Props) {
     return (
-        <div>This is no more. Props: { JSON.stringify(props) }</div>//<C localizer={localizer} {...props} />
-    )
+        <div>This is no more. Props: {JSON.stringify(props)}</div> //<C localizer={localizer} {...props} />
+    );
 }

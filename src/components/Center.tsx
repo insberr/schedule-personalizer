@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type CenterProps = {
     children: React.ReactNode;
@@ -25,13 +25,16 @@ function Center(props: CenterProps) {
     </div>
     )*/
     return (
-        <div ref={props.ref}
+        <div
+            ref={props.ref}
             className={
-                "text-center justify-content-center  " +
-                (props.noVW ? "" : " vw-100 ") +
-                (props.noDFlex ? "" : " d-flex ") +
-                (props.className ? props.className : "")
-            } style={props.style}>
+                'text-center justify-content-center  ' +
+                (props.noVW ? '' : ' vw-100 ') +
+                (props.noDFlex ? '' : ' d-flex ') +
+                (props.className ? props.className : '')
+            }
+            style={props.style}
+        >
             <div className="w-auto">{props.children}</div>
         </div>
     );

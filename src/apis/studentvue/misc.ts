@@ -1,14 +1,21 @@
-import { Teachers } from '../../config/teachers'
+import { Teachers } from '../../config/teachers';
 import { toTitleCase } from '../../lib/lib';
-import * as api from './studentVueAPI'
+import * as api from './studentVueAPI';
 
 export function getTeachers(username: string, password: string): Teachers {
     const schoolInfo = api.getSchoolInfo(username, password);
     const teachersList: Teachers = {};
 
-    for (const teach of (schoolInfo as unknown as { code: string, content: { StaffLists: { StaffList: { Name: string, StaffGU: string }[] }}}).content.StaffLists.StaffList) {
+    for (const teach of (
+        schoolInfo as unknown as {
+            code: string;
+            content: { StaffLists: { StaffList: { Name: string; StaffGU: string }[] } };
+        }
+    ).content.StaffLists.StaffList) {
         teachersList[
-            toTitleCase(teach.Name).replace(/ |(, )|-/gi, "_").replace(/[^a-z_]*/gi, "")
+            toTitleCase(teach.Name)
+                .replace(/ |(, )|-/gi, '_')
+                .replace(/[^a-z_]*/gi, '')
         ] = { id: teach.StaffGU };
     }
 

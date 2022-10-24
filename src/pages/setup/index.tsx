@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Terms } from '../../types';
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { setSetupComplete, useMisc } from '../../storage/misc';
 
 // Components
@@ -16,7 +16,7 @@ import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
-import { useNavigate } from "../../router/hooks";
+import { useNavigate } from '../../router/hooks';
 import { setTerms, useSchedule } from '../../storage/schedule';
 import { Page } from '../../storage/page';
 import LoadSpinner from '../../components/LoadSpinner';
@@ -51,40 +51,49 @@ function SetupPage() {
         dispatch(setSetupComplete(true));
         dispatch(setTerms(schedule));
         navigate(Page.SCHEDULE);
-    })
+    });
 
     // TO DO: maybe use enum for stages valuse??
-    let thing = <LoadSpinner />
-    switch (stage) { 
-        case -1: { // fork you no importing manually
-            thing = <Manual setStage={setStage} />
+    let thing = <LoadSpinner />;
+    switch (stage) {
+        case -1: {
+            // fork you no importing manually
+            thing = <Manual setStage={setStage} />;
             break;
         }
         case 0: {
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                setStage(420)
+                setStage(420);
             } else {
-                thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>
+                thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>;
             }
             break;
         }
         case 1: {
-            thing = <Features setStage={setStage} />
+            thing = <Features setStage={setStage} />;
             break;
         }
         case 69: // The schedule will only be set in this state
-            thing = <LoadSpinner />
+            thing = <LoadSpinner />;
             break;
         case 420:
-            thing = <Login setSchedule={ setLocalSchedule } setStage={setStage} />
+            thing = <Login setSchedule={setLocalSchedule} setStage={setStage} />;
             break;
-        default: 
-            thing = (<div>Unknown Setup Page! How did we get here? <Button onClick={ () => { setStage(0) } } variant="primary">Back To Beginning</Button></div>)
+        default:
+            thing = (
+                <div>
+                    Unknown Setup Page! How did we get here?{' '}
+                    <Button
+                        onClick={() => {
+                            setStage(0);
+                        }}
+                        variant="primary"
+                    >
+                        Back To Beginning
+                    </Button>
+                </div>
+            );
     }
-    return (
-        <IntroPonent>
-            { thing }
-        </IntroPonent>
-    )
+    return <IntroPonent>{thing}</IntroPonent>;
 }
 export default SetupPage;

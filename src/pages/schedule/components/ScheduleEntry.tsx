@@ -218,7 +218,9 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                             </div>
                         )}
                         {isAfter(cdate, timeToDate(props.period.endTime, props.viewDate)) && <div className="innerbox">Class Ended</div>}
-
+                        <div className="innerbox">
+                            Duration: {formatClassTime(props.period.startTime, props.period.endTime)} (grr, time to do time maths)
+                        </div>
                         {[ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID) &&
                             (props.period.teacher.name !== '' || props.period.room !== '') && (
                                 <div className="innerbox">

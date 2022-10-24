@@ -7,7 +7,15 @@ export function update() {
       location.reload()
     }
     // fetch new page
-    fetch("/").then(async (r) => {
+    fetch("/?rng"+Math.random()).then(async (r) => {
+        try {
+          const keys = await caches.keys()
+          await Promise.all(keys.map(k => caches.delete(k)))
+        } catch(e) {
+          console.log("unable to remove caches, that should be fine maybe")
+          console.log(e)
+          location.reload()
+        }
         document.querySelectorAll("script").forEach(r => r.remove())
         const data = await r.text();
         const parser = new DOMParser();

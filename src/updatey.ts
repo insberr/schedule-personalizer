@@ -7,7 +7,7 @@ export function update() {
       location.reload()
     }
     // fetch new page
-    fetch("/?rng"+Math.random()).then(async (r) => {
+    fetch("/?rng"+Math.random()*10).then(async (r) => {
         try {
           const keys = await caches.keys()
           await Promise.all(keys.map(k => caches.delete(k)))

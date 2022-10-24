@@ -43,6 +43,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "events": "^3.3.0",
         "gh-pages": "^4.0.0",
+        "http-server": "^14.1.1",
         "parcel": "^2.7.0",
         "parcel-reporter-clean-dist": "^1.0.4",
         "parcel-reporter-static-files-copy": "^1.4.0",
@@ -66,7 +67,8 @@
         "legal": "echo '# Licenses\n```\n' > src/legal.mdx && yarn licenses generate-disclaimer --production >> src/legal.mdx && echo '\n```' >> src/legal.mdx",
         "postinstall": "yarn legal",
         "upgrade:latest:dont-use-because-of-parcel": "yarn up \"*\" \"@*/*\"",
-        "format": "prettier --write ."
+        "format": "prettier --write .",
+        "prods": "yarn build && http-server dist"
     },
     "packageManager": "yarn@3.2.3",
     "pwaManifest": {

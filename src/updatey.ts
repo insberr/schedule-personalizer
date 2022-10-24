@@ -1,8 +1,5 @@
 export function update() {
     const root = window.rroot;
-    if (root) {
-        root.unmount();
-    }
     if (process.env.NODE_ENV != "production") {
       location.reload()
     }
@@ -30,8 +27,10 @@ export function update() {
               const f = new Function(sc) // oh god oh fuck
               console.log("starting...")
               f();
+              console.log("after src")
             })
           } else {
+            console.log("running innerhtml script")
             const f = new Function(s.innerHTML) // oh god
             f();
           }

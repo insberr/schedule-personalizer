@@ -13,6 +13,7 @@ import SentryRRWeb from "@sentry/rrweb";
 import { Button } from "react-bootstrap";
 import { Root } from "react-dom/client";
 import { update } from "./updatey";
+//mport { RiRobotFill } from "react-icons/ri";
 
 const tracesSampleRate = process.env.NODE_ENV == "production" ? 0.2 : 1.0;
 
@@ -50,7 +51,6 @@ function startLoad() {
         environment: process.env.NODE_ENV,
         release: identifyCommit() || "dev",
     });
-
     const app = document.getElementById('app');
     if (!app) {
         console.error('What the fuck? theres no app element? wtf?');
@@ -59,7 +59,13 @@ function startLoad() {
 
     console.log("Schedule personalizer v5 (" + identifyCommit() + ")");
     import("react-dom/client").then(({ createRoot }) => {
-        const root = createRoot(app);
+        let root: Root
+        if (window.rroot) {
+            window.rroot.unmount()
+            root = window.rroot
+        } else {
+            root = createRoot(app)
+        }
         const Withsentry =
             process.env.NODE_ENV == "production"
                 ? Sentry.withErrorBoundary(App, {

@@ -14,6 +14,7 @@ import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors,
 import ScheduleEntry from '../schedule/components/ScheduleEntry';
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
+import { update } from '../../updatey';
 import { identifyCommit, updateSW } from '../../lib/lib';
 import { today } from '../../today';
 import * as settings from '../../config/settings';
@@ -219,7 +220,7 @@ export function SettingsPage() {
                                 </Button>
                                 <Button
                                     onClick={() => {
-                                        updateSW();
+                                        update();
                                     }}
                                 >
                                     Force update site (beta)

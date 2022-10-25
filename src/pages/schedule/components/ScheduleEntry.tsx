@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../storage/store';
 import { Timer } from './Timer';
-import { isAfter, isBefore, isSameDay, isWithinInterval } from 'date-fns';
+import { formatDuration, intervalToDuration, isAfter, isBefore, isSameDay, isWithinInterval } from 'date-fns';
 import * as lib from '../../../lib/lib';
 import { useCustomizations } from '../../../storage/customizations';
 import { useCss } from 'react-use';
@@ -219,7 +219,13 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                         )}
                         {isAfter(cdate, timeToDate(props.period.endTime, props.viewDate)) && <div className="innerbox">Class Ended</div>}
                         <div className="innerbox">
-                            Duration: {formatClassTime(props.period.startTime, props.period.endTime)} (grr, time to do time maths)
+                            Duration:
+                            {formatDuration(
+                                intervalToDuration({
+                                    start: timeToDate(props.period.startTime),
+                                    end: timeToDate(props.period.endTime),
+                                })
+                            )}
                         </div>
                         {[ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID) &&
                             (props.period.teacher.name !== '' || props.period.room !== '') && (

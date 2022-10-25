@@ -59,7 +59,7 @@ file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
             '--type',
             'png',
             '--padding',
-            'calc(50vh - 20%) calc(50vw - 40%)',
+            'calc\\(50vh - 20%\\) calc\\(50vw - 40%\\)',
         ],
         'src'
     ),
@@ -70,7 +70,7 @@ task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.hold'], { concurre
 
 desc('clean');
 task('clean', () => {
-    return Promise.all([rimraf('dist'), rimraf('.parcel-cache'), rm('src/legal.mdx'), rimraf('src/splashscreens')]);
+    return Promise.all([rimraf('dist'), rimraf('.parcel-cache'), rm('src/legal.mdx', {force: true}), rimraf('src/splashscreens')]);
 });
 
 task('checktypes', yarnTask(['tsc']));

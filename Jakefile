@@ -6,11 +6,11 @@ const { writeFile, appendFile, rm } = require('fs/promises');
 const rim = require('rimraf');
 const rimraf = promisify(rim);
 const pwaAssetGenerator = require('pwa-asset-generator');
-const { Parcel } = require("@parcel/core");
+const { Parcel } = require('@parcel/core');
 
 function exec(command, args, cwd) {
     return new Promise((r, j) => {
-        const proc = e(command, args, { cwd, shell:false }, (e) => {
+        const proc = e(command, args, { cwd, shell: false }, (e) => {
             if (e) {
                 j(e);
             } else {
@@ -35,24 +35,24 @@ function yarnTask(args) {
 desc('builds for production');
 task('build', ['preqBuild'], async () => {
     let bundler = new Parcel({
-        mode: "production",
-        entries: ["./src/index.html"],
+        mode: 'production',
+        entries: ['./src/index.html'],
         env: {
-            NODE_ENV: 'production'
-          },
-          additionalReporters: [
+            NODE_ENV: 'production',
+        },
+        additionalReporters: [
             {
-              packageName: '@parcel/reporter-cli',
-              resolveFrom: __dirname,
-            }
-          ],
-          defaultTargetOptions: {
-            engines: {
-                browsers: "defaults and not ie >0 and not ie_mob >0"
+                packageName: '@parcel/reporter-cli',
+                resolveFrom: __dirname + '/node_modules/@parcel/reporter-cli',
             },
-          }       
-    })
-    let {bundleGraph, buildTime} = await bundler.run()
+        ],
+        defaultTargetOptions: {
+            engines: {
+                browsers: 'defaults and not ie >0 and not ie_mob >0',
+            },
+        },
+    });
+    let { bundleGraph, buildTime } = await bundler.run();
 });
 
 desc('legal');
@@ -95,7 +95,7 @@ task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.hold'], { concurre
 
 desc('clean');
 task('clean', () => {
-    return Promise.all([rimraf('dist'), rimraf('.parcel-cache'), rm('src/legal.mdx', {force: true}), rimraf('src/splashscreens')]);
+    return Promise.all([rimraf('dist'), rimraf('.parcel-cache'), rm('src/legal.mdx', { force: true }), rimraf('src/splashscreens')]);
 });
 
 task('checktypes', yarnTask(['tsc']));

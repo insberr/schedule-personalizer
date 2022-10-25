@@ -62,10 +62,8 @@ function startLoad() {
         let root: Root
         if (window.rroot) {
             window.rroot.unmount()
-            root = window.rroot
-        } else {
-            root = createRoot(app)
         }
+        root = createRoot(app)
         const Withsentry =
             process.env.NODE_ENV == "production"
                 ? Sentry.withErrorBoundary(App, {

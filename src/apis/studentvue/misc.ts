@@ -4,7 +4,7 @@ import * as api from './studentVueAPI';
 // pain i hate promises
 export async function getTeachers(username: string, password: string): Promise<Teachers> {
     const schoolInfo = await api.getSchoolInfo(username, password);
-    const teachersList: Teachers = {};
+    const teachersList: Record<string, unknown> = {};
     for (const teach of (
         schoolInfo as unknown as {
             code: string;
@@ -18,5 +18,5 @@ export async function getTeachers(username: string, password: string): Promise<T
         ] = { id: teach.StaffGU };
     }
 
-    return teachersList;
+    return teachersList as Teachers;
 }

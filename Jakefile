@@ -8,7 +8,7 @@ const rimraf = promisify(rim);
 
 function exec(command, args, cwd) {
     return new Promise((r, j) => {
-        const proc = e(command, args, { cwd }, (e) => {
+        const proc = e(command, args, { cwd, shell:true }, (e) => {
             if (e) {
                 j(e);
             } else {
@@ -26,8 +26,8 @@ function execTask(command, args) {
     };
 }
 
-function yarn(args) {
-    return exec('yarn', args);
+function yarn(args, cwd) {
+    return exec('yarn', args, cwd);
 }
 
 function yarnTask(args) {

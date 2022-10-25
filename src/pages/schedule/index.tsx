@@ -20,6 +20,7 @@ import { today } from '../../today';
 import { useNavigate } from '../../router/hooks';
 import { Page } from '../../storage/page';
 import { overidesMergeDataWithSchedule } from './handleOverides';
+import { Updatey } from '../../components/Updatey';
 
 export type EventSchedule = {
     isEvent: boolean;
@@ -105,6 +106,7 @@ function SchedulePage() {
                     setDisplayDate={setCurrentDisplayDate}
                 />
                 <StudentVueReloader />
+                <Updatey />
             </>
         );
     }

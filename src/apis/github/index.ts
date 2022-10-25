@@ -1,12 +1,12 @@
 //import { Endpoints } from "@octokit/types";
 //type latestCommitEndpoint = Endpoints["GET /repos/{owner}/{repo}/commits"]
 
+import { Octokit } from "octokit";
 import useSWR from "swr";
 import { identifyCommit } from "../../lib/lib";
-
+const o = new Octokit();
 async function loadOctokit() {
-    const octo = await import("octokit");
-    return new octo.Octokit();
+    return o;
 }
 
 export async function latestCommit(): Promise<string> {

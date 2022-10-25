@@ -5,10 +5,12 @@ let { task, desc, file } = require('jake');
 const { writeFile, appendFile, rm } = require('fs/promises');
 const rim = require('rimraf');
 const rimraf = promisify(rim);
+const pwaAssetGenerator = require('pwa-asset-generator');
+const { Parcel } = require("@parcel/core");
 
 function exec(command, args, cwd) {
     return new Promise((r, j) => {
-        const proc = e(command, args, { cwd, shell:true }, (e) => {
+        const proc = e(command, args, { cwd, shell:false }, (e) => {
             if (e) {
                 j(e);
             } else {
@@ -26,16 +28,32 @@ function execTask(command, args) {
     };
 }
 
-function yarn(args, cwd) {
-    return exec('yarn', args, cwd);
-}
-
 function yarnTask(args) {
     return execTask('yarn', args);
 }
 
 desc('builds for production');
-task('build', ['preqBuild'], yarnTask(['parcel', 'build', '--detailed-report']));
+task('build', ['preqBuild'], async () => {
+    let bundler = new Parcel({
+        mode: "production",
+        entries: ["./src/index.html"],
+        env: {
+            NODE_ENV: 'production'
+          },
+          additionalReporters: [
+            {
+              packageName: '@parcel/reporter-cli',
+              resolveFrom: __dirname,
+            }
+          ],
+          defaultTargetOptions: {
+            engines: {
+                browsers: "defaults and not ie >0 and not ie_mob >0"
+            },
+          }       
+    })
+    let {bundleGraph, buildTime} = await bundler.run()
+});
 
 desc('legal');
 file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
@@ -46,7 +64,7 @@ file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
 
 desc('splash');
 file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
-    await yarn(
+    /*await yarn(
         [
             'pwa-asset-generator',
             '../src/icons/icon.svg',
@@ -59,14 +77,21 @@ file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
             '--type',
             'png',
             '--padding',
-            'calc\\(50vh - 20%\\) calc\\(50vw - 40%\\)',
+            'calc(50vh - 20%) calc(50vw - 40%)',
         ],
         'src'
-    ),
-        await writeFile('src/splashscreens/splash.hold', 'this file is to prevent useless rebuilding of splash screens');
+    ),*/
+    await pwaAssetGenerator.generateImages('src/icons/icon.svg', 'src/splashscreens', {
+        background: '#272727',
+        splashOnly: true,
+        index: 'src/index.html',
+        type: 'png',
+        padding: 'calc(50vh - 20%) calc(50vw - 40%)',
+    });
+    await writeFile('src/splashscreens/splash.hold', 'this file is to prevent useless rebuilding of splash screens');
 });
 
-task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.hold'], { concurrency: 2 }, () => {});
+task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.hold'], { concurrency: 2 });
 
 desc('clean');
 task('clean', () => {
@@ -81,7 +106,7 @@ desc('format');
 task('format', yarnTask(['prettier', '--write', '.']));
 
 desc('check');
-task('check', ['checktypes', 'checkeslint'], { concurrency: 2 }, () => {});
+task('check', ['checktypes', 'checkeslint'], { concurrency: 2 });
 
 desc('gh-pages');
-task('gh-pages', ['preqBuild'], yarnTask(['parcel', 'build', '--public-url', '.', '--detailed-report']));
+task('gh-pages', ['build']); // just an alias

@@ -8,17 +8,23 @@ const rimraf = promisify(rim);
 const pwaAssetGenerator = require('pwa-asset-generator');
 const { Parcel } = require('@parcel/core');
 
-function exec(command, args, cwd) {
+function exec(command, args, cwd, quiet) {
     return new Promise((r, j) => {
-        const proc = e(command, args, { cwd, shell: false }, (e) => {
+        let o = "";
+        const proc = e(command, args, { cwd, shell: true }, (e) => {
             if (e) {
                 j(e);
             } else {
-                r();
+                r(o);
             }
         });
-        proc.stdout.pipe(process.stdout);
-        proc.stderr.pipe(process.stderr);
+        proc.stdout.on('data', (d) => {
+            o += d;
+        });
+        if (!quiet) {
+            proc.stdout.pipe(process.stdout);
+            proc.stderr.pipe(process.stderr);
+        }
     });
 }
 
@@ -57,9 +63,9 @@ task('build', ['preqBuild'], async () => {
 
 desc('legal');
 file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
-    await writeFile('src/legal.mdx', '# Licenses\n```\n');
-    await appendFile('src/legal.mdx', (await eraw('yarn', ['licenses', 'generate-disclaimer', '--production'])).stdout);
-    await appendFile('src/legal.mdx', '\n```');
+    const proc = await exec('yarn', ['licenses', 'generate-disclaimer', '--production'],undefined, true)
+    const licence = '# Licenses\n```\n'+proc+'\n```'
+    await writeFile('src/legal.mdx', licence);
 });
 
 desc('splash');

@@ -52,7 +52,7 @@ file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
             '../src/icons/icon.svg',
             './splashscreens',
             '--background',
-            'f#272727',
+            '#272727',
             '--splash-only',
             '--index',
             'index.html',

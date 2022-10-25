@@ -59,11 +59,10 @@ function startLoad() {
 
     console.log("Schedule personalizer v5 (" + identifyCommit() + ")");
     import("react-dom/client").then(({ createRoot }) => {
-        let root: Root
         if (window.rroot) {
             window.rroot.unmount()
         }
-        root = createRoot(app)
+        const root = createRoot(app)
         const Withsentry =
             process.env.NODE_ENV == "production"
                 ? Sentry.withErrorBoundary(App, {

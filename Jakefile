@@ -48,15 +48,12 @@ file("src/legal.mdx", ["package.json", "yarn.lock"], async () => {
 
 desc("splash")
 file("src/splashscreens/splash.hold", ["src/icons/icon.svg"], async () => {
-    await exec("yarn", ["pwa-asset-generator", "../src/icons/icon.svg", "./splashscreens", "--background", "f#272727", "--splash-only", "--index","index.html", "--type", "png", "--padding", "calc(50vh - 20%) calc(50vw - 40%)"], "src"),
+    await yarn(["pwa-asset-generator", "../src/icons/icon.svg", "./splashscreens", "--background", "f#272727", "--splash-only", "--index","index.html", "--type", "png", "--padding", "calc(50vh - 20%) calc(50vw - 40%)"], "src"),
     await writeFile("src/splashscreens/splash.hold", "this file is to prevent useless rebuilding of splash screens")
 })
 
 
 task("preqBuild", ["src/legal.mdx","src/splashscreens/splash.hold"], {concurrency: 2}, () => {})
-
-desc("cloudflare")
-task("cloudflare", ["clean", "preqBuild","build"], () => {})
 
 desc("clean")
 task("clean", () => {

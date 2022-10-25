@@ -3,7 +3,7 @@
 
 import { Octokit } from "octokit";
 import useSWR from "swr";
-import { identifyCommit } from "../../lib/lib";
+import { identifyBranch, identifyCommit } from "../../lib/lib";
 const o = new Octokit();
 async function loadOctokit() {
     return o;
@@ -14,7 +14,7 @@ export async function latestCommit(): Promise<string> {
     const commits = await octo.request("GET /repos/{owner}/{repo}/commits", {
         owner: "insberr",
         repo: "schedule-personalizer",
-        sha: "master",
+        sha: identifyBranch(),
     });
     return commits.data[0].sha;
 }
@@ -26,7 +26,7 @@ export async function cloudflarePagesBuilt() {
         {
             owner: "insberr",
             repo: "schedule-personalizer",
-            ref: "master",
+            ref: identifyBranch(),
         }
     );
     const dt = out.data.check_runs.find(

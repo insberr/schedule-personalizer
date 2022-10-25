@@ -15,7 +15,7 @@ import ScheduleEntry from '../schedule/components/ScheduleEntry';
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { update } from '../../updatey';
-import { identifyCommit, updateSW } from '../../lib/lib';
+import { identifyBranch, identifyCommit, updateSW } from '../../lib/lib';
 import { today } from '../../today';
 import * as settings from '../../config/settings';
 import * as Sentry from '@sentry/react';
@@ -726,7 +726,7 @@ export function SettingsPage() {
                             <pre className="paper">
                                 Redux Storeage Version: {persistConfig.version}
                                 {'\n'}
-                                Build Version: {identifyCommit() || 'Unknown'}
+                                Build Version: {identifyCommit() || 'Unknown'} on branch {identifyBranch() || 'Unknown'}
                                 {'\n'}
                                 Mode: {process.env.NODE_ENV}
                                 {'\n'}

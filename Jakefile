@@ -53,6 +53,7 @@ task('build', ['preqBuild'], async () => {
         },
     });
     let { bundleGraph, buildTime } = await bundler.run();
+    return;
 });
 
 desc('legal');

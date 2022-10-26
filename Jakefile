@@ -40,20 +40,13 @@ task('build', ['preqBuild'], async () => {
         env: {
             NODE_ENV: 'production',
         },
-        additionalReporters: [
-            {
-                packageName: '@parcel/reporter-cli',
-                resolveFrom: __dirname + '/node_modules/@parcel/reporter-cli',
-            },
-        ],
         defaultTargetOptions: {
             engines: {
                 browsers: 'defaults and not ie >0 and not ie_mob >0',
             },
         },
     });
-    let { bundleGraph, buildTime } = await bundler.run();
-    return;
+    return await bundler.run();
 });
 
 desc('legal');

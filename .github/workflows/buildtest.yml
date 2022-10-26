@@ -17,6 +17,12 @@ jobs:
               with:
                   node-version: 18
                   cache: 'yarn'
+
+            - name: Install Dependencies
             - run: yarn
+
+            - name: Run Typescript Checks
             - run: yarn check
+
+            - name: Test Build
             - run: yarn build

@@ -19,10 +19,10 @@ jobs:
                   cache: 'yarn'
 
             - name: Install Dependencies
-            - run: yarn
+              run: yarn
 
             - name: Run Typescript Checks
-            - run: yarn check
+              run: yarn check
 
             - name: Test Build
-            - run: yarn build
+              run: yarn build

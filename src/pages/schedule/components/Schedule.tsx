@@ -58,24 +58,30 @@ function Schedule(props: ScheduleProps) {
                 setShowImageToast(true);
                 return;
             }
-            requestClipboardWritePermission().then((hasPerm) => {
-                if (!hasPerm) {
-                    setShowImageToast(true);
-                    setImageCopiedToClipboard(false);
-                    return;
-                }
-                copyImageToClipboard(image)
-                    .then(() => {
-                        setImageCopiedToClipboard(true);
+            requestClipboardWritePermission()
+                .then((hasPerm) => {
+                    if (!hasPerm) {
                         setShowImageToast(true);
-                        return;
-                    })
-                    .catch((e) => {
-                        console.log('error copying image to clipboard: ', e);
                         setImageCopiedToClipboard(false);
-                        setShowImageToast(true);
-                    });
-            });
+                        return;
+                    }
+                    copyImageToClipboard(image)
+                        .then(() => {
+                            setImageCopiedToClipboard(true);
+                            setShowImageToast(true);
+                            return;
+                        })
+                        .catch((e) => {
+                            console.log('error copying image to clipboard: ', e);
+                            setImageCopiedToClipboard(false);
+                            setShowImageToast(true);
+                        });
+                })
+                .catch((e) => {
+                    console.log('error requesting clipboard write permission: ', e);
+                    setImageCopiedToClipboard(false);
+                    setShowImageToast(true);
+                });
         }
         return;
     };

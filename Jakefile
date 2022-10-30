@@ -53,6 +53,8 @@ task('build', ['preqBuild'], async () => {
         },
     });
     let { bundleGraph, buildTime } = await bundler.run();
+    console.log('Build Complete, now exiting process.');
+    process.exit(); // stupid github actions. i swear if this doesnt work
 });
 
 desc('legal');

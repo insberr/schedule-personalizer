@@ -64,11 +64,17 @@ function Schedule(props: ScheduleProps) {
                     setImageCopiedToClipboard(false);
                     return;
                 }
-                copyImageToClipboard(image).then(() => {
-                    setImageCopiedToClipboard(true);
-                    setShowImageToast(true);
-                    return;
-                });
+                copyImageToClipboard(image)
+                    .then(() => {
+                        setImageCopiedToClipboard(true);
+                        setShowImageToast(true);
+                        return;
+                    })
+                    .catch((e) => {
+                        console.log('error copying image to clipboard: ', e);
+                        setImageCopiedToClipboard(false);
+                        setShowImageToast(true);
+                    });
             });
         }
         return;

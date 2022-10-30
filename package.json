@@ -56,7 +56,7 @@
     },
     "browserslist": "defaults and not ie >0 and not ie_mob >0",
     "scripts": {
-        "host": "echo hi",
+        "host": "npx http-server ./dist -p 1234",
         "build": "jake build",
         "build-gh-pages": "jake gh-pages",
         "dev": "jake preqBuild && parcel serve",

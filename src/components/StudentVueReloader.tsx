@@ -7,8 +7,10 @@ import { setGotSchedules, useStudentvue } from '../storage/studentvue';
 import { setTerms } from '../storage/schedule';
 import { studentvueRefreshInterval } from '../config/settings';
 
-export function StudentVueReloader() {
+export default function StudentVueReloader() {
+    const dispatch = useDispatch();
     const stv = useStudentvue();
+
     function swrCreate(t: string) {
         if (stv.isLoggedIn) {
             return [stv.username, stv.password, t];
@@ -16,15 +18,17 @@ export function StudentVueReloader() {
             return false;
         }
     }
+
     const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, {
         revalidateOnFocus: false,
         refreshInterval: studentvueRefreshInterval,
     });
+
     const { data: scheduleData, error: scheduleError } = useSWR(swrCreate('schedule'), getAllSchedules, {
         revalidateOnFocus: false,
         refreshInterval: studentvueRefreshInterval,
     });
-    const dispatch = useDispatch();
+
     useEffect(() => {
         if (scheduleData) {
             dispatch(setSch(scheduleData));
@@ -37,6 +41,7 @@ export function StudentVueReloader() {
             dispatch(disableSTV());
         }
     }, [scheduleData, scheduleError, dispatch]);
+
     useEffect(() => {
         if (studentData != undefined) {
             dispatch(setInfo(studentData));
@@ -46,9 +51,11 @@ export function StudentVueReloader() {
             dispatch(disableSTV());
         }
     }, [studentData, studentError, dispatch]);
+
     useEffect(() => {
-        console.log('student data', studentData);
-        console.log('schedule data', scheduleData);
+        if (studentData === undefined && scheduleData === undefined) return console.log('Studentvue Refresh: Student And Schedule Data Undefined');
+        console.log('Studentvue Refresh: Student Data', studentData);
+        console.log('Studentvue Refresh: Schedule Data', scheduleData);
     }, [studentData, scheduleData]);
 
     if (studentError || scheduleError) {

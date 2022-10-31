@@ -42,11 +42,16 @@ function startLoad() {
 
     const app = document.getElementById('app');
     if (!app) {
-        console.error('What the fuck? theres no app element? wtf?');
+        console.error('What the fuck? Theres no app element? wtf?');
         throw new Error('God is dead and we have killed him');
     }
 
-    console.log('Schedule personalizer v2 (' + identifyCommit() + ')');
+    console.log(
+        '%cSchedule Personalizer V2\n\t%cCommit: (' + identifyCommit() + ')' + '\n\tEnvironment: ' + process.env.NODE_ENV,
+        'color:#dc143c;font-size:15px;',
+        ''
+    );
+
     import('react-dom/client').then(({ createRoot }) => {
         const root = createRoot(app);
         const Withsentry =

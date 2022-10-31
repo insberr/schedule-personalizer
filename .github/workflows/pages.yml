@@ -34,7 +34,7 @@ jobs:
               run: yarn
 
             - name: Build
-              run: yarn build
+              run: yarn build-gh-pages
 
             - name: Setup Pages
               uses: actions/configure-pages@v2

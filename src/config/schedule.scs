@@ -1,0 +1,18 @@
+schedule normal {
+    class [period 0] 6:35 to 7:30;
+    class [period 1] 7:35 to 8:45;
+    class [period 2] 8:50 to 9:55;
+    class [period 3] 9:55 to 11:40;
+    class [period 4] 11:45 to 12:55;
+    class [period 5] 13:00 to 14:05;
+    class [dismissal] 14:05 to 14:10;
+
+    // tofo the rest
+}
+
+// PLS CHECK SPELLING AND FIX SYNTAX
+week {
+    every [saterday, sunday] schedule weekend;
+    every [monday, wednesday, friday] schedule normal;
+    every [tuesday, thurseday] schedule advisory;
+}

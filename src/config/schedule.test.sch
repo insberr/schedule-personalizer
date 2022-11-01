@@ -1,2 +1,0 @@
-pain = "Pain";
-// ; is required

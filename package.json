@@ -10,6 +10,7 @@
     "license": "MIT",
     "private": true,
     "devDependencies": {
+        "@parcel/config-default": "^2.7.0",
         "@parcel/core": "^2.7.0",
         "@parcel/packager-raw-url": "^2.7.0",
         "@parcel/packager-xml": "^2.7.0",
@@ -68,7 +69,7 @@
         "upgrade:latest:dont-use-because-of-parcel": "yarn up \"*\" \"@*/*\"",
         "format": "jake format"
     },
-    "packageManager": "yarn@3.2.3",
+    "packageManager": "yarn@4.0.0-rc.27",
     "pwaManifest": {
         "name": "Schedule Personalizer",
         "shortName": "Schedule",
@@ -138,6 +139,8 @@
         "workbox-cacheable-response": "^6.5.4",
         "workbox-core": "^6.5.4",
         "workbox-precaching": "^6.5.4",
+        "workbox-routing": "^6.5.4",
+        "workbox-strategies": "^6.5.4",
         "workbox-sw": "^6.5.4",
         "xml-js": "^1.6.11"
     },

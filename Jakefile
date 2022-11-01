@@ -100,7 +100,7 @@ task('clean', () => {
     return Promise.all([rimraf('dist'), rimraf('.parcel-cache'), rm('src/legal.mdx', { force: true }), rimraf('src/splashscreens')]);
 });
 
-task('checktypes', yarnTask(['tsc']));
+task('checktypes', yarnTask(['node', '.yarn/sdks/typescript/bin/tsc']));
 
 task('checkeslint', yarnTask(['eslint', 'src']));
 

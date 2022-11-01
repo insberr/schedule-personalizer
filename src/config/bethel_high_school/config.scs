@@ -1,0 +1,119 @@
+/* PLS MODIFY */
+// School Name
+const schoolName = 'Bethel High School';
+
+// The usual period lunch is based on.
+// const normalLunchBasedOnPeriod = 3;
+
+// builtin api (studentvue in this example)
+// const api = null; // no api, manual entry only
+const api = [StudentVue];
+const studentvueAPIEndpoint = 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx';
+// While site is loaded refresh from studentvue afetr this much time in milliseconds
+// setting it to a value less than 5 minutes is just cringe
+const studentvueRefreshInterval = [2 * 60 * 1000]; // 2 minutes
+
+// This is for the number of classes in the day
+// advisory should be included
+// export const numberOfPeriods = 6;
+// The period number that studentvue uses for advisory
+// const studentVueAdvisoryPeriod = 8;
+const periods = {
+    // <type> [periods that are incliuded ...[]]
+    period [0?] [1] [2] [3] [4] [5];
+    advisory [8];
+    cambridge [11] [12] [13];
+}
+
+
+// For adding cambridge support, thatll be fun
+// const cambridgePeriods = [11, 12, 13]; remove
+
+// If your school has an advisory period, set this to true
+// const hasAdvisory = true; // remove
+
+
+const lastDayOfSchool = new Date('June 23, 2023');
+// Terms
+// This is also used to determine the number of terms in the school year
+// This valuse is REQUIRED else there will be an error
+const termsDates: types.Terms = [
+    {
+        termIndex: 0,
+        startDate: new Date('September 6, 2022'),
+        endDate: new Date('December 6, 2022'),
+        classes: [],
+    },
+    {
+        termIndex: 1,
+        startDate: new Date('December 8, 2022'),
+        endDate: new Date('March 27, 2023'),
+        classes: [],
+    },
+    { termIndex: 2, startDate: new Date('March 28, 2023'), endDate: lastDayOfSchool, classes: [] },
+];
+
+const defaultColor: types.RGBA = {
+    enabled: false,
+    c: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0,
+    },
+    t: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0,
+    },
+};
+const defaultIcon: types.Icon = {
+    enabled: true,
+    color: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0,
+    },
+};
+
+const defaultCustomizations: types.Customizations = {
+    theme: {
+        colors: {
+            schedule: {
+                [ClassIDS.Zero]: defaultColor,
+                [ClassIDS.Advisory]: defaultColor,
+                [ClassIDS.Period]: defaultColor,
+                [ClassIDS.Lunch]: defaultColor,
+                [ClassIDS.Arrival]: defaultColor,
+                [ClassIDS.Assembly]: defaultColor,
+                [ClassIDS.Dismissal]: defaultColor,
+                [ClassIDS.NoSchool]: defaultColor,
+                [ClassIDS.Weekend]: defaultColor,
+                [ClassIDS.Summer]: defaultColor,
+                [ClassIDS.Passing]: defaultColor,
+                [ClassIDS.Custom]: defaultColor,
+            },
+            currentClass: defaultColor,
+            scheduleFrame: defaultColor,
+        },
+        icons: {
+            class: defaultIcon,
+            lunch: defaultIcon,
+            currentClass: defaultIcon,
+        },
+    },
+    keybinds: {
+        goBackOneDay: 'ArrowLeft',
+        goForwardOneDay: 'ArrowRight',
+        goToToday: 't',
+    },
+    showInfoOnSchedule: true,
+    tutorial: {
+        moreMap: true,
+    },
+};
+
+// This is partly a joke,,,, (I think)
+const multiplayer = true;

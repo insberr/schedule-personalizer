@@ -2222,6 +2222,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ungap/structured-clone@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@ungap/structured-clone@npm:1.0.1"
+  checksum: cd614e038fa63dcd5da0070d9ed5214d74d1f72b04d88e884d5a6563bb77d52a566fdd26b889f09c534fb72ab1d6ad8efe6bb678a56a5ccd3f0d6946234d1113
+  languageName: node
+  linkType: hard
+
 "@wojtekmaj/date-utils@npm:^1.0.2":
   version: 1.0.3
   resolution: "@wojtekmaj/date-utils@npm:1.0.3"
@@ -2999,6 +3006,13 @@ __metadata:
   version: 7.2.0
   resolution: "commander@npm:7.2.0"
   checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
+  languageName: node
+  linkType: hard
+
+"commander@npm:^9.3.0":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
   languageName: node
   linkType: hard
 
@@ -4794,6 +4808,13 @@ __metadata:
   bin:
     image-size: bin/image-size.js
   checksum: 6709d5cb73e96d5097ae5e9aa746dd36d6a9c8cf645e7eecac72ea07dbd6f312a65183752762fa92e2f3b698d4ed8d85dd55bf5207b6367245996bd16576d8fe
+  languageName: node
+  linkType: hard
+
+"immer@npm:^9.0.16":
+  version: 9.0.16
+  resolution: "immer@npm:9.0.16"
+  checksum: e9a5ca65c929b329da7a3b7beccf7984271cda7bdd47b2cab619eac3277dcd56598c211b55cc340786b6eff0c06652ac018808d9fd744443f06882364dece6bc
   languageName: node
   linkType: hard
 
@@ -6649,6 +6670,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peggy@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "peggy@npm:2.0.1"
+  dependencies:
+    commander: ^9.3.0
+    source-map-generator: 0.8.0
+  bin:
+    peggy: bin/peggy.js
+  checksum: 0ce0ee8f9f872bc96183bfcb7ce9ccabcad6d1df1e4ff9b1b7ebaf57f3996dcb1016b7610013f6a8a1bd8b135a8b3b15ccff914bdd88ab2264bdcbca5b36f2f1
+  languageName: node
+  linkType: hard
+
 "pend@npm:~1.2.0":
   version: 1.2.0
   resolution: "pend@npm:1.2.0"
@@ -7709,6 +7742,7 @@ __metadata:
     redux-persist: ^6.0.0
     rimraf: ^3.0.2
     rrweb: ^2.0.0-alpha.3
+    schedule-script: ^0.0.2
     sharp: ^0.29.1
     stream-browserify: ^3.0.0
     stringify-object: ^4.0.1
@@ -7726,6 +7760,18 @@ __metadata:
     xml-js: ^1.6.11
   languageName: unknown
   linkType: soft
+
+"schedule-script@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "schedule-script@npm:0.0.2"
+  dependencies:
+    "@ungap/structured-clone": ^1.0.1
+    date-fns: ^2.29.3
+    immer: ^9.0.16
+    peggy: ^2.0.1
+  checksum: 8ca08581c0f65998058cb62ce27de23bf637d1f28f1e54ee94c0f87d0c19ee2674552990aa200f14128805e0ea0b198034a3a2788f87dd35b28955e7394440a3
+  languageName: node
+  linkType: hard
 
 "scheduler@npm:^0.23.0":
   version: 0.23.0
@@ -7910,6 +7956,13 @@ __metadata:
     ip: ^2.0.0
     smart-buffer: ^4.2.0
   checksum: 259d9e3e8e1c9809a7f5c32238c3d4d2a36b39b83851d0f573bfde5f21c4b1288417ce1af06af1452569cd1eb0841169afd4998f0e04ba04656f6b7f0e46d748
+  languageName: node
+  linkType: hard
+
+"source-map-generator@npm:0.8.0":
+  version: 0.8.0
+  resolution: "source-map-generator@npm:0.8.0"
+  checksum: 15e7854c04a4b1bc8a477664a65c58316d792fb24a7b427219ac597eed7f57a3905637c783126b123cf05f9d4fdc45a8fadb8bc2fbf010a82d92e35c193aba51
   languageName: node
   linkType: hard
 

@@ -93,6 +93,7 @@
         ]
     },
     "dependencies": {
+        "@insberr/schedule-script": "^0.0.5",
         "@karmaniverous/serify-deserify": "^1.2.9",
         "@mdx-js/react": "^1.6.22",
         "@parcel/service-worker": "^2.7.0",

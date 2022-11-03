@@ -369,6 +369,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@insberr/schedule-script@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@insberr/schedule-script@npm:0.0.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40insberr%2Fschedule-script%2F0.0.5%2F65874692424641c1ff2f1b2a600a90b151418ad2"
+  dependencies:
+    "@parcel/resolver-default": 2.7.0
+    "@ungap/structured-clone": ^1.0.1
+    date-fns: ^2.29.3
+    immer: ^9.0.16
+    peggy: ^2.0.1
+  checksum: 77feb45d3d9ee81c0d96650250e07e80a78395dca4c91b89b0a52ec36dffa8d92a4789085366f17892285e40b7ab4775f297cb301f4c0a989cddd3b77d450a22
+  languageName: node
+  linkType: hard
+
 "@jridgewell/gen-mapping@npm:^0.3.0, @jridgewell/gen-mapping@npm:^0.3.2":
   version: 0.3.2
   resolution: "@jridgewell/gen-mapping@npm:0.3.2"
@@ -7667,6 +7680,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "schedule-personalizer@workspace:."
   dependencies:
+    "@insberr/schedule-script": ^0.0.5
     "@karmaniverous/serify-deserify": ^1.2.9
     "@mdx-js/react": ^1.6.22
     "@parcel/core": ^2.7.0

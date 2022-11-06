@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../storage/store';
 import { setRgbParty, setPresentationMode } from '../../storage/misc';
 import { useKeyboardShortcut } from '../../hooks';
-import { useStudentvue } from '../../storage/studentvue';
+import { setStudentVueData, useStudentvue } from '../../storage/studentvue';
 import { useState, useEffect } from 'react';
 
 import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from '../../types';
@@ -182,6 +182,33 @@ export function SettingsPage() {
                                     }}
                                 >
                                     Edit Schedule
+                                </Button>
+                                <Button
+                                    className={stv.isLoggedIn ? 'hidden' : ''}
+                                    onClick={() => {
+                                        console.log('login page moment?');
+                                        navigate(Page.LOGIN);
+                                    }}
+                                >
+                                    Login
+                                </Button>
+                                <Button
+                                    className={stv.isLoggedIn ? '' : 'hidden'}
+                                    onClick={() => {
+                                        console.log('User logged out of studentvue.');
+                                        dispatch(
+                                            setStudentVueData({
+                                                password: '',
+                                                username: '',
+                                                stayLoggedIn: false,
+                                                isLoggedIn: false,
+                                                gotSchedules: false,
+                                                lastRefresh: 0,
+                                            })
+                                        );
+                                    }}
+                                >
+                                    Logout
                                 </Button>
                                 <Button
                                     variant="danger"

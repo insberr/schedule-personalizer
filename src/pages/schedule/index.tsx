@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Class, ClassIDS, Terms, Term, emptyCL } from '../../types';
 import Schedule from './components/Schedule';
 import LoadSpinner from '../../components/LoadSpinner';
@@ -9,7 +9,7 @@ import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
 import { isAfter, isBefore, isSameDay } from 'date-fns';
-import { StudentVueReloader } from '../../components/StudentVueReloader';
+// import { StudentVueReloader } from '../../components/StudentVueReloader';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { useSTV, StvDataStorage } from '../../storage/studentvueData';
@@ -37,6 +37,8 @@ type MergedSchedule = {
     event: EventSchedule;
     sch: Terms;
 };
+
+const StudentVueReloader = React.lazy(() => import('../../components/StudentVueReloader'));
 
 function SchedulePage() {
     const navigate = useNavigate();
@@ -104,7 +106,9 @@ function SchedulePage() {
                     displayDate={currentDisplayDate}
                     setDisplayDate={setCurrentDisplayDate}
                 />
-                <StudentVueReloader />
+                <React.Suspense fallback={<></>}>
+                    <StudentVueReloader />
+                </React.Suspense>
             </>
         );
     }
@@ -164,7 +168,7 @@ function doSchedule(
 
     if (mergedOverideSchedule === null) {
         /* There are no overides */
-        console.log('Overide schedule is null. There are either no overides, or there is no overide for the users grade');
+        // console.log('Overide schedule is null. There are either no overides, or there is no overide for the users grade');
 
         // Merge the schedule with the data and the days schedule (which would be from the days schedule or an override schedule from the events thing)
         const mergedSchedule: MergedSchedule = mergeDataWithSchedule(sch.terms, displayTerm, currentDisplayDayEvent);
@@ -546,4 +550,3 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
 }
 
 export default SchedulePage;
-// err

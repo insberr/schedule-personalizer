@@ -48,7 +48,7 @@ Files to be served are in `dist/`
 
 #### dev run
 
-```
+```bash
 yarn
 yarn dev
 ```

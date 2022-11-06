@@ -5,7 +5,7 @@ import { RootState } from '../../storage/store';
 import { setRgbParty, setPresentationMode } from '../../storage/misc';
 import { useKeyboardShortcut } from '../../hooks';
 import { setStudentVueData, useStudentvue } from '../../storage/studentvue';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from '../../types';
 import Center from '../../components/Center';
@@ -24,6 +24,7 @@ import { useNavigate } from '../../router/hooks';
 import { SettingsHeader } from './SettingsHeader';
 import { Page } from '../../storage/page';
 import React from 'react';
+import { ScrapeError, ScrapeResult, messageScrape } from '../../apis/schoolWebsiteAlertScraper/scrape';
 //mport { envelopeItemTypeToDataCategory } from "@sentry/utils";
 const _legal = React.lazy(() => import('../../legal.mdx'));
 const Legal = () => (
@@ -39,6 +40,23 @@ export function SettingsPage() {
     const sch = useSchedule();
     const navigate = useNavigate();
     const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete);
+
+    const [schoolAlert, setSchoolAlert] = useState<ScrapeError | ScrapeResult>({ error: 'api not called yet' });
+    useEffect(() => {
+        // pain pain apain apaim
+        async function scrapeyPain() {
+            const data = await messageScrape();
+            if ((data as ScrapeError).error) {
+                console.log('Error in scrapeyPain: ' + (data as ScrapeError).error);
+                setSchoolAlert(data as ScrapeError);
+                return;
+            }
+            setSchoolAlert(data as ScrapeResult);
+            return;
+        }
+
+        scrapeyPain();
+    }, []);
     // setup guard
     useEffect(() => {
         if (!isSetupComplete) {
@@ -750,7 +768,21 @@ export function SettingsPage() {
                                     }}
                                 />
                             </Form.Group>
-                            <pre className="paper">
+                            <pre id="schoolalert" className="paper">
+                                School Alert
+                                {'\n'}
+                                Error: {(schoolAlert as ScrapeError).error !== undefined ? (schoolAlert as ScrapeError).error : 'null'}
+                                {'\n'}
+                                Titles:{' '}
+                                {(schoolAlert as ScrapeResult).titles !== undefined ? JSON.stringify((schoolAlert as ScrapeResult).titles) : 'null'}
+                                {'\n'}
+                                Messages: {(schoolAlert as ScrapeResult).messages !== undefined ? (schoolAlert as ScrapeResult).messages : 'null'}
+                                {'\n'}
+                                Whole: {(schoolAlert as ScrapeResult).whole !== undefined ? (schoolAlert as ScrapeResult).whole : 'null'}
+                                {'\n'}
+                                JSON: {JSON.stringify(schoolAlert)}
+                            </pre>
+                            <pre id="data" className="paper">
                                 Redux Storeage Version: {persistConfig.version}
                                 {'\n'}
                                 Build Version: {identifyCommit() || 'Unknown'} on branch {identifyBranch() || 'Unknown'}

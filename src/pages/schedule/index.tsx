@@ -22,6 +22,7 @@ import { Page } from '../../storage/page';
 import { overidesMergeDataWithSchedule } from './handleOverides';
 import { Updatey } from '../../components/Updatey';
 
+import { messageScrape, ScrapeError, ScrapeResult } from '../../apis/schoolWebsiteAlertScraper/scrape';
 export type EventSchedule = {
     isEvent: boolean;
     hasError?: boolean;
@@ -50,6 +51,23 @@ function SchedulePage() {
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
     const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete);
     const [userLunch, setUserLunch] = useState(sch.lunch);
+    const [schoolAlert, setSchoolAlert] = useState<ScrapeError | ScrapeResult>({ error: 'api not called yet' });
+    useEffect(() => {
+        // pain pain apain apaim
+        async function scrapeyPain() {
+            const data = await messageScrape();
+            if ((data as ScrapeError).error) {
+                console.log('Error in scrapeyPain: ' + (data as ScrapeError).error);
+                setSchoolAlert(data as ScrapeError);
+                return;
+            }
+            setSchoolAlert(data as ScrapeResult);
+            return;
+        }
+
+        scrapeyPain();
+    }, []);
+
     useEffect(() => {
         dispatch(setLunch(userLunch));
     }, [userLunch, dispatch]);
@@ -77,10 +95,10 @@ function SchedulePage() {
         if (sch.terms.length == 0) {
             return [undefined, undefined];
         }
-        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo);
+        const newScheduleFromDoSchedule = doSchedule(sch, currentDisplayDate, stv, userLunch, setUserLunch, studentInfo, schoolAlert);
         return [newScheduleFromDoSchedule.currentDisplayDayEvent, newScheduleFromDoSchedule.lunchifiedSchedule];
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentDisplayDate, sch, stv, userLunch]);
+    }, [currentDisplayDate, sch, stv, userLunch, schoolAlert]);
 
     useEffect(() => {
         if (!isSetupComplete) {
@@ -122,7 +140,8 @@ function doSchedule(
     stv: StorageDataStudentvue,
     userLunch: number,
     setUserLunch: (lunch: number) => void,
-    studentInfo: StvDataStorage
+    studentInfo: StvDataStorage,
+    schoolAlert: ScrapeError | ScrapeResult
 ): { currentDisplayDayEvent: EventSchedule; lunchifiedSchedule: MergedSchedule } {
     // Check the day and use the schedule for that day, ie. if its tuesday or thurseday its an advisory day
     const currentDisplayDaySchedule: { schedule: SchedulesType; noOverride: boolean } = getDisplayDaySchedule(
@@ -134,7 +153,8 @@ function doSchedule(
     let currentDisplayDayEvent: EventSchedule = getDisplayDayEvent(
         currentDisplayDaySchedule.schedule,
         currentDisplayDaySchedule.noOverride,
-        currentDisplayDate
+        currentDisplayDate,
+        schoolAlert
     );
     // console.log(currentDisplayDayEvent);
 
@@ -354,9 +374,51 @@ function getDisplayDaySchedule(date: Date): { schedule: SchedulesType; noOverrid
     };
 }
 
-function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: Date): EventSchedule {
+export type SchoolAlertHandler = {
+    modifySchedule: boolean;
+    newSchedule?: SchedulesType;
+    titleUsed?: number;
+};
+
+function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandler {
+    if ((alert as ScrapeError).error !== undefined) return { modifySchedule: false };
+    const newAlert = alert as ScrapeResult;
+    const nonBlankTitles = newAlert.titles.filter((t) => t !== '');
+    if (nonBlankTitles.length > 0) {
+        // ! to do: log to sentry
+        console.log('How are there multiple titles???? titles:', newAlert.titles);
+    }
+
+    if (nonBlankTitles.length === 0) return { modifySchedule: false };
+
+    console.log('Theres a school alert: ', alert);
+
+    const foundMatch = settingsConfig.alertMessageSchedules.filter((a) => {
+        const regex = new RegExp(a.contains, 'i');
+        // return nonBlankTitles[0].match(regex) !== null;
+        return regex.test(newAlert.messages);
+    });
+    console.log('foundMatch', foundMatch);
+    console.log('nonBlankTitles[0]', nonBlankTitles[0]);
+
+    if (foundMatch.length === 0) {
+        // ! definitaly error to sentry
+        console.log('How are there no matches?');
+        return { modifySchedule: true };
+    }
+    if (foundMatch.length > 1) {
+        // ! to do: error to sentry
+        console.log('How are there multiple matches?');
+    }
+
+    return { modifySchedule: true, newSchedule: foundMatch[0].schedule, titleUsed: newAlert.titles.indexOf(nonBlankTitles[0]) };
+}
+
+function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: Date, alert: ScrapeError | ScrapeResult): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
+
+    const alertSchedule = handleSchoolAlert(alert);
 
     const displayDateEvents = scheduleEvents.filter((event) => {
         let eventDate = event.info.date;
@@ -406,12 +468,27 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
                 },
             };
         }
-    } else if (displayDateEvents.length !== 0)
-        return {
+    } else if (displayDateEvents.length !== 0) {
+        event = {
             isEvent: true,
             schedule: noOverride ? schedule : displayDateEvents[0]?.schedule || schedule,
             info: displayDateEvents[0].info,
         };
+    }
+
+    if (alertSchedule.modifySchedule) {
+        return {
+            isEvent: true,
+            schedule: alertSchedule.newSchedule !== undefined ? alertSchedule.newSchedule : event.schedule,
+            info: {
+                message:
+                    (alertSchedule.newSchedule === undefined ? 'No schedule found for this alert<br />' : '') +
+                    ('Automated Schedule From School Alert: ' + (alert as ScrapeResult).titles[alertSchedule.titleUsed || 0] + '<br />' ||
+                        'Schedule modified by an alert from the school: No message was provided, this shouldnt happen..<br />') +
+                    event.info.message,
+            },
+        };
+    }
 
     return event;
 }

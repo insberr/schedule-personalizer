@@ -7,15 +7,8 @@
     <title>Schedule Personalizer</title>
     <link rel="stylesheet" href="style.scss">
     <style>
-      .body-why {
-        background-color: #272727;
+      body {
         font-family: Arial, Helvetica, sans-serif;
-        color: white;
-        font-weight: 700;
-        text-align: center;
-      }
-      .hidden-why {
-        display: none;
       }
     </style>
     <meta name="description" content="Schedule? Personalized.">
@@ -35,32 +28,20 @@
   </head>
   <body>
     <div class="full-center text-center" id="loading">
-      <div class="why-does-this-error-exist hidden-why">
-        <div>If you see this, then something is very wrong..</div>
-        <div>If this doesnt fix itself, try clearing the site data or re-adding Schedule Personalizer to your homescreen.</div>
-        <div>Attempting to self fix in 5 seconds</div>
-      </div>
       <div class="spinner-grow text-crimson" role="status"></div>
     </div>
     <div id="app"></div>
     <script>
       // This is if the app never loads ...
+      // maybe instead try to fetch the correct script file
       setTimeout(() => {
-        const elms = Array.from(document.getElementsByClassName('why-does-this-error-exist'));
-        if (elms.length > 0) {
-          console.log('Thats odd... This shouldnt happen. For some reason the app never rendered. Attempting to self fix.');
-          document.getElementsByTagName('body')[0].classList.add('body-why');
-          elms.forEach((e) => {
-            e.classList.remove('hidden-why');
+        if (document.getElementById('app').innerHTML === '') {
+          caches.keys().then((names) => {
+            for (let name of names) {
+              caches.delete(name);
+            }
+            location.reload();
           });
-          setTimeout(() => {
-            caches.keys().then((names) => {
-              for (let name of names) {
-                caches.delete(name);
-              }
-              location.reload();
-            });
-          }, 5000);
         }
       }, 5000);
     </script>

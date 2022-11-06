@@ -120,4 +120,27 @@ desc('check');
 task('check', ['checktypes', 'checkeslint'], { concurrency: 2 });
 
 desc('gh-pages');
-task('gh-pages', ['build']); // just an alias
+task('gh-pages', ['preqBuild'], async () => {
+    let bundler = new Parcel({
+        mode: 'production',
+        entries: ['./src/index.html'],
+        env: {
+            NODE_ENV: 'production',
+        },
+        additionalReporters: [
+            {
+                packageName: '@parcel/reporter-cli',
+                resolveFrom: __dirname + '/node_modules/@parcel/reporter-cli',
+            },
+        ],
+        defaultTargetOptions: {
+            engines: {
+                browsers: 'defaults and not ie >0 and not ie_mob >0',
+            },
+            publicUrl: './',
+        },
+    });
+    let { bundleGraph, buildTime } = await bundler.run();
+    console.log('Build Complete, now exiting process.');
+    process.exit(); // stupid github actions. i swear if this doesnt work
+});

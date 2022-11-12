@@ -266,6 +266,13 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: schedules.assemblyAM,
+        info: {
+            message: 'Veterans Day Assembly',
+            date: new Date('November 8, 2022'),
+        },
+    },
+    {
         schedule: schedules.noSchool,
         info: {
             message: 'No School | Veterans Day',

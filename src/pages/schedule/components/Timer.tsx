@@ -1,11 +1,26 @@
-import { useState } from 'react';
-import { Time, getTimeW, timeToDate } from '../../../types';
+import { useEffect, useState } from 'react';
+import { Time, timeToDate } from '../../../types';
 import { intervalToDuration, Duration, formatDuration } from 'date-fns';
 import { useHarmonicIntervalFn } from 'react-use';
 import { today } from '../../../today';
 
 export function Timer(props: { time: Time; basedDate?: Date; hidden?: boolean }) {
-    const [timer, setTimer] = useState<Duration>(getTimeW(0, 0, 0));
+    const [timer, setTimer] = useState<Duration>(
+        intervalToDuration({
+            start: today(),
+            end: timeToDate(props.time, props.basedDate),
+        })
+    );
+
+    useEffect(() => {
+        setTimer(
+            intervalToDuration({
+                start: today(),
+                end: timeToDate(props.time, props.basedDate),
+            })
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.hidden]);
     //const [stop, setStop] = useState<boolean>(false)
 
     useHarmonicIntervalFn(

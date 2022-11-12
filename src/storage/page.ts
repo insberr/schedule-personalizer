@@ -8,6 +8,7 @@ export enum Page {
     STUDENTID,
     SCHOOL,
     BETA,
+    LOGIN,
 }
 
 // to do: make this an object and not 2 functions;
@@ -31,6 +32,8 @@ export function findDefaultRoute(): Page {
             return Page.SCHOOL;
         case '?beta':
             return Page.BETA;
+        case '?login':
+            return Page.LOGIN;
         default:
             return Page.SCHEDULE;
     }
@@ -55,6 +58,8 @@ export function page2url(p: Page): string {
             return './?school';
         case Page.BETA:
             return './?beta';
+        case Page.LOGIN:
+            return './?login';
         default:
             return './';
     }

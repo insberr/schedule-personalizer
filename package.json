@@ -93,7 +93,6 @@
         ]
     },
     "dependencies": {
-        "@insberr/schedule-script": "^0.0.5",
         "@karmaniverous/serify-deserify": "^1.2.9",
         "@mdx-js/react": "^1.6.22",
         "@parcel/service-worker": "^2.7.0",
@@ -131,7 +130,7 @@
         "redux": "^4.2.0",
         "redux-persist": "^6.0.0",
         "rrweb": "^2.0.0-alpha.3",
-        "schedule-script": "^0.0.2",
+        "schedule-script": "https://github.com/insberr/schedule-script.git",
         "stringify-object": "^4.0.1",
         "styled-components": "^5.3.6",
         "swr": "^1.3.0",

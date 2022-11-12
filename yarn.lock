@@ -369,19 +369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@insberr/schedule-script@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@insberr/schedule-script@npm:0.0.5::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40insberr%2Fschedule-script%2F0.0.5%2F65874692424641c1ff2f1b2a600a90b151418ad2"
-  dependencies:
-    "@parcel/resolver-default": 2.7.0
-    "@ungap/structured-clone": ^1.0.1
-    date-fns: ^2.29.3
-    immer: ^9.0.16
-    peggy: ^2.0.1
-  checksum: 77feb45d3d9ee81c0d96650250e07e80a78395dca4c91b89b0a52ec36dffa8d92a4789085366f17892285e40b7ab4775f297cb301f4c0a989cddd3b77d450a22
-  languageName: node
-  linkType: hard
-
 "@jridgewell/gen-mapping@npm:^0.3.0, @jridgewell/gen-mapping@npm:^0.3.2":
   version: 0.3.2
   resolution: "@jridgewell/gen-mapping@npm:0.3.2"
@@ -7691,7 +7678,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "schedule-personalizer@workspace:."
   dependencies:
-    "@insberr/schedule-script": ^0.0.5
     "@karmaniverous/serify-deserify": ^1.2.9
     "@mdx-js/react": ^1.6.22
     "@parcel/core": ^2.7.0
@@ -7767,7 +7753,7 @@ __metadata:
     redux-persist: ^6.0.0
     rimraf: ^3.0.2
     rrweb: ^2.0.0-alpha.3
-    schedule-script: ^0.0.2
+    schedule-script: "https://github.com/insberr/schedule-script.git"
     sharp: ^0.29.1
     stream-browserify: ^3.0.0
     stringify-object: ^4.0.1
@@ -7786,15 +7772,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"schedule-script@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "schedule-script@npm:0.0.2"
+"schedule-script@https://github.com/insberr/schedule-script.git":
+  version: 0.0.5
+  resolution: "schedule-script@https://github.com/insberr/schedule-script.git#commit=256ace8781339d4ab0e2065a2a3a0e690eb8bfeb"
   dependencies:
     "@ungap/structured-clone": ^1.0.1
     date-fns: ^2.29.3
     immer: ^9.0.16
     peggy: ^2.0.1
-  checksum: 8ca08581c0f65998058cb62ce27de23bf637d1f28f1e54ee94c0f87d0c19ee2674552990aa200f14128805e0ea0b198034a3a2788f87dd35b28955e7394440a3
+  bin:
+    schedule-script: ./cli/cli.js
+    scs: ./cli/cli.js
+  checksum: 0bbecd4209df42bd7b98748e8628ef770f83690ef65166c0cd44b0730a345ffd31af6b4ce489ee9a14f9e0e748752e49272613bddbbbf37a9b847f6076a486ea
   languageName: node
   linkType: hard
 

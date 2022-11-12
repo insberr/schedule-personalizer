@@ -30,6 +30,7 @@ export const lunches: types.LunchesType = {
                         teachers.Talen_Michael_H,
                         teachers.Vallier_Heather_M,
                         teachers.Welborn_Scott_T,
+                        teachers.Olsen_Carolyn_E,
                     ],
                 },
                 {

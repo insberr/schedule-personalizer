@@ -1,7 +1,7 @@
 import { Terms, emptyCL, ClassIDS } from '../../types';
 import * as settings from '../../config/settings';
 import { courseTitleNameCase, redactStudentInfo, toTitleCase } from '../../lib/lib';
-import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from './api';
+import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo, StudentGradebook } from './api';
 import * as Sentry from '@sentry/react';
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
@@ -152,6 +152,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 }
 
 export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
+    // ! TO DO  get for all specified terms not just what we defined here lol
     const schs = await Promise.all([
         StudentClassList(username, password, 0),
         StudentClassList(username, password, 1),
@@ -185,6 +186,26 @@ export async function getSchoolInfo(username: string, password: string): Promise
         return { code: 'SUCCESS', content: info['StudentSchoolInfoListing'] };
     } else {
         throw new Error(info.RT_ERROR.ERROR_MESSAGE);
+    }
+}
+
+export type StudentVueAPIDataGradesContentTerm = {
+    TermIndex: string;
+};
+
+export type StudentVueAPIDataGrades = {
+    code: string;
+    content: StudentVueAPIDataGradesContentTerm[];
+};
+
+export async function getStudentGrades(username: string, password: string): Promise<StudentVueAPIDataGrades> {
+    const grades0 = await StudentGradebook(username, password, 0);
+    const grades1 = await StudentGradebook(username, password, 1);
+    const grades2 = await StudentGradebook(username, password, 2);
+    if (!isError(grades0) && !isError(grades1) && !isError(grades2)) {
+        return { code: 'SUCCESS', content: [grades0['Gradebook'], grades1['Gradebook'], grades2['Gradebook']] };
+    } else {
+        throw new Error(grades0.RT_ERROR.ERROR_MESSAGE || grades1.RT_ERROR.ERROR_MESSAGE || grades2.RT_ERROR.ERROR_MESSAGE);
     }
 }
 

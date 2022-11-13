@@ -31,3 +31,11 @@ export async function StudentClassList(username: string, password: string, term:
 export async function StudentSchoolInfo(username: string, password: string): Promise<any> {
     return await doOperation(username, password, 'StudentSchoolInfo', {});
 }
+
+export async function StudentGradebook(username: string, password: string, term: number | undefined): Promise<any> {
+    const params: Record<string, unknown> = {};
+    if (term != undefined) {
+        params['ReportPeriod'] = term;
+    }
+    return await doOperation(username, password, 'Gradebook', params);
+}

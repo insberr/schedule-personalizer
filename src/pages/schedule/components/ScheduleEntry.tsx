@@ -17,6 +17,7 @@ import tinyColor from 'tinycolor2';
 import { BsStars } from 'react-icons/bs';
 import { useSchedule } from '../../../storage/schedule';
 import { today } from '../../../today';
+
 type ScheduleEntryProps = {
     sch: Class[];
     key: string;
@@ -204,7 +205,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                     <div>
                         {isBefore(cdate, timeToDate(props.period.startTime, props.viewDate)) && (
                             <div className="innerbox">
-                                {props.period.name || formatClassPeriodName(props.period)} starts in
+                                Starting In
                                 <Timer hidden={!open} basedDate={props.viewDate} time={props.period.startTime} />
                             </div>
                         )}
@@ -213,13 +214,13 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                             end: timeToDate(props.period.endTime, props.viewDate),
                         }) && (
                             <div className="innerbox">
-                                {props.period.name || formatClassPeriodName(props.period)} ends in
+                                Ending In
                                 <Timer hidden={!open} basedDate={props.viewDate} time={props.period.endTime} />
                             </div>
                         )}
                         {isAfter(cdate, timeToDate(props.period.endTime, props.viewDate)) && <div className="innerbox">Class Ended</div>}
                         <div className="innerbox">
-                            Duration:
+                            Duration:{' '}
                             {formatDuration(
                                 intervalToDuration({
                                     start: timeToDate(props.period.startTime),
@@ -227,13 +228,9 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                                 })
                             )}
                         </div>
-                        {[ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID) &&
-                            (props.period.teacher.name !== '' || props.period.room !== '') && (
-                                <div className="innerbox">
-                                    <span className="bold">{props.period.teacher.name}</span>{' '}
-                                    {props.period.room !== '' ? 'in room ' + props.period.room : ''}
-                                </div>
-                            )}
+                        {[ClassIDS.Zero, ClassIDS.Advisory, ClassIDS.Period].includes(props.period.classID) && props.period.room !== '' && (
+                            <div className="innerbox">{props.period.room !== '' ? 'Room ' + props.period.room : ''}</div>
+                        )}
                         {props.period.classID === ClassIDS.Lunch && (
                             <div className="innerbox">
                                 <span className="bold">You have lunch {reduxSch.lunch}</span>
@@ -246,7 +243,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                                     rel="noreferrer"
                                     target="_blank"
                                 >
-                                    Email Teacher
+                                    Email {props.period.teacher.name}
                                 </a>
                             </div>
                         )}

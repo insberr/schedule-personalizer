@@ -1,1 +1,3 @@
-# How To Use Config Files
+# How to use config
+
+explain config here  

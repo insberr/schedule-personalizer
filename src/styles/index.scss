@@ -1,0 +1,6 @@
+@import 'npm:@fontsource/roboto/index.css';
+
+body {
+    font-family: 'Roboto';
+    background-color: #121212; // prevent a flash of white on startup
+}

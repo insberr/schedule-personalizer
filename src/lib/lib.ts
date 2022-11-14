@@ -1,12 +1,13 @@
 // bunch of reusable functions
 import { addSeconds, format, isAfter, isBefore, parse, set } from 'date-fns';
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from '../types';
-
-import * as api from '../apis/studentvue/studentVueAPI';
+/*
+import * as api from './studentvue/studentVueAPI';
+import { StudentVueAPIDataUserDate } from './studentvue/studentVueAPI';
+*/
 import { isEqual } from 'lodash';
 
-import { StudentVueAPIDataUserDate } from '../apis/studentvue/studentVueAPI';
-import { today } from '../today';
+import { today } from './today';
 
 export function getCurrentTerm(t: Stdata, d?: Date): number {
     if (!d) {
@@ -92,6 +93,7 @@ export type refreshedStudentVueData = {
     successful: boolean;
     terms?: Terms;
 };
+/*
 export function refreshStudentVueSchedules(username: string, password: string): refreshedStudentVueData {
     let output: refreshedStudentVueData = {
         successful: false,
@@ -112,7 +114,7 @@ export function refreshStudentVueSchedules(username: string, password: string): 
         });
 
     return output;
-}
+}*/
 
 export function toTitleCase(str: string | null | undefined): string {
     if (str === undefined || str === null) return '';
@@ -187,7 +189,7 @@ export function redactStructure(obj: any): any {
 
     return newObj;
 }
-
+/*
 export function redactStudentInfo(data: StudentVueAPIDataUserDate): StudentVueAPIDataUserDate {
     // add types pl\
     // eslint-disable-next-line prefer-const
@@ -202,10 +204,9 @@ export function redactStudentInfo(data: StudentVueAPIDataUserDate): StudentVueAP
             //console.log(key,"redacted to",out[key])
         }
     });
-    // @ts-expect-error lmafo
     return { code: data.code, content: out };
 }
-
+*/
 export function isCurrentClass(sch: Class[], period: Class, currentClassDateAndTime: Date): boolean {
     const index = sch.indexOf(period);
     const lastClass = sch[index - 1];

@@ -1,4 +1,4 @@
-# Schedule Personalizer v5
+# Schedule Personalizer v10 (actually v3)
 
 Complete rewrite of Schedule Personalizer, with new features!
 

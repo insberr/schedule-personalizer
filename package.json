@@ -1,0 +1,58 @@
+{
+  "name": "schedule-personalizer",
+  "version": "10.0.0",
+  "description": "Schedule? Personalized??? i can't believe it",
+  "source": "src/index.html",
+  "repository": "https://github.com/insberr/schedule-personalizer",
+  "author": "Insberr & WackerY",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "parcel build",
+    "dev": "parcel",
+    "postinstall": "husky install",
+    "check": "tsc && eslint ."
+  },
+  "packageManager": "yarn@4.0.0-rc.28",
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.8.0",
+    "@types/lodash": "^4.14.188",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "@types/react-redux": "^7.1.24",
+    "@types/xml-js": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "parcel": "^2.8.0",
+    "prettier": "^2.7.1",
+    "process": "^0.11.10",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13",
+    "@reduxjs/toolkit": "^1.9.0",
+    "date-fns": "^2.29.3",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "xml-js": "^1.6.11"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*": "prettier --ignore-unknown --write"
+  },
+  "alias": {
+    "process": false
+  }
+}

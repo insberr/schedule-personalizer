@@ -1,11 +1,11 @@
 // lmafo
-import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from "./lightanddark";
+import { configureStore } from '@reduxjs/toolkit';
+import themeReducer from './lightanddark';
 
 export const store = configureStore({
-  reducer: {
-    theme: themeReducer,
-  },
+    reducer: {
+        theme: themeReducer,
+    },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

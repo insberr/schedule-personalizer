@@ -1,0 +1,5 @@
+// bethel high school
+import "bethel/functions.scs";
+import "bethel/config.scs";
+import "bethel/schedules.scs";
+import "bethel/events.scs";

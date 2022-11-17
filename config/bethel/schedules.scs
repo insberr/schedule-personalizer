@@ -1,0 +1,6 @@
+schedule test {
+    // please place all the types of classes in this schedule, for testing 
+    class [1] [5:00 to 7:00];
+    class [2] [7:00 to 12:00];
+    class [dismissal] [12:00 to 12:05];
+};

@@ -18,3 +18,4 @@ export enum ClassIDS {
 export * from './time';
 export * from './schedule';
 export * from './customizations';
+export * from './router'

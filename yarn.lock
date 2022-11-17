@@ -349,6 +349,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@karmaniverous/serify-deserify@npm:^1.2.9":
+  version: 1.2.9
+  resolution: "@karmaniverous/serify-deserify@npm:1.2.9"
+  dependencies:
+    is-what: "npm:^4.1.7"
+  checksum: ec6c134a63991227d2dec9f87e36048f1f38a0583bdd81bbd4b98a82a509671d156ec308931a574a93c405a835ccf30c2a6d9590e0225a12a074c4208fcfb763
+  languageName: node
+  linkType: hard
+
 "@lezer/common@npm:^0.15.0, @lezer/common@npm:^0.15.7":
   version: 0.15.12
   resolution: "@lezer/common@npm:0.15.12"
@@ -3472,6 +3481,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-what@npm:^4.1.7":
+  version: 4.1.7
+  resolution: "is-what@npm:4.1.7"
+  checksum: e6f55ed6999674be3b4bce6937a9202cb429ae1470c4138e581176bb1ea4b5c0ddacb6368d990d60af1465d5219fd0bcf1ee1d61006954bca303eaf1f52d6769
+  languageName: node
+  linkType: hard
+
 "isexe@npm:^2.0.0":
   version: 2.0.0
   resolution: "isexe@npm:2.0.0"
@@ -4825,6 +4841,7 @@ __metadata:
     "@emotion/react": "npm:^11.10.5"
     "@emotion/styled": "npm:^11.10.5"
     "@fontsource/roboto": "npm:^4.5.8"
+    "@karmaniverous/serify-deserify": "npm:^1.2.9"
     "@mui/icons-material": "npm:^5.10.9"
     "@mui/material": "npm:^5.10.13"
     "@parcel/transformer-sass": "npm:2.8.0"

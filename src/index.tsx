@@ -1,10 +1,15 @@
 import { createRoot } from 'react-dom/client';
 import { MatUIThemer } from './components/MatUIThemer';
-import { Button, Typography } from '@mui/material';
-
+import { Button, Link, Typography } from '@mui/material';
+import { store } from './storage';
+import { ModeSwitcher } from './components/ModeSwitcher';
 async function main() {
     const eleroot = document.getElementById('app') as HTMLDivElement;
     const root = createRoot(eleroot);
+    function Inner() {
+        // wrapper bc we arnt in a component at the top level.
+        return store.themeMessage.value;
+    }
     root.render(
         <MatUIThemer>
             <Typography variant="h1">Schedule????? Personalizer?????</Typography>
@@ -32,12 +37,20 @@ async function main() {
                 these functions can be called from anywhere, and they {'"just work"'} (i think) (i hope)
                 <br />
                 the update() and asyncUpdate() functions use immer so you can mutate the state passed in as the first argument too! <br />
-                <a href="https://github.com/preactjs/signals/blob/HEAD/README.md#computedfn">
+                computed theme message:{' '}
+                <pre>
+                    <Inner />
+                </pre>{' '}
+                <br />
+                <ModeSwitcher />
+                <br />
+                <Link href="https://github.com/preactjs/signals/blob/HEAD/README.md#computedfn">
                     {' '}
                     extra cool functions with signals (import from @preact/signals-react){' '}
-                </a>{' '}
+                </Link>{' '}
                 <br />
-                <a href="https://mui.com/material-ui">mat ui docs</a>
+                <Link href="https://mui.com/material-ui">mat ui docs</Link>
+                <br />
             </Typography>
         </MatUIThemer>
     );

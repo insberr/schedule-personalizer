@@ -37,6 +37,7 @@
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
         "@fontsource/roboto": "^4.5.8",
+        "@karmaniverous/serify-deserify": "^1.2.9",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.13",
         "@preact/signals-react": "^1.2.1",

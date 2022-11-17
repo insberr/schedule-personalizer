@@ -2,5 +2,13 @@
 
 body {
     font-family: 'Roboto';
-    background-color: #121212; // prevent a flash of white on startup
+    // prevent a flash of white on startup
+    background-color: #121212;
+}
+
+body.darkStart {
+    background-color: #121212;
+}
+body.lightStart {
+    background-color: #fff;
 }

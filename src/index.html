@@ -8,8 +8,20 @@
         <link rel="stylesheet" href="./styles/index.scss" />
     </head>
     <body>
+        <script>
+            const theme = localStorage.getItem('theme');
+            //console.log(theme)
+            if (theme) {
+                if (theme == '"light"') {
+                    document.body.classList.add('lightStart');
+                } else {
+                    document.body.classList.add('darkStart');
+                }
+            } else {
+                document.body.classList.add('darkStart');
+            }
+        </script>
         <div id="app"></div>
         <script src="index.tsx" type="module"></script>
     </body>
 </html>
-

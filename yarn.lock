@@ -1632,13 +1632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ungap/structured-clone@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@ungap/structured-clone@npm:1.0.1"
-  checksum: eab37d0e7a3e34e01c872820e74e6b4f4138a29feabd6d82ed70e7638c968c7957b9c19c2061a7c01563b399a0155265ddcbb20e65f5fb9c97b070bf7ff3dc19
-  languageName: node
-  linkType: hard
-
 "abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -4401,18 +4394,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"peggy@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "peggy@npm:2.0.1"
-  dependencies:
-    commander: "npm:^9.3.0"
-    source-map-generator: "npm:0.8.0"
-  bin:
-    peggy: bin/peggy.js
-  checksum: 0d388a448d44d9ee6c57eb5072645d4b1a3eadb760bc1ad9da3f3fb0a5a420d2449b6913e985cf19d142150c2908850235a3d6787cc8a0ace9c7d08d66a2a40b
-  languageName: node
-  linkType: hard
-
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -4849,26 +4830,10 @@ __metadata:
     process: "npm:^0.11.10"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    schedule-script: "file:./src/exlib/schedule-script.tgz"
     typescript: "npm:^4.8.4"
     xml-js: "npm:^1.6.11"
   languageName: unknown
   linkType: soft
-
-"schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A.":
-  version: 1.0.1
-  resolution: "schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A."
-  dependencies:
-    "@ungap/structured-clone": "npm:^1.0.1"
-    date-fns: "npm:^2.29.3"
-    immer: "npm:^9.0.16"
-    peggy: "npm:^2.0.1"
-  bin:
-    schedule-script: ./cli/cli.js
-    scs: ./cli/cli.js
-  checksum: bba384c71a342fbc8be960c3a6e03d9a1ae6151aeecb2b5ebb132f552498a2acc6dcc3a5919b020af5cac77ed9cdda149b92ba3a4f56745be6185a201f2a5259
-  languageName: node
-  linkType: hard
 
 "scheduler@npm:^0.23.0":
   version: 0.23.0
@@ -5013,13 +4978,6 @@ __metadata:
     ip: "npm:^2.0.0"
     smart-buffer: "npm:^4.2.0"
   checksum: a8026d6abfcd168a661240848f6989fbba66276e8fa97ff1cb1079c2f3c6907dcc8284fcbc4f6d3fee8d071afb4fc8313da7e5fbf6d8768f206347a671f1542b
-  languageName: node
-  linkType: hard
-
-"source-map-generator@npm:0.8.0":
-  version: 0.8.0
-  resolution: "source-map-generator@npm:0.8.0"
-  checksum: 93eeb661b8108f276c43ce5b48377e67656780e47107a598b458ce30d91e9d41ab91725e75cfb64b858f760c629eb92c00b8bca0b2646b6bbc85f2f1edb2669b
   languageName: node
   linkType: hard
 

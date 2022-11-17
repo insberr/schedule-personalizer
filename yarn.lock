@@ -66,7 +66,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.19.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.19.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.20.1
   resolution: "@babel/runtime@npm:7.20.1"
   dependencies:
@@ -1374,23 +1374,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reduxjs/toolkit@npm:^1.9.0":
-  version: 1.9.0
-  resolution: "@reduxjs/toolkit@npm:1.9.0"
+"@preact/signals-core@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@preact/signals-core@npm:1.2.2"
+  checksum: 8f3994c292fd2569d8462e85442d4e88c83b6bccbff0a799c10c5527ea5b9ff4d8e8493bbfc978939602e3d302e84e9e45646e1325d08c1f404801da50795b84
+  languageName: node
+  linkType: hard
+
+"@preact/signals-react@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@preact/signals-react@npm:1.2.1"
   dependencies:
-    immer: "npm:^9.0.16"
-    redux: "npm:^4.2.0"
-    redux-thunk: "npm:^2.4.2"
-    reselect: "npm:^4.1.7"
+    "@preact/signals-core": "npm:^1.2.2"
+    use-sync-external-store: "npm:^1.2.0"
   peerDependencies:
-    react: ^16.9.0 || ^17.0.0 || ^18
-    react-redux: ^7.2.1 || ^8.0.2
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-redux:
-      optional: true
-  checksum: dcaf85b68615875029a7045cd40141187cd5d4959afd09c8cf5a6d49d5393d4c414fd734dffd1002c775c6c66e13cb2880f82f5915e3fea4654be868f9e89ab7
+    react: 17.x || 18.x
+  checksum: 4179683095ac4037b64d79e9e0aade9ca63951d5c82f8093bca8ad2a7971c321fde0f7281c1eb7f0c69225684648e00d8d3441cb971ac9ff23baa6bde9bdf91c
   languageName: node
   linkType: hard
 
@@ -1414,16 +1413,6 @@ __metadata:
   version: 0.2.0
   resolution: "@trysound/sax@npm:0.2.0"
   checksum: 4aedd10caa2c162049388fecab9d99cea4a95481a4ed341d7396093d7edf5b7c4954e8bbe78cf178dbf6196e9a2dbcc7cbcb222503f2823a74cf1e6b7e488f9a
-  languageName: node
-  linkType: hard
-
-"@types/hoist-non-react-statics@npm:^3.3.0, @types/hoist-non-react-statics@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
-  dependencies:
-    "@types/react": "npm:*"
-    hoist-non-react-statics: "npm:^3.3.0"
-  checksum: 6e252131d90ced0948b559b187bac10185040dbb0e2dcfb5c40d065003ea94c79d483e82b5961100e2e021057be3b1087fbbe34d55a302ca7aba6d059470fb33
   languageName: node
   linkType: hard
 
@@ -1462,12 +1451,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.8":
-  version: 18.0.8
-  resolution: "@types/react-dom@npm:18.0.8"
+"@types/react-dom@npm:^18":
+  version: 18.0.9
+  resolution: "@types/react-dom@npm:18.0.9"
   dependencies:
     "@types/react": "npm:*"
-  checksum: c599b8493cd04d4fa6e138657f0f6a73d6022c1cc159e732ea6d29d41f1b20edfb39980804806b397e15bdeb779ab60535521472838cea177f4b9b24b3bf0520
+  checksum: 0fb1a4cc5215dd032ad0051c3365be8c9b36637ea36854f5b1cce84e858cbde67b08a74229032dac6e522ecd3181f1d5cccd264ff12f926c21c8a7cccac8d525
   languageName: node
   linkType: hard
 
@@ -1480,18 +1469,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-redux@npm:^7.1.24":
-  version: 7.1.24
-  resolution: "@types/react-redux@npm:7.1.24"
-  dependencies:
-    "@types/hoist-non-react-statics": "npm:^3.3.0"
-    "@types/react": "npm:*"
-    hoist-non-react-statics: "npm:^3.3.0"
-    redux: "npm:^4.0.0"
-  checksum: f619a7770e450abfa9e1673b933693eed6510bf28510a23f6890618de0acd4c24e8385aca664ce0288a2def3c5efc6be990a1d91953d516b8f3d5002217fabcd
-  languageName: node
-  linkType: hard
-
 "@types/react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "@types/react-transition-group@npm:4.4.5"
@@ -1501,7 +1478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.25":
+"@types/react@npm:*, @types/react@npm:^18":
   version: 18.0.25
   resolution: "@types/react@npm:18.0.25"
   dependencies:
@@ -1523,13 +1500,6 @@ __metadata:
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
   checksum: a76156ff60ddbd17bf2120c09dca3cd8ac7db4f8d8c69614a9ebc5202f05d1044def7fd8cf77415f7284ea8edfa1092b6e04dac07dc17c94762904c69dd2c85b
-  languageName: node
-  linkType: hard
-
-"@types/use-sync-external-store@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@types/use-sync-external-store@npm:0.0.3"
-  checksum: 803c4a8f739c2131e0fc8f73db317513627d7d14532bf674273048ccbf875603a06957a0bca4a154faa59ba4979c08afde38bc8c2e7d2c3e21bf8c57a4be229d
   languageName: node
   linkType: hard
 
@@ -1659,6 +1629,13 @@ __metadata:
     "@typescript-eslint/types": "npm:5.42.1"
     eslint-visitor-keys: "npm:^3.3.0"
   checksum: 067f43debe0270cb34f7c783c8ad84377bfd1b8fe25b04bb243e51676cff186440f73b35f9e165b50f024b83c8ca70a4df573e0afd67f1c20af16877a844dba6
+  languageName: node
+  linkType: hard
+
+"@ungap/structured-clone@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@ungap/structured-clone@npm:1.0.1"
+  checksum: eab37d0e7a3e34e01c872820e74e6b4f4138a29feabd6d82ed70e7638c968c7957b9c19c2061a7c01563b399a0155265ddcbb20e65f5fb9c97b070bf7ff3dc19
   languageName: node
   linkType: hard
 
@@ -3101,7 +3078,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -4424,6 +4401,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peggy@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "peggy@npm:2.0.1"
+  dependencies:
+    commander: "npm:^9.3.0"
+    source-map-generator: "npm:0.8.0"
+  bin:
+    peggy: bin/peggy.js
+  checksum: 0d388a448d44d9ee6c57eb5072645d4b1a3eadb760bc1ad9da3f3fb0a5a420d2449b6913e985cf19d142150c2908850235a3d6787cc8a0ace9c7d08d66a2a40b
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -4582,42 +4571,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^18.0.0, react-is@npm:^18.2.0":
+"react-is@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: f542f0effed3f89b4faa237bf56e746d437c9dba4ed1039a2ba6e6fcb463244300b8f3c17d8e610e76476a626c4d97ee4c2ed7a5b5d64e2b2e2d7b2144816ac8
-  languageName: node
-  linkType: hard
-
-"react-redux@npm:^8.0.5":
-  version: 8.0.5
-  resolution: "react-redux@npm:8.0.5"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.1"
-    "@types/hoist-non-react-statics": "npm:^3.3.1"
-    "@types/use-sync-external-store": "npm:^0.0.3"
-    hoist-non-react-statics: "npm:^3.3.2"
-    react-is: "npm:^18.0.0"
-    use-sync-external-store: "npm:^1.0.0"
-  peerDependencies:
-    "@types/react": ^16.8 || ^17.0 || ^18.0
-    "@types/react-dom": ^16.8 || ^17.0 || ^18.0
-    react: ^16.8 || ^17.0 || ^18.0
-    react-dom: ^16.8 || ^17.0 || ^18.0
-    react-native: ">=0.59"
-    redux: ^4
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    "@types/react-dom":
-      optional: true
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-    redux:
-      optional: true
-  checksum: 9dcb3127e959d03101fc6196ccf7e0ff4832c0550e2d2e2d97e1262d1a17821e92ebf47d56d40a08992e714d4b68a0c4f4b0293d96d3fc6f5d9af5c5f1eed883
   languageName: node
   linkType: hard
 
@@ -4672,24 +4629,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "redux-thunk@npm:2.4.2"
-  peerDependencies:
-    redux: ^4
-  checksum: 4302aef7bdefa5e9709d01b97f768bcc0edb92993a52f79bd9ba3709f1b1f7b71201e5393b685cd0a37c5e49fc15741a1be04444c49dca4af91f926dbcf9d223
-  languageName: node
-  linkType: hard
-
-"redux@npm:^4.0.0, redux@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "redux@npm:4.2.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.9.2"
-  checksum: 9239ab43da6a18375b413e128e9b808f28d46cbadfc58a371921396f82efd0187f17e6cd86c01080975c1778304b93a1546d735411067c54b1d81bd9e2e46307
-  languageName: node
-  linkType: hard
-
 "regenerator-runtime@npm:^0.13.10, regenerator-runtime@npm:^0.13.7":
   version: 0.13.10
   resolution: "regenerator-runtime@npm:0.13.10"
@@ -4712,13 +4651,6 @@ __metadata:
   version: 3.2.0
   resolution: "regexpp@npm:3.2.0"
   checksum: b171774d3380c053d3bd4af6b4f60f2e28c837dd4daeafb183d656e2f439dc606ee428bb44f14cbaa5a715524d2e8d88d168817445b4156d1ea06337f29eb405
-  languageName: node
-  linkType: hard
-
-"reselect@npm:^4.1.7":
-  version: 4.1.7
-  resolution: "reselect@npm:4.1.7"
-  checksum: 5b144c6fdf4bf01571788e9b0c9f743446c578a766c25dc1337b4779037249f4b680492603135c95cae8e6a2e6f5a6b339124aef00a759e9e7aca24e6bfdd8b7
   languageName: node
   linkType: hard
 
@@ -4896,12 +4828,11 @@ __metadata:
     "@mui/icons-material": "npm:^5.10.9"
     "@mui/material": "npm:^5.10.13"
     "@parcel/transformer-sass": "npm:2.8.0"
-    "@reduxjs/toolkit": "npm:^1.9.0"
+    "@preact/signals-react": "npm:^1.2.1"
     "@types/lodash": "npm:^4.14.188"
     "@types/node": "npm:^18.11.9"
-    "@types/react": "npm:^18.0.25"
-    "@types/react-dom": "npm:^18.0.8"
-    "@types/react-redux": "npm:^7.1.24"
+    "@types/react": "npm:^18"
+    "@types/react-dom": "npm:^18"
     "@types/xml-js": "npm:^1.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.42.1"
     "@typescript-eslint/parser": "npm:^5.42.1"
@@ -4910,6 +4841,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.10"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     husky: "npm:^8.0.2"
+    immer: "npm:^9.0.16"
     lint-staged: "npm:^13.0.3"
     lodash: "npm:^4.17.21"
     parcel: "npm:^2.8.0"
@@ -4917,11 +4849,26 @@ __metadata:
     process: "npm:^0.11.10"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-redux: "npm:^8.0.5"
+    schedule-script: "file:./src/exlib/schedule-script.tgz"
     typescript: "npm:^4.8.4"
     xml-js: "npm:^1.6.11"
   languageName: unknown
   linkType: soft
+
+"schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A.":
+  version: 1.0.1
+  resolution: "schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A."
+  dependencies:
+    "@ungap/structured-clone": "npm:^1.0.1"
+    date-fns: "npm:^2.29.3"
+    immer: "npm:^9.0.16"
+    peggy: "npm:^2.0.1"
+  bin:
+    schedule-script: ./cli/cli.js
+    scs: ./cli/cli.js
+  checksum: bba384c71a342fbc8be960c3a6e03d9a1ae6151aeecb2b5ebb132f552498a2acc6dcc3a5919b020af5cac77ed9cdda149b92ba3a4f56745be6185a201f2a5259
+  languageName: node
+  linkType: hard
 
 "scheduler@npm:^0.23.0":
   version: 0.23.0
@@ -5066,6 +5013,13 @@ __metadata:
     ip: "npm:^2.0.0"
     smart-buffer: "npm:^4.2.0"
   checksum: a8026d6abfcd168a661240848f6989fbba66276e8fa97ff1cb1079c2f3c6907dcc8284fcbc4f6d3fee8d071afb4fc8313da7e5fbf6d8768f206347a671f1542b
+  languageName: node
+  linkType: hard
+
+"source-map-generator@npm:0.8.0":
+  version: 0.8.0
+  resolution: "source-map-generator@npm:0.8.0"
+  checksum: 93eeb661b8108f276c43ce5b48377e67656780e47107a598b458ce30d91e9d41ab91725e75cfb64b858f760c629eb92c00b8bca0b2646b6bbc85f2f1edb2669b
   languageName: node
   linkType: hard
 
@@ -5466,7 +5420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0":
+"use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:

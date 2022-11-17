@@ -1,7 +1,6 @@
-import { useTheme } from '../storage/lightanddark';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { store } from '../storage';
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -20,11 +19,11 @@ const themeLookup = {
 };
 
 type props = {
-    children: JSX.Element | JSX.Element[];
+    children: any;
 };
 
 export function MatUIThemer(p: props) {
-    const theme = useTheme();
+    const theme = store.theme.value;
     return (
         <ThemeProvider theme={themeLookup[theme]}>
             <CssBaseline />

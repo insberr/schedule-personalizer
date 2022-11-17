@@ -9,7 +9,14 @@ const darkTheme = createTheme({
             main: '#dc143c',
         },
         secondary: {
-            main: '#dcb414',
+            main: '#dc5014',
+        },
+    },
+    components: {
+        MuiAppBar: {
+            styleOverrides: {
+                colorPrimary: '#121212',
+            },
         },
     },
 });

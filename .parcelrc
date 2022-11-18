@@ -1,0 +1,14 @@
+{
+    "extends": ["@parcel/config-default"],
+    "transformers": {
+        "*.scs": ["parcel-transformer-scs"]
+    },
+    "packagers": {
+        "*.scs": "parcel-packager-scs"
+    },
+    "optimizers": {
+        "*.scs": ["parcel-optimizer-scs"]
+    },
+    "namers": ["parcel-namer-scs", "..."]
+
+}

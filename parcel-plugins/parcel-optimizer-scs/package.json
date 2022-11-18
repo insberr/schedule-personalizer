@@ -1,0 +1,7 @@
+{
+    "name": "parcel-optimizer-scs",
+    "main": "index.js",
+    "engines": {
+        "parcel": "2.x"
+    }
+}

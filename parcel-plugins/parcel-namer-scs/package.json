@@ -1,0 +1,7 @@
+{
+    "name": "parcel-namer-scs",
+    "main": "index.js",
+    "engines": {
+        "parcel": "2.x"
+    }
+}

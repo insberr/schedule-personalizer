@@ -1,3 +1,3 @@
 # How to use config
 
-explain config here  
+explain config here

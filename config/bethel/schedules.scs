@@ -1,6 +1,25 @@
-schedule test {
-    // please place all the types of classes in this schedule, for testing 
-    class [1] [5:00 to 7:00];
-    class [2] [7:00 to 12:00];
+
+schedule Normal {
+    description "Normal schedule";
+
+    class [zero] [6:30 to 7:00];
+    class [arrival] [7:00 to 7:30];
+    class [1] [7:35 to 8:45];
+    class [2] [8:50 to 10:00];
+    class [3] [10:05 to 11:15];
+    class [4] [11:20 to 12:30];
+    class [5] [12:35 to 13:45];
+    class [dismissal] [14:05 to 14:10];
+
+    
+
+};
+
+schedule LateStart1Hour {
+    description "Late Start 1 Hour";
+
+    class [zero] [7:30 to 8:00];
+    class [1] [8:00 to 12:00];
     class [dismissal] [12:00 to 12:05];
+
 };

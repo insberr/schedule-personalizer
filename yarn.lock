@@ -734,7 +734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/config-default@npm:2.8.0":
+"@parcel/config-default@npm:2.8.0, @parcel/config-default@npm:^2.8.0":
   version: 2.8.0
   resolution: "@parcel/config-default@npm:2.8.0"
   dependencies:
@@ -1054,7 +1054,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/plugin@npm:2.8.0":
+"@parcel/plugin@npm:2.8.0, @parcel/plugin@npm:^2.8.0":
   version: 2.8.0
   resolution: "@parcel/plugin@npm:2.8.0"
   dependencies:
@@ -4330,6 +4330,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parcel-namer-scs@link:./parcel-plugins/parcel-namer-scs::locator=schedule-personalizer%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "parcel-namer-scs@link:./parcel-plugins/parcel-namer-scs::locator=schedule-personalizer%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"parcel-optimizer-scs@link:./parcel-plugins/parcel-optimizer-scs::locator=schedule-personalizer%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "parcel-optimizer-scs@link:./parcel-plugins/parcel-optimizer-scs::locator=schedule-personalizer%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"parcel-packager-scs@link:./parcel-plugins/parcel-packager-scs::locator=schedule-personalizer%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "parcel-packager-scs@link:./parcel-plugins/parcel-packager-scs::locator=schedule-personalizer%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"parcel-transformer-scs@link:./parcel-plugins/parcel-transformer-scs::locator=schedule-personalizer%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "parcel-transformer-scs@link:./parcel-plugins/parcel-transformer-scs::locator=schedule-personalizer%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "parcel@npm:^2.8.0":
   version: 2.8.0
   resolution: "parcel@npm:2.8.0"
@@ -4844,6 +4868,8 @@ __metadata:
     "@karmaniverous/serify-deserify": "npm:^1.2.9"
     "@mui/icons-material": "npm:^5.10.9"
     "@mui/material": "npm:^5.10.13"
+    "@parcel/config-default": "npm:^2.8.0"
+    "@parcel/plugin": "npm:^2.8.0"
     "@parcel/transformer-sass": "npm:2.8.0"
     "@preact/signals-react": "npm:^1.2.1"
     "@types/lodash": "npm:^4.14.188"
@@ -4862,6 +4888,10 @@ __metadata:
     lint-staged: "npm:^13.0.3"
     lodash: "npm:^4.17.21"
     parcel: "npm:^2.8.0"
+    parcel-namer-scs: "link:./parcel-plugins/parcel-namer-scs"
+    parcel-optimizer-scs: "link:./parcel-plugins/parcel-optimizer-scs"
+    parcel-packager-scs: "link:./parcel-plugins/parcel-packager-scs"
+    parcel-transformer-scs: "link:./parcel-plugins/parcel-transformer-scs"
     prettier: "npm:^2.7.1"
     process: "npm:^0.11.10"
     react: "npm:^18.2.0"

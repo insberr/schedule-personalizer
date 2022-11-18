@@ -1,0 +1,5 @@
+/* Main Schedule Personalizer Config File */
+
+import './bethel/bethel.scs';
+
+config pain 'test';

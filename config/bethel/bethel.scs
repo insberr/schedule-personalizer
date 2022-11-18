@@ -1,0 +1,10 @@
+// bethel high school
+import './locations.scs';
+import "./functions.scs";
+import "./schedules.scs";
+import "./events.scs";
+
+// school config here :tm:
+config test "test bethel";
+
+

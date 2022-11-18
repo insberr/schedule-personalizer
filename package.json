@@ -16,8 +16,10 @@
     "packageManager": "yarn@4.0.0-rc.29",
     "devDependencies": {
         "@parcel/config-default": "^2.8.0",
+        "@parcel/node-resolver-core": "^2.8.0",
         "@parcel/plugin": "^2.8.0",
         "@parcel/transformer-sass": "2.8.0",
+        "@parcel/utils": "^2.8.0",
         "@types/lodash": "^4.14.188",
         "@types/node": "^18.11.9",
         "@types/react": "^18",
@@ -52,7 +54,7 @@
         "parcel-transformer-scs": "link:./parcel-plugins/parcel-transformer-scs",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "schedule-script": "file:./src/exlib/schedule-script.tgz",
+        "schedule-script": "portal:./src/exlib/schedule-script",
         "xml-js": "^1.6.11"
     },
     "lint-staged": {

@@ -74,4 +74,4 @@ uh.json
 src/legal.mdx
 src/splashscreens
 
-!src/exlib/*.tgz
+!src/exlib/*/dist

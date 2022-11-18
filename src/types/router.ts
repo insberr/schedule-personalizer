@@ -1,3 +1,3 @@
 export enum Page {
-    schedule
+    schedule,
 }

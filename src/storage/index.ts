@@ -41,7 +41,7 @@ function persistWrite<T>(key: string, value: T) {
 export const store: { [key: string]: StoreWrapper<any> } = {
     theme: new StoreWrapper<'light' | 'dark'>(persistRead('theme', 'dark')), // you could also read the default from the OS
     themeMessage: new StoreWrapper(computed(() => `Current theme is ${store.theme.value}`)),
-    route: new StoreWrapper<Page>(signal(Page.schedule))
+    route: new StoreWrapper<Page>(signal(Page.schedule)),
 };
 
 //things that should be stored in the store:

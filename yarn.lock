@@ -897,7 +897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/node-resolver-core@npm:2.8.0":
+"@parcel/node-resolver-core@npm:2.8.0, @parcel/node-resolver-core@npm:^2.8.0":
   version: 2.8.0
   resolution: "@parcel/node-resolver-core@npm:2.8.0"
   dependencies:
@@ -1334,7 +1334,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/utils@npm:2.8.0":
+"@parcel/utils@npm:2.8.0, @parcel/utils@npm:^2.8.0":
   version: 2.8.0
   resolution: "@parcel/utils@npm:2.8.0"
   dependencies:
@@ -4869,8 +4869,10 @@ __metadata:
     "@mui/icons-material": "npm:^5.10.9"
     "@mui/material": "npm:^5.10.13"
     "@parcel/config-default": "npm:^2.8.0"
+    "@parcel/node-resolver-core": "npm:^2.8.0"
     "@parcel/plugin": "npm:^2.8.0"
     "@parcel/transformer-sass": "npm:2.8.0"
+    "@parcel/utils": "npm:^2.8.0"
     "@preact/signals-react": "npm:^1.2.1"
     "@types/lodash": "npm:^4.14.188"
     "@types/node": "npm:^18.11.9"
@@ -4896,15 +4898,15 @@ __metadata:
     process: "npm:^0.11.10"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    schedule-script: "file:./src/exlib/schedule-script.tgz"
+    schedule-script: "portal:./src/exlib/schedule-script"
     typescript: "npm:^4.8.4"
     xml-js: "npm:^1.6.11"
   languageName: unknown
   linkType: soft
 
-"schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A.":
-  version: 1.0.1
-  resolution: "schedule-script@file:./src/exlib/schedule-script.tgz::locator=schedule-personalizer%40workspace%3A."
+"schedule-script@portal:./src/exlib/schedule-script::locator=schedule-personalizer%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "schedule-script@portal:./src/exlib/schedule-script::locator=schedule-personalizer%40workspace%3A."
   dependencies:
     "@ungap/structured-clone": "npm:^1.0.1"
     date-fns: "npm:^2.29.3"
@@ -4913,9 +4915,8 @@ __metadata:
   bin:
     schedule-script: ./cli/cli.js
     scs: ./cli/cli.js
-  checksum: 12854b6b25fff91a6302d516e0d8f60cb2319397380df333975dd5b72e55e903cc7e99fb70e200469ba27eaa8317b12e8060e770e24954b45bc8ac49d9658bbe
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "scheduler@npm:^0.23.0":
   version: 0.23.0

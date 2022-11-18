@@ -774,7 +774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parcel/core@npm:2.8.0":
+"@parcel/core@npm:2.8.0, @parcel/core@npm:^2.8.0":
   version: 2.8.0
   resolution: "@parcel/core@npm:2.8.0"
   dependencies:
@@ -4869,6 +4869,7 @@ __metadata:
     "@mui/icons-material": "npm:^5.10.9"
     "@mui/material": "npm:^5.10.13"
     "@parcel/config-default": "npm:^2.8.0"
+    "@parcel/core": "npm:^2.8.0"
     "@parcel/node-resolver-core": "npm:^2.8.0"
     "@parcel/plugin": "npm:^2.8.0"
     "@parcel/transformer-sass": "npm:2.8.0"

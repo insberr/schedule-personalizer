@@ -2,6 +2,8 @@
 
 import { dateToTime, timeToDate, Time, getTimeW } from '../types';
 import { add } from 'date-fns';
+
+console.warn('Reminder to move lib/today.ts into the state system. maybe');
 declare global {
     interface Window {
         devDate: {

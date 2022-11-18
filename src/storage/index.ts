@@ -43,6 +43,7 @@ export const store: { [key: string]: StoreWrapper<any> } = {
     theme: new StoreWrapper<'light' | 'dark'>(persistRead('theme', 'dark')), // you could also read the default from the OS
     route: new StoreWrapper<Page>(signal(Page.schedule)),
     scs: new StoreWrapper<SCS | null>(signal(null)),
+    displayDate: new StoreWrapper(signal(new Date())),
 };
 
 //things that should be stored in the store:

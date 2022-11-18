@@ -11,6 +11,10 @@ const darkTheme = createTheme({
         secondary: {
             main: '#dc5014',
         },
+        background: {
+            default: '#272727',
+            paper: '#1b1b1b',
+        },
     },
     components: {
         MuiAppBar: {

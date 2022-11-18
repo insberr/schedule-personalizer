@@ -1,3 +1,4 @@
+import { TopBar } from '../../components/TopBar';
 import { store } from '../../storage';
 
 export function SchedulePage() {

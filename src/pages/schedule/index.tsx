@@ -1,5 +1,5 @@
-const scheduleURL = new URL('../../../config/bethel/bethel.scs', import.meta.url).href;
+import { store } from '../../storage';
 
 export function SchedulePage() {
-    return <div> {scheduleURL} </div>;
+    return <pre> {store.scs.value?.pretty()} </pre>;
 }

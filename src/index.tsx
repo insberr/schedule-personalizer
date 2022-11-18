@@ -6,6 +6,7 @@ import { ModeSwitcher } from './components/ModeSwitcher';
 import { Route } from './lib/router/Route';
 import { SchedulePage } from './pages/schedule';
 import { Page } from './types';
+import './pullers';
 
 async function main() {
     const eleroot = document.getElementById('app') as HTMLDivElement;

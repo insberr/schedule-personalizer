@@ -3,7 +3,8 @@ import { produce } from 'immer';
 import { serify, deserify } from '@karmaniverous/serify-deserify';
 import { useEffect, useState } from 'react';
 import { Page } from '../types';
-class StoreWrapper<T> {
+import { SCS } from 'schedule-script';
+export class StoreWrapper<T> {
     #signal: Signal;
     get value(): T {
         return this.#signal.value;
@@ -42,6 +43,7 @@ export const store: { [key: string]: StoreWrapper<any> } = {
     theme: new StoreWrapper<'light' | 'dark'>(persistRead('theme', 'dark')), // you could also read the default from the OS
     themeMessage: new StoreWrapper(computed(() => `Current theme is ${store.theme.value}`)),
     route: new StoreWrapper<Page>(signal(Page.schedule)),
+    scs: new StoreWrapper<SCS | null>(signal(null)),
 };
 
 //things that should be stored in the store:

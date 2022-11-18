@@ -18,6 +18,6 @@ async function update() {
 
 setInterval(() => {
     update();
-}, 5000);
+}, 30 * 1000);
 
 update();

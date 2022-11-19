@@ -16,62 +16,15 @@ import { addDays } from 'date-fns';
 import { Calendar } from './Calendar';
 import { useRef, useState } from 'react';
 
-function CalPopupButton() {
-    const [CalOpen, setCalOpen] = useState(false);
-    const calRef = useRef(null);
-    return (
-        <>
-            <IconButton size="large" color="inherit" ref={calRef} onClick={() => setCalOpen(!CalOpen)}>
-                <CalendarMonthIcon color="inherit" />
-            </IconButton>
-            <Popover
-                open={CalOpen}
-                anchorEl={calRef.current}
-                onClose={() => setCalOpen(false)}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-            >
-                <Calendar />
-            </Popover>
-        </>
-    );
-}
-
 function InnerButtons() {
     const route = store.route.value as Page;
-    const displayDate = store.displayDate.value as Date;
-    const moveDays = (days: number) => {
-        store.displayDate.value = addDays(store.displayDate.value, days);
-    };
+
     switch (route) {
         case Page.schedule:
             return (
-                <>
-                    {!isSameDay(displayDate, today()) ? (
-                        <IconButton size="large" color="inherit" onClick={() => (store.displayDate.value = today())}>
-                            <HomeIcon color="inherit" />
-                        </IconButton>
-                    ) : (
-                        <></>
-                    )}
-                    <IconButton size="large" color="inherit" onClick={() => moveDays(-1)}>
-                        <ArrowBackIcon color="inherit" />
-                    </IconButton>
-                    <CalPopupButton />
-                    <IconButton size="large" color="inherit" onClick={() => moveDays(1)}>
-                        <ArrowForwardIcon color="inherit" />
-                    </IconButton>
-                    <ModeSwitcher />
-                    <IconButton size="large" color="inherit" onClick={() => (store.route.value = Page.settings)}>
-                        <SettingsIcon color="inherit" />
-                    </IconButton>
-                </>
+                <IconButton size="large" color="inherit" onClick={() => (store.route.value = Page.settings)}>
+                    <SettingsIcon color="inherit" />
+                </IconButton>
             );
         case Page.settings:
             return (

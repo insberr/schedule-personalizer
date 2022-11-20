@@ -3,15 +3,15 @@
 // figure this stuff out
 // import './bethel/bethel.scs';
 
-import './bethel/bethel.scs';
-// set schools {
-//     set 'bethel_high' {
-//         import './bethel/bethel.scs';
-//     };
-//     // set 'bethel_middle' {
-//     //     import './bethel/bethel_middle.scs' as bethel;
-//     // };
-// };
+// import './bethel/bethel.scs';
+set schools {
+    set 'bethel_high' {
+        import './bethel/bethel.scs';
+    };
+    // set 'bethel_middle' {
+    //     import './bethel/bethel_middle.scs' as bethel;
+    // };
+};
 
 config test 'Hi there';
 config studentvue 'https://studentvue...';

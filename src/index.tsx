@@ -11,6 +11,7 @@ import { StrictMode, Suspense } from 'react';
 import { TopBar } from './components/TopBar';
 import './lib/today';
 import { SettingsPage } from './pages/settings';
+import { BottomNav } from './components/BottomNav';
 
 async function main() {
     const eleroot = document.getElementById('app') as HTMLDivElement;
@@ -32,6 +33,7 @@ async function main() {
                     <Route routes={[Page.settings]}>
                         <SettingsPage />
                     </Route>
+                    <BottomNav />
                 </Suspense>
             </MatUIThemer>
         </StrictMode>
@@ -39,3 +41,4 @@ async function main() {
 }
 
 main();
+

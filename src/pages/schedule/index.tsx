@@ -3,7 +3,6 @@ import { TopBar } from '../../components/TopBar';
 import { store } from '../../storage';
 import { Schedule } from '../../components/schedule';
 import { JSONTree } from 'react-json-tree';
-import { SCS } from 'schedule-script';
 
 export function SchedulePage() {
     return (

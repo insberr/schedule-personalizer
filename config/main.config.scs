@@ -1,5 +1,18 @@
 /* Main Schedule Personalizer Config File */
 
-import './bethel/bethel.scs';
+// figure this stuff out
+// import './bethel/bethel.scs';
 
-config pain 'test';
+import './bethel/bethel.scs';
+// set schools {
+//     set 'bethel_high' {
+//         import './bethel/bethel.scs';
+//     };
+//     // set 'bethel_middle' {
+//     //     import './bethel/bethel_middle.scs' as bethel;
+//     // };
+// };
+
+config test 'Hi there';
+config studentvue 'https://studentvue...';
+config multischool true; // maybe make it so these are parsed saving their type

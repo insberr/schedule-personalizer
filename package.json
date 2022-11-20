@@ -56,7 +56,8 @@
         "parcel-transformer-scs": "link:./parcel-plugins/parcel-transformer-scs",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "schedule-script": "portal:./src/exlib/schedule-script",
+        "react-json-tree": "^0.17.0",
+        "schedule-script": "^0.0.4",
         "xml-js": "^1.6.11"
     },
     "lint-staged": {

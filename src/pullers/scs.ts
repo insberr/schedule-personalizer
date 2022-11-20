@@ -1,7 +1,7 @@
 import { SCS } from 'schedule-script';
 import { store, StoreWrapper } from '../storage';
 
-const scheduleURL = new URL('../../config/bethel/bethel.scs', import.meta.url);
+const scheduleURL = new URL('../../config/main.config.scs', import.meta.url);
 scheduleURL.search = '';
 
 const heads = new Headers();
@@ -21,3 +21,4 @@ setInterval(() => {
 }, 30 * 1000);
 
 update();
+

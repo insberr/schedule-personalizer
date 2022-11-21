@@ -12,6 +12,13 @@ import { TopBar } from './components/TopBar';
 import './lib/today';
 import { SettingsPage } from './pages/settings';
 import { BottomNav } from './components/BottomNav';
+import { MainBottomNav } from './components/MainBottomNav';
+
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { SettingsButton } from './components/SettingsButton';
 
 async function main() {
     const eleroot = document.getElementById('app') as HTMLDivElement;

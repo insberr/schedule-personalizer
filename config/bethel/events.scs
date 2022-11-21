@@ -2,3 +2,7 @@
 event {
     info 'Hi';
 };
+
+event {
+    info 'test';
+};

@@ -13,6 +13,6 @@ set schools {
     // };
 };
 
-config test 'Hi there';
-config studentvue 'https://studentvue...';
-config multischool true; // maybe make it so these are parsed saving their type
+
+config studentVueurl 'https://studentvue...';
+set multischool true; // maybe make it so these are parsed saving their type

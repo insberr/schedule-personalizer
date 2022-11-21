@@ -51,7 +51,12 @@ export function SchedulePage() {
                     },
                 ]}
             />
-            <JSONTree data={store.scs.value?.exec()} />
+            <JSONTree
+                data={(store.scs.value as SCS)?.scheduleFor({
+                    date: new Date(),
+                    user: { classes: [], grade: '12', schoolName: 'Bethel High School' },
+                })}
+            />
             <pre> {store.scs.value?.pretty()} </pre>
             <pre> {JSON.stringify(store.scs.value?.exec(), null, 4)} </pre>
         </>

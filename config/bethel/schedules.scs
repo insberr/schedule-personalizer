@@ -8,7 +8,7 @@ schedule LateStart1Hour {
 
 };
 
-schedule normal {
+schedule Normal {
     description 'Normal Schedule';
     //  class [calss type] [<time> to <time>], {options};
     class [zero] [6:35 to 7:30];

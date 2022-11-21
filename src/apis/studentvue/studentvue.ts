@@ -1,65 +1,18 @@
 // REWRITE THIS PLS
 
-import { Terms, emptyCL, ClassIDS } from '../../types';
-import * as settings from '../../config/settings';
-import { courseTitleNameCase, redactStudentInfo, toTitleCase } from '../../lib/lib';
+// import { Terms, emptyCL, ClassIDS } from '../../types';
+// import * as settings from '../../config/settings';
+// import { courseTitleNameCase, redactStudentInfo, toTitleCase } from '../../lib/lib';
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo, StudentGradebook } from './api';
-import * as Sentry from '@sentry/react';
+import { StudentVueAPIData, StudentVueAPIDataClassListsTermClass } from './studentvueTypes';
+// import * as Sentry from '@sentry/react';
 
-export async function validateCredentials(username: string, password: string): Promise<boolean> {
-    return await validate(username, password); // mm
+export async function validateCredentials({ url, username, password }: { url: string; username: string; password: string }): Promise<boolean> {
+    return await validate({ url, username, password }); // mm
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StudentVueAPIDataClassListsTermClass = {
-    AdditionalStaffInformationXMLs: Record<string, unknown>; // find waht this should be
-    CourseTitle: string;
-    Period: string;
-    RoomName: string;
-    SectionGU: string;
-    Teacher: string;
-    TeacherEmail: string;
-    TeacherStaffGU: string;
-};
-export type StudentVueAPIDataClassListsTerm = StudentVueAPIDataClassListsTermClass[] | StudentVueAPIDataClassListsTermClass;
-export type StudentVueAPIDataClassLists = StudentVueAPIDataClassListsTerm[];
-export type StudentVueAPIData = {
-    code: string;
-    content: {
-        code?: string;
-        error?: string;
-        ClassLists: StudentVueAPIDataClassLists;
-        ConcurrentSchoolStudentClassSchedules: Record<string, unknown>; // find waht this should be
-        ErrorMessage: string;
-        IncludeAdditionalStaffWhenEmailingTeachers: 'true';
-        TermIndex: string;
-        TermIndexName: 'Trimester 1';
-        TermLists: {
-            TermListing: unknown[];
-        };
-        TodayScheduleInfoData: Record<string, unknown>; // find waht this should be
-        'xmlns:xsd': string;
-        'xmlns:xsi': string;
-    };
-};
-
-export type StudentVueAPIDataUserDate = {
-    code: string;
-    content: {
-        code?: string;
-        error?: string;
-        BirthDate: string;
-        CounselorEmail: string;
-        CounselorName: string;
-        CounselorStaffGU: string;
-        CurrentSchool: string;
-        EMail: string;
-        FormattedName: string;
-        Grade: string;
-        PermID: string;
-    };
-};
 
 export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // Hopefully this will catch any instance of studentvue returning an object instead of an array for the term.

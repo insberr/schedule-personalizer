@@ -20,4 +20,5 @@ export * from './schedule';
 export * from './customizations';
 export * from './router';
 export * from './studentvue';
+export * from './BottomNav';
 

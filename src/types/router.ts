@@ -5,5 +5,6 @@ export enum Page {
     schoolmap,
     studentid,
     more,
+    developer,
 }
 

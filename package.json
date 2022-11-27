@@ -57,7 +57,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-json-tree": "^0.17.0",
-        "schedule-script": "^0.1.0",
+        "schedule-script": "^0.1.1",
         "xml-js": "^1.6.11"
     },
     "lint-staged": {

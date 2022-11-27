@@ -13,6 +13,11 @@ set schools {
     // };
 };
 
+// temp to prevent crashing that i refuse to attempt fixing right now because im tired and want ice cream so glhf figuring this out glhf again because i want ice cream
+event test {
+    message 'Hi';
+};
 
 config studentVueurl 'https://studentvue...';
-set multischool true; // maybe make it so these are parsed saving their type
+config multischool true; // maybe make it so these are parsed saving their type
+set multischool true;

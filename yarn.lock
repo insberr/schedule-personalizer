@@ -5416,16 +5416,16 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-json-tree: ^0.17.0
-    schedule-script: ^0.1.1
+    schedule-script: ^0.1.2
     typescript: ^4.8.4
     typescript-plugin-css-modules: ^3.4.0
     xml-js: ^1.6.11
   languageName: unknown
   linkType: soft
 
-"schedule-script@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "schedule-script@npm:0.1.1"
+"schedule-script@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "schedule-script@npm:0.1.2"
   dependencies:
     "@ungap/structured-clone": ^1.0.1
     date-fns: ^2.29.3
@@ -5434,7 +5434,7 @@ __metadata:
   bin:
     schedule-script: cli/cli.js
     scs: cli/cli.js
-  checksum: ace8586b92aebf231af023b3cb1ca4677435bc6e083743ee052dca9805f4d126801109797c5aad46bf9ce3604e6b3c6a3d88fb20e64fb8b0ea6671af9e8f2442
+  checksum: feb7f9c3f8d16017c80dd66dc2cfc300dd42641af4482bd211b5818c19ecd3d3891e54cad51223b1ba2783dd02496ed4da2c8903e26d3e06321eea990d353af1
   languageName: node
   linkType: hard
 

@@ -10,6 +10,7 @@ import { RouterBlock } from '../../lib/router/RouterBlock';
 import { Route } from '../../lib/router/Route';
 
 export function SettingsPage(props: { defaultTabs: Tab[]; setTabs: (tabs: Tab[]) => void }) {
+    console.log((store.scs.value as SCS)?.exec({ data: new Date() }));
     return (
         <div>
             <h1> Settings </h1>
@@ -19,7 +20,7 @@ export function SettingsPage(props: { defaultTabs: Tab[]; setTabs: (tabs: Tab[])
             <JSONTree
                 data={(store.scs.value as SCS)?.scheduleFor({
                     date: new Date(),
-                    user: { classes: [], grade: '12', schoolName: 'Bethel High School' },
+                    user: { classes: [], grade: '12', schoolName: 'bethel_high' },
                 })}
             />
             <pre> {store.scs.value?.pretty()} </pre>

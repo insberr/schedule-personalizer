@@ -115,6 +115,7 @@
         "is-regexp": "^3.1.0",
         "keyboardjs": "^2.7.0",
         "lodash": "^4.17.21",
+        "octokit": "^2.0.10",
         "pathfinding": "^0.4.18",
         "pepjs": "^0.5.3",
         "prettier": "^2.7.1",

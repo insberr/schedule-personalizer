@@ -30,7 +30,11 @@ export const scrapeUrl = 'https://api-scrape-thing.insberr.repl.co/';
 // case insensitive
 export const alertMessageSchedules: { contains: string; schedule: SchedulesType }[] = [
     {
-        contains: 'delay',
+        contains: 'two-hour delay',
+        schedule: schedules.lateStart2Hour,
+    },
+    {
+        contains: '2-hour delay',
         schedule: schedules.lateStart2Hour,
     },
     {

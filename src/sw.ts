@@ -34,12 +34,11 @@ registerRoute((r) => {
         return true;
     }
     const th = new URL(r.request.url);
-    if (th.origin == location.origin && th.pathname == "/") {
+    if (th.origin == location.origin && th.pathname == '/') {
         return true;
     }
-    return false
-},
-    new NetworkFirst(opt));
+    return false;
+}, new NetworkFirst(opt));
 registerRoute((r) => !toNetwork.includes(r.request.destination) && new URL(r.request.url).origin == location.origin, new CacheFirst(opt));
 
 /*const precacheList: PrecacheEntry[] = []

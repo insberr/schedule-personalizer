@@ -123,4 +123,3 @@ declare global {
 }
 
 window.fupdate = update;
-

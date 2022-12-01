@@ -391,15 +391,16 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandle
 
     if (nonBlankTitles.length === 0) return { modifySchedule: false };
 
-    console.log('Theres a school alert: ', alert);
+    // console.log('Theres a school alert: ', alert);
 
     const foundMatch = settingsConfig.alertMessageSchedules.filter((a) => {
         const regex = new RegExp(a.contains, 'i');
         // return nonBlankTitles[0].match(regex) !== null;
         return regex.test(newAlert.messages);
     });
-    console.log('foundMatch', foundMatch);
-    console.log('nonBlankTitles[0]', nonBlankTitles[0]);
+
+    // console.table(foundMatch);
+    // console.log('nonBlankTitles[0]', nonBlankTitles[0]);
 
     if (foundMatch.length === 0) {
         // ! definitaly error to sentry
@@ -408,8 +409,11 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandle
     }
     if (foundMatch.length > 1) {
         // ! to do: error to sentry
-        console.log('How are there multiple matches?');
+        //console.log('How are there multiple matches?', foundMatch);
     }
+
+    const foundDate = newAlert.messages.match(/\([0-9-]*\)|for [^.]*,[^.]*\./gi);
+    console.log('foundDate', foundDate);
 
     return { modifySchedule: true, newSchedule: foundMatch[0].schedule, titleUsed: newAlert.titles.indexOf(nonBlankTitles[0]) };
 }

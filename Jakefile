@@ -11,7 +11,7 @@ const { chdir } = require('process');
 
 function exec(command, args, cwd, quiet) {
     return new Promise((r, j) => {
-        let o = "";
+        let o = '';
         const proc = e(command, args, { cwd, shell: true }, (e) => {
             if (e) {
                 j(e);
@@ -66,8 +66,8 @@ task('build', ['preqBuild'], async () => {
 
 desc('legal');
 file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
-    const proc = await exec('yarn', ['licenses', 'generate-disclaimer', '--production'],undefined, true)
-    const licence = '# Licenses\n```\n'+proc+'\n```'
+    const proc = await exec('yarn', ['licenses', 'generate-disclaimer', '--production'], undefined, true);
+    const licence = '# Licenses\n```\n' + proc + '\n```';
     await writeFile('src/legal.mdx', licence);
 });
 
@@ -96,13 +96,12 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         /*index: 'src/index.html',*/
         type: 'png',
         padding: 'calc(50vh - 20%) calc(50vw - 40%)',
-
     });
-    await writeFile("src/splashscreens/splash.html", d.htmlMeta.appleLaunchImage);
+    await writeFile('src/splashscreens/splash.html', d.htmlMeta.appleLaunchImage);
     //await writeFile('src/splashscreens/splash.hold', 'this file is to prevent useless rebuilding of splash screens');
 });
 
-task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.html'], { concurrency: 2 }); 
+task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.html'], { concurrency: 2 });
 
 desc('clean');
 task('clean', () => {

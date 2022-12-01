@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
-    <title>Schedule Personalizer</title>
-    <link rel="stylesheet" href="style.scss">
-    <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
-    <meta name="description" content="Schedule? Personalized.">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Schedule">
-    <meta name="background-color" content="#272727">
-
-    <!-- icon stuff-->
-    <link rel="manifest" href="./manifest.webmanifest">
-    <meta name="theme-color" content="#272727">
-    <link rel="icon" sizes="32x32" href="./icons/icon.png?width=32&amp;height=32">
-    <link rel="icon" sizes="16x16" href="./icons/icon.png?width=16&amp;height=16">
-    <link rel="apple-touch-icon" sizes="180x180" href="./icons/maskable_icon.png?width=180&amp;height=180">
-    <meta name="background-color" content="#272727">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-  </head>
-  <body>
-    <div class="full-center text-center" id="loading">
-      <div class="spinner-grow text-crimson" role="status"></div>
-    </div>
-    <div id="app"></div>
-    <script>
-      // This is if the app never loads ...
-      // maybe instead try to fetch the correct script file
-      setTimeout(() => {
-        if (document.getElementById('app').innerHTML === '') {
-          caches.keys().then((names) => {
-            for (let name of names) {
-              caches.delete(name);
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes" />
+        <title>Schedule Personalizer</title>
+        <link rel="stylesheet" href="style.scss" />
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
             }
-            location.reload();
-          });
-        }
-      }, 5000);
-    </script>
-    <script type="module" src="index.tsx"></script>
-  </body>
+        </style>
+        <meta name="description" content="Schedule? Personalized." />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="Schedule" />
+        <meta name="background-color" content="#272727" />
+
+        <!-- icon stuff-->
+        <link rel="manifest" href="./manifest.webmanifest" />
+        <meta name="theme-color" content="#272727" />
+        <link rel="icon" sizes="32x32" href="./icons/icon.png?width=32&amp;height=32" />
+        <link rel="icon" sizes="16x16" href="./icons/icon.png?width=16&amp;height=16" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./icons/maskable_icon.png?width=180&amp;height=180" />
+        <meta name="background-color" content="#272727" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </head>
+    <body>
+        <div class="full-center text-center" id="loading">
+            <div class="spinner-grow text-crimson" role="status"></div>
+        </div>
+        <div id="app"></div>
+        <script>
+            // This is if the app never loads ...
+            // maybe instead try to fetch the correct script file
+            setTimeout(() => {
+                if (document.getElementById('app').innerHTML === '') {
+                    caches.keys().then((names) => {
+                        for (let name of names) {
+                            caches.delete(name);
+                        }
+                        location.reload();
+                    });
+                }
+            }, 5000);
+        </script>
+        <script type="module" src="index.tsx"></script>
+    </body>
 </html>

@@ -1,9 +1,9 @@
 //import { Endpoints } from "@octokit/types";
 //type latestCommitEndpoint = Endpoints["GET /repos/{owner}/{repo}/commits"]
 
-import { Octokit } from "octokit";
-import useSWR from "swr";
-import { identifyBranch, identifyCommit } from "../../lib/lib";
+import { Octokit } from 'octokit';
+import useSWR from 'swr';
+import { identifyBranch, identifyCommit } from '../../lib/lib';
 const o = new Octokit();
 async function loadOctokit() {
     return o;
@@ -11,9 +11,9 @@ async function loadOctokit() {
 
 export async function latestCommit(): Promise<string> {
     const octo = await loadOctokit();
-    const commits = await octo.request("GET /repos/{owner}/{repo}/commits", {
-        owner: "insberr",
-        repo: "schedule-personalizer",
+    const commits = await octo.request('GET /repos/{owner}/{repo}/commits', {
+        owner: 'insberr',
+        repo: 'schedule-personalizer',
         sha: identifyBranch(),
     });
     return commits.data[0].sha;
@@ -21,23 +21,16 @@ export async function latestCommit(): Promise<string> {
 
 export async function cloudflarePagesBuilt() {
     const octo = await loadOctokit();
-    const out = await octo.request(
-        "GET /repos/{owner}/{repo}/commits/{ref}/check-runs",
-        {
-            owner: "insberr",
-            repo: "schedule-personalizer",
-            ref: identifyBranch(),
-        }
-    );
-    const dt = out.data.check_runs.find(
-        (check) => check.app?.slug == "cloudflare-pages"
-    );
+    const out = await octo.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
+        owner: 'insberr',
+        repo: 'schedule-personalizer',
+        ref: identifyBranch(),
+    });
+    const dt = out.data.check_runs.find((check) => check.app?.slug == 'cloudflare-pages');
     if (dt == undefined) {
-        return "not found";
+        return 'not found';
     } else {
-        return dt.status == "completed"
-            ? dt.conclusion || dt.status
-            : dt.status;
+        return dt.status == 'completed' ? dt.conclusion || dt.status : dt.status;
     }
 }
 
@@ -48,13 +41,13 @@ export async function shouldUpdate() {
     }
     const latest = await latestCommit();
     if (commit != latest) {
-        return (await cloudflarePagesBuilt()) == "success";
+        return (await cloudflarePagesBuilt()) == 'success';
     }
     return false;
 }
 
 export function useUpdateStatus() {
-    const dt = useSWR("update", shouldUpdate, { refreshInterval: 60*1000 }); // 60 seconds bc github api is rate limited to 60 per hour
+    const dt = useSWR('update', shouldUpdate, { refreshInterval: 60 * 1000 }); // 60 seconds bc github api is rate limited to 60 per hour
     if (dt.error) {
         return false;
     }

@@ -439,7 +439,7 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult, displayDate: Date)
     return {
         modifySchedule: datesMatch,
         newSchedule: foundMatch[0].schedule,
-        titleUsed: newAlert.titles.indexOf(actualMessage /*nonBlankTitles[0]*/),
+        titleUsed: newAlert.titles.indexOf(actualMessage),
     };
 }
 

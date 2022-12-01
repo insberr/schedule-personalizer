@@ -1,5 +1,5 @@
 export function update() {
-    const root = window.rroot;
+    // const root = window.rroot;
     if (process.env.NODE_ENV != 'production') {
         location.reload();
     }

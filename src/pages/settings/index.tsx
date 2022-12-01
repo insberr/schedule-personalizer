@@ -5,7 +5,7 @@ import { RootState } from '../../storage/store';
 import { setRgbParty, setPresentationMode } from '../../storage/misc';
 import { useKeyboardShortcut } from '../../hooks';
 import { setStudentVueData, useStudentvue } from '../../storage/studentvue';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from '../../types';
 import Center from '../../components/Center';
@@ -15,7 +15,7 @@ import ScheduleEntry from '../schedule/components/ScheduleEntry';
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { update } from '../../updatey';
-import { identifyBranch, identifyCommit, updateSW } from '../../lib/lib';
+import { identifyBranch, identifyCommit } from '../../lib/lib';
 import { today } from '../../today';
 import * as settings from '../../config/settings';
 import * as Sentry from '@sentry/react';

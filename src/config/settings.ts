@@ -41,6 +41,7 @@ export const alertMessageSchedules: { contains: string; schedule: SchedulesType 
         contains: 'cancelled',
         schedule: schedules.noSchool,
     },
+{ contains: 'closed', schedules.noSchool, },
 ];
 
 // This is for the number of classes in the day

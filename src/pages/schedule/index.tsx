@@ -8,7 +8,7 @@ import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import { isAfter, isBefore, isSameDay } from 'date-fns';
+import { isAfter, isBefore, isSameDay, parse, parseISO, parseJSON } from 'date-fns';
 // import { StudentVueReloader } from '../../components/StudentVueReloader';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
@@ -23,6 +23,7 @@ import { overidesMergeDataWithSchedule } from './handleOverides';
 import { Updatey } from '../../components/Updatey';
 
 import { messageScrape, ScrapeError, ScrapeResult } from '../../apis/schoolWebsiteAlertScraper/scrape';
+
 export type EventSchedule = {
     isEvent: boolean;
     hasError?: boolean;
@@ -378,68 +379,63 @@ export type SchoolAlertHandler = {
     modifySchedule: boolean;
     newSchedule?: SchedulesType;
     titleUsed?: number;
+    title?: string | null;
+    message?: string | null;
 };
 
 function handleSchoolAlert(alert: ScrapeError | ScrapeResult, displayDate: Date): SchoolAlertHandler {
     if ((alert as ScrapeError).error !== undefined) return { modifySchedule: false };
     const newAlert = alert as ScrapeResult;
-    const nonBlankTitles = newAlert.titles.filter((t) => t !== '');
-    if (nonBlankTitles.length > 0) {
+
+    if (newAlert.title === null) {
         // ! to do: log to sentry
-        console.log('How are there multiple titles???? titles:', newAlert.titles);
+        console.log('How is there no title?', newAlert.title);
     }
 
-    if (nonBlankTitles.length === 0) return { modifySchedule: false };
-
-    console.log('Theres a school alert: ', alert);
+    // console.log('Theres a school alert: ', newAlert);
 
     const foundMatch = settingsConfig.alertMessageSchedules.filter((a) => {
         const regex = new RegExp(a.contains, 'i');
         // return nonBlankTitles[0].match(regex) !== null;
-        return regex.test(newAlert.messages);
+        return regex.test(newAlert.title as string);
     });
-
-    // console.table(foundMatch);
-    // console.log('nonBlankTitles[0]', nonBlankTitles[0]);
 
     if (foundMatch.length === 0) {
         // ! definitaly error to sentry
         console.log('How are there no matches?');
-        return { modifySchedule: true };
+        return {
+            modifySchedule: true,
+            title: newAlert.title,
+            message: newAlert.messages?.join('<br />'),
+        };
     }
-    if (foundMatch.length > 1) {
-        // ! to do: error to sentry
-        //console.log('How are there multiple matches?', foundMatch);
+    // if (foundMatch.length > 1) {
+    //     // ! to do: error to sentry
+    //     console.log('How are there multiple matches?', foundMatch);
+    // }
+
+    if (newAlert.dateFor === null) {
+        console.log('No date found from school alert', newAlert.dateFor);
+        return {
+            modifySchedule: true,
+            newSchedule: foundMatch[0].schedule,
+            title: newAlert.title,
+            message: newAlert.messages?.join('<br />'),
+        };
     }
 
-    const foundDate = newAlert.messages.match(/\(?[0-9-]*\)?|(for|today,) [^.]*,[^.]*\./gi);
-
-    if (foundDate === null) {
-        console.log('No date found from school alert', foundDate);
+    const sameDay = isSameDay(displayDate, new Date(newAlert.dateFor + '-0800'));
+    if (!sameDay) {
+        console.log('not same day');
+        console.log(displayDate, '\n', new Date(newAlert.dateFor + '-0800'));
+        return { modifySchedule: false };
     }
-    const dates: Date[] = [];
-    foundDate?.forEach((d) => {
-        dates.push(new Date(d.replace(/today, |for |\.|\(|\)/gi, '')));
-    });
-
-    // expect there to be two dates, the first one actually includes the year
-
-    const dateToUse = dates[0];
-    let datesMatch = false;
-
-    datesMatch = dateToUse.getFullYear() === displayDate.getFullYear();
-    datesMatch = datesMatch && dateToUse.getMonth() === displayDate.getMonth();
-    datesMatch = datesMatch && dateToUse.getDate() === displayDate.getDate();
-
-    const messagesAsHTML = document.createElement('div');
-    messagesAsHTML.innerHTML = newAlert.messages;
-    const actualMessage = messagesAsHTML.getElementsByTagName('ul')[0].getElementsByTagName('li')[0].getElementsByTagName('p')[0].innerHTML;
-    if (!newAlert.titles.includes(actualMessage)) newAlert.titles.push(actualMessage);
 
     return {
-        modifySchedule: datesMatch,
+        modifySchedule: true,
         newSchedule: foundMatch[0].schedule,
-        titleUsed: newAlert.titles.indexOf(actualMessage),
+        title: newAlert.title,
+        message: newAlert.messages?.join('<br />'),
     };
 }
 
@@ -512,7 +508,7 @@ function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: 
             info: {
                 message:
                     (alertSchedule.newSchedule === undefined ? 'No schedule found for this alert<br />' : '') +
-                    ('Automated Schedule From School Alert: ' + (alert as ScrapeResult).titles[alertSchedule.titleUsed || 0] + '<br />' ||
+                    ('Automated Schedule From School Alert: ' + alertSchedule.title + '<br />' + (alertSchedule.message || 'No Message') + '<br />' ||
                         'Schedule modified by an alert from the school: No message was provided, this shouldnt happen..<br />') +
                     event.info.message,
             },

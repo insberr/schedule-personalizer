@@ -303,6 +303,16 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('November 30, 2022'),
         },
     },
+
+    // 2 Hour Delay Due To Snow
+    {
+        schedule: schedules.lateStart2Hour,
+        info: {
+            message: '2 Hour Delay Due To Snow/Icy Roads',
+            date: new Date('December 1, 2022'),
+        },
+    },
+
     {
         schedule: schedules.earlyDissmissal,
         info: {

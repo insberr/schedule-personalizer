@@ -412,14 +412,14 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult, displayDate: Date)
         //console.log('How are there multiple matches?', foundMatch);
     }
 
-    const foundDate = newAlert.messages.match(/\([0-9-]*\)|for [^.]*,[^.]*\./gi);
+    const foundDate = newAlert.messages.match(/\(?[0-9-]*\)?|(for|today,) [^.]*,[^.]*\./gi);
 
     if (foundDate === null) {
         console.log('No date found from school alert', foundDate);
     }
     const dates: Date[] = [];
     foundDate?.forEach((d) => {
-        dates.push(new Date(d.replace(/for |\.|\(|\)/gi, '')));
+        dates.push(new Date(d.replace(/today, |for |\.|\(|\)/gi, '')));
     });
 
     // expect there to be two dates, the first one actually includes the year

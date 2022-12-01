@@ -773,12 +773,19 @@ export function SettingsPage() {
                                 {'\n'}
                                 Error: {(schoolAlert as ScrapeError).error !== undefined ? (schoolAlert as ScrapeError).error : 'null'}
                                 {'\n'}
-                                Titles:{' '}
-                                {(schoolAlert as ScrapeResult).titles !== undefined ? JSON.stringify((schoolAlert as ScrapeResult).titles) : 'null'}
+                                Title: {(schoolAlert as ScrapeResult).title !== undefined ? (schoolAlert as ScrapeResult).title : 'null'}
                                 {'\n'}
-                                Messages: {(schoolAlert as ScrapeResult).messages !== undefined ? (schoolAlert as ScrapeResult).messages : 'null'}
+                                Messages:{' '}
+                                {(schoolAlert as ScrapeResult).messages !== undefined
+                                    ? JSON.stringify((schoolAlert as ScrapeResult).messages, null, 2)
+                                    : 'null'}
                                 {'\n'}
-                                Whole: {(schoolAlert as ScrapeResult).whole !== undefined ? (schoolAlert as ScrapeResult).whole : 'null'}
+                                Date For: {(schoolAlert as ScrapeResult).dateFor !== undefined ? (schoolAlert as ScrapeResult).dateFor : 'null'}
+                                {'\n'}
+                                Debug:{' '}
+                                {(schoolAlert as ScrapeResult).debug !== undefined
+                                    ? JSON.stringify((schoolAlert as ScrapeResult).debug, null, 2)
+                                    : 'null'}
                                 {'\n'}
                                 JSON: {JSON.stringify(schoolAlert)}
                             </pre>

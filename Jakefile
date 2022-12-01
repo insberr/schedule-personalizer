@@ -7,18 +7,25 @@ const rim = require('rimraf');
 const rimraf = promisify(rim);
 const pwaAssetGenerator = require('pwa-asset-generator');
 const { Parcel } = require('@parcel/core');
+const { chdir } = require('process');
 
-function exec(command, args, cwd) {
+function exec(command, args, cwd, quiet) {
     return new Promise((r, j) => {
-        const proc = e(command, args, { cwd, shell: false }, (e) => {
+        let o = '';
+        const proc = e(command, args, { cwd, shell: true }, (e) => {
             if (e) {
                 j(e);
             } else {
-                r();
+                r(o);
             }
         });
-        proc.stdout.pipe(process.stdout);
-        proc.stderr.pipe(process.stderr);
+        proc.stdout.on('data', (d) => {
+            o += d;
+        });
+        if (!quiet) {
+            proc.stdout.pipe(process.stdout);
+            proc.stderr.pipe(process.stderr);
+        }
     });
 }
 
@@ -59,13 +66,13 @@ task('build', ['preqBuild'], async () => {
 
 desc('legal');
 file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
-    await writeFile('src/legal.mdx', '# Licenses\n```\n');
-    await appendFile('src/legal.mdx', (await eraw('yarn', ['licenses', 'generate-disclaimer', '--production'])).stdout);
-    await appendFile('src/legal.mdx', '\n```');
+    const proc = await exec('yarn', ['licenses', 'generate-disclaimer', '--production'], undefined, true);
+    const licence = '# Licenses\n```\n' + proc + '\n```';
+    await writeFile('src/legal.mdx', licence);
 });
 
 desc('splash');
-file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
+file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
     /*await yarn(
         [
             'pwa-asset-generator',
@@ -83,17 +90,18 @@ file('src/splashscreens/splash.hold', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
-    await pwaAssetGenerator.generateImages('src/icons/icon.svg', 'src/splashscreens', {
+    const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',
         splashOnly: true,
-        index: 'src/index.html',
+        /*index: 'src/index.html',*/
         type: 'png',
         padding: 'calc(50vh - 20%) calc(50vw - 40%)',
     });
-    await writeFile('src/splashscreens/splash.hold', 'this file is to prevent useless rebuilding of splash screens');
+    await writeFile('src/splashscreens/splash.html', d.htmlMeta.appleLaunchImage);
+    //await writeFile('src/splashscreens/splash.hold', 'this file is to prevent useless rebuilding of splash screens');
 });
 
-task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.hold'], { concurrency: 2 });
+task('preqBuild', ['src/legal.mdx', 'src/splashscreens/splash.html'], { concurrency: 2 });
 
 desc('clean');
 task('clean', () => {

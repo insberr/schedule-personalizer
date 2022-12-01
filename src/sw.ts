@@ -29,7 +29,16 @@ const opt = {
     plugins: [new BackgroundSyncPlugin('syncy'), new CacheableResponsePlugin({ statuses: [0, 200] })],
     cacheName: 'schedulecache$' + version + '$',
 };
-registerRoute((r) => toNetwork.includes(r.request.destination), new NetworkFirst(opt));
+registerRoute((r) => {
+    if (toNetwork.includes(r.request.destination)) {
+        return true;
+    }
+    const th = new URL(r.request.url);
+    if (th.origin == location.origin && th.pathname == '/') {
+        return true;
+    }
+    return false;
+}, new NetworkFirst(opt));
 registerRoute((r) => !toNetwork.includes(r.request.destination) && new URL(r.request.url).origin == location.origin, new CacheFirst(opt));
 
 /*const precacheList: PrecacheEntry[] = []

@@ -1,5 +1,6 @@
 import * as types from '../types';
 import { ClassIDS } from '../types';
+import { schedules, SchedulesType } from './schedules';
 
 /* Required Config Values */
 
@@ -20,6 +21,27 @@ export const studentvueRefreshInterval = 2 * 60 * 1000; // 2 minutes
 
 // Sentry.io DSN if you want to use it [IMPLEMENT THIS]
 export const sentryDSN = 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608';
+
+// scrape url thingy
+export const scrapeUrl = 'https://api-scrape-thing.insberr.repl.co/';
+
+// Alert message schedule corrilation
+// the key is contained in the alert message
+// case insensitive
+export const alertMessageSchedules: { contains: string; schedule: SchedulesType }[] = [
+    {
+        contains: 'two-hour delay',
+        schedule: schedules.lateStart2Hour,
+    },
+    {
+        contains: '2-hour delay',
+        schedule: schedules.lateStart2Hour,
+    },
+    {
+        contains: 'cancelled',
+        schedule: schedules.noSchool,
+    },
+];
 
 // This is for the number of classes in the day
 // advisory should be included

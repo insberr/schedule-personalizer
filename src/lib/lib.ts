@@ -43,6 +43,19 @@ export function parseTime(timeString: string): Time {
     return dateToTime(parse(timeString, 'hh:mm', set(today(), { seconds: 0 })));
 }
 
+export function identifyBranch(): string {
+    if (process.env.GITHUB_HEAD_REF) {
+        return process.env.GITHUB_HEAD_REF;
+    }
+    if (process.env.GITHUB_REF) {
+        return process.env.GITHUB_REF;
+    }
+    if (process.env.CF_PAGES_BRANCH) {
+        return process.env.CF_PAGES_BRANCH;
+    }
+    return 'master';
+}
+
 export function identifyCommit(): string | undefined {
     if (process.env.GITHUB_SHA) {
         // we are running in gh actions

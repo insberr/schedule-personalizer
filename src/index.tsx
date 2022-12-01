@@ -11,15 +11,16 @@ import { Provider } from 'react-redux';
 import { BrowserTracing } from '@sentry/tracing';
 import SentryRRWeb from '@sentry/rrweb';
 import { Button } from 'react-bootstrap';
+import { Root } from 'react-dom/client';
+import { update } from './updatey';
+//mport { RiRobotFill } from "react-icons/ri";
 
 const tracesSampleRate = process.env.NODE_ENV == 'production' ? 0.2 : 1.0;
 
 function startLoad() {
     if (navigator.serviceWorker) {
         if (process.env.NODE_ENV == 'production' || new URLSearchParams(window.location.search).get('sw') == 'yup') {
-            navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url), {
-                type: 'module',
-            });
+            navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url), { type: 'module' });
         }
     }
 
@@ -39,20 +40,17 @@ function startLoad() {
         environment: process.env.NODE_ENV,
         release: identifyCommit() || 'dev',
     });
-
     const app = document.getElementById('app');
     if (!app) {
-        console.error('What the fuck? Theres no app element? wtf?');
+        console.error('What the fuck? theres no app element? wtf?');
         throw new Error('God is dead and we have killed him');
     }
 
-    console.log(
-        '%cSchedule Personalizer V2\n\t%cCommit: (' + identifyCommit() + ')' + '\n\tEnvironment: ' + process.env.NODE_ENV,
-        'color:#dc143c;font-size:15px;',
-        ''
-    );
-
+    console.log('Schedule personalizer v5 (' + identifyCommit() + ')');
     import('react-dom/client').then(({ createRoot }) => {
+        if (window.rroot) {
+            window.rroot.unmount();
+        }
         const root = createRoot(app);
         const Withsentry =
             process.env.NODE_ENV == 'production'
@@ -95,6 +93,7 @@ function startLoad() {
         import('react').then((React) => {
             const loadingthing = document.getElementById('loading');
             if (loadingthing) loadingthing.remove();
+            window.rroot = root;
             root.render(
                 <Err>
                     <React.StrictMode>
@@ -115,3 +114,12 @@ if (process.env.NODE_ENV == 'production') {
 } else {
     eruda(startLoad);
 }
+
+declare global {
+    interface Window {
+        rroot: Root | undefined;
+        fupdate: () => void;
+    }
+}
+
+window.fupdate = update;

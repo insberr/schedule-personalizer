@@ -380,7 +380,7 @@ export type SchoolAlertHandler = {
     titleUsed?: number;
 };
 
-function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandler {
+function handleSchoolAlert(alert: ScrapeError | ScrapeResult, displayDate: Date): SchoolAlertHandler {
     if ((alert as ScrapeError).error !== undefined) return { modifySchedule: false };
     const newAlert = alert as ScrapeResult;
     const nonBlankTitles = newAlert.titles.filter((t) => t !== '');
@@ -391,7 +391,7 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandle
 
     if (nonBlankTitles.length === 0) return { modifySchedule: false };
 
-    // console.log('Theres a school alert: ', alert);
+    console.log('Theres a school alert: ', alert);
 
     const foundMatch = settingsConfig.alertMessageSchedules.filter((a) => {
         const regex = new RegExp(a.contains, 'i');
@@ -413,16 +413,41 @@ function handleSchoolAlert(alert: ScrapeError | ScrapeResult): SchoolAlertHandle
     }
 
     const foundDate = newAlert.messages.match(/\([0-9-]*\)|for [^.]*,[^.]*\./gi);
-    console.log('foundDate', foundDate);
 
-    return { modifySchedule: true, newSchedule: foundMatch[0].schedule, titleUsed: newAlert.titles.indexOf(nonBlankTitles[0]) };
+    if (foundDate === null) {
+        console.log('No date found from school alert', foundDate);
+    }
+    const dates: Date[] = [];
+    foundDate?.forEach((d) => {
+        dates.push(new Date(d.replace(/for |\.|\(|\)/gi, '')));
+    });
+
+    // expect there to be two dates, the first one actually includes the year
+
+    const dateToUse = dates[0];
+    let datesMatch = false;
+
+    datesMatch = dateToUse.getFullYear() === displayDate.getFullYear();
+    datesMatch = datesMatch && dateToUse.getMonth() === displayDate.getMonth();
+    datesMatch = datesMatch && dateToUse.getDate() === displayDate.getDate();
+
+    const messagesAsHTML = document.createElement('div');
+    messagesAsHTML.innerHTML = newAlert.messages;
+    const actualMessage = messagesAsHTML.getElementsByTagName('ul')[0].getElementsByTagName('li')[0].getElementsByTagName('p')[0].innerHTML;
+    if (!newAlert.titles.includes(actualMessage)) newAlert.titles.push(actualMessage);
+
+    return {
+        modifySchedule: datesMatch,
+        newSchedule: foundMatch[0].schedule,
+        titleUsed: newAlert.titles.indexOf(actualMessage /*nonBlankTitles[0]*/),
+    };
 }
 
 function getDisplayDayEvent(schedule: SchedulesType, noOverride: boolean, date: Date, alert: ScrapeError | ScrapeResult): EventSchedule {
     // ie. late start, early dismissal, etc.
     // this will return either the schedule passed in or it will return the event
 
-    const alertSchedule = handleSchoolAlert(alert);
+    const alertSchedule = handleSchoolAlert(alert, date);
 
     const displayDateEvents = scheduleEvents.filter((event) => {
         let eventDate = event.info.date;

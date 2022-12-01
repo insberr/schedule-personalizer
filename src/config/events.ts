@@ -306,9 +306,9 @@ export const scheduleEvents: ScheduleEvents = [
 
     // 2 Hour Delay Due To Snow
     {
-        schedule: schedules.lateStart2Hour,
+        schedule: schedules.noSchool,// schedules.lateStart2Hour,
         info: {
-            message: '2 Hour Delay Due To Snow/Icy Roads',
+            message: 'School Closed Due To Snow',
             date: new Date('December 1, 2022'),
         },
     },

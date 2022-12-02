@@ -13,12 +13,30 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'sp.js'
   },
+  experiments: {
+    asyncWebAssembly: true
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      fs: false,
+      backend: path.resolve(__dirname, 'backend/pkg'),
+    }
+  },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        use: 'swc-loader',
-        exclude: /node_modules/
+        loader: 'swc-loader',
+        exclude: /node_modules/,
+        options: {
+          jsc: {
+              parser: {
+                  syntax: "typescript",
+                  jsx: true
+              }
+          }
+        }
       },
       {
         test: /\.scss$/,
@@ -30,6 +48,7 @@ const config = {
       }
     ]
   },
+  devtool: isDevelopment ? 'source-map' : false,
   devServer: {
     'static': {
       directory: './dist'
@@ -43,7 +62,10 @@ const config = {
     }),
     new WasmPackPlugin({
       crateDirectory: path.resolve(__dirname, 'backend')
-    })
+    }),
+    new webpack.ProvidePlugin({
+      "React": "react",
+   }),
   ]
 };
 

@@ -1,11 +1,10 @@
 // bunch of reusable functions
-import { addSeconds, format, isAfter, isBefore, parse, set } from 'date-fns';
+import { addSeconds, format, isAfter, isBefore, parse, set, isEqual } from 'date-fns';
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from '../types';
 /*
 import * as api from './studentvue/studentVueAPI';
 import { StudentVueAPIDataUserDate } from './studentvue/studentVueAPI';
 */
-import { isEqual } from 'lodash';
 
 import { today } from './today';
 

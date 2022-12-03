@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { readFileSync } = require('fs');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin')
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const config = {
   mode: isDevelopment ? 'development' : 'production',
   entry: [
@@ -11,7 +13,7 @@ const config = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'sp.js'
+    filename: 'sp.[contenthash].js'
   },
   experiments: {
     asyncWebAssembly: true

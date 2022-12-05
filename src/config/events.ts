@@ -320,6 +320,15 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
 
+    // Snow routes and 2 hour delay
+    {
+        schedule: schedules.lateStart2Hour,
+        info: {
+            message: '2 Hour Delat Due To Icy Roads | Busses On Snow Routes',
+            date: new Date('December 5, 2022'),
+        },
+    },
+
     {
         schedule: schedules.earlyDissmissal,
         info: {

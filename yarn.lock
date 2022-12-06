@@ -5038,6 +5038,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "prettier@npm:2.8.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 72004ce0cc9bb097daf3e3833f62495768724392c1d5b178dd47372337616e9e50ecbb0804f236596223f7b5eb1bbe69cefc8957dca21112c5777e77ef73a564
+  languageName: node
+  linkType: hard
+
 "pretty-bytes@npm:^5.3.0":
   version: 5.6.0
   resolution: "pretty-bytes@npm:5.6.0"
@@ -5503,6 +5512,7 @@ __metadata:
     eslint: ^8.29.0
     eslint-plugin-react: latest
     immer: ^9.0.16
+    prettier: ^2.8.0
     react: ^18.2.0
     react-dom: ^18.2.0
     react-json-tree: ^0.17.0

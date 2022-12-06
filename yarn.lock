@@ -2734,7 +2734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.0.2, chalk@npm:^4.1.2":
+"chalk@npm:^4.0.0, chalk@npm:^4.0.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -3669,17 +3669,6 @@ __metadata:
     debug:
       optional: true
   checksum: faa66059b66358ba65c234c2f2a37fcec029dc22775f35d9ad6abac56003268baf41e55f9ee645957b32c7d9f62baf1f0b906e68267276f54ec4b4c597c2b190
-  languageName: node
-  linkType: hard
-
-"fs-extra@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "fs-extra@npm:10.1.0"
-  dependencies:
-    graceful-fs: ^4.2.0
-    jsonfile: ^6.0.1
-    universalify: ^2.0.0
-  checksum: dc94ab37096f813cc3ca12f0f1b5ad6744dfed9ed21e953d72530d103cea193c2f81584a39e9dee1bea36de5ee66805678c0dddc048e8af1427ac19c00fffc50
   languageName: node
   linkType: hard
 
@@ -4745,13 +4734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"narrowing@npm:^1.4.0":
-  version: 1.5.0
-  resolution: "narrowing@npm:1.5.0"
-  checksum: dc515cff57e3c506c6eb6c9bbfda99c19c1ef1f46f4a2c2185fe7fdaec90c2d7fc8299d830f9865c6bc4cbe978b306a00feded184a4c236b88bfd37f75470fa9
-  languageName: node
-  linkType: hard
-
 "natural-compare-lite@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare-lite@npm:1.4.0"
@@ -5533,7 +5515,6 @@ __metadata:
     vite-plugin-pwa: ^0.13.3
     vite-plugin-top-level-await: ^1.2.2
     vite-plugin-wasm: ^3.1.0
-    vite-plugin-wasm-pack: ^0.1.12
     wasm-pack: ^0.10.3
   dependenciesMeta:
     wasm-pack:
@@ -6167,17 +6148,6 @@ __metadata:
   peerDependencies:
     vite: ">=2.8"
   checksum: cd745d2dab872cce0a59858a0671052fbd7b444b47c2b0451d0774a44fa8181dbbfe05b52275c28a00e16afbd83c3765346a0cf5ada04d9616c5ff2f380c3003
-  languageName: node
-  linkType: hard
-
-"vite-plugin-wasm-pack@npm:^0.1.12":
-  version: 0.1.12
-  resolution: "vite-plugin-wasm-pack@npm:0.1.12"
-  dependencies:
-    chalk: ^4.1.2
-    fs-extra: ^10.0.0
-    narrowing: ^1.4.0
-  checksum: 78a93049c83c15089bce849e6323483a2533b89a9f1a029840f2af8350f08afd8ad87f75192f1dc82e3627d251fbb9baf4fe86b63231f376721efc5dc3b4731d
   languageName: node
   linkType: hard
 

@@ -1,9 +1,22 @@
 FROM node:18
 
-RUN npm i -g yarn
+# rust stage
+
+# Get Ubuntu packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl
+
+# Get Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal -y
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# end rust stage
+
 
 WORKDIR /app
-COPY .yarn ./
+COPY .yarn ./.yarn
 COPY .yarnrc.yml ./
 COPY package.json ./
 COPY yarn.lock ./

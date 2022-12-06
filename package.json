@@ -7,7 +7,7 @@
   "author": "Insberr & Wackery",
   "license": "MIT",
   "scripts": {
-    "wasm": "wasm-pack build ./backend",
+    "wasm": "wasm-pack build ./backend --target bundler",
     "build": "NODE_ENV=production yarn wasm && vite build",
     "dev": "vite dev",
     "check": "tsc --noEmit && eslint src"
@@ -33,7 +33,6 @@
     "vite": "^3.2.5",
     "vite-plugin-chunk-split": "^0.4.4",
     "vite-plugin-pwa": "^0.13.3",
-    "vite-plugin-wasm-pack": "^0.1.12",
     "wasm-pack": "^0.10.3"
   },
   "dependencies": {

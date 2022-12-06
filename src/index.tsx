@@ -8,9 +8,11 @@ import './lib/today';
 import { MainPage } from './MainPage';
 import { init } from "backend";
 import { Err } from './components/ErrBound';
+import { identifyCommit } from './lib/lib';
 
 
 async function main() {
+    console.log("Schedule? Personalizer??? v10??? ("+identifyCommit()+")")
     const eleroot = document.getElementById('app') as HTMLDivElement;
     const root = createRoot(eleroot);
     init();

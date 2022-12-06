@@ -4,7 +4,7 @@ import wasm from "vite-plugin-wasm";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { VitePWA } from 'vite-plugin-pwa'
 import wasmPack from 'vite-plugin-wasm-pack';
-
+import react from '@vitejs/plugin-react'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => ({
@@ -13,19 +13,18 @@ export default defineConfig((configEnv) => ({
       'backend' : path.resolve(__dirname, './backend/pkg')
     },
   },
-  esbuild: {
-    jsx: "automatic"
-  }, 
   plugins: [
     
     wasm(),
     topLevelAwait(),
       wasmPack('./backend'),
+      react(),
       chunkSplitPlugin({
         strategy: 'single-vendor',
         customSplitting: {
           // `react` and `react-dom` will be bundled together in the `react-vendor` chunk (with their dependencies, such as object-assign)
           'react-vendor': ['react', 'react-dom'],
+          'mui': ["@mui/material", "@mui/icons-material"]
         }
       }),
       VitePWA({

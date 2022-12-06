@@ -14,11 +14,13 @@ export default defineConfig((configEnv) => ({
     },
   },
   plugins: [
-    
+    react({
+      jsxRuntime: "classic",
+    }),
     wasm(),
     topLevelAwait(),
       wasmPack('./backend'),
-      react(),
+      
       chunkSplitPlugin({
         strategy: 'single-vendor',
         customSplitting: {

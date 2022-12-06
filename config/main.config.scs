@@ -1,4 +1,8 @@
-config gamer 123;
-event {
-    config piss 123;
+config testValue true;
+
+schedule normal {
+    description "This is a normal schedule";
+    class [zero] [6:35 to 7:30];
+    class [1] [7:35 to 9:05];
 };
+

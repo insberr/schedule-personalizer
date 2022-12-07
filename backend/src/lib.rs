@@ -37,7 +37,7 @@ pub fn get_schedule_for_display(user: String) -> String {
 // I spent way too long on getting this to work...
 #[wasm_bindgen]
 pub fn test_js_obj(obj: JsValue) -> Result<String, JsValue> {
-    let value: Result<JsValue, JsValue> = js_sys::Reflect::get(&obj, &JsValue::from_str("name"));
+    let value: Result<JsValue, JsValue> = js_sys::Reflect::get(&obj, &"name".into());
     if value.is_err() {
         return Err(value.err().unwrap());
     }
@@ -45,22 +45,48 @@ pub fn test_js_obj(obj: JsValue) -> Result<String, JsValue> {
     Ok(v)
 }
 
-#[derive(Default)]
-#[wasm_bindgen(getter_with_clone)]
-pub struct TestObj {
-    pub name: String,
-}
+// #[derive(Default)]
+// #[wasm_bindgen]
+// pub struct TestObj {
+//     name: String,
+//     pub test: i32,
+// }
 
 // maybe turn this into a macro?
+// Why do we even need this?
+// #[wasm_bindgen]
+// impl TestObj {
+//     #[wasm_bindgen(constructor)]
+//     pub fn new() -> Self {
+//         Self::default()
+//     }
+// }
+
+#[wasm_bindgen(getter_with_clone)]
+pub struct Foo {
+    #[wasm_bindgen(js_name = "contents")]
+    pub contents: String,
+    pub name: String,
+    pub age: Option<i32>,
+}
+
 #[wasm_bindgen]
-impl TestObj {
+impl Foo {
     #[wasm_bindgen(constructor)]
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new() -> Foo {
+        Foo {
+            contents: "".to_string(),
+            name: "".to_string(),
+            age: None,
+        }
+    }
+
+    pub fn get_contents(&self) -> String {
+        return self.contents.clone();
     }
 }
 
 #[wasm_bindgen]
-pub fn test_struct_obj(obj: TestObj) -> String {
+pub fn test_struct_obj(obj: Foo) -> String {
     return obj.name.to_string();
 }

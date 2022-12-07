@@ -45,9 +45,17 @@ pub fn test_js_obj(obj: JsValue) -> Result<String, JsValue> {
     Ok(v)
 }
 
-#[wasm_bindgen]
+#[wasm_bindgen(getter_with_clone)]
 pub struct TestObj {
-    pub name: &str,
+    pub name: String,
+}
+
+#[wasm_bindgen]
+impl TestObj {
+    #[wasm_bindgen(constructor)]
+    pub fn new(name: String) -> Self {
+        Self { name }
+    }
 }
 #[wasm_bindgen]
 pub fn test_struct_obj(obj: TestObj) -> String {

@@ -56,7 +56,8 @@ export function SchedulePage() {
             <p>{get_schedule_for_display('test')}</p>
             <p>{test_js_obj({ name: 'hello' })}</p>
             <p>{ (() => {
-                const test = new TestObj('hello');
+                const test = new TestObj();
+                test.name = 'rusty dusty'
                 return test_struct_obj(test);
             })() }</p>
         </>

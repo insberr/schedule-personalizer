@@ -45,18 +45,21 @@ pub fn test_js_obj(obj: JsValue) -> Result<String, JsValue> {
     Ok(v)
 }
 
+#[derive(Default)]
 #[wasm_bindgen(getter_with_clone)]
 pub struct TestObj {
     pub name: String,
 }
 
+// maybe turn this into a macro?
 #[wasm_bindgen]
 impl TestObj {
     #[wasm_bindgen(constructor)]
-    pub fn new(name: String) -> Self {
-        Self { name }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
+
 #[wasm_bindgen]
 pub fn test_struct_obj(obj: TestObj) -> String {
     return obj.name.to_string();

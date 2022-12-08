@@ -130,6 +130,109 @@ export const lunches: types.LunchesType = {
             ],
         },
     ],
-    1: [],
+    1: [
+        {
+            basedOnPeriod: 3,
+            lunches: [
+                {
+                    lunch: 1,
+                    teachers: [
+                        teachers.Blake_Ashley_L,
+                        teachers.Brendible_Jacklyn_V,
+                        teachers.Brokaw_David_C,
+                        teachers.Fowler_Ethan_T,
+                        teachers.Fowler_Raylene_K,
+                        teachers.Frady_Sadie_L,
+                        teachers.Gibbs_Denise_R,
+                        teachers.Haegele_Dennis_S,
+                        // teachers.Hamilton_Michelle_Y,
+                        teachers.Loiselle_Ryan_A,
+
+                        teachers.Morrison_Jennifer_M,
+                        teachers.Pelandini_Rebecca_M,
+                        teachers.Pike_Stephanie_R,
+                        teachers.Racus_Britni_E,
+                        teachers.Riggle_Brian,
+                        teachers.Roberts_Lori_C,
+                        teachers.Sacks_Michael_J,
+                        teachers.Shinnick_Nelson_N,
+                        teachers.Baker_Chelsea_C, // TBD
+
+                        // teachers.Southworth_Gregory_W,
+                        // teachers.Talen_Michael_H,
+                        teachers.Vallier_Heather_M,
+                        teachers.Welborn_Scott_T,
+
+                        teachers.Olsen_Carolyn_E,
+                    ],
+                },
+                {
+                    lunch: 2,
+                    teachers: [
+                        teachers.Adams_Jennifer_N,
+                        teachers.Angotti_Rachel_A,
+                        teachers.Barnette_Carlotta_A,
+                        // teachers.Beatty_Matthew,
+                        teachers.Benson_Katherine_E,
+
+                        teachers.Cain_Brandon_M,
+                        teachers.Calos_Brandon_N,
+                        teachers.Cambra_Christine_A,
+                        teachers.Carrell_Jason_D,
+                        teachers.Gladfelter_Irl_A,
+                        teachers.Grimaldi_Marseille,
+                        teachers.Jolly_Morgan_D,
+                        teachers.Metcalf_Cody_D,
+
+                        // teachers.Iverson_Kenneth_B,
+                        // teachers.Morford_Tressa_K,
+
+                        teachers.Reisch_Rebecca_D,
+
+                        // teachers.Saffle_Teal_H,
+                        // teachers.Stickney_Christopher_L,
+                        teachers.Taylor_Claire_V,
+                        teachers.Wiggins_Malissa_J, // TBD
+                        // teachers.Ito_Megumi,
+                        // teachers.Wolff_Laural_A,
+                        teachers.Wilson_Anne_M,
+                        teachers.Wood_Julana_M,
+                    ],
+                },
+                {
+                    lunch: 3,
+                    teachers: [
+                        teachers.Allen_David_M,
+                        teachers.Bland_James_W,
+                        teachers.Bridgman_Jonathan_I,
+                        teachers.Doyle_Suzanne_M,
+                        teachers.Gardner_Kenneth_A,
+                        teachers.Greenland_Roy_F,
+
+                        // teachers.Hodges_Denise_L,
+
+                        teachers.Kennedy_lindsay_Jordann_A,
+                        // teachers.Knox_Caleb_M,
+                        teachers.Misley_Philip_J,
+                        // teachers.Fowler_Raylene_K,
+                        teachers.Rath_Patricia_E,
+                        teachers.Ridgway_Thomas_G,
+                        teachers.Saffle_Teal_H,
+
+                        teachers.Sauer_Kyle_D,
+                        teachers.Schreiber_Nathan_A,
+                        teachers.Schwoch_Kevin_R,
+                        teachers.Shelley_Bonnie_R,
+                        // teachers.Shoot_Andrew_L,
+                        teachers.Stumpf_John_R,
+                        teachers.Talen_Michael_H,
+                        teachers.Wolff_Laural_A, // TBD
+                        teachers.Thorn_Danielle_E,
+                        teachers.Whitehead_Ryan_D,
+                    ],
+                },
+            ],
+        },
+    ],
     2: [],
 };

@@ -343,18 +343,18 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('December 7, 2022'),
         },
     },
-    
+
     // welcome to tri2 and lunch warning
     {
         schedule: null,
         info: {
-            message: 'Welcome Back, Its Trimester 2!\
-<br>Dont forget the map can be found in the "More" dropdown in the top left!\
-<br>Also lunches may be incorrect since they are guessed and I have not recieved the lunches yet.',
+            message:
+                'Welcome Back, Its Trimester 2!\
+<br>Dont forget the map can be found in the "More" dropdown in the top left!',
             date: new Date('December 8, 2022'),
         },
     },
-    
+
     {
         schedule: schedules.lateStart1Hour,
         info: {

@@ -38,6 +38,6 @@ export async function messageScrape(): Promise<ScrapeResult | ScrapeError> {
     } catch (e) {
         // ! Log to sentry because this is bad
         console.log('Error fetching from alert api: ', e);
-        return { error: e as string };
+        return { error: 'Error fetching' };
     }
 }

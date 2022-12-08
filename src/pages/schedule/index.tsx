@@ -23,6 +23,7 @@ import { overidesMergeDataWithSchedule } from './handleOverides';
 import { Updatey } from '../../components/Updatey';
 
 import { messageScrape, ScrapeError, ScrapeResult } from '../../apis/schoolWebsiteAlertScraper/scrape';
+import { LocationLevel, mapLocations } from '../../config/mapLocation';
 
 export type EventSchedule = {
     isEvent: boolean;
@@ -135,6 +136,22 @@ function SchedulePage() {
     }
 }
 
+function findLunchBasedOnRoomNumber(room: string) {
+    const possible = mapLocations.filter((loc) => loc.room == room);
+    if (possible.length == 0) return null;
+
+    switch (possible[0].level) {
+        case LocationLevel.Downstairs:
+            return 1;
+        case LocationLevel.Upstairs:
+            return 2;
+        case LocationLevel.Outside:
+            return 3;
+        default:
+            return null;
+    }
+}
+
 function doSchedule(
     sch: ScheduleStorage,
     currentDisplayDate: Date,
@@ -240,13 +257,15 @@ function lunchify(
     // This is only here to keep vscode from complaining
     if (lunchValue.lunches === undefined) return mergedSchedule;
 
-    //const lunch = (getV5Data(StorageQuery.Lunch) as StorageDataLunch).lunch; // mergedSchedule.sch.lunch /* Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
+    // const lunch = (getV5Data(StorageQuery.Lunch) as StorageDataLunch).lunch; // mergedSchedule.sch.lunch // Once we add lunched to the sch data thing, i need to convert it to an object and add a lunch property
 
     // if logged into studentvue we can determine the lunch automatically
     // just realized that students who enter their data manually will have to figure out what lunch they have. maybe we could implement a "teacher" selector to automatically put teacher ids into the valuse???
     // for now, only auto detects lunch if logged into studentvue.
 
-    if (displayTerm.classes.filter((c) => c.period === lunchValue.basedOnPeriod).length === 0) {
+    const lunchBasedOnPeriodClass = displayTerm.classes.filter((c) => c.period === lunchValue.basedOnPeriod);
+
+    if (lunchBasedOnPeriodClass.length === 0) {
         const temp_Message = '<br />You dont have a period ' + lunchValue.basedOnPeriod + ', so lunch can not be displayed.';
 
         const errMsg = `User does not have a period "${lunchValue.basedOnPeriod}", so lunch can not be displayed.`;
@@ -272,6 +291,22 @@ function lunchify(
                 (lunchValue.basedOnPeriodID !== undefined ? lunches.basedOnPeriodID === lunchValue.basedOnPeriodID : true)
             );
         });
+
+        if (temp_basedOnPeriodLunch.length === 0) {
+            // There is no config for lunches for this term so lets use another method so kindly pointed out by a friend
+            const userLunchBasedOnRoomLocation = findLunchBasedOnRoomNumber(lunchBasedOnPeriodClass[0].room);
+            if (userLunchBasedOnRoomLocation !== null) {
+                userLunch = userLunchBasedOnRoomLocation;
+            } else {
+                console.log('No lunch config for this term');
+            }
+            console.log(userLunch);
+            const temp_Message = '<br />Lunches are not configured for this term yet. The displayed lunch <strong>may</strong> be incorrect.';
+            mergedSchedule.event.isEvent = true;
+            mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message)
+                ? mergedSchedule.event.info.message
+                : mergedSchedule.event.info.message + temp_Message;
+        }
 
         if (temp_basedOnPeriodLunch.length > 0) {
             const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {

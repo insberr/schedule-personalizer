@@ -298,9 +298,9 @@ function lunchify(
             if (userLunchBasedOnRoomLocation !== null) {
                 userLunch = userLunchBasedOnRoomLocation;
             } else {
-                console.log('No lunch config for this term');
+                console.log('No lunch config for this term and no lunch based on room number');
             }
-            console.log(userLunch);
+
             const temp_Message = '<br />Lunches are not configured for this term yet. The displayed lunch <strong>may</strong> be incorrect.';
             mergedSchedule.event.isEvent = true;
             mergedSchedule.event.info.message = mergedSchedule.event.info.message.includes(temp_Message)

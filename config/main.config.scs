@@ -1,23 +1,10 @@
-/* Main Schedule Personalizer Config File */
+config testValue true;
 
-// figure this stuff out
-// import './bethel/bethel.scs';
-
-// import './bethel/bethel.scs';
-set schools {
-    set 'bethel_high' {
-        import './bethel/bethel.scs';
-    };
-    // set 'bethel_middle' {
-    //     import './bethel/bethel_middle.scs' as bethel;
-    // };
+schedule normal {
+    description "This is a normal schedule";
+    class [zero] [6:35 to 7:30];
+    class [1] [7:35 to 9:05];
 };
 
-// temp to prevent crashing that i refuse to attempt fixing right now because im tired and want ice cream so glhf figuring this out glhf again because i want ice cream
-event test {
-    message 'Hi';
-};
+import "./other.scs";
 
-config studentVueurl 'https://studentvue...';
-config multischool true; // maybe make it so these are parsed saving their type
-set multischool true;

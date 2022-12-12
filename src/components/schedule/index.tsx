@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { Class } from '../../types';
 import { ScheduleBody } from './ScheduleBody';
 import { ScheduleHeader } from './ScheduleHeader';
-import * as styles from './schedule.module.scss';
+import styles from './schedule.module.scss';
 type props = {
     clses: Class[];
 };

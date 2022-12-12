@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack';
 import { cyrb53 } from '../../lib/lib';
 import { Class } from '../../types';
 import { ScheduleRow } from './ScheduleRow';
-import * as styles from './schedule.module.scss';
+import styles from './schedule.module.scss';
 type props = {
     clses: Class[];
 };

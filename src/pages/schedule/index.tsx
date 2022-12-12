@@ -4,6 +4,7 @@ import { store } from '../../storage';
 import { Schedule } from '../../components/schedule';
 import { JSONTree } from 'react-json-tree';
 import { SCS } from 'schedule-script';
+import { Foo, funny_number, get_schedule_for_display, test_js_obj, test_struct_obj } from 'backend';
 
 export function SchedulePage() {
     return (
@@ -51,6 +52,17 @@ export function SchedulePage() {
                     },
                 ]}
             />
+            <p>The funny number from rust: &apos;{funny_number()}&apos;</p>
+            <p>{get_schedule_for_display('test')}</p>
+            <p>{test_js_obj({ name: 'hello' })}</p>
+            <p>
+                {(() => {
+                    const test = new Foo();
+                    test.name = 'rusty dusty';
+                    console.log(test);
+                    return test_struct_obj(test);
+                })()}
+            </p>
         </>
     );
     // you definatly shouldnt use the SCS value directly, we should compute the users full merged schedule and use that

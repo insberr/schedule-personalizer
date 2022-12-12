@@ -1,11 +1,11 @@
+
 // bunch of reusable functions
-import { addSeconds, format, isAfter, isBefore, parse, set } from 'date-fns';
+import { addSeconds, format, isAfter, isBefore, parse, set, isEqual } from 'date-fns';
 import { dateToTime, Stdata, Time, timeToDate, Class, ClassIDS, Terms } from '../types';
 /*
 import * as api from './studentvue/studentVueAPI';
 import { StudentVueAPIDataUserDate } from './studentvue/studentVueAPI';
 */
-import { isEqual } from 'lodash';
 
 import { today } from './today';
 
@@ -60,12 +60,12 @@ export function parseTime(timeString: string): Time {
 }
 
 export function identifyCommit(): string | undefined {
-    if (process.env.GITHUB_SHA) {
+    if (import.meta.env.GITHUB_SHA) {
         // we are running in gh actions
-        return process.env.GITHUB_SHA;
-    } else if (process.env.CF_PAGES_COMMIT_SHA) {
+        return import.meta.env.GITHUB_SHA;
+    } else if (import.meta.env.CF_PAGES_COMMIT_SHA) {
         // cloudflare pages
-        return process.env.CF_PAGES_COMMIT_SHA;
+        return import.meta.env.CF_PAGES_COMMIT_SHA;
     } else {
         return undefined;
     }

@@ -1,6 +1,6 @@
 // this needs to be in its own file for some goddamn reason
 
-import { dateToTime, timeToDate, Time, getTimeW } from '../types';
+import { dateToTime, timeToDate, Time, getTimeW } from '../types/time';
 import { add } from 'date-fns';
 
 console.warn('Reminder to move lib/today.ts into the state system. maybe');

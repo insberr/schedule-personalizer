@@ -2,7 +2,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { addDays } from 'date-fns';
 import format from 'date-fns/format';
 import { store } from '../../storage';
-import * as styles from './schedule.module.scss';
+import styles from './schedule.module.scss';
 
 export function ScheduleHeader() {
     const displayDate = store.displayDate.value as Date;

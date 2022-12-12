@@ -1,0 +1,6 @@
+event {
+    description "gamer?";
+    schedule normal;
+};
+
+import "./dir/other2.scs";

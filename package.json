@@ -9,7 +9,7 @@
   "scripts": {
     "wasm": "wasm-pack build ./backend --target bundler",
     "build": "NODE_ENV=production yarn wasm && vite build",
-    "dev": "vite dev",
+    "dev": "yarn wasm && vite dev",
     "check": "tsc --noEmit && eslint src"
   },
   "dependenciesMeta": {
@@ -20,14 +20,12 @@
   "private": true,
   "packageManager": "yarn@3.3.0",
   "devDependencies": {
-    "@types/deasync": "^0.1.2",
     "@types/node": "^18.11.10",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@vitejs/plugin-react": "^2.2.0",
-    "deasync": "latest",
     "eslint": "^8.29.0",
     "eslint-plugin-react": "latest",
     "sass": "^1.56.1",

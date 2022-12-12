@@ -90,3 +90,12 @@ impl Foo {
 pub fn test_struct_obj(obj: Foo) -> String {
     return obj.name.to_string();
 }
+
+#[wasm_bindgen]
+pub fn schedule_for(user: String) -> Foo {
+    let mut foo = Foo::new();
+    foo.contents = "test".to_string();
+    foo.name = user;
+    foo.age = Some(69);
+    return foo;
+}

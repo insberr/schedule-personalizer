@@ -5,6 +5,7 @@ import topLevelAwait from "vite-plugin-top-level-await";
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
+import { scs } from './rollup-plugin-scs';
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => ({
   resolve:{
@@ -14,6 +15,8 @@ export default defineConfig((configEnv) => ({
 
   },
   plugins: [
+    // @ts-ignore 
+    scs(),
     react({
       jsxRuntime: "classic",
     }),
@@ -22,16 +25,17 @@ export default defineConfig((configEnv) => ({
         customSplitting: {
           // `react` and `react-dom` will be bundled together in the `react-vendor` chunk (with their dependencies, such as object-assign)
           'react-vendor': ['react', 'react-dom'],
-          'mui': ["@mui/material", "@mui/icons-material"]
+          'mui': ["@mui/material", "@mui/icons-material"],
+          'schedule': ['*.scs']
         }
       }),
       wasm(),
     topLevelAwait(),
-      VitePWA({
+      VitePWA({manifest: {
         name: "Schedule Personalizer",
         short_name: "Schedule",
         theme_color: "#272727"
-      }),
+}}),
 
   ]
 }))

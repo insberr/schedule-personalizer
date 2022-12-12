@@ -2071,6 +2071,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/deasync@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@types/deasync@npm:0.1.2"
+  checksum: 28a49e42c0d459afabdab02f0464a0231e24ef79bf800f15f779897d9564fb2b95d887e6f338a9bc5fa67186594dc1977dd5565fea3c7e0c9b282032c7b20c51
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:0.0.39":
   version: 0.0.39
   resolution: "@types/estree@npm:0.0.39"
@@ -2617,6 +2624,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bindings@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "bindings@npm:1.5.0"
+  dependencies:
+    file-uri-to-path: 1.0.0
+  checksum: 65b6b48095717c2e6105a021a7da4ea435aa8d3d3cd085cb9e85bcb6e5773cf318c4745c3f7c504412855940b585bdf9b918236612a1c7a7942491de176f1ae7
+  languageName: node
+  linkType: hard
+
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -2938,6 +2954,16 @@ __metadata:
   version: 2.29.3
   resolution: "date-fns@npm:2.29.3"
   checksum: e01cf5b62af04e05dfff921bb9c9933310ed0e1ae9a81eb8653452e64dc841acf7f6e01e1a5ae5644d0337e9a7f936175fd2cb6819dc122fdd9c5e86c56be484
+  languageName: node
+  linkType: hard
+
+"deasync@npm:latest":
+  version: 0.1.28
+  resolution: "deasync@npm:0.1.28"
+  dependencies:
+    bindings: ^1.5.0
+    node-addon-api: ^1.7.1
+  checksum: e0c1ef427875c897e0d903a08410df1d0a3dfd0d2a0a1e43fb6c2824dfbc504b810bd08a0d30653117259316e1aa65409c96dbed40101c934f75bac7499e1265
   languageName: node
   linkType: hard
 
@@ -3607,6 +3633,13 @@ __metadata:
   dependencies:
     flat-cache: ^3.0.4
   checksum: f49701feaa6314c8127c3c2f6173cfefff17612f5ed2daaafc6da13b5c91fd43e3b2a58fd0d63f9f94478a501b167615931e7200e31485e320f74a33885a9c74
+  languageName: node
+  linkType: hard
+
+"file-uri-to-path@npm:1.0.0":
+  version: 1.0.0
+  resolution: "file-uri-to-path@npm:1.0.0"
+  checksum: b648580bdd893a008c92c7ecc96c3ee57a5e7b6c4c18a9a09b44fb5d36d79146f8e442578bc0e173dc027adf3987e254ba1dfd6e3ec998b7c282873010502144
   languageName: node
   linkType: hard
 
@@ -4755,6 +4788,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-addon-api@npm:^1.7.1":
+  version: 1.7.2
+  resolution: "node-addon-api@npm:1.7.2"
+  dependencies:
+    node-gyp: latest
+  checksum: 938922b3d7cb34ee137c5ec39df6289a3965e8cab9061c6848863324c21a778a81ae3bc955554c56b6b86962f6ccab2043dd5fa3f33deab633636bd28039333f
+  languageName: node
+  linkType: hard
+
 "node-gyp@npm:latest":
   version: 9.3.0
   resolution: "node-gyp@npm:9.3.0"
@@ -5502,6 +5544,7 @@ __metadata:
     "@mui/icons-material": ^5.10.16
     "@mui/material": ^5.10.16
     "@preact/signals-react": ^1.2.1
+    "@types/deasync": ^0.1.2
     "@types/node": ^18.11.10
     "@types/react": ^18.0.26
     "@types/react-dom": ^18.0.9
@@ -5509,6 +5552,7 @@ __metadata:
     "@typescript-eslint/parser": latest
     "@vitejs/plugin-react": ^2.2.0
     date-fns: ^2.29.3
+    deasync: latest
     eslint: ^8.29.0
     eslint-plugin-react: latest
     immer: ^9.0.16

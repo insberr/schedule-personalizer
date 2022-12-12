@@ -355,11 +355,48 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
 
+    // spirit week
+    {
+        schedule: null,
+        info: {
+            message: 'Spirit Week<br>Walking In A Winter Wonderland; Wear A Flannel',
+            date: new Date('December 12, 2022'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: 'Spirit Week<br>Santa vs Reindeer; Wear A Santa Hat or Reindeer Antlers',
+            date: new Date('December 13, 2022'),
+        },
+    },
+
     {
         schedule: schedules.lateStart1Hour,
         info: {
             message: 'Late Start',
             date: new Date('December 14, 2022'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: 'Spirit Week<br>The Unwanted Gift; Wear An Ugly Sweater',
+            date: new Date('December 14, 2022'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: 'Spirit Week<br>Home Alone Attire; Wear Your PJs',
+            date: new Date('December 15, 2022'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: 'Spirit Week<br>Holiday Pictures; Match With A Friend or A Group of Friends',
+            date: new Date('December 16, 2022'),
         },
     },
 

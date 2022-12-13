@@ -1143,6 +1143,217 @@ export const schedules: Schedules = {
             },
         },
     },
+    assemblyPM_Lunch4: {
+        name: 'PM Assembly',
+        classes: [
+            {
+                classID: ClassIDS.Zero,
+                period: 0,
+                startTime: getTimeW(6, 35),
+                endTime: getTimeW(7, 30),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 1,
+                startTime: getTimeW(7, 35),
+                endTime: getTimeW(8, 30),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 2,
+                startTime: getTimeW(8, 35),
+                endTime: getTimeW(9, 25),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 3,
+                startTime: getTimeW(9, 30),
+                endTime: getTimeW(10, 20),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 4,
+                startTime: getTimeW(10, 25),
+                endTime: getTimeW(12, 5),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 5,
+                startTime: getTimeW(12, 10),
+                endTime: getTimeW(13, 0),
+            },
+            {
+                classID: ClassIDS.Passing,
+                period: 0,
+                startTime: getTimeW(13, 0),
+                endTime: getTimeW(13, 10),
+            },
+            {
+                classID: ClassIDS.Assembly,
+                period: 0,
+                startTime: getTimeW(13, 10),
+                endTime: getTimeW(14, 5),
+            },
+            {
+                classID: ClassIDS.Dismissal,
+                period: 0,
+                startTime: getTimeW(14, 5),
+                endTime: getTimeW(14, 10),
+            },
+        ],
+        overides: [
+            {
+                name: 'cambridge',
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, config, sch) => {
+                    if (config?.cambridgePeriods === undefined || config?.cambridgePeriods === null) return false;
+                    return sch.filter((c) => (config.cambridgePeriods as number[]).includes(c.period)).length > 0;
+                },
+                overides: [
+                    {
+                        forGrade: 10,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 1 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 11,
+                                        startTime: getTimeW(7, 10),
+                                        endTime: getTimeW(8, 20),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 12,
+                                        startTime: getTimeW(8, 25),
+                                        endTime: getTimeW(9, 0),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 13,
+                                        startTime: getTimeW(9, 0),
+                                        endTime: getTimeW(9, 25),
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        forGrade: 11,
+                        forceLunch: 3,
+                        ignoreLunchConfig: true,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 2 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 11,
+                                        startTime: getTimeW(8, 35),
+                                        endTime: getTimeW(9, 25),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 3 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 12,
+                                        startTime: getTimeW(9, 25),
+                                        endTime: getTimeW(10, 0),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 12 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 13,
+                                        startTime: getTimeW(10, 0),
+                                        endTime: getTimeW(10, 20),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 13 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Lunch,
+                                        period: 13,
+                                        startTime: getTimeW(10, 20),
+                                        endTime: getTimeW(10, 50),
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+        ],
+        lunch: {
+            hasLunch: true,
+            basedOnPeriod: 4,
+            numberOfLunches: 3,
+            lunches: {
+                1: {
+                    order: [
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(10, 20),
+                            endTime: getTimeW(10, 50),
+                        },
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 55),
+                            endTime: getTimeW(12, 5),
+                        },
+                    ],
+                },
+                2: {
+                    order: [
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 25),
+                            endTime: getTimeW(10, 55),
+                        },
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(10, 55),
+                            endTime: getTimeW(11, 25),
+                        },
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(11, 30),
+                            endTime: getTimeW(12, 5),
+                        },
+                    ],
+                },
+                3: {
+                    order: [
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 25),
+                            endTime: getTimeW(11, 35),
+                        },
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(11, 35),
+                            endTime: getTimeW(12, 5),
+                        },
+                    ],
+                },
+            },
+        },
+    },
     assemblyAM: {
         name: 'AM Assembly',
         classes: [

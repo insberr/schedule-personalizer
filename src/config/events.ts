@@ -394,7 +394,7 @@ export const scheduleEvents: ScheduleEvents = [
     },
 
     {
-        schedule: schedules.assemblyPM,
+        schedule: schedules.assemblyPM_Lunch4,
         info: {
             message: 'Winter Wishes Assembly',
             date: new Date('December 16, 2022'),

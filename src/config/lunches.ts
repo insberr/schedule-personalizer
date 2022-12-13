@@ -147,7 +147,6 @@ export const lunches: types.LunchesType = {
                         teachers.Haegele_Dennis_S,
                         // teachers.Hamilton_Michelle_Y,
                         teachers.Loiselle_Ryan_A,
-
                         teachers.Morrison_Jennifer_M,
                         teachers.Pelandini_Rebecca_M,
                         teachers.Pike_Stephanie_R,
@@ -157,12 +156,10 @@ export const lunches: types.LunchesType = {
                         teachers.Sacks_Michael_J,
                         teachers.Shinnick_Nelson_N,
                         teachers.Baker_Chelsea_C, // TBD
-
                         // teachers.Southworth_Gregory_W,
                         // teachers.Talen_Michael_H,
                         teachers.Vallier_Heather_M,
                         teachers.Welborn_Scott_T,
-
                         teachers.Olsen_Carolyn_E,
                     ],
                 },
@@ -174,7 +171,6 @@ export const lunches: types.LunchesType = {
                         teachers.Barnette_Carlotta_A,
                         // teachers.Beatty_Matthew,
                         teachers.Benson_Katherine_E,
-
                         teachers.Cain_Brandon_M,
                         teachers.Calos_Brandon_N,
                         teachers.Cambra_Christine_A,
@@ -183,12 +179,9 @@ export const lunches: types.LunchesType = {
                         teachers.Grimaldi_Marseille,
                         teachers.Jolly_Morgan_D,
                         teachers.Metcalf_Cody_D,
-
                         // teachers.Iverson_Kenneth_B,
                         // teachers.Morford_Tressa_K,
-
                         teachers.Reisch_Rebecca_D,
-
                         // teachers.Saffle_Teal_H,
                         // teachers.Stickney_Christopher_L,
                         teachers.Taylor_Claire_V,
@@ -229,6 +222,31 @@ export const lunches: types.LunchesType = {
                         teachers.Wolff_Laural_A, // TBD
                         teachers.Thorn_Danielle_E,
                         teachers.Whitehead_Ryan_D,
+                    ],
+                },
+            ],
+        },
+        {
+            forOveride: true,
+            basedOnPeriod: 4,
+            basedOnPeriodID: ClassIDS.Period,
+            lunches: [
+                {
+                    lunch: 1,
+                    teachers: [
+                        // to do
+                    ],
+                },
+                {
+                    lunch: 2,
+                    teachers: [
+                        // to do
+                    ],
+                },
+                {
+                    lunch: 3,
+                    teachers: [
+                        // to do
                     ],
                 },
             ],

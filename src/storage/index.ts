@@ -4,6 +4,7 @@ import { serify, deserify } from '@karmaniverous/serify-deserify';
 import { useEffect, useState } from 'react';
 import { Page } from '../types';
 import { SCS } from 'schedule-script';
+
 export class StoreWrapper<T> {
     #signal: Signal;
     get value(): T {
@@ -69,3 +70,4 @@ effect(() => {
 
 //@ts-expect-error lmafo
 window.store = store;
+

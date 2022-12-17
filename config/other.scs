@@ -1,6 +1,8 @@
+// import './dir/otherr.scs';
+
 event {
-    description "gamer?";
+    message "gamer";
     schedule normal;
 };
 
-import "./dir/other2.scs";
+

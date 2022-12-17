@@ -1,6 +1,6 @@
 import { SCS } from 'schedule-script';
 import { store, StoreWrapper } from '../storage';
-import _scheduleURL from "../../config/main.config.scs"; // url of the bundled scs, shouldnt change between versions
+import _scheduleURL from '../../config/main.config.scs'; // url of the bundled scs, shouldnt change between versions
 const scheduleURL = new URL(_scheduleURL);
 scheduleURL.search = '';
 

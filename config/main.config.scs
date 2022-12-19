@@ -1,4 +1,4 @@
-import "./other.scs";
+// import "./other.scs";
 
 config testValue true;
 

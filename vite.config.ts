@@ -10,6 +10,7 @@ import { imagetools } from 'vite-imagetools';
 import progress from 'vite-plugin-progress';
 import banner from 'vite-plugin-banner';
 import injectHTML from 'vite-plugin-html-inject';
+
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => ({
     resolve: {
@@ -46,3 +47,4 @@ export default defineConfig((configEnv) => ({
         banner('Schedule?? Personalize?? er??'),
     ],
 }));
+

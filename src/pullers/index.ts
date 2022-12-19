@@ -1,1 +1,2 @@
-import './scs';
+import './scs.puller';
+

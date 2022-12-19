@@ -1,10 +1,7 @@
-//mport { ConstructionOutlined } from "@mui/icons-material";
-//mport deasync, {loopWhile, sleep} from "deasync"
-//port { resolveSoa } from "dns";
-//mport { ComposedStyleFunction } from "@mui/system";
-import * as fs from 'fs';
 import { basename } from 'path';
 import { Block, SCS, Statement } from 'schedule-script';
+import fs from 'node:fs';
+
 type ModuleInfo = {
     id: string; // the id of the module, for convenience
     code: string | null; // the source code of the module, `null` if external or not yet available
@@ -126,6 +123,7 @@ export function scs() {
                 return true;
             }
         },
+
         async transform(this: rollupContext, code: string, id: string) {
             /*const resolver = (iid: string) => {
                 //let out: string | null = null;
@@ -138,6 +136,7 @@ export function scs() {
             if (!id.endsWith('.scs')) {
                 return;
             }
+
             const resolved: { [key: string]: string } = {};
             const s = new SCS(code, (tor) => resolved[tor]);
             const tImp = this.getModuleInfo(id);
@@ -146,13 +145,13 @@ export function scs() {
             }
 
             await recurseInto(s.parsed, async (s) => {
-                if (s.statement == 'import') {
+                if (s.statement === 'import') {
                     const toImport = s.args[0].data as string;
                     console.log(`Resolving ${toImport}`);
                     const resolvez = await this.resolve(toImport, id);
                     // console.log(`Resolved`, resolvez);
                     const loaded = await this.load({ ...resolvez, meta: { scs: { noEmit: true } } });
-
+                    // console.log(loaded);
                     // console.log(`${toImport} -> ${loaded}`);
                     resolved[toImport] = loaded.meta.scs.source;
                 }

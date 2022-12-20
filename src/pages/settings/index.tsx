@@ -10,7 +10,7 @@ import { RouterBlock } from '../../lib/router/RouterBlock';
 import { Route } from '../../lib/router/Route';
 
 export function SettingsPage(props: { defaultTabs: Tab[]; setTabs: (tabs: Tab[]) => void }) {
-    console.log((store.scs.value as SCS)?.exec({ data: new Date() }));
+    // console.log((store.scs.value as SCS)?.exec({ data: new Date() }));
     return (
         <div>
             <h1> Settings </h1>

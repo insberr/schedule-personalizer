@@ -1,6 +1,6 @@
 import { basename } from 'path';
 import { Block, SCS, Statement } from 'schedule-script';
-import fs from 'node:fs';
+import fs, { readFileSync } from 'node:fs';
 
 type ModuleInfo = {
     id: string; // the id of the module, for convenience
@@ -115,6 +115,8 @@ async function recurseInto(b: Block | Statement, cb: (b: Statement, parent?: Sta
 }
 
 export function scs() {
+    // eslint-disable-next-line prefer-const
+    let server = false;
     return {
         name: 'scs',
         shouldTransformCachedModule(inp: { id: string }) {
@@ -145,30 +147,34 @@ export function scs() {
             }
 
             await recurseInto(s.parsed, async (s) => {
-                if (s.statement === 'import') {
+                if (s.statement == 'import') {
                     const toImport = s.args[0].data as string;
-                    console.log(`Resolving ${toImport}`);
+                    // console.log(`Resolving ${toImport}`);
                     const resolvez = await this.resolve(toImport, id);
                     // console.log(`Resolved`, resolvez);
-                    const loaded = await this.load({ ...resolvez, meta: { scs: { noEmit: true } } });
+                    const file = readFileSync(resolvez.id).toString();
+
+                    // const loaded = await this.load({ ...resolvez, meta: { scs: { noEmit: true } } });
                     // console.log(loaded);
                     // console.log(`${toImport} -> ${loaded}`);
-                    resolved[toImport] = loaded.meta.scs.source;
+                    resolved[toImport] = file; // loaded.meta.scs.source;
                 }
             });
+            // console.log(resolved);
 
             // maybe also do linting here do display cool warnings?
             const bundled = new SCS(s.bundle()); // bad, maybe add a minify option
-            if (!tImp.meta.scs?.noEmit) {
+            if (server && !tImp.meta.scs?.noEmit) {
                 const emited = this.emitFile({
                     type: 'asset',
                     fileName: basename(id),
                     source: bundled.minify(),
                 });
+                console.log(emited);
                 return `export default import.meta.ROLLUP_FILE_URL_${emited};`;
             }
             return {
-                code: ``,
+                code: `export default { serverMoment: null, code: "${bundled.minify()}" };`,
                 meta: { scs: { source: bundled.minify() } },
             };
         },

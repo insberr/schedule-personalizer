@@ -46,5 +46,10 @@ export default defineConfig((configEnv) => ({
         }),
         banner('Schedule?? Personalize?? er??'),
     ],
+    build: {
+        watch: {
+            //
+        },
+    },
 }));
 

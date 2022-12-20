@@ -1,4 +1,4 @@
-// import "./other.scs";
+
 
 config testValue true;
 
@@ -8,5 +8,6 @@ schedule normal {
     class [1] [7:35 to 9:05];
 };
 
+import "./other.scs";
 
 

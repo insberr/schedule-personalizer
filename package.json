@@ -10,7 +10,8 @@
         "wasm": "wasm-pack build ./backend --target bundler",
         "build": "NODE_ENV=production yarn wasm && vite build",
         "dev": "yarn wasm && vite dev",
-        "check": "tsc --noEmit && eslint src"
+        "check": "tsc --noEmit && eslint src",
+        "devp": "yarn run build --watch"
     },
     "dependenciesMeta": {
         "wasm-pack": {

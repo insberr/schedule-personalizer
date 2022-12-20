@@ -152,8 +152,15 @@ export function scs() {
                     // console.log(`Resolving ${toImport}`);
                     const resolvez = await this.resolve(toImport, id);
                     // console.log(`Resolved`, resolvez);
-                    const file = readFileSync(resolvez.id).toString();
+                    const file = readFileSync(resolvez.id).toString(); // this is why this sucks mega ass
+                    // this makes all imports relative to the main file (main.ex.scs)
+                    // fuck
+                    // then add the relitive dir to the file fetch ?
+                    // glhf
 
+                    // oh yeah also this isnt recursive, this.load() runs compile on the file so imports work
+                    // what
+                    // then fucking make this.load() work in server mode idfk or write a goddamn function that does it
                     // const loaded = await this.load({ ...resolvez, meta: { scs: { noEmit: true } } });
                     // console.log(loaded);
                     // console.log(`${toImport} -> ${loaded}`);

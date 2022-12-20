@@ -1,8 +1,6 @@
-// import './dir/otherr.scs';
-
-event {
-    message "gamer";
-    schedule normal;
-};
 
 
+config test hi;
+
+// import "./dir/otherr.scs";
+// works

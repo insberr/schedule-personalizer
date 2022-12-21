@@ -117,9 +117,14 @@ async function recurseInto(b: Block | Statement, cb: (b: Statement, parent?: Sta
 export function scs() {
     // eslint-disable-next-line prefer-const
     let server = false;
+    const scsFiles: { [key: string]: string } = {
+        'test.scs': 'config test true;',
+    };
+
     return {
         name: 'scs',
-        shouldTransformCachedModule(inp: { id: string }) {
+
+        ldTransformCachedModule(inp: { id: string }) {
             const id = inp.id;
             if (id.endsWith('.scs')) {
                 return true;
@@ -139,20 +144,44 @@ export function scs() {
                 return;
             }
 
+            scsFiles[id] = code;
+
             const resolved: { [key: string]: string } = {};
-            const s = new SCS(code, (tor) => resolved[tor]);
+            const s = new SCS(code, (tor) => {
+                console.log(tor);
+                return resolved[tor];
+            });
             const tImp = this.getModuleInfo(id);
             if (tImp == null) {
                 throw new Error('uhno');
             }
 
             await recurseInto(s.parsed, async (s) => {
+                // console.log('s', s);
                 if (s.statement == 'import') {
+                    // console.log('i', s.args[0].data);
                     const toImport = s.args[0].data as string;
                     // console.log(`Resolving ${toImport}`);
                     const resolvez = await this.resolve(toImport, id);
                     // console.log(`Resolved`, resolvez);
-                    const file = readFileSync(resolvez.id).toString(); // this is why this sucks mega ass
+                    const reg = /(\\|\/)(?:.(?!(\\|\/)))+$/gim;
+                    const currentDir = id.split(reg)[0];
+                    const currentFile = resolvez.id;
+                    if (currentFile == null) {
+                        throw new Error('uhno');
+                    }
+                    // console.log(toImport, currentFile);
+
+                    // console.log('current', currentDir, currentFile[0]);
+                    let file = '';
+                    try {
+                        file = readFileSync(currentFile, 'utf8'); // this is why this sucks mega ass
+                    } catch (err) {
+                        console.log('err', currentFile);
+                        file = 'config error_was_created true;';
+                    }
+                    scsFiles[resolvez.id] = file;
+                    // console.log('file', file);
                     // this makes all imports relative to the main file (main.ex.scs)
                     // fuck
                     // then add the relitive dir to the file fetch ?
@@ -168,8 +197,9 @@ export function scs() {
                 }
             });
             // console.log(resolved);
-
+            // console.log(scsFiles);
             // maybe also do linting here do display cool warnings?
+            // console.log('bundle !!!!!', s.bundle());
             const bundled = new SCS(s.bundle()); // bad, maybe add a minify option
             if (server && !tImp.meta.scs?.noEmit) {
                 const emited = this.emitFile({

@@ -1,0 +1,3 @@
+import './dir2/nested.scs';
+
+teacher [Test] id 1;

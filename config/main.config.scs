@@ -1,5 +1,5 @@
-
-
+import "./dir/dir2/nested.scs";
+import "./other.scs";
 config testValue true;
 
 schedule normal {
@@ -7,7 +7,3 @@ schedule normal {
     class [zero] [6:35 to 7:30];
     class [1] [7:35 to 9:05];
 };
-
-import "./other.scs";
-
-

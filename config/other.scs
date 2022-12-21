@@ -1,6 +1,3 @@
-
+import "./config/dir/um.scs";
 
 config test hi;
-
-// import "./dir/otherr.scs";
-// works

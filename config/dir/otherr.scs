@@ -1,7 +1,0 @@
-//import './dir/dir2/nested.scs';
-
-set other gamer;
-
-event {
-    message 'Hi';
-};

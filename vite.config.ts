@@ -19,7 +19,7 @@ export default defineConfig((configEnv) => ({
         },
     },
     plugins: [
-        progress(),
+        // progress(),
         injectHTML(),
         imagetools(),
         scs(),
@@ -46,10 +46,5 @@ export default defineConfig((configEnv) => ({
         }),
         banner('Schedule?? Personalize?? er??'),
     ],
-    build: {
-        watch: {
-            //
-        },
-    },
 }));
 

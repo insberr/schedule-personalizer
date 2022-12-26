@@ -11,7 +11,7 @@ import { Err } from './components/ErrBound';
 import { identifyCommit } from './lib/lib';
 
 async function main() {
-    console.log('Schedule? Personalizer??? v10??? (' + identifyCommit() + ')');
+    console.log(`Schedule Personalizer Commit: '${identifyCommit()}'`);
     const eleroot = document.getElementById('app') as HTMLDivElement;
     const root = createRoot(eleroot);
     init();

@@ -12,17 +12,12 @@ import { store } from '../storage';
 import { Page, Tab } from '../types';
 
 // TODO add props to mess with this externally and to make it actually change the page lol lol lol lol oll
-export function BottomNav(props: {
-    showLabels?: boolean;
-    tabs: Tab[];
-    handleTabChange: (event: React.SyntheticEvent, newValue: string, lastValue: string, setValue: (v: string) => void) => void;
-}) {
+export function BottomNav(props: { showLabels?: boolean; tabs: Tab[] }) {
     const [value, setValue] = React.useState('schedule');
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         const lastValue = value;
         setValue(newValue);
-        props.handleTabChange(event, newValue, lastValue, setValue);
     };
 
     // const noBtns =

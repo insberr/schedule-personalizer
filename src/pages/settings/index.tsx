@@ -1,16 +1,13 @@
-import { SettingsButton } from '../../components/SettingsButton';
 import { store } from '../../storage';
-import { Page, Tab } from '../../types';
+
+// Components
 import { ModeSwitcher } from '../../components/ModeSwitcher';
 
-import RestoreIcon from '@mui/icons-material/Restore';
+// SCS And JSON Tree
 import { JSONTree } from 'react-json-tree';
 import { SCS } from 'schedule-script';
-import { RouterBlock } from '../../lib/router/RouterBlock';
-import { Route } from '../../lib/router/Route';
 
-export function SettingsPage(props: { defaultTabs: Tab[]; setTabs: (tabs: Tab[]) => void }) {
-    // console.log((store.scs.value as SCS)?.exec({ data: new Date() }));
+export function SettingsPage() {
     return (
         <div>
             <h1> Settings </h1>

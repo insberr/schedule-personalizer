@@ -7,3 +7,9 @@ schedule normal {
     class [zero] [6:35 to 7:30];
     class [1] [7:35 to 9:05];
 };
+
+event {
+    message "test";
+    date [December 10, 2022];
+    schedule normal;
+};

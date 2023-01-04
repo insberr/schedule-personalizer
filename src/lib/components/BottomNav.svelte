@@ -9,10 +9,10 @@
   $: colAmt = navs.length + 2
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  let pageurl: URL
-  page.subscribe((p) => {
+  $: pageurl = $page.url;
+  /*page.subscribe((p) => {
     pageurl = p.url; // svelte should/may have a better way of doing this
-  })
+  })*/
 </script>
 <!-- changing button outline might not be the best idea -->
 <Footer style={'grid-template-columns: repeat('+colAmt+', minmax(0, 1fr));'} class="absolute bg-gray-100 dark:bg-gray-900 place-content-center grid gap-2 grid-rows-1 bottom-0 left-0 z-20 w-full">

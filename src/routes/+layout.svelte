@@ -6,10 +6,7 @@
   import {page} from '$app/stores'
   //import { is_function } from "svelte/internal";
   import BottomNav from "$lib/components/BottomNav.svelte";
-  let pageurl: URL
-  page.subscribe((p) => {
-    pageurl = p.url
-  })
+  $: pageurl = $page.url;
 </script>
 
 <slot />

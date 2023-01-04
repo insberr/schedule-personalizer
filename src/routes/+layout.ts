@@ -7,8 +7,10 @@ export const load = (async () => {
   };
 }) satisfies LayoutLoad;
 
-export const prerender = true;
 // prerender the entire app
-export const ssr = false;
+export const prerender = true;
+
 // disable ssr, the page will be blank if there is no js/while the js is downloading (same as old sp),
 // app is entirely rendered client side
+export const ssr = false;
+

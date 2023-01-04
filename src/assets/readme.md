@@ -1,1 +1,0 @@
-put icons, splashscreens, and whatver else here.

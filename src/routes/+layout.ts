@@ -1,8 +1,3 @@
-export const prerender = true;
-// prerender the entire app
-export const ssr = false;
-// disable ssr, the page will be blank if there is no js/while the js is downloading (same as old sp),
-// app is entirely rendered client side
 import type { LayoutLoad } from './$types';
  
 export const load = (async () => {
@@ -11,3 +6,9 @@ export const load = (async () => {
     layout: "content from +layout.ts!"
   };
 }) satisfies LayoutLoad;
+
+export const prerender = true;
+// prerender the entire app
+export const ssr = false;
+// disable ssr, the page will be blank if there is no js/while the js is downloading (same as old sp),
+// app is entirely rendered client side

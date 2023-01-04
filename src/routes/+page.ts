@@ -8,7 +8,7 @@ export const load = (({ params }) => {
   // top level promises are awaited automatically
   // loading things like settings 
   // (not specific for one page should probably be done in +layout.ts, things loaded there are available everywhere)
-  window.alert(2)
+  //indow.alert(2)
   return {
     from: "this is data from +page.ts"
   }

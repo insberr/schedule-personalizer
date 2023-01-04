@@ -1,5 +1,5 @@
 <script type="ts">
-    import Typography from '$lib/components/Typography.svelte';
+    //import Typography from '$lib/components/Typography.svelte'
 import { Alert, DarkMode } from 'flowbite-svelte';
     import type {PageData} from "./$types"
     export let data: PageData;
@@ -11,8 +11,7 @@ import { Alert, DarkMode } from 'flowbite-svelte';
 
 <DarkMode />
 
-<Typography>
+
 <pre>
   {JSON.stringify(data)}
 </pre>
-</Typography>

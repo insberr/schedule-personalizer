@@ -1,9 +1,11 @@
 <script type="ts">
   import "../app.scss";
   import "../app.postcss";
-  import { A, Footer } from "flowbite-svelte";
+  //mport { A, Footer } from "flowbite-svelte";
+  import { Calendar, WrenchScrewdriver } from "svelte-heros-v2"
   import {page} from '$app/stores'
-  import { is_function } from "svelte/internal";
+  //import { is_function } from "svelte/internal";
+  import BottomNav from "$lib/components/BottomNav.svelte";
   let pageurl: URL
   page.subscribe((p) => {
     pageurl = p.url
@@ -16,6 +18,25 @@
 <!-- I should write a reusable component for this, make it look less ugly snd hardcoded -->
 <!-- and make this resuable component automatically highlight the current page -->
 {#if pageurl.pathname != "/setup"}
+<BottomNav navs={[
+  {
+    "name": "Schedule",
+    "href": "/",
+    "icon": Calendar
+  },
+  {
+    "name": "Settings",
+    "href": "/settings",
+    "icon": WrenchScrewdriver
+  },
+  {
+    "name": "Setup",
+    "href": "/setup",
+    "icon": false
+  }
+]} />
+{/if}
+<!--{#if pageurl.pathname != "/setup"}
 <Footer class="absolute bg-gray-100 dark:bg-gray-900 place-content-center grid gap-2 grid-cols-7 grid-rows-1 bottom-0 left-0 z-20 w-full">
   <div></div>
     <A href="/">
@@ -35,4 +56,4 @@
     </A>
     <div></div>
 </Footer>
-{/if}
+{/if}-->

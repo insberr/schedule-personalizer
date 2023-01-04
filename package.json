@@ -27,6 +27,7 @@
   "packageManager": "yarn@3.3.1",
   "dependencies": {
     "@sveltejs/adapter-static": "^1.0.0",
-    "flowbite-svelte": "^0.29.9"
+    "flowbite-svelte": "^0.29.9",
+    "svelte-heros-v2": "^0.3.11"
   }
 }

@@ -1980,6 +1980,7 @@ __metadata:
     sass: ^1.53.0
     svelte: ^3.54.0
     svelte-check: ^2.9.2
+    svelte-heros-v2: ^0.3.11
     svelte-preprocess: ^4.10.7
     tailwindcss: ^3.1.5
     tslib: ^2.4.1
@@ -2165,6 +2166,13 @@ __metadata:
   bin:
     svelte-check: bin/svelte-check
   checksum: 995a99da45aece86b5095bf554f77904c4b03462cffd5245afe096d5cad5fe44daa348183f0738f8273e69bb60c9fb789d076bc27c1f3c26a54f907f7bcf7f9e
+  languageName: node
+  linkType: hard
+
+"svelte-heros-v2@npm:^0.3.11":
+  version: 0.3.11
+  resolution: "svelte-heros-v2@npm:0.3.11"
+  checksum: 03716866f94156aa2898face03e45a3ec3d553a89fddff7a5780015e47d1b817823857ce7a14a57902fb108049fa7713e1500c3cf93051ccca026d30ddd52a07
   languageName: node
   linkType: hard
 

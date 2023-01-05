@@ -1,5 +1,5 @@
 {
-  "name": "schedule-personalizer",
+  "name": "svelte-schedule",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,9 +12,9 @@
   "devDependencies": {
     "@sveltejs/kit": "^1.0.0",
     "autoprefixer": "^10.4.7",
+    "daisyui": "^2.18.1",
     "postcss": "^8.4.14",
     "postcss-load-config": "^4.0.1",
-    "sass": "^1.53.0",
     "svelte": "^3.54.0",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
@@ -26,8 +26,10 @@
   "type": "module",
   "packageManager": "yarn@3.3.1",
   "dependencies": {
+    "@fontsource/roboto": "^4.5.8",
     "@sveltejs/adapter-static": "^1.0.0",
-    "flowbite-svelte": "^0.29.9",
-    "svelte-heros-v2": "^0.3.11"
+    "nanoid": "^4.0.0",
+    "svelte-french-toast": "^1.0.3",
+    "xml-js": "^1.6.11"
   }
 }

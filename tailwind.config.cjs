@@ -1,30 +1,13 @@
-/*const config = {
-
-  content: ["./src//*.{html,js,svelte,ts}"],
-
-  theme: {
-    extend: {},
-  },
-
-  plugins: [],
-};
-
-module.exports = config;*/
+const daisyui = require("daisyui");
 
 const config = {
-  content: [
-    "./src/**/*.{html,js,svelte,ts}",
-    "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
-  ],
+  content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {
     extend: {},
   },
 
-  plugins: [
-    require('flowbite/plugin')
-  ],
-  darkMode: 'class',
+  plugins: [daisyui],
 };
 
 module.exports = config;

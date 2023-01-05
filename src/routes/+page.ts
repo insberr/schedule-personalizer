@@ -1,15 +1,12 @@
+import { error, redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
  
 export const load = (({ params }) => {
-  // load/fetch inital data, ie read content from localstorage
-  // runs before page is shown, prevents pop in.
-  // they can also redirect people, ie to setup https://kit.svelte.dev/docs/load#redirects
-  // you could also rerun this function if you want, https://kit.svelte.dev/docs/load#invalidation-manual-invalidation
-  // top level promises are awaited automatically
-  // loading things like settings 
-  // (not specific for one page should probably be done in +layout.ts, things loaded there are available everywhere)
-  //indow.alert(2)
-  return {
-    from: "this is data from +page.ts"
+  if (!window && !localStorage) {
+    throw error(500, "Tried to server render page.ts")
   }
+  if (localStorage.getItem("setup-complete") != "true") {
+    throw redirect(300, "/setup")
+  }
+  throw error(404, 'Not found');
 }) satisfies PageLoad;

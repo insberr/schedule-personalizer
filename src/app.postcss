@@ -2,3 +2,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+    font-family: "Roboto";
+}
+.paper {
+    //background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
+    @apply bg-base-200 rounded p-5 m-3 max-w-fit max-h-fit text-center flex justify-center flex-col content-center items-center justify-items-center gap-2;
+}
+
+h1 {
+    @apply text-4xl;
+}
+h2 {
+    @apply text-3xl;
+}
+h3 {
+    @apply text-2xl;
+}
+h4 {
+    @apply text-xl;
+}

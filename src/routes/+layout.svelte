@@ -1,56 +1,30 @@
-<script type="ts">
-  import "../app.scss";
-  import "../app.postcss";
-  //mport { A, Footer } from "flowbite-svelte";
-  import { Calendar, WrenchScrewdriver } from "svelte-heros-v2"
-  import {page} from '$app/stores'
-  //import { is_function } from "svelte/internal";
-  import BottomNav from "$lib/components/BottomNav.svelte";
-  $: pageurl = $page.url;
+<script>
+  import { onMount } from "svelte";
+  import {Toaster} from "svelte-french-toast"
+import "../app.postcss";
+import "@fontsource/roboto";
+
+/*mport { themeChange } from 'theme-change'
+onMount(() => {
+ themeChange(false)
+})*/
 </script>
 
-<slot />
-<p>Current Route: {pageurl.pathname}</p>
-<!-- The divs inside could be made into icon buttons with a href="/page" to allow sveltekit to do our routing-->
-<!-- I should write a reusable component for this, make it look less ugly snd hardcoded -->
-<!-- and make this resuable component automatically highlight the current page -->
-{#if pageurl.pathname != "/setup"}
-<BottomNav navs={[
-  {
-    "name": "Schedule",
-    "href": "/",
-    "icon": Calendar
-  },
-  {
-    "name": "Settings",
-    "href": "/settings",
-    "icon": WrenchScrewdriver
-  },
-  {
-    "name": "Setup",
-    "href": "/setup",
-    "icon": false
-  }
-]} />
-{/if}
-<!--{#if pageurl.pathname != "/setup"}
-<Footer class="absolute bg-gray-100 dark:bg-gray-900 place-content-center grid gap-2 grid-cols-7 grid-rows-1 bottom-0 left-0 z-20 w-full">
-  <div></div>
-    <A href="/">
-      Schedule
-    </A>
-    <A href="/settings">
-      Settings
-    </A>
-    <A href="/setup"> 
-      Setup
-    </A>
-    <A>
-      page 4
-    </A>
-    <A>
-      page 5
-    </A>
-    <div></div>
-</Footer>
-{/if}-->
+<slot></slot>
+<Toaster />
+<!---
+<div class="btm-nav">
+    <button>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+      <span class="btm-nav-label">Schedule</span>
+    </button>
+    <button class="active">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <span class="btm-nav-label">Warnings</span>
+    </button>
+    <button>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+      <span class="btm-nav-label">Statics</span>
+    </button>
+  </div>-->
+<!--<button data-toggle-theme="dark,light" data-act-class="ACTIVECLASS"></button>-->

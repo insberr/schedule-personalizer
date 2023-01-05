@@ -10,18 +10,11 @@ const config = {
     vitePreprocess(),
     preprocess({
       postcss: true,
-
-      scss: {
-        prependData: '@use "src/variables.scss" as *;',
-      },
     }),
   ],
 
   kit: {
-    adapter: adapter({
-      pages: 'dist',
-      assets: 'dist',
-    }),
+    adapter: adapter(),
   },
 };
 

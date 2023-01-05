@@ -8,5 +8,5 @@ export const load = (({ params }) => {
   if (localStorage.getItem("setup-complete") != "true") {
     throw redirect(300, "/setup")
   }
-  throw error(404, 'Not found');
+  //throw error(404, 'Not found');
 }) satisfies PageLoad;

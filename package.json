@@ -29,6 +29,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@sveltejs/adapter-static": "^1.0.0",
     "nanoid": "^4.0.0",
+    "stream-browserify": "^3.0.0",
     "svelte-french-toast": "^1.0.3",
     "xml-js": "^1.6.11"
   }

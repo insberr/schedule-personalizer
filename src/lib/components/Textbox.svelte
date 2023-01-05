@@ -13,8 +13,8 @@
     </label>
 
 {#if password}
-  <input type="password" id={id} {disabled} class="input input-bordered" bind:value class:input-error={isError} />
+  <input on:keydown on:keypress on:keyup type="password" id={id} {disabled} class="input input-bordered" bind:value class:input-error={isError} />
 {:else}
-  <input type="text" id={id}     {disabled} class="input input-bordered" bind:value class:input-error={isError} />
+  <input on:keydown on:keypress on:keyup type="text" id={id}     {disabled} class="input input-bordered" bind:value class:input-error={isError} />
 {/if}
 </div>

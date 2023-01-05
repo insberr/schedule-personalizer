@@ -8,6 +8,10 @@ const config = {
   },
 
   plugins: [daisyui],
+  daisyui: {
+    themes: ["dark", "light"],
+    darkTheme: "dark" // sets the dark theme for dark mode users
+  }
 };
 
 module.exports = config;

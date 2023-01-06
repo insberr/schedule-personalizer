@@ -1,0 +1,1 @@
+<h1>Cringe manual setup</h1>

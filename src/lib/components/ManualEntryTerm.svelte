@@ -9,7 +9,7 @@
 
 {#each classes as cls, ind}
     <div class="w-full my-1">
-    <div class="divider divider-horizontal"></div>
-    <ManualEntryRow bind:classCL={classes[ind]} />
+        <div class="divider divider-horizontal" />
+        <ManualEntryRow bind:classCL={classes[ind]} />
     </div>
 {/each}

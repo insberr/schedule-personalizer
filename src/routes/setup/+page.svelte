@@ -1,4 +1,5 @@
 <script type="ts">
+  // @todo please fucking clean this up
   import Login from "$lib/components/Login.svelte";
   import { fade } from "svelte/transition";
   import { getStudentInfo, isError, type StudentVueAPIDataUserDate } from "$lib/studentvue"

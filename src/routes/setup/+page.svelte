@@ -13,8 +13,7 @@
   const LoginStates = {
 	  Waiting: 0,
 	  LoggingIn: 1,
-    Fadeout: 2,
-	  LoggedIn: 3
+	  LoggedIn: 2
   }
   let username: string = '';
   let password: string = '';
@@ -29,7 +28,7 @@
     error = ""
     try {
       resp = (await getStudentInfo(u, p));
-      current = LoginStates.Fadeout;
+      current = LoginStates.LoggedIn;
       studentInfo.set(resp)
       progress.set(0.25)
     } catch (e: any) {
@@ -70,12 +69,13 @@
 </script>
 <h1 class="text-center my-4">Setup</h1>
 <div class="m-auto text-center w-fit">
-      {#if !(current == LoginStates.LoggedIn || current == LoginStates.Fadeout)}
-        <span out:fade on:outroend={() => current=LoginStates.LoggedIn}>
+      {#if current != LoginStates.LoggedIn}
+        <span>
           <Login on:login={doTheLogin} {error} loggingIn={current == LoginStates.LoggingIn}></Login>
+          <a href="/setup/manual">Manual Setup</a>
         </span>
       {:else if current == LoginStates.LoggedIn}
-        <div in:fade> 
+        <div> 
           <p>Welcome to Schedule-Personalizer V10 {resp.content.FormattedName}! </p>
           <p>We're getting things ready...</p>
           <!-- https://okrad.github.io/svelte-progressbar/ maybe?-->

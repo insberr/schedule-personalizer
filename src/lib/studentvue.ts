@@ -4,7 +4,7 @@ import { xml2js } from 'xml-js';
 import type {CL, Terms} from "$types"
 import { ClassIDS, emptyCL } from '$types';
 
-let settings = { // this 100% should be loaded from scs
+export let settings = { // this 100% should be loaded from scs
     studentVueAdvisoryPeriod: 8,
     numberOfPeriods: 6,
     hasAdvisory: true,

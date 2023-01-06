@@ -41,6 +41,6 @@
     "xml-js": "^1.6.11"
   },
   "lint-staged": {
-    "*.src": "prettier --write"
+    "*.{ts, svelte}": "prettier --write"
   }
 }

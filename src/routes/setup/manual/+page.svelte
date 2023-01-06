@@ -3,6 +3,7 @@
     import ManualEntryTerm from '$lib/components/ManualEntryTerm.svelte';
     import { settings } from '$lib/studentvue';
     import { emptyCL } from '$types';
+    import { toast } from 'svelte-french-toast';
     import type { Terms } from '$types';
     import { fade } from 'svelte/transition';
     import { isStudentvue, manualTerms } from '$lib/store';
@@ -41,6 +42,7 @@
         manualTerms.set(terms);
         isStudentvue.set(false);
         localStorage.setItem('setup-complete', 'true');
+        toast.success('Setup complete!');
         goto('/');
     }
     //emetyCL(settings.numberOfPeriods settings.hasAdvisory)

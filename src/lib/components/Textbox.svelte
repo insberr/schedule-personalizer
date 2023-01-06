@@ -5,6 +5,7 @@
     export let password = false;
     export let label = '';
     export let disabled = false;
+    export let warning = false;
     let id = nanoid(16);
 </script>
 
@@ -24,6 +25,7 @@
             class="input input-bordered"
             bind:value
             class:input-error={isError}
+            class:input-warning={warning}
         />
     {:else}
         <input
@@ -36,6 +38,7 @@
             class="input input-bordered"
             bind:value
             class:input-error={isError}
+            class:input-warning={warning}
         />
     {/if}
 </div>

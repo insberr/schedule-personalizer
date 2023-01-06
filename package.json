@@ -8,12 +8,15 @@
     "preview": "vite preview",
     "format": "prettier --write src",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@sveltejs/kit": "^1.0.0",
     "autoprefixer": "^10.4.7",
     "daisyui": "^2.18.1",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "postcss": "^8.4.14",
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.8.1",
@@ -36,5 +39,8 @@
     "stream-browserify": "^3.0.0",
     "svelte-french-toast": "^1.0.3",
     "xml-js": "^1.6.11"
+  },
+  "lint-staged": {
+    "*.src": "prettier --write"
   }
 }

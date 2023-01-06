@@ -1,16 +1,16 @@
 <script>
-  import { onMount } from "svelte";
-  import {Toaster} from "svelte-french-toast"
-import "../app.postcss";
-import "@fontsource/roboto";
+    import { onMount } from 'svelte';
+    import { Toaster } from 'svelte-french-toast';
+    import '../app.postcss';
+    import '@fontsource/roboto';
 
-/*mport { themeChange } from 'theme-change'
+    /*mport { themeChange } from 'theme-change'
 onMount(() => {
  themeChange(false)
 })*/
 </script>
 
-<slot></slot>
+<slot />
 <Toaster />
 <!---
 <div class="btm-nav">

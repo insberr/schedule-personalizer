@@ -6,6 +6,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "format": "prettier --write src",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
@@ -15,6 +16,8 @@
     "daisyui": "^2.18.1",
     "postcss": "^8.4.14",
     "postcss-load-config": "^4.0.1",
+    "prettier": "^2.8.1",
+    "prettier-plugin-svelte": "^2.9.0",
     "svelte": "^3.54.0",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",

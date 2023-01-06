@@ -1,32 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { xml2js } from 'xml-js';
-import type {CL, Terms} from "$types"
+import type { CL, Terms } from '$types';
 import { ClassIDS, emptyCL } from '$types';
 
-export let settings = { // this 100% should be loaded from scs
+export let settings = {
+    // this 100% should be loaded from scs
     studentVueAdvisoryPeriod: 8,
     numberOfPeriods: 6,
     hasAdvisory: true,
     lastDayOfSchool: new Date('June 23, 2023'),
     InfoToKeep: ['CounselorEmail', 'CurrentSchool', 'FormattedName', 'Grade'],
     termsDates: [
-    {
-        termIndex: 0,
-        startDate: new Date('September 6, 2022'),
-        endDate: new Date('December 6, 2022'),
-        classes: [],
-    },
-    {
-        termIndex: 1,
-        startDate: new Date('December 8, 2022'),
-        endDate: new Date('March 27, 2023'),
-        classes: [],
-    },
-    { termIndex: 2, startDate: new Date('March 28, 2023'), endDate: new Date('June 23, 2023'), classes: [] },
+        {
+            termIndex: 0,
+            startDate: new Date('September 6, 2022'),
+            endDate: new Date('December 6, 2022'),
+            classes: [],
+        },
+        {
+            termIndex: 1,
+            startDate: new Date('December 8, 2022'),
+            endDate: new Date('March 27, 2023'),
+            classes: [],
+        },
+        {
+            termIndex: 2,
+            startDate: new Date('March 28, 2023'),
+            endDate: new Date('June 23, 2023'),
+            classes: [],
+        },
     ] as Terms,
-    loginURL: "https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx"
-}
+    loginURL: 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx',
+};
 
 export async function doOperation({
     url,
@@ -52,7 +58,8 @@ export async function doOperation({
         method: 'POST',
         headers: {
             'Content-Type': 'text/xml; charset=utf-8',
-            SOAPAction: 'http://edupoint.com/webservices/ProcessWebServiceRequest',
+            SOAPAction:
+                'http://edupoint.com/webservices/ProcessWebServiceRequest',
         },
         body:
             '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:tns="http://edupoint.com/webservices/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ProcessWebServiceRequest xmlns="http://edupoint.com/webservices/"><userID>' +
@@ -67,7 +74,10 @@ export async function doOperation({
     });
     const rawxml = await resp.text();
     const rbody: any = xml2js(rawxml, { compact: true });
-    const body = rbody['soap:Envelope']['soap:Body']['ProcessWebServiceRequestResponse']['ProcessWebServiceRequestResult']['_text'];
+    const body =
+        rbody['soap:Envelope']['soap:Body']['ProcessWebServiceRequestResponse'][
+            'ProcessWebServiceRequestResult'
+        ]['_text'];
     const rbody2: any = xml2js(body, { compact: true });
     return fixThatDamnXML(rbody2);
 }
@@ -96,16 +106,46 @@ export function isError(obj: any): boolean {
     return Object.keys(obj).includes('RT_ERROR');
 }
 
-export async function StudentInfo({ url, username, password }: { url: string; username: string; password: string }): Promise<any> {
-    return await doOperation({ url, username, password, method: 'StudentInfo', args: {} });
+export async function StudentInfo({
+    url,
+    username,
+    password,
+}: {
+    url: string;
+    username: string;
+    password: string;
+}): Promise<any> {
+    return await doOperation({
+        url,
+        username,
+        password,
+        method: 'StudentInfo',
+        args: {},
+    });
 }
 
-export async function validate({ url, username, password }: { url: string; username: string; password: string }): Promise<boolean> {
+export async function validate({
+    url,
+    username,
+    password,
+}: {
+    url: string;
+    username: string;
+    password: string;
+}): Promise<boolean> {
     const r = await StudentInfo({ url, username, password });
     return !isError(r);
 }
 
-export async function Calendar({ url, username, password }: { url: string; username: string; password: string }): Promise<any> {
+export async function Calendar({
+    url,
+    username,
+    password,
+}: {
+    url: string;
+    username: string;
+    password: string;
+}): Promise<any> {
     return await doOperation({
         url,
         username,
@@ -133,11 +173,31 @@ export async function StudentClassList({
     if (term !== undefined) {
         args['TermIndex'] = term;
     }
-    return await doOperation({ url, username, password, method: 'StudentClassList', args });
+    return await doOperation({
+        url,
+        username,
+        password,
+        method: 'StudentClassList',
+        args,
+    });
 }
 
-export async function StudentSchoolInfo({ url, username, password }: { url: string; username: string; password: string }): Promise<any> {
-    return await doOperation({ url, username, password, method: 'StudentSchoolInfo', args: {} });
+export async function StudentSchoolInfo({
+    url,
+    username,
+    password,
+}: {
+    url: string;
+    username: string;
+    password: string;
+}): Promise<any> {
+    return await doOperation({
+        url,
+        username,
+        password,
+        method: 'StudentSchoolInfo',
+        args: {},
+    });
 }
 
 export async function StudentGradebook({
@@ -155,7 +215,13 @@ export async function StudentGradebook({
     if (term != undefined) {
         args['ReportPeriod'] = term;
     }
-    return await doOperation({ url, username, password, method: 'Gradebook', args });
+    return await doOperation({
+        url,
+        username,
+        password,
+        method: 'Gradebook',
+        args,
+    });
 }
 
 /*export enum ClassIDS {
@@ -256,7 +322,9 @@ export function redactStructure(obj: any): any {
     return newObj;
 }
 
-export function redactStudentInfo(data: StudentVueAPIDataUserDate): StudentVueAPIDataUserDate {
+export function redactStudentInfo(
+    data: StudentVueAPIDataUserDate
+): StudentVueAPIDataUserDate {
     // add types pl\
     // eslint-disable-next-line prefer-const
     let out: Record<string, unknown> = {};
@@ -287,8 +355,11 @@ export function courseTitleNameCase(str: string): string {
     return str;
 }
 
-export async function validateCredentials(username: string, password: string): Promise<boolean> {
-    return await validate({url: settings.loginURL, username, password }); // mm
+export async function validateCredentials(
+    username: string,
+    password: string
+): Promise<boolean> {
+    return await validate({ url: settings.loginURL, username, password }); // mm
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
@@ -303,7 +374,9 @@ export type StudentVueAPIDataClassListsTermClass = {
     TeacherEmail: string;
     TeacherStaffGU: string;
 };
-export type StudentVueAPIDataClassListsTerm = StudentVueAPIDataClassListsTermClass[] | StudentVueAPIDataClassListsTermClass;
+export type StudentVueAPIDataClassListsTerm =
+    | StudentVueAPIDataClassListsTermClass[]
+    | StudentVueAPIDataClassListsTermClass;
 export type StudentVueAPIDataClassLists = StudentVueAPIDataClassListsTerm[];
 export type StudentVueAPIData = {
     code: string;
@@ -347,7 +420,10 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // If theres one class in a term it retuns the calss instead of the class in an array
     // This should fix that and probably get rid of that annoying error
     const studentvueTerms = data.content.ClassLists.map((svueTerm) => {
-        if ((svueTerm as StudentVueAPIDataClassListsTermClass[])?.length === undefined) {
+        if (
+            (svueTerm as StudentVueAPIDataClassListsTermClass[])?.length ===
+            undefined
+        ) {
             return [svueTerm];
         }
         return svueTerm;
@@ -363,28 +439,42 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 
     const combinedStudentvue = newTerms.map((t, i) => {
         // doing it this way means if there are more or less periods returned by studenvue then there might be problems displaying them (i think only if there are extra)
-        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[])?.length === undefined) {
-            const errMsg = `studentvueTerms[${i}] is not an array: ${JSON.stringify(studentvueTerms[i])}`;
+        if (
+            (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[])
+                ?.length === undefined
+        ) {
+            const errMsg = `studentvueTerms[${i}] is not an array: ${JSON.stringify(
+                studentvueTerms[i]
+            )}`;
             console.log(errMsg);
             // studentvueTerms[i] = [studentvueTerms[i] as StudentVueAPIDataClassListsTermClass];
         }
 
-        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass)?.Period !== undefined) {
+        if (
+            (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass)
+                ?.Period !== undefined
+        ) {
             const errMsg = `For some reason studentvue returned a class instead of an array of classes: studentvueTerms[${i}] is not an array: ${JSON.stringify(
                 studentvueTerms[i]
             )}`;
             console.log(errMsg);
 
-            const c = studentvueTerms[i] as StudentVueAPIDataClassListsTermClass;
+            const c = studentvueTerms[
+                i
+            ] as StudentVueAPIDataClassListsTermClass;
             t.classes = [
                 {
                     classID:
                         parseInt(c.Period) === 0
                             ? ClassIDS.Zero
-                            : parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                            : parseInt(c.Period) ===
+                              settings.studentVueAdvisoryPeriod
                             ? ClassIDS.Advisory
                             : ClassIDS.Period,
-                    period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
+                    period:
+                        parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                            ? 0
+                            : parseInt(c.Period),
                     name: courseTitleNameCase(c.CourseTitle) || '',
                     room: c.RoomName || '',
                     teacher: {
@@ -397,22 +487,33 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
             return t;
         }
 
-        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).length < 1) {
-            const errMsg = `studentvueTerms[${i}] is empty. This should not happen: ${JSON.stringify(studentvueTerms[i])}`;
+        if (
+            (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[])
+                .length < 1
+        ) {
+            const errMsg = `studentvueTerms[${i}] is empty. This should not happen: ${JSON.stringify(
+                studentvueTerms[i]
+            )}`;
             console.log(errMsg);
             return t;
         }
 
-        t.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((c) => {
+        t.classes = (
+            studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]
+        ).map((c) => {
             // console.log('studentVueTerms.map => (c): ', c)
             return {
                 classID:
                     parseInt(c.Period) === 0
                         ? ClassIDS.Zero
-                        : parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                        : parseInt(c.Period) ===
+                          settings.studentVueAdvisoryPeriod
                         ? ClassIDS.Advisory
                         : ClassIDS.Period,
-                period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
+                period:
+                    parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                        ? 0
+                        : parseInt(c.Period),
                 name: courseTitleNameCase(c.CourseTitle) || '',
                 room: c.RoomName || '',
                 teacher: {
@@ -431,14 +532,34 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     return combinedStudentvue;
 }
 
-export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
+export async function getAllSchedules(
+    username: string,
+    password: string
+): Promise<StudentVueAPIData> {
     const schs = await Promise.all([
-        StudentClassList({url: settings.loginURL, username, password, term: 0 }),
-        StudentClassList({url: settings.loginURL, username, password, term: 1 }),
-        StudentClassList({url: settings.loginURL, username, password, term: 2 }),
+        StudentClassList({
+            url: settings.loginURL,
+            username,
+            password,
+            term: 0,
+        }),
+        StudentClassList({
+            url: settings.loginURL,
+            username,
+            password,
+            term: 1,
+        }),
+        StudentClassList({
+            url: settings.loginURL,
+            username,
+            password,
+            term: 2,
+        }),
     ]);
     if (!(isError(schs[0]) || isError(schs[1]) || isError(schs[2]))) {
-        const sch = schs.map((s) => s['StudentClassSchedule']['ClassLists']['ClassListing']);
+        const sch = schs.map(
+            (s) => s['StudentClassSchedule']['ClassLists']['ClassListing']
+        );
         // should probably do this
         const newSch = sch.map((t) => (t?.length === undefined ? [t] : t));
         const fullsch = schs[0];
@@ -450,17 +571,34 @@ export async function getAllSchedules(username: string, password: string): Promi
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
-export async function getStudentInfo(username: string, password: string): Promise<StudentVueAPIDataUserDate> {
-    const info = await StudentInfo({url: settings.loginURL, username, password });
+export async function getStudentInfo(
+    username: string,
+    password: string
+): Promise<StudentVueAPIDataUserDate> {
+    const info = await StudentInfo({
+        url: settings.loginURL,
+        username,
+        password,
+    });
     if (!isError(info)) {
-        return redactStudentInfo({ code: 'SUCCESS', content: info['StudentInfo'] });
+        return redactStudentInfo({
+            code: 'SUCCESS',
+            content: info['StudentInfo'],
+        });
     } else {
         throw new Error(info.RT_ERROR.ERROR_MESSAGE);
     }
 }
 
-export async function getSchoolInfo(username: string, password: string): Promise<Record<string, unknown>> {
-    const info = await StudentSchoolInfo({url: settings.loginURL, username, password });
+export async function getSchoolInfo(
+    username: string,
+    password: string
+): Promise<Record<string, unknown>> {
+    const info = await StudentSchoolInfo({
+        url: settings.loginURL,
+        username,
+        password,
+    });
     if (!isError(info)) {
         return { code: 'SUCCESS', content: info['StudentSchoolInfoListing'] };
     } else {

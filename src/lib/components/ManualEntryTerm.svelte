@@ -1,13 +1,12 @@
 <script type="ts">
-  import type { CL, Terms } from "$types";
-  import ManualEntryRow from "./ManualEntryRow.svelte";
+    import type { CL, Terms } from '$types';
+    import ManualEntryRow from './ManualEntryRow.svelte';
 
-
-  //import { settings } from "$lib/studentvue";
-  //import { emptyCL } from "$types";
-  export let classes: CL[] = []//emptyCL(settings.numberOfPeriods, settings.hasAdvisory)
+    //import { settings } from "$lib/studentvue";
+    //import { emptyCL } from "$types";
+    export let classes: CL[] = []; //emptyCL(settings.numberOfPeriods, settings.hasAdvisory)
 </script>
 
 {#each classes as cls, ind}
-    <ManualEntryRow bind:classCL={classes[ind]}></ManualEntryRow>
+    <ManualEntryRow bind:classCL={classes[ind]} />
 {/each}

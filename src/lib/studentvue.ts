@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { xml2js } from 'xml-js';
-
+import type {CL, Terms} from "$types"
+import { ClassIDS, emptyCL } from '$types';
 
 let settings = { // this 100% should be loaded from scs
     studentVueAdvisoryPeriod: 8,
@@ -157,7 +158,7 @@ export async function StudentGradebook({
     return await doOperation({ url, username, password, method: 'Gradebook', args });
 }
 
-export enum ClassIDS {
+/*export enum ClassIDS {
     Zero,
     Arrival,
     Advisory,
@@ -215,7 +216,7 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
     }
 
     return classes;
-}
+}*/
 export function toTitleCase(str: string | null | undefined): string {
     if (str === undefined || str === null) return '';
 

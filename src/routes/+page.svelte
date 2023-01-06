@@ -6,4 +6,4 @@
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <p>Hello {$nameStore}!</p>
 <Textbox bind:value={$nameStore} isError={$nameStore.length == 0} />
-<button class="btn btn-error" on:click={() => localStorage.removeItem("setup-complete")}>Remove setup complete (refresh after)</button>
+<a href="/setup" class="btn btn-error">Go to setup</a>

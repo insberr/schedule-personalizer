@@ -44,16 +44,22 @@
   }
 </script>
 <h1 class="text-center my-4">Setup</h1>
-<div class="m-auto text-center" style="width: 50vw">
+<div class="m-auto text-center w-fit">
       {#if !(current == LoginStates.LoggedIn || current == LoginStates.Fadeout)}
-        <span transition:fade on:outroend={() => current=LoginStates.LoggedIn}>
+        <span out:fade on:outroend={() => current=LoginStates.LoggedIn}>
           <Login on:login={doTheLogin} {error} loggingIn={current == LoginStates.LoggingIn}></Login>
         </span>
       {:else if current == LoginStates.LoggedIn}
-        <div transition:fade> 
+        <div in:fade> 
           <p>Welcome to Schedule-Personalizer V10 {resp.FormattedName}! </p>
           <p>We're getting things ready...</p>
           <progress class="progress progress-primary" value={$progress}></progress>
+          <ul class="steps steps-vertical lg:steps-horizontal">
+            <li class="step" class:step-primary={$progress >= 0.1}>Validate Creds</li>
+            <li class="step" class:step-primary={$progress >= 0.26}>Obtain Schedule Information</li>
+            <li class="step" class:step-primary={$progress >= 0.51}>Load virus keylogger.jar</li>
+            <li class="step" class:step-primary={$progress >= 0.76}>Loading student info</li>
+          </ul>
           <button class="btn btn-primary" on:click={() => progress.update(n => n + 0.25)}>Simulate next step</button>
         </div>
       {/if}

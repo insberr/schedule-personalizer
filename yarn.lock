@@ -197,6 +197,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@macfja/serializer@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@macfja/serializer@npm:1.1.2"
+  checksum: a73e4f87506de431f833100e8b15fd9dba88d501084c36471841d60d4d57d0b54ffa18c0bb89c31c584aa72ae64170f8c06e9abb4bce6034c859d79d3bdb1c99
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1999,6 +2006,7 @@ __metadata:
   resolution: "schedule-personalizer-svelte@workspace:."
   dependencies:
     "@fontsource/roboto": ^4.5.8
+    "@macfja/serializer": ^1.1.2
     "@sveltejs/adapter-static": ^1.0.0
     "@sveltejs/kit": ^1.0.0
     autoprefixer: ^10.4.7

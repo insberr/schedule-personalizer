@@ -1,4 +1,5 @@
 // the json5 extension doesnt support json schemas which is cringe, and it doesnt support gitpod either
+// maybe move to .jsonc? which is just json with comments.
 {
     $schema: 'master.schema.json',
     studentVueUrl: 'wa-beth-psv.edupoint.com',

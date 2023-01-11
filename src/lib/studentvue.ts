@@ -4,36 +4,12 @@ import { xml2js } from 'xml-js';
 import type { CL, Terms } from '$types';
 import { ClassIDS, emptyCL } from '$types';
 
-export let settings = {
-    // this 100% should be loaded from scs
-    studentVueAdvisoryPeriod: 8,
-    numberOfPeriods: 6,
-    hasAdvisory: true,
-    lastDayOfSchool: new Date('June 23, 2023'),
-    InfoToKeep: ['CounselorEmail', 'CurrentSchool', 'FormattedName', 'Grade'],
-    termsDates: [
-        {
-            termIndex: 0,
-            startDate: new Date('September 6, 2022'),
-            endDate: new Date('December 6, 2022'),
-            classes: [],
-        },
-        {
-            termIndex: 1,
-            startDate: new Date('December 8, 2022'),
-            endDate: new Date('March 27, 2023'),
-            classes: [],
-        },
-        {
-            termIndex: 2,
-            startDate: new Date('March 28, 2023'),
-            endDate: new Date('June 23, 2023'),
-            classes: [],
-        },
-    ] as Terms,
-    loginURL: 'https://wa-beth-psv.edupoint.com/Service/PXPCommunication.asmx',
-};
-
+const InfoToKeep = [
+    'CounselorEmail',
+    'CurrentSchool',
+    'FormattedName',
+    'Grade',
+];
 export async function doOperation({
     url,
     username,
@@ -329,7 +305,7 @@ export function redactStudentInfo(
     // eslint-disable-next-line prefer-const
     let out: Record<string, unknown> = {};
     Object.entries(data.content).forEach(([key, value]) => {
-        if (settings.InfoToKeep.includes(key)) {
+        if (InfoToKeep.includes(key)) {
             //console.log("keeping", key)
             out[key] = value;
         } else {
@@ -359,7 +335,7 @@ export async function validateCredentials(
     username: string,
     password: string
 ): Promise<boolean> {
-    return await validate({ url: settings.loginURL, username, password }); // mm
+    return await validate({ url: loginURL, username, password }); // mm
 }
 
 // Propbably should change args to take a StorageDataStudentvue object
@@ -432,8 +408,8 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // console.log('studentVueTerms.length: ', studentvueTerms.length);
     // console.log('studentVueTerms: ', JSON.stringify(studentvueTerms, null, 2));
 
-    const newTerms = settings.termsDates.map((t) => {
-        t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+    const newTerms = termsDates.map((t) => {
+        t.classes = emptyCL(numberOfPeriods, hasAdvisory);
         return t;
     });
 
@@ -467,12 +443,11 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                     classID:
                         parseInt(c.Period) === 0
                             ? ClassIDS.Zero
-                            : parseInt(c.Period) ===
-                              settings.studentVueAdvisoryPeriod
+                            : parseInt(c.Period) === studentVueAdvisoryPeriod
                             ? ClassIDS.Advisory
                             : ClassIDS.Period,
                     period:
-                        parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                        parseInt(c.Period) === studentVueAdvisoryPeriod
                             ? 0
                             : parseInt(c.Period),
                     name: courseTitleNameCase(c.CourseTitle) || '',
@@ -506,12 +481,11 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                 classID:
                     parseInt(c.Period) === 0
                         ? ClassIDS.Zero
-                        : parseInt(c.Period) ===
-                          settings.studentVueAdvisoryPeriod
+                        : parseInt(c.Period) === studentVueAdvisoryPeriod
                         ? ClassIDS.Advisory
                         : ClassIDS.Period,
                 period:
-                    parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                    parseInt(c.Period) === studentVueAdvisoryPeriod
                         ? 0
                         : parseInt(c.Period),
                 name: courseTitleNameCase(c.CourseTitle) || '',
@@ -538,19 +512,19 @@ export async function getAllSchedules(
 ): Promise<StudentVueAPIData> {
     const schs = await Promise.all([
         StudentClassList({
-            url: settings.loginURL,
+            url: loginURL,
             username,
             password,
             term: 0,
         }),
         StudentClassList({
-            url: settings.loginURL,
+            url: loginURL,
             username,
             password,
             term: 1,
         }),
         StudentClassList({
-            url: settings.loginURL,
+            url: loginURL,
             username,
             password,
             term: 2,
@@ -576,7 +550,7 @@ export async function getStudentInfo(
     password: string
 ): Promise<StudentVueAPIDataUserDate> {
     const info = await StudentInfo({
-        url: settings.loginURL,
+        url: loginURL,
         username,
         password,
     });
@@ -595,7 +569,7 @@ export async function getSchoolInfo(
     password: string
 ): Promise<Record<string, unknown>> {
     const info = await StudentSchoolInfo({
-        url: settings.loginURL,
+        url: loginURL,
         username,
         password,
     });

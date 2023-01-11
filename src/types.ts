@@ -57,3 +57,22 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
 
     return classes;
 }
+
+export type MasterSettings = {
+    studentVueUrl: string;
+    schools: MasterSettingsSchool[];
+};
+
+export type MasterSettingsSchool = {
+    stvName: string;
+    terms: MasterSettingsTerms;
+    studentVueAdvisoryPeriod: number;
+    numberOfPeriods: number;
+    hasAdvisory: boolean;
+    scheduleURL: string;
+};
+
+export type MasterSettingsTerms = {
+    start: string;
+    end: string; // fuck you json, and your lack of dates
+}[];

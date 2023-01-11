@@ -1,32 +1,42 @@
 <script type="ts">
     import ManualEntryRow from '$lib/components/ManualEntryRow.svelte';
     import ManualEntryTerm from '$lib/components/ManualEntryTerm.svelte';
-    import { settings } from '$lib/studentvue';
+    import { masterSettings, schoolName } from '$lib/store';
     import { emptyCL } from '$types';
     import { toast } from 'svelte-french-toast';
     import type { Terms } from '$types';
     import { fade } from 'svelte/transition';
     import { isStudentvue, manualTerms } from '$lib/store';
     import { goto } from '$app/navigation';
+    import { get, writable } from 'svelte/store';
+    let selectedSchool = 0;
+    $: settings = $masterSettings.schools[selectedSchool];
     //import { INFOPATH } from '$env/static/private';
     let displayedTerm: number = 0;
     //import { empty } from "svelte/internal";
-    let terms: Terms = structuredClone(settings.termsDates).map((v) => {
-        return {
-            ...v,
-            classes: emptyCL(settings.numberOfPeriods, settings.hasAdvisory),
-        };
-    });
-    $: missingName = terms.map(
+    $: terms = writable(
+        structuredClone(settings.terms).map((v, i) => {
+            return {
+                startDate: new Date(v.start),
+                endDate: new Date(v.end),
+                termIndex: i,
+                classes: emptyCL(
+                    settings.numberOfPeriods,
+                    settings.hasAdvisory
+                ),
+            };
+        }) as Terms
+    );
+    $: missingName = $terms.map(
         (i) => i.classes.filter((c) => c.name.trim() == '').length
     );
-    $: missingTeacher = terms.map(
+    $: missingTeacher = $terms.map(
         (i) => i.classes.filter((c) => c.teacher.name.trim() == '').length
     );
-    $: missingRoom = terms.map(
+    $: missingRoom = $terms.map(
         (i) => i.classes.filter((c) => c.room.trim() == '').length
     );
-    $: totalWarn = terms.map(
+    $: totalWarn = $terms.map(
         (_, i) => missingName[i] + missingTeacher[i] + missingRoom[i]
     );
     $: shouldShowError = totalWarn.reduce((a, b) => a + b, 0) > 0;
@@ -39,11 +49,16 @@
             )
                 return;
         }
-        manualTerms.set(terms);
+        manualTerms.set(get(terms));
         isStudentvue.set(false);
+        schoolName.set(settings.stvName);
         localStorage.setItem('setup-complete', 'true');
-        toast.success('Setup complete!');
-        goto('/');
+        //toast.success('Setup complete!');
+        toast.promise(goto('/'), {
+            loading: 'Finishing up...',
+            success: 'Setup complete!',
+            error: 'Failed to setup!',
+        });
     }
     //emetyCL(settings.numberOfPeriods settings.hasAdvisory)
 </script>
@@ -51,17 +66,31 @@
 <h1 class="my-4 text-center">Cringe manual setup</h1>
 <div class="m-auto w-fit text-center">
     <div class="paper m-auto w-fit">
+        <h3>School</h3>
+        <select
+            bind:value={selectedSchool}
+            disabled={$masterSettings.schools.length == 1}
+            class="select w-full max-w-fit"
+        >
+            {#each $masterSettings.schools as sch, i}
+                <option value={i}>{sch.stvName}</option>
+            {/each}
+        </select>
+    </div>
+</div>
+<div class="m-auto w-fit text-center">
+    <div class="paper m-auto w-fit">
         <h3>Terms</h3>
         <input
             type="range"
             min="0"
-            max={terms.length - 1}
+            max={$terms.length - 1}
             bind:value={displayedTerm}
             class="range"
             step="1"
         />
         <div class="w-full flex justify-between text-xs px-2">
-            {#each terms as _, tid}
+            {#each $terms as _, tid}
                 <span
                     class:text-warning={totalWarn[tid] > 0}
                     class:text-success={totalWarn[tid] == 0}>{tid + 1}</span
@@ -71,11 +100,11 @@
     </div>
 </div>
 <div class="m-auto w-fit text-center">
-    {#each terms as _, tind}
+    {#each $terms as _, tind}
         {#if tind == displayedTerm}
             <div class="paper">
                 <h3>Term {tind + 1}</h3>
-                <ManualEntryTerm bind:classes={terms[tind].classes} />
+                <ManualEntryTerm bind:classes={$terms[tind].classes} />
             </div>
         {/if}
     {/each}
@@ -97,7 +126,7 @@
                     /></svg
                 >
                 <span>Warning!</span>
-                {#each terms as _, term}
+                {#each $terms as _, term}
                     {#if totalWarn[term] > 0}
                         <div class="grid gap-1 grid-cols-1">
                             <span>Term {term + 1}:</span>

@@ -6,7 +6,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "prettier --write src",
+    "format": "prettier --write src && prettier --write static",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "postinstall": "husky install"
@@ -41,6 +41,7 @@
     "xml-js": "^1.6.11"
   },
   "lint-staged": {
-    "src/**/*": "prettier --ignore-unknown --write"
+    "src/**/*": "prettier --ignore-unknown --write",
+    "static/**/*": "prettier --ignore-unknown --write"
   }
 }

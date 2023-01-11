@@ -3,6 +3,7 @@
         "csstools.postcss",
         "svelte.svelte-vscode",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "mrmlnc.vscode-json5"
     ]
 }

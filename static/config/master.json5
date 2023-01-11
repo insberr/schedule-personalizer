@@ -1,0 +1,28 @@
+// the json5 extension doesnt support json schemas which is cringe, and it doesnt support gitpod either
+{
+    $schema: 'master.schema.json',
+    studentVueUrl: 'wa-beth-psv.edupoint.com',
+    schools: [
+        {
+            stvName: 'Bethel High School',
+            terms: [
+                {
+                    start: 'September 6, 2022',
+                    end: 'December 6, 2022',
+                },
+                {
+                    start: 'December 8, 2022',
+                    end: 'March 27, 2023',
+                },
+                {
+                    start: 'March 28, 2023',
+                    end: 'June 23, 2023',
+                },
+            ],
+            hasAdvisory: true,
+            numberOfPeriods: 6,
+            studentVueAdvisoryPeriod: 8,
+            scheduleURL: '/config/schools/bhs.json5', // passed directly to fetch
+        },
+    ],
+}

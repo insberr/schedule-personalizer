@@ -34,10 +34,6 @@
                 },
                 {
                     start: 'December 8, 2022',
-                    end: 'March 27, 2023',
-                },
-                {
-                    start: 'March 28, 2023',
                     end: 'June 23, 2023',
                 },
             ],

@@ -4,7 +4,6 @@ import { writable, type Writable } from 'svelte/store';
 
 export function persistWritable<T>(key: string, defaultItem: T): Writable<T> {
     if (typeof localStorage == 'undefined') {
-        console.trace('Tried to use persistWritable without localStorage');
         return writable(defaultItem);
     }
 

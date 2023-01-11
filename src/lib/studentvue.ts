@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { xml2js } from 'xml-js';
-import type { CL, Terms } from '$types';
+import type { CL, MasterSettingsSchool, Term, Terms } from '$types';
 import { ClassIDS, emptyCL } from '$types';
+import { get } from 'svelte/store';
+import { masterSettings } from './store';
 
 const InfoToKeep = [
     'CounselorEmail',
@@ -30,7 +32,8 @@ export async function doOperation({
         paramStr += '&lt;/' + key + '&gt;';
     });
     paramStr += '&lt;/Parms&gt;';
-    const resp = await fetch(url, {
+    let murl = 'https://' + url + '/Service/PXPCommunication.asmx';
+    const resp = await fetch(murl, {
         method: 'POST',
         headers: {
             'Content-Type': 'text/xml; charset=utf-8',
@@ -335,6 +338,7 @@ export async function validateCredentials(
     username: string,
     password: string
 ): Promise<boolean> {
+    const loginURL = get(masterSettings).studentVueUrl;
     return await validate({ url: loginURL, username, password }); // mm
 }
 
@@ -391,7 +395,10 @@ export type StudentVueAPIDataUserDate = {
     };
 };
 
-export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
+export function convertStudentvueDataToTerms(
+    data: StudentVueAPIData,
+    mdata: MasterSettingsSchool
+): Terms {
     // Hopefully this will catch any instance of studentvue returning an object instead of an array for the term.
     // If theres one class in a term it retuns the calss instead of the class in an array
     // This should fix that and probably get rid of that annoying error
@@ -408,9 +415,13 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // console.log('studentVueTerms.length: ', studentvueTerms.length);
     // console.log('studentVueTerms: ', JSON.stringify(studentvueTerms, null, 2));
 
-    const newTerms = termsDates.map((t) => {
-        t.classes = emptyCL(numberOfPeriods, hasAdvisory);
-        return t;
+    const newTerms: Terms = mdata.terms.map((t, i) => {
+        return {
+            termIndex: i,
+            startDate: new Date(t.start),
+            endDate: new Date(t.end),
+            classes: emptyCL(mdata.numberOfPeriods, mdata.hasAdvisory),
+        } as Term;
     });
 
     const combinedStudentvue = newTerms.map((t, i) => {
@@ -443,11 +454,12 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                     classID:
                         parseInt(c.Period) === 0
                             ? ClassIDS.Zero
-                            : parseInt(c.Period) === studentVueAdvisoryPeriod
+                            : parseInt(c.Period) ===
+                              mdata.studentVueAdvisoryPeriod
                             ? ClassIDS.Advisory
                             : ClassIDS.Period,
                     period:
-                        parseInt(c.Period) === studentVueAdvisoryPeriod
+                        parseInt(c.Period) === mdata.studentVueAdvisoryPeriod
                             ? 0
                             : parseInt(c.Period),
                     name: courseTitleNameCase(c.CourseTitle) || '',
@@ -481,11 +493,11 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                 classID:
                     parseInt(c.Period) === 0
                         ? ClassIDS.Zero
-                        : parseInt(c.Period) === studentVueAdvisoryPeriod
+                        : parseInt(c.Period) === mdata.studentVueAdvisoryPeriod
                         ? ClassIDS.Advisory
                         : ClassIDS.Period,
                 period:
-                    parseInt(c.Period) === studentVueAdvisoryPeriod
+                    parseInt(c.Period) === mdata.studentVueAdvisoryPeriod
                         ? 0
                         : parseInt(c.Period),
                 name: courseTitleNameCase(c.CourseTitle) || '',
@@ -510,6 +522,7 @@ export async function getAllSchedules(
     username: string,
     password: string
 ): Promise<StudentVueAPIData> {
+    const loginURL = get(masterSettings).studentVueUrl;
     const schs = await Promise.all([
         StudentClassList({
             url: loginURL,
@@ -549,6 +562,7 @@ export async function getStudentInfo(
     username: string,
     password: string
 ): Promise<StudentVueAPIDataUserDate> {
+    let loginURL = get(masterSettings).studentVueUrl;
     const info = await StudentInfo({
         url: loginURL,
         username,
@@ -569,7 +583,7 @@ export async function getSchoolInfo(
     password: string
 ): Promise<Record<string, unknown>> {
     const info = await StudentSchoolInfo({
-        url: loginURL,
+        url: get(masterSettings).studentVueUrl,
         username,
         password,
     });

@@ -4,8 +4,12 @@ import {
     convertStudentvueDataToTerms,
     type StudentVueAPIData,
     type StudentVueAPIDataUserDate,
+    getAllSchedules,
+    getStudentInfo,
 } from '$lib/studentvue';
 import { derived, get } from 'svelte/store';
+import { schoolSettings } from './masterSettings';
+import { waitForMasterSettings } from '$lib/waitFor';
 
 export const studentVueSchedule = persistWritable<
     StudentVueAPIData | undefined
@@ -19,13 +23,13 @@ export const studentVueCreds = persistWritable<{
     password: string;
 }>('stvInfo', { username: '', password: '' });
 export const convertedSTVSchedule = derived(
-    [studentVueSchedule, isStudentvue],
+    [studentVueSchedule, isStudentvue, schoolSettings],
     (v) => {
-        let [schedule, isSTV] = v;
+        let [schedule, isSTV, sch] = v;
         if (!isSTV || schedule == undefined) {
             return undefined;
         }
-        return convertStudentvueDataToTerms(schedule);
+        return convertStudentvueDataToTerms(schedule, sch);
     }
 );
 let stvID: NodeJS.Timer | undefined;
@@ -36,10 +40,20 @@ function updStv() {
     if (!get(isStudentvue)) {
         return;
     }
-    stvID = setInterval(async () => {
+    async function trigger_update() {
+        await waitForMasterSettings();
         let creds = get(studentVueCreds);
-        // piss
+        getAllSchedules(creds.username, creds.password).then((r) => {
+            studentVueSchedule.set(r);
+        });
+        getStudentInfo(creds.username, creds.password).then((r) => {
+            studentInfo.set(r);
+        });
+    }
+    stvID = setInterval(async () => {
+        trigger_update();
     }, 5 * 60 * 1000);
+    trigger_update();
 }
 
 isStudentvue.subscribe(updStv);

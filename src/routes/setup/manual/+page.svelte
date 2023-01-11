@@ -70,7 +70,7 @@
         <select
             bind:value={selectedSchool}
             disabled={$masterSettings.schools.length == 1}
-            class="select w-full max-w-fit"
+            class="select w-fit"
         >
             {#each $masterSettings.schools as sch, i}
                 <option value={i}>{sch.stvName}</option>
@@ -180,5 +180,5 @@
 </div>
 
 <pre class="bg-base-200 text-left">
-    {JSON.stringify(terms, null, 2)}
+    {JSON.stringify($terms, null, 2)}
 </pre>

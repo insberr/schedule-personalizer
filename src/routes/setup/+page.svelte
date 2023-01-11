@@ -15,6 +15,8 @@
     import toast from 'svelte-french-toast';
     import {
         isStudentvue,
+        masterSettings,
+        schoolName,
         studentInfo,
         studentVueCreds,
         studentVueSchedule,
@@ -30,6 +32,7 @@
     let resp: StudentVueAPIDataUserDate;
     let current = LoginStates.Waiting;
     let error = '';
+    $: ms = $masterSettings;
     async function doTheLogin(
         a: CustomEvent<{ username: string; password: string }>
     ) {
@@ -40,6 +43,12 @@
         error = '';
         try {
             resp = await getStudentInfo(u, p);
+            if (
+                !ms.schools.find((n) => n.stvName == resp.content.CurrentSchool)
+            ) {
+                throw new Error('School not supported!');
+            }
+            schoolName.set(resp.content.CurrentSchool);
             current = LoginStates.LoggedIn;
             studentInfo.set(resp);
             progress.set(0.25);

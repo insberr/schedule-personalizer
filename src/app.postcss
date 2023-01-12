@@ -5,6 +5,12 @@
 body {
     font-family: 'Roboto';
 }
+.center {
+    @apply m-auto w-fit text-center;
+    & > pre {
+        @apply text-left;
+    }
+}
 .paper {
     //background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
     @apply bg-base-200 rounded p-6 m-3 w-fit text-center flex justify-center flex-col content-center items-center justify-items-center gap-2;

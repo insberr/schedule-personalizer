@@ -40,7 +40,7 @@
             hasAdvisory: false,
             numberOfPeriods: 3,
             studentVueAdvisoryPeriod: -1,
-            scheduleURL: '/config/schools/test.json5', // passed directly to fetch
+            scheduleURL: '/config/schools/testschool.json5', // passed directly to fetch
         },
     ],
 }

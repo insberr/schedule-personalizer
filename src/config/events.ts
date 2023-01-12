@@ -457,6 +457,13 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: schedules.advisory,
+        info: {
+            message: 'Advisory Schedule | MLK Day Assembly In Advisory',
+            date: new Date('January 13, 2023'),
+        },
+    },
+    {
         schedule: schedules.noSchool,
         info: {
             message: 'No School | MLK Jr. Day',

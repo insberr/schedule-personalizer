@@ -166,6 +166,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formkit/auto-animate@npm:^1.0.0-beta.5":
+  version: 1.0.0-pre-alpha.3
+  resolution: "@formkit/auto-animate@npm:1.0.0-pre-alpha.3"
+  peerDependencies:
+    react: ^16.8.0
+    vue: ^3.0.0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    vue:
+      optional: true
+  checksum: d0d5fa8a32c4614d33ffba3d56f184a23161d82139e090f39778457673d2450b353a46b59d7468089850fcfbc3b0897371ae1888b713349caf1bf760687369ad
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -1316,6 +1331,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"immer@npm:^9.0.17":
+  version: 9.0.17
+  resolution: "immer@npm:9.0.17"
+  checksum: 046d562b74f050632d2861042dbcad49a5e86ffe5bb9b8bff6e699b1c7d8478019d9a3be61e72117cecc29826d2caa4fa927a7e10262381144dd33c735b9531c
+  languageName: node
+  linkType: hard
+
 "import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -2355,12 +2377,14 @@ __metadata:
   resolution: "schedule-personalizer-svelte@workspace:."
   dependencies:
     "@fontsource/roboto": ^4.5.8
+    "@formkit/auto-animate": ^1.0.0-beta.5
     "@macfja/serializer": ^1.1.2
     "@sveltejs/adapter-static": ^1.0.0
     "@sveltejs/kit": ^1.0.0
     autoprefixer: ^10.4.7
     daisyui: ^2.18.1
     husky: ">=6"
+    immer: ^9.0.17
     json5: ^2.2.3
     lint-staged: ">=10"
     nanoid: ^4.0.0

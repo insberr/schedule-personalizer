@@ -1,1 +1,40 @@
-{}
+{
+    schedules: {
+        test1: {
+            name: 'test1',
+            periods: [
+                {
+                    id: 4,
+                    num: 1,
+                },
+                {
+                    id: 4,
+                    num: 2,
+                },
+                {
+                    id: 4,
+                    num: 3,
+                },
+            ],
+        },
+        test2: {
+            name: 'test2',
+            periods: [
+                {
+                    id: 4,
+                    num: 4,
+                },
+                {
+                    id: 4,
+                    num: 5,
+                },
+                {
+                    id: 4,
+                    num: 6,
+                },
+            ],
+        },
+    },
+    events: [],
+    default: {},
+}

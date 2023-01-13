@@ -82,12 +82,17 @@
     {/if}
 {/await}
 
-<pre class="bg-base-200 w-fit p-2 text-left">
+<!--<pre class="bg-base-200 w-fit p-2 text-left">
     {json5.stringify($schStore, null, 4)}
-</pre>
+</pre>-->
 
-<button
-    class="btn btn-primary center"
-    on:click={() => download(dlPath, serify(json5.stringify($schStore)))}
-    >Finish</button
->
+<div class="center" style="margin-top: 2em">
+    <div class="paper">
+        <button
+            class="btn btn-primary"
+            on:click={() =>
+                download(dlPath, serify(json5.stringify($schStore)))}
+            >Finish</button
+        >
+    </div>
+</div>

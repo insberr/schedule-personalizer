@@ -82,10 +82,6 @@
     {/if}
 {/await}
 
-<!--<pre class="bg-base-200 w-fit p-2 text-left">
-    {json5.stringify($schStore, null, 4)}
-</pre>-->
-
 <div class="center" style="margin-top: 2em">
     <div class="paper">
         <button
@@ -96,3 +92,7 @@
         >
     </div>
 </div>
+
+<pre class="bg-base-200 w-fit p-5 text-left">
+    {json5.stringify($schStore, null, 4)}
+</pre>

@@ -15,12 +15,11 @@
     import toast from 'svelte-french-toast';
     import {
         isStudentvue,
-        masterSettings,
-        schoolName,
         studentInfo,
         studentVueCreds,
         studentVueSchedule,
-    } from '$lib/store';
+    } from '$lib/store/studentvue';
+    import { masterSettings, schoolName } from '$lib/store/masterSettings';
     import { tick } from 'svelte';
     const LoginStates = {
         Waiting: 0,

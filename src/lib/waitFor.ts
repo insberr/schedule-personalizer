@@ -1,4 +1,4 @@
-import { masterSettings, scheduleConfig } from './store';
+import { masterSettings, scheduleConfig } from './store/masterSettings';
 import { get } from 'svelte/store';
 export async function waitForMasterSettings() {
     await new Promise<void>((res, rej) => {

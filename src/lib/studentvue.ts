@@ -4,7 +4,7 @@ import { xml2js } from 'xml-js';
 import type { CL, MasterSettingsSchool, Term, Terms } from '$types';
 import { ClassIDS, emptyCL } from '$types';
 import { get } from 'svelte/store';
-import { masterSettings } from './store';
+import { masterSettings } from './store/masterSettings';
 
 const InfoToKeep = [
     'CounselorEmail',

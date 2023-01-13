@@ -1,10 +1,10 @@
 <script>
+    import { schedule } from '$lib/store/schedule';
     import {
-        schedule,
         masterSettings,
         scheduleConfig,
         schoolName,
-    } from '$lib/store';
+    } from '$lib/store/masterSettings';
     import Textbox from '$lib/components/Textbox.svelte';
 </script>
 

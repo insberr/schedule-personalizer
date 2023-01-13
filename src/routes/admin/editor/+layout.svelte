@@ -5,7 +5,7 @@
     import type { MasterSettingsSchool, SchoolScheduleConfig } from '$types';
     import { setContext } from 'svelte';
     import { writable } from 'svelte/store';
-    import { masterSettings } from '$lib/store';
+    import { masterSettings } from '$lib/store/masterSettings';
     import { page } from '$app/stores';
     import { deserify, serify } from '@karmaniverous/serify-deserify';
     import CoolLink from '$lib/components/CoolLink.svelte';

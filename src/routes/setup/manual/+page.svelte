@@ -1,12 +1,13 @@
 <script type="ts">
     import ManualEntryRow from '$lib/components/ManualEntryRow.svelte';
     import ManualEntryTerm from '$lib/components/ManualEntryTerm.svelte';
-    import { masterSettings, schoolName } from '$lib/store';
+    import { masterSettings, schoolName } from '$lib/store/masterSettings';
     import { emptyCL } from '$types';
     import { toast } from 'svelte-french-toast';
     import type { Terms } from '$types';
-    import { fade } from 'svelte/transition';
-    import { isStudentvue, manualTerms } from '$lib/store';
+    // import { fade } from 'svelte/transition';
+    import { manualTerms } from '$lib/store/manual';
+    import { isStudentvue } from '$lib/store/studentvue';
     import { goto } from '$app/navigation';
     import { get, writable } from 'svelte/store';
     let selectedSchool = 0;

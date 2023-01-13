@@ -3,7 +3,7 @@
     import { getContext } from 'svelte';
     import type { SchoolScheduleConfig } from '$types';
     import ScheduleEditor from './ScheduleEditor.svelte';
-    import { masterSettings } from '$lib/store';
+    import { masterSettings } from '$lib/store/masterSettings';
     import toast from 'svelte-french-toast';
     import { nanoid } from 'nanoid';
     import { produce } from 'immer';

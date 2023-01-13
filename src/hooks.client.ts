@@ -1,5 +1,5 @@
 import { configURL } from '$lib/settings';
-import { masterSettings, lastMasterSettings } from '$lib/store';
+import { masterSettings, lastMasterSettings } from '$lib/store/masterSettings';
 import json5 from 'json5';
 import { setAutoFreeze } from 'immer';
 /*if (

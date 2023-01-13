@@ -46,7 +46,8 @@
     "svelte-fa": "^3.0.3",
     "svelte-french-toast": "^1.0.3",
     "svelty-picker": "^3.2.3",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "yup": "^0.32.11"
   },
   "lint-staged": {
     "src/**/*": "prettier --ignore-unknown --write",

@@ -77,6 +77,36 @@ export type MasterSettingsTerms = {
     end: string; // fuck you json, and your lack of dates
 }[];
 
+import { object, number, string, ObjectSchema, array, boolean } from 'yup';
+export const MasterSettingsSchema = object({
+    studentVueUrl: string().required(),
+    schools: array()
+        .of(
+            object({
+                stvName: string().required(),
+                terms: array()
+                    .of(
+                        object({
+                            start: string().required(),
+                            end: string().required(),
+                        })
+                    )
+                    .required()
+                    .min(1),
+                studentVueAdvisoryPeriod: number().required().integer(),
+                numberOfPeriods: number()
+                    .required()
+                    .min(1)
+                    .positive()
+                    .integer(),
+                hasAdvisory: boolean().required(),
+                scheduleURL: string().required(),
+            })
+        )
+        .required()
+        .min(1),
+}).noUnknown();
+
 export type SchoolScheduleConfig = {
     schedules: { [key: string]: Schedule };
     events: Map<string, Partial<SEvent>>;

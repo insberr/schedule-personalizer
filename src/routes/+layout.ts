@@ -9,7 +9,7 @@ import type { LayoutLoad } from './$types';
 
 export const load = (async () => {
     await waitForMasterSettings();
-    if (!MasterSettingsSchema.isValid(get(masterSettings))) {
+    if (!await MasterSettingsSchema.isValid(get(masterSettings))) {
         throw error(500, 'Master Configuration File is Invalid!');
     }
     return {};

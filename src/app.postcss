@@ -11,6 +11,9 @@ body {
         @apply text-left;
     }
 }
+pre.center {
+    @apply text-left;
+}
 .paper {
     //background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
     @apply bg-base-200 rounded p-6 m-3 w-fit text-center flex justify-center flex-col content-center items-center justify-items-center gap-2;
@@ -27,4 +30,21 @@ h3 {
 }
 h4 {
     @apply text-xl;
+}
+
+:root {
+    --sdt-primary: hsl(var(--p));
+    --sdt-color: hsl(var(--bc));
+    --sdt-color-selected: hsl(var(--bc));
+    --sdt-bg-main: hsl(var(--b3));
+    --sdt-bg-today: var(--sdt-primary);
+    --sdt-bg-clear: hsl(var(--er));
+    --sdt-today-bg: hsl(var(--s));
+    --sdt-today-color: hsl(var(--sc));
+    --sdt-clear-color: hsl(var(--er));
+    --sdt-btn-bg-hover: hsl(var(--pf));
+    --sdt-btn-header-bg-hover: hsl(var(--pf));
+    --sdt-clock-bg: hsl(var(--b3));
+    --sdt-shadow: hsl(var(--b3));
+    --sdt-disabled-date: hsl(var(--er));
 }

@@ -1,6 +1,7 @@
 import { configURL } from '$lib/settings';
 import { masterSettings, lastMasterSettings } from '$lib/store';
 import json5 from 'json5';
+import { setAutoFreeze } from 'immer';
 /*if (
     get(masterSettings) == undefined ||
     Date.now() - get(lastMasterSettings) >= 1000 * 60 * 60 * 24
@@ -13,7 +14,7 @@ import json5 from 'json5';
             lastMasterSettings.set(Date.now());
         });
 }*/
-
+setAutoFreeze(false);
 fetch(configURL)
     .then((r) => r.text())
     .then((r) => {

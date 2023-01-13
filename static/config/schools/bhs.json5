@@ -1,40 +1,52 @@
 {
     schedules: {
         test1: {
-            name: 'test1',
+            name: 'Test Schedule 1',
             periods: [
                 {
                     id: 4,
                     num: 1,
+                    start: '00:00',
+                    end: '01:00',
                 },
                 {
                     id: 4,
                     num: 2,
+                    start: '01:05',
+                    end: '01:30',
                 },
                 {
                     id: 4,
                     num: 3,
+                    start: '01:35',
+                    end: '02:00',
                 },
             ],
         },
         test2: {
-            name: 'test2',
+            name: 'Test schedule 2',
             periods: [
                 {
                     id: 4,
                     num: 4,
+                    start: '00:00',
+                    end: '01:00',
                 },
                 {
                     id: 4,
                     num: 5,
+                    start: '01:05',
+                    end: '01:30',
                 },
                 {
                     id: 4,
                     num: 6,
+                    start: '01:35',
+                    end: '02:00',
                 },
             ],
         },
     },
     events: [],
-    default: {},
+    defaults: {},
 }

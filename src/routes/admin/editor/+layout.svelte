@@ -7,6 +7,7 @@
     import { writable } from 'svelte/store';
     import { masterSettings } from '$lib/store';
     import { page } from '$app/stores';
+    import { deserify, serify } from '@karmaniverous/serify-deserify';
     import CoolLink from '$lib/components/CoolLink.svelte';
     //export let data: LayoutData;
     function download(filename: string, text: string) {
@@ -39,7 +40,7 @@
     });
     $: loadPromise = fetch($masterSettings.schools[$school].scheduleURL)
         .then((r) => r.text())
-        .then((r) => json5.parse(r))
+        .then((r) => deserify(json5.parse(r)))
         .then((r) => schStore.set(r));
 </script>
 
@@ -81,7 +82,12 @@
     {/if}
 {/await}
 
+<pre class="bg-base-200 w-fit p-2 text-left">
+    {json5.stringify($schStore, null, 4)}
+</pre>
+
 <button
-    class="btn btn-primary"
-    on:click={() => download(dlPath, json5.stringify($schStore))}>Finish</button
+    class="btn btn-primary center"
+    on:click={() => download(dlPath, serify(json5.stringify($schStore)))}
+    >Finish</button
 >

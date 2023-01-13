@@ -79,8 +79,8 @@ export type MasterSettingsTerms = {
 
 export type SchoolScheduleConfig = {
     schedules: { [key: string]: Schedule };
-    events: Partial<SEvent>[];
-    default: SEvent;
+    events: Map<string, Partial<SEvent>>;
+    defaults: SEvent;
 };
 export type SEvent = {
     schedule: OptionalMatcher<string>;
@@ -93,6 +93,8 @@ export type Schedule = {
 export type Period = {
     id: ClassIDS;
     num: number;
+    start: string;
+    end: string;
 };
 export type OptionalMatcher<T> = T | Matcher<T>;
 

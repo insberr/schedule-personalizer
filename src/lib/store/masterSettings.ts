@@ -2,6 +2,7 @@ import { persistWritable } from '$lib/persistStore';
 import type { MasterSettings, MasterSettingsSchool } from '$types';
 import { derived, get } from 'svelte/store';
 import json5 from 'json5';
+import { deserify } from '@karmaniverous/serify-deserify';
 export const masterSettings = persistWritable<MasterSettings>(
     'masterSettings',
     //@ts-ignore;
@@ -40,7 +41,7 @@ schoolName.subscribe((schoolName) => {
         fetch(found.scheduleURL)
             .then((r) => r.text())
             .then((sInfo) => {
-                let p = json5.parse(sInfo);
+                let p = deserify(json5.parse(sInfo));
                 scheduleConfig.set(p);
             }); // maybe change this to an array and .find?
     }

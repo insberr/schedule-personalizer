@@ -4,6 +4,7 @@ import json5 from 'json5';
 import { setAutoFreeze } from 'immer';
 import { MasterSettingsSchema } from '$types';
 import { get } from 'svelte/store';
+import { serify } from '@karmaniverous/serify-deserify';
 /*if (
     get(masterSettings) == undefined ||
     Date.now() - get(lastMasterSettings) >= 1000 * 60 * 60 * 24
@@ -47,3 +48,4 @@ fetch(configURL)
 
 //alert(JSON.stringify(MasterSettingsSchema.describe(),null,2))
 //console.log('client, ', typeof localStorage);
+//window.serify = serify;

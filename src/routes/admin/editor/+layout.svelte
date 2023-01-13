@@ -87,12 +87,12 @@
         <button
             class="btn btn-primary"
             on:click={() =>
-                download(dlPath, serify(json5.stringify($schStore)))}
+                download(dlPath, json5.stringify(serify($schStore)))}
             >Finish</button
         >
     </div>
 </div>
 
 <pre class="bg-base-200 w-fit p-5 text-left">
-    {json5.stringify($schStore, null, 4)}
+    {json5.stringify(serify($schStore), null, 4)}
 </pre>

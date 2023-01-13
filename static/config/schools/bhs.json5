@@ -26,6 +26,6 @@
             ],
         },
     },
-    events: [],
+    events: { serifyKey: null, type: 'Map', value: [] },
     defaults: {},
 }

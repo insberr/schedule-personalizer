@@ -87,7 +87,7 @@
         <button
             class="btn btn-primary"
             on:click={() =>
-                download(dlPath, json5.stringify(serify($schStore)))}
+                download(dlPath, json5.stringify(serify($schStore), null, 2))}
             >Finish</button
         >
     </div>

@@ -143,5 +143,5 @@ export type DOWMatcher<T> = {
 
 export type TermMatcher<T> = {
     matchtype: 'TERM';
-    [key: number]: T;
+    [key: string]: T | 'TERM';
 };

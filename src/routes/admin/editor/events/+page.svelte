@@ -6,6 +6,7 @@
     import SveltyPicker from 'svelty-picker';
     import { isAfter, isSameDay, format } from 'date-fns';
     import EventEditor from './EventEditor.svelte';
+    import toast from 'svelte-french-toast';
     let school = (getContext('school') as any)
         .data as Writable<SchoolScheduleConfig>;
     let sc = (getContext('school') as any).name as Writable<number>;
@@ -20,6 +21,19 @@
         $school.events.get(selectedDate) || {}
     );
     let selectedDate = format(new Date(), 'MM-dd-yyyy');
+    function save() {
+        if (
+            Object.entries($currentEvent).filter((x) => x[1] != undefined)
+                .length == 0
+        ) {
+            $school.events.delete(selectedDate);
+            $school = $school;
+            return;
+        }
+        $school.events.set(selectedDate, $currentEvent);
+        $school = $school;
+        toast.success('Saved Successfully');
+    }
 </script>
 
 <div class="center">
@@ -42,5 +56,15 @@
         <h2>Event on {selectedDate}</h2>
     </div>
 </div>
-
-<EventEditor bind:event={$currentEvent} />
+{#key selectedDate}
+    <EventEditor
+        schedules={$school.schedules}
+        {config}
+        bind:event={$currentEvent}
+    />
+{/key}
+<div class="center">
+    <div class="paper">
+        <button class="btn btn-success" on:click={save}>Save</button>
+    </div>
+</div>

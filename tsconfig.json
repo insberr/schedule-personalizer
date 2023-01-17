@@ -9,6 +9,10 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"types": [
+			"vite-plugin-pwa/client",
+			"@types/jest"
+		  ],
 		"paths": {
 			"$types": ["./src/types"],
 			"$lib": ["./src/lib"],

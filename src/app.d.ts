@@ -9,3 +9,4 @@ declare namespace App {
 }
 
 declare module '@karmaniverous/serify-deserify'; // probably should add actual types to this
+/// <reference types="vite-plugin-pwa/client" />

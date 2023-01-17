@@ -1,8 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import {resolve} from "path"
+import { SvelteKitPWA } from '@vite-pwa/sveltekit'
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit()],
+	plugins: [sveltekit(), SvelteKitPWA()],
 	resolve: {
 		alias: {
 			"stream": "stream-browserify",

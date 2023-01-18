@@ -13,7 +13,8 @@ import { existsSync } from 'fs';
 import json5 from 'json5';
 import { MasterSettingsSchema } from '$types';
 import { waitForDownloadedSchedule } from '$lib/waitFor';
-import { DCOH } from '$lib/DCOH';
+import { DeCOH } from '$lib/DeCOH';
+
 //@ts-ignore
 global.fetch = jest.fn((url: string) => {
     let fl = join(__dirname, '..', 'static', url);
@@ -33,6 +34,88 @@ beforeAll(async () => {
     let dataParsed = await MasterSettingsSchema.validate(data);
     masterSettings.set(dataParsed);
     schoolName.set('Second Test School');
+    manualTerms.set([
+        {
+            startDate: new Date('2022-09-06T07:00:00.000Z'),
+            endDate: new Date('2022-12-06T08:00:00.000Z'),
+            termIndex: 0,
+            classes: [
+                {
+                    classID: 4,
+                    period: 0,
+                    name: '111',
+                    teacher: {
+                        name: '112',
+                        email: '',
+                        id: '',
+                    },
+                    room: '113',
+                },
+                {
+                    classID: 4,
+                    period: 1,
+                    name: '121',
+                    teacher: {
+                        name: '122',
+                        email: '',
+                        id: '',
+                    },
+                    room: '123',
+                },
+                {
+                    classID: 4,
+                    period: 2,
+                    name: '131',
+                    teacher: {
+                        name: '132',
+                        email: '',
+                        id: '',
+                    },
+                    room: '133',
+                },
+            ],
+        },
+        {
+            startDate: new Date('2022-12-08T08:00:00.000Z'),
+            endDate: new Date('2023-06-23T07:00:00.000Z'),
+            termIndex: 1,
+            classes: [
+                {
+                    classID: 4,
+                    period: 0,
+                    name: '211',
+                    teacher: {
+                        name: '212',
+                        email: '',
+                        id: '',
+                    },
+                    room: '213',
+                },
+                {
+                    classID: 4,
+                    period: 1,
+                    name: '221',
+                    teacher: {
+                        name: '222',
+                        email: '',
+                        id: '',
+                    },
+                    room: '223',
+                },
+                {
+                    classID: 4,
+                    period: 2,
+                    name: '231',
+                    teacher: {
+                        name: '232',
+                        email: '',
+                        id: '',
+                    },
+                    room: '233',
+                },
+            ],
+        },
+    ]);
     await waitForDownloadedSchedule();
 }, 15 * 1000);
 
@@ -71,8 +154,13 @@ describe('Sanity checks', () => {
 describe('Derived tests', () => {});
 
 describe('Regular tests', () => {
-    it('DCOH', () => {
-        DCOH(new Date('1/18/2023'));
+    it('DeCOH', () => {
+        DeCOH(
+            new Date('1/18/2023'),
+            get(scheduleConfig),
+            get(schoolSettings),
+            get(manualTerms)
+        );
     });
 });
 

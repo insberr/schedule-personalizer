@@ -27,6 +27,7 @@ export const schoolSettings = derived(
 //@ts-ignore
 export const scheduleConfig = persistWritable<SchoolScheduleConfig>(
     'scheduleConfig',
+    //@ts-ignore;
     undefined
 );
 

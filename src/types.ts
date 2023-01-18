@@ -133,6 +133,11 @@ export type CollapsedEvent = {
     };
     message: string;
 };
+
+export type HydratedEvent = Omit<CollapsedEvent, 'schedule'> & {
+    schedule: DisplayCL[];
+};
+
 export type Schedule = {
     name: string;
     periods: Period[];
@@ -162,4 +167,9 @@ export type DOWMatcher<T> = {
 export type TermMatcher<T> = {
     matchtype: 'TERM';
     [key: string]: T | 'TERM';
+};
+
+export type DisplayCL = CL & {
+    start: string;
+    end: string;
 };

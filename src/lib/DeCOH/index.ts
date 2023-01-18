@@ -151,7 +151,10 @@ function Hydrate(
                 classID: period.id,
                 room: classFor.room,
                 teacher: classFor.teacher,
-                name: classFor.name,
+                name:
+                    classFor.name.trim() == ''
+                        ? 'Period ' + period.num.toString()
+                        : classFor.name,
             } as DisplayCL;
         } else {
             return {

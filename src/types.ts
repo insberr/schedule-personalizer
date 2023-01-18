@@ -37,7 +37,7 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
     const classes = [...Array(amt)].map((v, i) => {
         return {
             classID: ClassIDS.Period,
-            period: i,
+            period: i + (hasAdvisory ? 0 : 1),
             name: '',
             teacher: {
                 name: '',

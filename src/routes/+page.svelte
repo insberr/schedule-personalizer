@@ -20,7 +20,7 @@
     &lt;-
 </button><button class="btn" on:click={() => (d = addDays(d, 1))}> -> </button>
 <div class="center grid grid-cols-1 grid-rows-auto" use:autoAnimate>
-    {#each hydrated.schedule as cls (cls.name)}
+    {#each hydrated.schedule as cls (cls.name + cls.period + cls.classID)}
         <div class="grid grid-rows-1 grid-cols-4">
             <div>{cls.start} -> {cls.end}</div>
             <div>{cls.name}</div>

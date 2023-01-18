@@ -1,5 +1,9 @@
 import { persistWritable } from '$lib/persistStore';
-import type { MasterSettings, MasterSettingsSchool } from '$types';
+import type {
+    MasterSettings,
+    MasterSettingsSchool,
+    SchoolScheduleConfig,
+} from '$types';
 import { derived, get } from 'svelte/store';
 import json5 from 'json5';
 import { deserify } from '@karmaniverous/serify-deserify';
@@ -20,8 +24,11 @@ export const schoolSettings = derived(
         return ms.schools.find((s) => s.stvName == sn) as MasterSettingsSchool;
     }
 );
-
-export const scheduleConfig = persistWritable<any>('scheduleConfig', undefined);
+//@ts-ignore
+export const scheduleConfig = persistWritable<SchoolScheduleConfig>(
+    'scheduleConfig',
+    undefined
+);
 
 let schoolUpdateI: NodeJS.Timer | undefined;
 schoolName.subscribe((schoolName) => {

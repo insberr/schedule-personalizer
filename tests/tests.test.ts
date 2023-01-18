@@ -13,6 +13,7 @@ import { existsSync } from 'fs';
 import json5 from 'json5';
 import { MasterSettingsSchema } from '$types';
 import { waitForDownloadedSchedule } from '$lib/waitFor';
+import { DCOH } from '$lib/DCOH';
 //@ts-ignore
 global.fetch = jest.fn((url: string) => {
     let fl = join(__dirname, '..', 'static', url);
@@ -69,6 +70,10 @@ describe('Sanity checks', () => {
 
 describe('Derived tests', () => {});
 
-describe('Regular tests', () => {});
+describe('Regular tests', () => {
+    it('DCOH', () => {
+        DCOH(new Date('1/18/2023'));
+    });
+});
 
 export {};

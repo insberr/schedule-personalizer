@@ -2192,7 +2192,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.175":
+"@types/lodash.merge@npm:^4.6.7":
+  version: 4.6.7
+  resolution: "@types/lodash.merge@npm:4.6.7"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 94cd6fb8e606756a28f45d63c658aacfbce11a151f7fa322c4a3e87aa50d8bf26e0ae8cba0250070a7c5a6792fc51f79abf4c648bbb1850692be386cd76cd0ca
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*, @types/lodash@npm:^4.14.175":
   version: 4.14.191
   resolution: "@types/lodash@npm:4.14.191"
   checksum: ba0d5434e10690869f32d5ea49095250157cae502f10d57de0a723fd72229ce6c6a4979576f0f13e0aa9fbe3ce2457bfb9fa7d4ec3d6daba56730a51906d1491
@@ -5128,6 +5137,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.merge@npm:^4.6.2":
+  version: 4.6.2
+  resolution: "lodash.merge@npm:4.6.2"
+  checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
+  languageName: node
+  linkType: hard
+
 "lodash.sortby@npm:^4.7.0":
   version: 4.7.0
   resolution: "lodash.sortby@npm:4.7.0"
@@ -6406,6 +6422,7 @@ __metadata:
     "@sveltejs/adapter-static": ^1.0.0
     "@sveltejs/kit": ^1.0.0
     "@types/jest": latest
+    "@types/lodash.merge": ^4.6.7
     "@vite-pwa/sveltekit": ^0.1.2
     array-move: ^4.0.0
     autoprefixer: ^10.4.7
@@ -6416,6 +6433,7 @@ __metadata:
     jest: latest
     json5: ^2.2.3
     lint-staged: ">=10"
+    lodash.merge: ^4.6.2
     nanoid: ^4.0.0
     postcss: ^8.4.14
     postcss-load-config: ^4.0.1

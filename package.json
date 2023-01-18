@@ -16,6 +16,7 @@
   "devDependencies": {
     "@sveltejs/kit": "^1.0.0",
     "@types/jest": "latest",
+    "@types/lodash.merge": "^4.6.7",
     "@vite-pwa/sveltekit": "^0.1.2",
     "autoprefixer": "^10.4.7",
     "daisyui": "^2.18.1",
@@ -49,6 +50,7 @@
     "date-fns": "^2.29.3",
     "immer": "^9.0.17",
     "json5": "^2.2.3",
+    "lodash.merge": "^4.6.2",
     "nanoid": "^4.0.0",
     "stream-browserify": "^3.0.0",
     "svelte-fa": "^3.0.3",

@@ -135,5 +135,15 @@
             fri: 'normal',
             sat: 'weekend',
         },
+        overrides: {
+            enabled: 'lunch',
+            settings: {
+                lunch: {
+                    period: 3,
+                    teachers: {},
+                },
+            },
+        },
+        message: '',
     },
 }

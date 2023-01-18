@@ -114,6 +114,24 @@ export type SchoolScheduleConfig = {
 };
 export type SEvent = {
     schedule: OptionalMatcher<string>;
+    overrides: {
+        enabled: OptionalMatcher<string>;
+        settings: {
+            [key: string]: OptionalMatcher<any>;
+        };
+    };
+    message: OptionalMatcher<string>;
+};
+
+export type CollapsedEvent = {
+    schedule: Schedule;
+    overrides: {
+        enabled: string;
+        settings: {
+            [key: string]: any;
+        };
+    };
+    message: string;
 };
 export type Schedule = {
     name: string;

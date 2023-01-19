@@ -48,3 +48,21 @@ h4 {
     --sdt-shadow: hsl(var(--b3));
     --sdt-disabled-date: hsl(var(--er));
 }
+
+.schedule {
+    & > *:first-child {
+        @apply rounded-t-md;
+    }
+    & > *:last-child {
+        @apply rounded-b-md;
+    }
+    & > *:nth-child(odd) {
+        @apply bg-base-200;
+    }
+    & > *:nth-child(even) {
+        @apply bg-base-300;
+    }
+    & > * {
+        @apply py-2;
+    }
+}

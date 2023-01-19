@@ -6,33 +6,41 @@
         schoolName,
         schoolSettings,
     } from '$lib/store/masterSettings';
-    import Textbox from '$lib/components/Textbox.svelte';
+    //import Textbox from '$lib/components/Textbox.svelte';
     import { DeCOH } from '$lib/DeCOH';
     import { addDays, format } from 'date-fns';
     import autoAnimate from '@formkit/auto-animate';
+    //import { fade, slide } from 'svelte/transition';
     let d = new Date();
     $: hydrated = DeCOH(d, $scheduleConfig, $schoolSettings, $schedule);
 </script>
 
 <a href="/setup" class="btn btn-error">Go to setup</a>
-<h3>Hydrated schedule for {format(d, 'MM-dd-yyyy')}</h3>
 <button class="btn" on:click={() => (d = addDays(d, -1))}>
     &lt;-
-</button><button class="btn" on:click={() => (d = addDays(d, 1))}> -> </button>
-<div
-    class="m-auto flex flex-col h-fit text-center"
+</button><button class="btn" on:click={() => (d = addDays(d, 1))}>
+    -&gt;
+</button>
+<ul
+    class="schedule m-auto h-fit text-center"
     style="width:75vw"
     use:autoAnimate
 >
-    {#each hydrated.schedule as cls (cls.name + cls.period + cls.classID)}
-        <div class="flex-none grid grid-rows-1 grid-cols-4">
-            <div>{cls.start} -> {cls.end}</div>
+    <div class="text-2xl">{format(d, 'EEEE, MMMM do, yyyy')}</div>
+    <!-- I've got a great idea on how to animate this-->
+    {#each hydrated.schedule as cls (cls.period + cls.name + cls.classID + cls.start + cls.end)}
+        <div
+            class="w-full h-fit grid grid-cols-4 grid-rows-1 place-content-center justify-around justify-items-center"
+        >
+            <div>{cls.start} - {cls.end}</div>
             <div>{cls.name}</div>
-            <div>{cls.teacher.name}</div>
+            <div class="hidden md:block">{cls.teacher.name}</div>
             <div>R{cls.room}</div>
         </div>
     {/each}
-</div>
+    <div>Schedule message goes here</div>
+</ul>
+<!--
 <pre class="bg-base-200 text-left">
   {JSON.stringify(hydrated, null, 2)}
 </pre>
@@ -52,6 +60,6 @@
 <h3>school Name</h3>
 <pre class="bg-base-200 text-left">
   {$schoolName}
-</pre>
+</pre>-->
 <!--<p>Hello {$nameStore}!</p>
 <Textbox bind:value={$nameStore} isError={$nameStore.length == 0} />-->

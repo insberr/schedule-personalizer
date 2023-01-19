@@ -23,22 +23,22 @@
 </button>
 <ul
     class="schedule m-auto h-fit text-center"
-    style="width:75vw"
+    style="width: 75vw"
     use:autoAnimate
 >
-    <div class="text-2xl">{format(d, 'EEEE, MMMM do, yyyy')}</div>
+    <div class="text-xl">{format(d, 'EEEE, MMMM do, yyyy')}</div>
     <!-- I've got a great idea on how to animate this-->
     {#each hydrated.schedule as cls (cls.period + cls.name + cls.classID + cls.start + cls.end)}
         <div
-            class="w-full h-fit grid grid-cols-4 grid-rows-1 place-content-center justify-around justify-items-center"
+            class="w-full h-fit grid max-md:grid-cols-3 px-1 text-center grid-cols-4 grid-rows-1 place-content-center justify-around justify-items-center"
         >
             <div>{cls.start} - {cls.end}</div>
             <div>{cls.name}</div>
-            <div class="hidden md:block">{cls.teacher.name}</div>
-            <div>R{cls.room}</div>
+            <div class="max-md:hidden">{cls.teacher.name}</div>
+            <div class:hidden={cls.room == ''}>R{cls.room}</div>
         </div>
     {/each}
-    <div>Schedule message goes here</div>
+    <div>{hydrated.message}</div>
 </ul>
 <!--
 <pre class="bg-base-200 text-left">

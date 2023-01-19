@@ -1,0 +1,149 @@
+{
+    schedules: {
+        normal: {
+            name: 'Normal',
+            periods: [
+                {
+                    id: 0,
+                    num: 4,
+                    start: '06:35',
+                    end: '07:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '07:35',
+                    end: '08:45',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '08:50',
+                    end: '09:55',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '09:55',
+                    end: '11:40',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '11:45',
+                    end: '12:55',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '13:00',
+                    end: '14:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '14:05',
+                    end: '14:10',
+                },
+            ],
+        },
+        adv: {
+            name: 'Advisory',
+            periods: [
+                {
+                    id: 0,
+                    num: 4,
+                    start: '06:35',
+                    end: '07:30',
+                },
+                {
+                    id: 2,
+                    num: 4,
+                    start: '07:30',
+                    end: '08:05',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '08:10',
+                    end: '09:05',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '09:10',
+                    end: '10:10',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '10:10',
+                    end: '11:55',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '12:00',
+                    end: '13:00',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '13:05',
+                    end: '14:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '14:05',
+                    end: '14:10',
+                },
+            ],
+        },
+        weekend: {
+            name: 'Weekend',
+            periods: [
+                {
+                    id: 9,
+                    num: 1,
+                    start: '00:00',
+                    end: '23:59',
+                },
+            ],
+        },
+    },
+    events: {
+        serifyKey: null,
+        type: 'Map',
+        value: [
+            [
+                '01-13-2023',
+                {
+                    schedule: 'adv',
+                },
+            ],
+        ],
+    },
+    defaults: {
+        schedule: {
+            matchtype: 'DOW',
+            sun: 'weekend',
+            mon: 'normal',
+            tue: 'adv',
+            wed: 'normal',
+            thu: 'adv',
+            fri: 'normal',
+            sat: 'weekend',
+        },
+        overrides: {
+            enabled: 'lunch',
+            settings: {
+                lunch: {
+                    period: 3,
+                    teachers: {},
+                },
+            },
+        },
+        message: '',
+    },
+}

@@ -1,5 +1,10 @@
 {
-  "recommendations": [
-    "arcanis.vscode-zipfs"
-  ]
+    "recommendations": [
+        "csstools.postcss",
+        "svelte.svelte-vscode",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "mrmlnc.vscode-json5",
+        "orta.vscode-jest"
+    ]
 }

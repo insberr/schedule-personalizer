@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schedule.insberr.com/config/master.schema.json",
+    "title": "Master Config File",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "studentVueUrl": {
+            "description": "The url of studentvue",
+            "type": "string"
+        },
+        "schools": {
+            "description": "list of schools",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "stvName",
+                    "terms",
+                    "studentVueAdvisoryPeriod",
+                    "scheduleURL",
+                    "hasAdvisory",
+                    "numberOfPeriods"
+                ],
+                "properties": {
+                    "stvName": {
+                        "type": "string"
+                    },
+                    "studentVueAdvisoryPeriod": {
+                        "type": "number"
+                    },
+                    "numberOfPeriods": {
+                        "type": "number"
+                    },
+                    "hasAdvisory": {
+                        "type": "boolean"
+                    },
+                    "scheduleURL": {
+                        "type": "string"
+                    },
+                    "terms": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "start": {
+                                    "type": "string"
+                                },
+                                "end": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["start", "end"]
+                        }
+                    }
+                }
+            },
+            "minItems": 1
+        }
+    },
+    "required": ["studentVueUrl", "schools"]
+}

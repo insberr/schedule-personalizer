@@ -1,2 +1,0 @@
-import './scs.puller';
-

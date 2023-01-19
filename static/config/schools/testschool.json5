@@ -1,0 +1,80 @@
+{
+    schedules: {
+        normal: {
+            name: 'Normal',
+            periods: [
+                {
+                    id: 0,
+                    num: 4,
+                    start: '06:35',
+                    end: '07:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '07:35',
+                    end: '08:45',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '08:50',
+                    end: '09:55',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '09:55',
+                    end: '11:40',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '11:45',
+                    end: '11:50',
+                },
+            ],
+        },
+        weekend: {
+            name: 'Weekend',
+            periods: [
+                {
+                    id: 9,
+                    num: 1,
+                    start: '00:00',
+                    end: '23:59',
+                },
+            ],
+        },
+    },
+    events: {
+        serifyKey: null,
+        type: 'Map',
+        value: [
+            [
+                '01-18-2023',
+                {
+                    message: 'Special day!',
+                    overrides: { enabled: 'cutAndAddTest', settings: {} },
+                },
+            ],
+        ],
+    },
+    defaults: {
+        schedule: {
+            matchtype: 'DOW',
+            sun: 'weekend',
+            mon: 'normal',
+            tue: 'normal',
+            wed: 'normal',
+            thu: 'normal',
+            fri: 'normal',
+            sat: 'weekend',
+        },
+        overrides: {
+            enabled: '',
+            settings: {},
+        },
+        message: '',
+    },
+}

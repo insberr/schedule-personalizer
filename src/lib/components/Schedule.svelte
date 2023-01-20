@@ -15,8 +15,7 @@
 </script>
 
 <ul
-    class="schedule m-auto h-fit text-center"
-    style="width: 75vw"
+    class="schedule m-auto h-fit text-center w-[90vw] sm:w-[75vw]"
     use:autoAnimate
 >
     <div

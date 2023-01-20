@@ -27,10 +27,10 @@
     );
 </script>
 
-<div>
-    <span>{$progress.toFixed(2)}%</span>
+<div class="w-full flex flex-row items-center">
+    <span class="w-fit mx-2">{$progress.toFixed(2)}%</span>
     <progress
-        class="progress progress-success w-1/2"
+        class="progress progress-success mx-2"
         value={$progress}
         max={100}
     />

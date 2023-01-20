@@ -14,6 +14,7 @@
     let hide = true;
     export let displayDate: Date;
     export let cls: DisplayCL;
+    export let index: number;
     let currentDate = new Date();
     onMount(() => {
         let x = setInterval(() => {
@@ -27,9 +28,11 @@
     $: startTime = parse(cls.start, 'HH:mm', displayDate);
     $: endTime = parse(cls.end, 'HH:mm', displayDate);
     $: isNow = isAfter(currentDate, startTime) && isAfter(endTime, currentDate);
+    $: isOdd = index % 2 == 1;
 </script>
 
 <div
+    class={isOdd ? 'bg-base-200' : 'bg-base-300'}
     on:click={() => {
         hide = !hide;
     }}

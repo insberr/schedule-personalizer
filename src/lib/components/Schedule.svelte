@@ -14,10 +14,12 @@
     style="width: 75vw"
     use:autoAnimate
 >
-    <div class="text-xl"><FancyDate {displayDate} /></div>
+    <div class="bg-base-200 text-xl"><FancyDate {displayDate} /></div>
     <!-- I've got a great idea on how to animate this-->
-    {#each hydrated.schedule as cls (cls.period + cls.name + cls.classID)}
-        <ScheduleRow {cls} {displayDate} />
+    {#each hydrated.schedule as cls, i (cls.period + cls.name + cls.classID)}
+        <ScheduleRow {cls} {displayDate} index={i} />
     {/each}
-    <div>{hydrated.message}</div>
+    <div class={hydrated.schedule.length % 2 ? 'bg-base-200' : 'bg-base-300'}>
+        {hydrated.message}
+    </div>
 </ul>

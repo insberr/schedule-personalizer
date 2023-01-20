@@ -1,21 +1,13 @@
 <script>
-    import { format } from 'date-fns';
-    import { addDays } from 'date-fns/fp';
-    import autoAnimate from '@formkit/auto-animate';
     //import { fade, slide } from 'svelte/transition';
-    import { displayDate, hydrated } from '$lib/DeCOH/store';
     import Schedule from '$lib/components/Schedule.svelte';
+    import { hydrated } from '$lib/DeCOH/store';
 </script>
 
 <a href="/setup" class="btn btn-error">Go to setup</a>
-<button class="btn" on:click={() => displayDate.update(addDays(-1))}>
-    &lt;-
-</button><button class="btn" on:click={() => displayDate.update(addDays(1))}>
-    -&gt;
-</button>
 
 {#if $hydrated != undefined}
-    <Schedule hydrated={$hydrated} displayDate={$displayDate} />
+    <Schedule hydrated={$hydrated} />
 {/if}
 <!--
 <pre class="bg-base-200 text-left">

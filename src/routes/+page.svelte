@@ -4,11 +4,19 @@
     import { hydrated } from '$lib/DeCOH/store';
 </script>
 
-<a href="/setup" class="btn btn-error">Go to setup</a>
+<div
+    class="flex flex-col justify-center justify-items-center items-center"
+    style="width:100vw; height:100vh"
+>
+    <div class="w-fit h-fit">
+        {#if $hydrated != undefined}
+            <Schedule hydrated={$hydrated} />
+        {/if}
+    </div>
+    <a href="/setup" class="btn btn-error my-5">Go to setup (remove me later)</a
+    >
+</div>
 
-{#if $hydrated != undefined}
-    <Schedule hydrated={$hydrated} />
-{/if}
 <!--
 <pre class="bg-base-200 text-left">
   {JSON.stringify(hydrated, null, 2)}

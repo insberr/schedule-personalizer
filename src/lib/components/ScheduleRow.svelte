@@ -1,16 +1,18 @@
 <script type="ts">
     import type { DisplayCL } from '$types';
     import autoAnimate from '@formkit/auto-animate';
-    import { endOfDecade, format, isAfter, parse } from 'date-fns';
+    import { format, isAfter, parse } from 'date-fns';
     import { onMount } from 'svelte';
     import { slide } from 'svelte/transition';
     import Fa from 'svelte-fa';
+    import Countdown from './Countdown.svelte';
     import {
         faCircle,
         faMinus,
         faPlus,
         faSun,
     } from '@fortawesome/free-solid-svg-icons';
+    import DateBar from './DateBar.svelte';
     let hide = true;
     export let displayDate: Date;
     export let cls: DisplayCL;
@@ -55,17 +57,23 @@
         <div class="px-2" />
     </div>
     {#if !hide}
-        <div transition:slide|local class="bottom block">
-            {#if isNow}
-                <!-- During class -->
-                {cls.name} ends in 420 minutes, 69000 seconds
-            {:else if isAfter(currentDate, endTime)}
-                <!-- After Class -->
-                Class Ended
-            {:else}
-                <!-- Before Class -->
-                {cls.name} begins in 420 minutes, 69000 seconds
-            {/if}
+        <div transition:slide|local class="bottom flex flex-col">
+            <div>Details about class, grades, and other stuff here</div>
+            <div>
+                {#if isAfter(currentDate, endTime)}
+                    Class Ended
+                {:else}
+                    {cls.name}
+                    {isNow ? 'ends' : 'begins'} in <Countdown
+                        destDate={isNow ? endTime : startTime}
+                    />
+                {/if}
+            </div>
+            <div>
+                {#if isNow}
+                    <DateBar startDate={startTime} destDate={endTime} />
+                {/if}
+            </div>
         </div>
     {/if}
 </div>

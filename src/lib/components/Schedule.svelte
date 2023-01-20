@@ -19,9 +19,11 @@
     style="width: 75vw"
     use:autoAnimate
 >
-    <div class="bg-base-200 text-xl flex flex-row justify-evenly items-center">
+    <div
+        class="bg-base-200 text-xl flex gap-3 flex-row justify-evenly items-center"
+    >
         <button
-            class="btn btn-primary btn-circle"
+            class="btn btn-primary btn-circle mx-3"
             on:click={() => displayDate.update(addDays(-1))}
         >
             <Fa icon={faArrowLeft} />
@@ -30,7 +32,7 @@
             <FancyDate displayDate={$displayDate} />
         </div>
         <button
-            class="btn btn-primary btn-circle"
+            class="btn btn-primary btn-circle mx-3"
             on:click={() => displayDate.update(addDays(1))}
         >
             <Fa icon={faArrowRight} />

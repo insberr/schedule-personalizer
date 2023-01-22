@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "ts-node/node16/tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "$types": ["./src/types"],
+            "$lib": ["./src/lib"],
+            "$lib/*": ["./src/lib/*"]
+        },
+        "baseUrl": "..",
+        "esModuleInterop": true,
+        "types": ["node"],
+        "moduleResolution": "node",
+        "module": "esnext",
+        "target": "esnext"
+    }
+}

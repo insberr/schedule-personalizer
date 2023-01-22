@@ -1,5 +1,3 @@
-// the json5 extension doesnt support json schemas which is cringe, and it doesnt support gitpod either
-// maybe move to .jsonc? which is just json with comments.
 {
     $schema: 'master.schema.json',
     studentVueUrl: 'wa-beth-psv.edupoint.com',
@@ -23,7 +21,2430 @@
             hasAdvisory: true,
             numberOfPeriods: 6,
             studentVueAdvisoryPeriod: 8,
-            scheduleURL: '/config/schools/bhs.json5', // passed directly to fetch
+            scheduleURL: '/config/schools/bhs.json5',
+            staff: [
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Adams',
+                        middle: 'N',
+                    },
+                    email: 'JADAMS@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '8BB5913B-8501-4333-B5F3-3948508F47CA',
+                },
+                {
+                    name: {
+                        first: 'John',
+                        last: 'Ainslie',
+                        middle: 'R',
+                    },
+                    email: 'JAINSLIE@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '189C95B7-E411-4998-8B75-999707DBF85C',
+                },
+                {
+                    name: {
+                        first: 'David',
+                        last: 'Allen',
+                        middle: 'M',
+                    },
+                    email: 'DAALLEN@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '1522F63C-385F-4A8F-B89D-3E6F46012FE3',
+                },
+                {
+                    name: {
+                        first: 'Derek',
+                        last: 'Anderson',
+                        middle: 'A',
+                    },
+                    email: 'DAANDERSON@BETHELSD.ORG',
+                    title: 'TERMINATED,SUBSTITUTE',
+                    id: '2082227C-4340-4A77-9BFD-2A91DE42E5F4',
+                },
+                {
+                    name: {
+                        first: 'Rachel',
+                        last: 'Angotti',
+                        middle: 'A',
+                    },
+                    email: 'RANGOTTI@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: '9B795071-1EAF-492B-A84B-209DE77148BC',
+                },
+                {
+                    name: {
+                        first: 'John',
+                        last: 'Apostolides',
+                        middle: 'B',
+                    },
+                    email: 'JAPOSTOLID@BETHELSD.ORG',
+                    title: 'JROTC-EXTENDED ACTIVITIES',
+                    id: '02E56D4C-FFAD-4A44-A7B9-9927CB1B2787',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Appel',
+                        middle: 'L',
+                    },
+                    email: 'JAPPEL@bethelsd.org',
+                    title: 'ASSIST PRINCIPAL',
+                    id: '34FBE2FB-F14B-4919-BEE2-E9C03D83EEED',
+                },
+                {
+                    name: {
+                        first: 'Mihwi',
+                        last: 'Arakaki',
+                    },
+                    email: 'MARAKAKI@BETHELSD.ORG',
+                    title: 'CN-HELPER',
+                    id: 'ED0581C9-B561-46D9-B173-399DD5347A0D',
+                },
+                {
+                    name: {
+                        first: 'Mara',
+                        last: 'Areglo',
+                        middle: 'M',
+                    },
+                    email: 'MAREGLO@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '4BD82932-2A47-4372-92D8-22BF7EAF33C2',
+                },
+                {
+                    name: {
+                        first: 'Jonas',
+                        last: 'Asamoah Boateng',
+                    },
+                    email: 'JASAMOAHBO@bethelsd.org',
+                    title: 'COUNSELOR',
+                    id: '97150CCD-1249-4129-962C-E8954C456C1E',
+                },
+                {
+                    name: {
+                        first: 'Dorothy',
+                        last: 'Asbridge',
+                        middle: 'J',
+                    },
+                    email: 'DASBRIDGE@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '57BC10D0-755A-45C0-82A3-361B695E94F4',
+                },
+                {
+                    name: {
+                        first: 'Michael',
+                        last: 'Athow',
+                        middle: 'J',
+                    },
+                    email: 'MATHOW@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'C9BE92E6-237B-448A-9917-5F32AF5AA51A',
+                },
+                {
+                    name: {
+                        first: 'Chelsea',
+                        last: 'Baker',
+                        middle: 'C',
+                    },
+                    email: 'CBAKER@BETHELSD.ORG',
+                    title: 'ASSIST PRINCIPAL',
+                    id: '02003CA1-57C9-4FA5-9645-88AC15224887',
+                },
+                {
+                    name: {
+                        first: 'Veronika',
+                        last: 'Barger',
+                    },
+                    email: 'VBARGER@BETHELSD.ORG',
+                    title: 'HEAD CUST-SR HIGH',
+                    id: '5D326F96-4D35-470C-9CB7-F74D2A33D4E9',
+                },
+                {
+                    name: {
+                        first: 'Lucy',
+                        last: 'Barlow',
+                        middle: 'I',
+                    },
+                    email: 'LBARLOW@BETHELSD.ORG',
+                    title: 'CUSTODIAN',
+                    id: '903DA3E2-47ED-4466-B9DF-CC39DBB7FA6E',
+                },
+                {
+                    name: {
+                        first: 'Carlotta',
+                        last: 'Barnette',
+                        middle: 'A',
+                    },
+                    email: 'CBARNETTE@BETHELSD.ORG',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '743247FA-3794-433D-B93B-3B8F928D51CC',
+                },
+                {
+                    name: {
+                        first: 'Moriah',
+                        last: 'Battershell',
+                        middle: 'R',
+                    },
+                    email: 'MBATTERSHE@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'E5716473-08E1-4A5F-8801-E9134650F1A3',
+                },
+                {
+                    name: {
+                        first: 'Matthew',
+                        last: 'Beatty',
+                    },
+                    email: 'MBEATTY@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: '0AD4E730-8F18-4E95-AEEA-2ED5C337C151',
+                },
+                {
+                    name: {
+                        first: 'Debra',
+                        last: 'Beckwith',
+                        middle: 'L',
+                    },
+                    email: 'DBECKWITH@BETHELSD.ORG',
+                    title: 'CTE BUSNSS / MARKTNG',
+                    id: '3ED4A9A4-1C03-4B3A-AB2C-394FBAD20616',
+                },
+                {
+                    name: {
+                        first: 'Katherine',
+                        last: 'Benson',
+                        middle: 'E',
+                    },
+                    email: 'KBENSON@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: 'AB752D13-733E-442E-BF28-4F0D007240E2',
+                },
+                {
+                    name: {
+                        first: 'Ashley',
+                        last: 'Blake',
+                        middle: 'L',
+                    },
+                    email: 'ABLAKE@bethelsd.org',
+                    title: 'SCIENCE',
+                    id: '6DFFE869-54D1-4F06-AD75-67938B03D054',
+                },
+                {
+                    name: {
+                        first: 'James',
+                        last: 'Bland',
+                        middle: 'W',
+                    },
+                    email: 'JBLAND@bethelsd.org',
+                    title: 'CTE AUTOMOTIVE',
+                    id: 'E2899865-11A1-4C45-A63B-25BFBE878157',
+                },
+                {
+                    name: {
+                        first: 'Brent',
+                        last: 'Bloomfield-Niemi',
+                        middle: 'A',
+                    },
+                    email: 'BBLOOMFIEL@BETHELSD.ORG',
+                    title: 'COUNSELOR',
+                    id: '91144B26-E94B-4458-81BE-760C041BA4B2',
+                },
+                {
+                    name: {
+                        first: 'Leisha',
+                        last: 'Bonine',
+                        middle: 'A',
+                    },
+                    email: 'LBONINE@BETHELSD.ORG',
+                    title: 'ASSIST PRINCIPAL',
+                    id: '2780E489-CB20-435C-95B3-0894791ED717',
+                },
+                {
+                    name: {
+                        first: 'Melissa',
+                        last: 'Boyd',
+                        middle: 'M',
+                    },
+                    email: 'MBOYD@BETHELSD.ORG',
+                    title: 'DIR-HUMAN RESOURCES',
+                    id: 'DCF96BA4-5742-4C95-8864-EA32C45CC7EA',
+                },
+                {
+                    name: {
+                        first: 'Krisula',
+                        last: 'Brady',
+                        middle: 'M',
+                    },
+                    email: 'KRBRADY@BETHELSD.ORG',
+                    title: 'SCHOOL NURSE',
+                    id: 'ACCE9F0D-435F-4BC4-A203-E560C925D5ED',
+                },
+                {
+                    name: {
+                        first: 'Jacklyn',
+                        last: 'Brendible',
+                        middle: 'V',
+                    },
+                    email: 'JBRENDIBLE@bethelsd.org',
+                    title: 'CTE HORT/NAT RESRCS',
+                    id: '1FD1AA82-942A-40EE-95D4-F34305640AF6',
+                },
+                {
+                    name: {
+                        first: 'Penny',
+                        last: 'Bridges',
+                        middle: 'A',
+                    },
+                    email: 'PBRIDGES@BETHELSD.ORG',
+                    title: 'PARA-MAINSTREAM SPED SUPPORT',
+                    id: '6CE05384-AE14-42BC-AFD8-56668692CD4B',
+                },
+                {
+                    name: {
+                        first: 'Jonathan',
+                        last: 'Bridgman',
+                        middle: 'I',
+                    },
+                    email: 'JBRIDGMAN@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: 'B516848B-086A-4D34-A880-8003A79A5772',
+                },
+                {
+                    name: {
+                        first: 'Calen',
+                        last: 'Bristow',
+                        middle: 'J',
+                    },
+                    email: 'CBRISTOW@bethelsd.org',
+                    title: 'ASSOC ADMIN',
+                    id: '3C47F3B2-3641-4CFD-AC80-E684F11B1A94',
+                },
+                {
+                    name: {
+                        first: 'David',
+                        last: 'Brokaw',
+                        middle: 'C',
+                    },
+                    email: 'DCBROKAW@BETHELSD.ORG',
+                    title: 'BIOLOGY',
+                    id: '5055B0DF-34AB-42AA-8AD4-07E7FB95293E',
+                },
+                {
+                    name: {
+                        first: 'Tim',
+                        last: 'Brown',
+                        middle: 'D',
+                    },
+                    email: 'TBROWN@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '76F28D37-BACE-4732-9EC7-613C0C168C53',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Bruer-Vandeweert',
+                        middle: 'E',
+                    },
+                    email: 'JBRUERVAND@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '7EDEECA4-5DD2-452A-9764-255A855A03E1',
+                },
+                {
+                    name: {
+                        first: 'Wendy',
+                        last: 'Bustamante',
+                        middle: 'A',
+                    },
+                    email: 'WBUSTAMANT@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'C480CA37-6D58-4B52-8384-307ED220F777',
+                },
+                {
+                    name: {
+                        first: 'Brandon',
+                        last: 'Cain',
+                        middle: 'M',
+                    },
+                    email: 'BCAIN@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: 'E348AC0E-CC2C-4EC4-B3FE-122982161F4E',
+                },
+                {
+                    name: {
+                        first: 'Brandon',
+                        last: 'Calos',
+                        middle: 'N',
+                    },
+                    email: 'BCALOS@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: 'B78EA3D9-B3C7-4DA9-B9BF-204181F8C3FA',
+                },
+                {
+                    name: {
+                        first: 'Christine',
+                        last: 'Cambra',
+                        middle: 'A',
+                    },
+                    email: 'CCAMBRA@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: '684B20C2-BAB0-4E22-BFE0-22F8CBB994C5',
+                },
+                {
+                    name: {
+                        first: 'Jason',
+                        last: 'Cambra',
+                        middle: 'W',
+                    },
+                    email: 'JCAMBRA@bethelsd.org',
+                    title: 'COUNSELOR',
+                    id: '9644A788-B9C2-4D1F-B6DA-23A3589DBB75',
+                },
+                {
+                    name: {
+                        first: 'William',
+                        last: 'Capsel',
+                        middle: 'M',
+                    },
+                    email: 'WCAPSEL@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '71914428-3E74-4DBE-8924-1A9B0F87A9D0',
+                },
+                {
+                    name: {
+                        first: 'Jason',
+                        last: 'Carrell',
+                        middle: 'D',
+                    },
+                    email: 'JCARRELL@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: 'D271A345-ED7C-412A-BB26-27A41FE3399D',
+                },
+                {
+                    name: {
+                        first: 'Roy',
+                        last: 'Chambers',
+                    },
+                    email: 'RCHAMBERS@BETHELSD.ORG',
+                    title: 'CAMPUS SAFETY ASST',
+                    id: 'D572BDB6-B1F9-4B6B-B889-24BF784E8ECB',
+                },
+                {
+                    name: {
+                        first: 'Mary',
+                        last: 'Chege',
+                        middle: 'W',
+                    },
+                    email: 'MCHEGE@bethelsd.org',
+                    title: 'CTE BUSINESS/DIGITOOLS',
+                    id: 'E2146C04-9FBC-40FD-9845-93411A7D1AF9',
+                },
+                {
+                    name: {
+                        first: 'Bhs',
+                        last: 'Class Open',
+                    },
+                    email: '',
+                    title: 'Staff Year Record Needed',
+                    id: 'BBE3CBED-00AB-481F-BA8B-A0C8F5BD00FD',
+                },
+                {
+                    name: {
+                        first: 'Bhs',
+                        last: 'Class Open',
+                        middle: '1',
+                    },
+                    email: '',
+                    title: 'Staff Year Record Needed',
+                    id: '8D6B56F6-1C45-4639-9BDC-ACEB6A8249BD',
+                },
+                {
+                    name: {
+                        first: 'Heather',
+                        last: 'Cooper',
+                        middle: 'R',
+                    },
+                    email: 'HCOOPER@bethelsd.org',
+                    title: 'CLK-MOBILE DEVICE TECHNOLOGY SUPPORT',
+                    id: '9323D011-7A64-407B-9C95-9394A0CE5822',
+                },
+                {
+                    name: {
+                        first: 'Mallory',
+                        last: 'Cornia',
+                        middle: 'A',
+                    },
+                    email: 'MCORNIA@bethelsd.org',
+                    title: 'MUSIC BAND/INSTRUMENTAL',
+                    id: 'A88C28D8-884B-46E0-B7C9-4B471B816F43',
+                },
+                {
+                    name: {
+                        first: 'Test',
+                        last: 'Counselor',
+                    },
+                    email: 'test@bethelsd.org',
+                    title: 'Staff Year Record Needed',
+                    id: 'D0BE8C3F-08B4-48BA-AA0A-7C03472D4121',
+                },
+                {
+                    name: {
+                        first: 'Janeen',
+                        last: 'Covell',
+                        middle: 'B',
+                    },
+                    email: 'JCOVELL@bethelsd.org',
+                    title: 'SOCIAL WORKER',
+                    id: 'B903D801-3CD3-459F-892E-86B8AAADC2A2',
+                },
+                {
+                    name: {
+                        first: 'Hollie',
+                        last: 'Cox',
+                        middle: 'F',
+                    },
+                    email: 'HCOX@BETHELSD.ORG',
+                    title: 'CAMPUS SAFETY ASST',
+                    id: '7B9AE4DE-699F-4749-816E-EA30EBD3529D',
+                },
+                {
+                    name: {
+                        first: 'Haili',
+                        last: 'Crow-Cyr',
+                        middle: 'L',
+                    },
+                    email: 'HCROWCYR@bethelsd.org',
+                    title: 'SOCIAL WORKER',
+                    id: '313E705D-A466-4B89-9F26-B335CC5F17E7',
+                },
+                {
+                    name: {
+                        first: 'Katheryn',
+                        last: 'Dansereau',
+                        middle: 'A',
+                    },
+                    email: 'KDANSEREAU@bethelsd.org',
+                    title: 'BIOLOGY',
+                    id: '9C064163-370F-4D03-96A0-A57D0E06B8F7',
+                },
+                {
+                    name: {
+                        first: 'Kolby',
+                        last: 'Darisme',
+                    },
+                    email: 'KDARISME@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '1F58B681-34C4-4B37-BD18-E6A59561ED54',
+                },
+                {
+                    name: {
+                        first: 'Sherry',
+                        last: 'Davis',
+                        middle: 'L',
+                    },
+                    email: 'SDAVIS@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'DD9C792A-84F5-4A77-AA27-9D489450B4B0',
+                },
+                {
+                    name: {
+                        first: 'Tracey',
+                        last: 'Dawkins',
+                        middle: 'L',
+                    },
+                    email: 'TDAWKINS@BETHELSD.ORG',
+                    title: 'CUSTODIAN',
+                    id: '7425C650-A24B-4751-8F39-63463BEEF62E',
+                },
+                {
+                    name: {
+                        first: 'Christopher',
+                        last: 'Dent',
+                        middle: 'C',
+                    },
+                    email: 'CDENT@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '8466D192-7E2D-4835-B2F4-F82C152E8862',
+                },
+                {
+                    name: {
+                        first: 'Jeffrey',
+                        last: 'Donaldson',
+                        middle: 'R',
+                    },
+                    email: 'JDONALDSON@bethelsd.org',
+                    title: 'PARA-NONMAIN SPED ILC SUPPORT',
+                    id: '085B78F7-0225-49EA-B600-EE1456D20586',
+                },
+                {
+                    name: {
+                        first: 'Alexandra',
+                        last: 'Doolittle',
+                        middle: 'L',
+                    },
+                    email: 'ADOOLITTLE@BETHELSD.ORG',
+                    title: 'SEC-PRINCIPAL',
+                    id: 'FCFBD517-8B6F-4F39-B307-8FA787B91487',
+                },
+                {
+                    name: {
+                        first: 'Suzanne',
+                        last: 'Doyle',
+                        middle: 'M',
+                    },
+                    email: 'SDOYLE@BETHELSD.ORG',
+                    title: 'SOCIAL STUDIES',
+                    id: 'A7ABDA74-2925-42EF-AC7C-6326DC6E4B20',
+                },
+                {
+                    name: {
+                        first: 'Teresa',
+                        last: 'Drivas',
+                    },
+                    email: 'TDRIVAS@bethelsd.org',
+                    title: 'REGISTRAR, HIGH SCHOOL',
+                    id: '8C723135-4BBB-492D-A3A0-4679A277C88A',
+                },
+                {
+                    name: {
+                        first: 'Theresa',
+                        last: 'Duane',
+                        middle: 'C',
+                    },
+                    email: 'TDUANE@bethelsd.org',
+                    title: 'SPEECH / LANG PATH',
+                    id: '2C1B8695-AF63-4EDD-A7E6-F5EB5F7EE5B4',
+                },
+                {
+                    name: {
+                        first: 'Robert',
+                        last: 'Duke',
+                        middle: 'B',
+                    },
+                    email: 'RDUKE@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: '272FB6F0-4ABA-43CD-AF15-E867D873AC82',
+                },
+                {
+                    name: {
+                        first: 'Thomas',
+                        last: 'Eaton',
+                        middle: 'L',
+                    },
+                    email: 'TEATON@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'EA481B86-3564-4812-838B-292CEB52042B',
+                },
+                {
+                    name: {
+                        first: 'Sage',
+                        last: 'Ehrlick',
+                    },
+                    email: 'SEHRLICK@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '222DFA7B-DE1E-44E2-8DCD-E1F09F1A82CF',
+                },
+                {
+                    name: {
+                        first: 'Patsy',
+                        last: 'Elliott',
+                        middle: 'L',
+                    },
+                    email: 'PELLIOTT@BETHELSD.ORG',
+                    title: 'CN-HELPER',
+                    id: '2ACD2B43-231B-4B16-A419-E7DD8F84736A',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Estrada',
+                        middle: 'B',
+                    },
+                    email: 'JESTRADA@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: '5A278915-6DA9-45BF-967A-D3C6909CAE36',
+                },
+                {
+                    name: {
+                        first: 'Aimi',
+                        last: 'Farmer',
+                    },
+                    email: 'AFARMER@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '0C2E8C5C-4F82-4F30-B4B3-EF7745AB63C4',
+                },
+                {
+                    name: {
+                        first: 'Zesty',
+                        last: 'Fernandez',
+                        middle: 'A',
+                    },
+                    email: 'ZFERNANDEZ@bethelsd.org',
+                    title: 'CTE BUSINESS/DIGITOOLS',
+                    id: '918E6D22-B9A4-433C-AABF-A9B89FF5B6EF',
+                },
+                {
+                    name: {
+                        first: 'Ruby',
+                        last: 'Fia',
+                        middle: 'S',
+                    },
+                    email: 'RFIA@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'FEC34F66-B080-4F34-B598-5AD62FA6528B',
+                },
+                {
+                    name: {
+                        first: 'Katrina',
+                        last: 'Fjeld',
+                        middle: 'A',
+                    },
+                    email: 'KFJELD@BETHELSD.ORG',
+                    title: 'CLK-ASB HIGH SCHOOL',
+                    id: '9E406B86-1EE1-4C29-A143-76EF8793B4C3',
+                },
+                {
+                    name: {
+                        first: 'Patricia',
+                        last: 'Fleming',
+                    },
+                    email: 'PAFLEMING@bethelsd.org',
+                    title: 'LPN SPED',
+                    id: 'E58D1A62-5E7A-4F5D-98A1-8255222E36AC',
+                },
+                {
+                    name: {
+                        first: 'Lita',
+                        last: 'Forse',
+                        middle: 'L',
+                    },
+                    email: 'LFORSE@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: '0F1BEED4-C6A0-4C0C-A75E-2980111A3E4E',
+                },
+                {
+                    name: {
+                        first: 'Demetrius',
+                        last: 'Forte',
+                        middle: 'L',
+                    },
+                    email: 'DFORTE@bethelsd.org',
+                    title: 'CTE BUSNSS / MARKTNG',
+                    id: 'F8AA9E95-0D5B-4B0D-9A81-262AC7DD9832',
+                },
+                {
+                    name: {
+                        first: 'Ethan',
+                        last: 'Fowler',
+                        middle: 'T',
+                    },
+                    email: 'EFOWLER@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '11FF7A1C-7D63-4644-BAAE-D59851A2DC6A',
+                },
+                {
+                    name: {
+                        first: 'Krystall',
+                        last: 'Fowler',
+                    },
+                    email: 'KFOWLER@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: 'EF0E762D-7A7D-4BBD-864B-4C6D6743E9FF',
+                },
+                {
+                    name: {
+                        first: 'Raylene',
+                        last: 'Fowler',
+                        middle: 'K',
+                    },
+                    email: 'RFOWLER@BETHELSD.ORG',
+                    title: 'SCIENCE',
+                    id: 'E3741ADD-A38D-4CF3-8628-80E31B902401',
+                },
+                {
+                    name: {
+                        first: 'Dawn',
+                        last: 'Fox',
+                        middle: 'W',
+                    },
+                    email: 'DFOX@BETHELSD.ORG',
+                    title: 'SCHOOL NURSE',
+                    id: '468C1E0A-CFA7-4279-B69E-EE1DA7E010FD',
+                },
+                {
+                    name: {
+                        first: 'Ana',
+                        last: 'Fradette',
+                        middle: 'L',
+                    },
+                    email: 'AFRADETTE@bethelsd.org',
+                    title: 'CN-SERVING COOK',
+                    id: '04AA2A74-C696-4658-8433-3523034B0927',
+                },
+                {
+                    name: {
+                        first: 'Douglas',
+                        last: 'Fradette',
+                        middle: 'R',
+                    },
+                    email: 'DFRADETTE@bethelsd.org',
+                    title: 'CUSTODIAN',
+                    id: '0D035657-7877-4DC8-AFDE-70DF39F8375E',
+                },
+                {
+                    name: {
+                        first: 'Sadie',
+                        last: 'Frady',
+                        middle: 'L',
+                    },
+                    email: 'SFRADY@BETHELSD.ORG',
+                    title: 'CTE BIOMEDICAL SCIENCE',
+                    id: '1C531504-DCF3-45C8-9C6A-D8871020CED1',
+                },
+                {
+                    name: {
+                        first: 'Hasani',
+                        last: 'Frederick',
+                    },
+                    email: 'HFREDERICK@BETHELSD.ORG',
+                    title: 'TERMINATED,SUBSTITUTE',
+                    id: 'FA9DFAA2-9D5E-45B9-B6E5-88EBA6B1F1EF',
+                },
+                {
+                    name: {
+                        first: 'Kristina',
+                        last: 'Frederick',
+                        middle: 'M',
+                    },
+                    email: 'KFREDERICK@BETHELSD.ORG',
+                    title: 'ASSOC ADMIN',
+                    id: '5FEDD292-E101-4C7E-B4AC-E4578C9F1C6D',
+                },
+                {
+                    name: {
+                        first: 'Amanda',
+                        last: 'Fritcher',
+                        middle: 'M',
+                    },
+                    email: 'AFRITCHER@bethelsd.org',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: '1BDA9250-82E9-4FFC-A823-B050D4ABC8F6',
+                },
+                {
+                    name: {
+                        first: 'Hollis',
+                        last: 'Fryer',
+                    },
+                    email: 'HFRYER@bethelsd.org',
+                    title: 'CUSTODIAN',
+                    id: '3351A016-FA38-4E91-BB0B-493770810C13',
+                },
+                {
+                    name: {
+                        first: 'Markelle',
+                        last: 'Gallagher',
+                        middle: 'E',
+                    },
+                    email: 'MGALLAGHER@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '54DCF62C-F808-4186-AD5B-32DCDADE4F6A',
+                },
+                {
+                    name: {
+                        first: 'Kenneth',
+                        last: 'Gardner',
+                        middle: 'A',
+                    },
+                    email: 'KGARDNER@BETHELSD.ORG',
+                    title: 'RESOURCE ROOM',
+                    id: '6A3A1070-A936-4DC5-9DB3-9D0DF300406C',
+                },
+                {
+                    name: {
+                        first: 'Denise',
+                        last: 'Gibbs',
+                        middle: 'R',
+                    },
+                    email: 'DGIBBS@bethelsd.org',
+                    title: 'CTE BUSINESS/DIGITOOLS',
+                    id: '05B18ACF-4FB0-4D48-A97B-5E8A295FE753',
+                },
+                {
+                    name: {
+                        first: 'Christina',
+                        last: 'Gillis',
+                        middle: 'A',
+                    },
+                    email: 'CGILLIS@bethelsd.org',
+                    title: 'REGISTRAR, HIGH SCHOOL',
+                    id: '52633B2C-4B85-4D0C-A04C-BAF199FBAE4B',
+                },
+                {
+                    name: {
+                        first: 'Irl',
+                        last: 'Gladfelter',
+                        middle: 'A',
+                    },
+                    email: 'IGLADFELTE@bethelsd.org',
+                    title: 'VISUAL ART',
+                    id: '4CE7FB9A-1C6F-4174-9C50-9F32F056B707',
+                },
+                {
+                    name: {
+                        first: 'Roy',
+                        last: 'Greenland',
+                        middle: 'F',
+                    },
+                    email: 'RGREENLAND@bethelsd.org',
+                    title: 'SPECIAL ED (EBD)',
+                    id: 'B166B6A9-11AA-44BD-B68E-1518401C5214',
+                },
+                {
+                    name: {
+                        first: 'Marseille',
+                        last: 'Grimaldi',
+                    },
+                    email: 'MGRIMALDI@bethelsd.org',
+                    title: 'WL SPANISH',
+                    id: 'D719CA06-D9DE-41CE-A720-E85875F2B2B5',
+                },
+                {
+                    name: {
+                        first: 'Dennis',
+                        last: 'Haegele',
+                        middle: 'S',
+                    },
+                    email: 'DHAEGELE@BETHELSD.ORG',
+                    title: 'HEALTH / FITNESS',
+                    id: '11F13E4A-D3C2-44C2-B85E-E42D044C4A7D',
+                },
+                {
+                    name: {
+                        first: 'Michelle',
+                        last: 'Hamilton',
+                        middle: 'Y',
+                    },
+                    email: 'MHAMILTON@BETHELSD.ORG',
+                    title: 'CTE FAM/CONSUMER SCI',
+                    id: '5ED1F075-B1E6-4012-9F25-F9BD96DE3CB7',
+                },
+                {
+                    name: {
+                        first: 'Brittney',
+                        last: 'Harris',
+                        middle: 'V',
+                    },
+                    email: 'BRHARRIS@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '2BF9E3C8-9635-4E8F-A670-9A607A90172E',
+                },
+                {
+                    name: {
+                        first: 'Theresa',
+                        last: 'Hawes',
+                        middle: 'M',
+                    },
+                    email: 'THAWES@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: 'C213A95E-A0AA-4068-8023-F4A6CFD379A7',
+                },
+                {
+                    name: {
+                        first: 'Erika',
+                        last: 'Hilsabeck',
+                        middle: 'M',
+                    },
+                    email: 'EHILSABECK@bethelsd.org',
+                    title: 'SPECIAL ED (ILC)',
+                    id: '58FE4068-5B69-403B-9785-B26796E8958C',
+                },
+                {
+                    name: {
+                        first: 'Melissa',
+                        last: 'Hochstein',
+                        middle: 'A',
+                    },
+                    email: 'MHOCHSTEIN@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: '30573ADE-5244-47EC-A1E6-E384ABD3BDA9',
+                },
+                {
+                    name: {
+                        first: 'Denise',
+                        last: 'Hodges',
+                        middle: 'L',
+                    },
+                    email: 'DLHODGES@BETHELSD.ORG',
+                    title: 'HISTORY',
+                    id: '561420AA-D874-468B-9456-D52910FE8633',
+                },
+                {
+                    name: {
+                        first: 'Robin',
+                        last: 'Hodges',
+                        middle: 'L',
+                    },
+                    email: 'RHODGES@BETHELSD.ORG',
+                    title: 'CLK-CAREER CENTER',
+                    id: '4A50F7CC-C03A-4235-9A96-AED77A7C2082',
+                },
+                {
+                    name: {
+                        first: 'Ralph',
+                        last: 'Hogan',
+                        middle: 'L',
+                    },
+                    email: 'RHOGAN@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: 'AE7E6FBB-B8BD-4FCE-B805-0FDBB9CDBE73',
+                },
+                {
+                    name: {
+                        first: 'Loree',
+                        last: 'Howard',
+                        middle: 'M',
+                    },
+                    email: 'LHOWARD@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: '292C3235-37B1-4475-B807-708D0A336D0D',
+                },
+                {
+                    name: {
+                        first: 'Raenay',
+                        last: 'Howard',
+                        middle: 'E',
+                    },
+                    email: 'RHOWARD@BETHELSD.ORG',
+                    title: 'CLK-OFFICE SCHOOL',
+                    id: '694918D4-5003-4FAF-8EF5-D73D69229B07',
+                },
+                {
+                    name: {
+                        first: 'Whitney',
+                        last: 'Hubeek',
+                        middle: 'E',
+                    },
+                    email: 'WHUBEEK@BETHELSD.ORG',
+                    title: 'CTE SPORTS MEDICINE',
+                    id: '1B5BFD83-2919-4A21-85A0-CD82D6364AF2',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Hulse',
+                        middle: 'R',
+                    },
+                    email: 'JHULSE@BETHELSD.ORG',
+                    title: 'CLK-OFFICE SCHOOL',
+                    id: '4E122C8C-BE01-49FC-83BE-F54E2105AC82',
+                },
+                {
+                    name: {
+                        first: 'Coral',
+                        last: 'Hunt',
+                        middle: 'L',
+                    },
+                    email: 'CHUNT@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: '91D74B1F-E4DC-46F1-B310-7D2FBF0FBE42',
+                },
+                {
+                    name: {
+                        first: 'Maria',
+                        last: 'Hunter',
+                        middle: 'A',
+                    },
+                    email: 'MHUNTER@BETHELSD.ORG',
+                    title: 'CUSTODIAN',
+                    id: '726DFB42-9684-4505-8838-2AECB9B6987B',
+                },
+                {
+                    name: {
+                        first: 'Mark',
+                        last: 'Iddins',
+                        middle: 'J',
+                    },
+                    email: 'MIDDINS@BETHELSD.ORG',
+                    title: 'HISTORY',
+                    id: '818785EB-41A3-441F-A1CF-3444C9EC66EF',
+                },
+                {
+                    name: {
+                        first: 'Megumi',
+                        last: 'Ito',
+                    },
+                    email: 'MITO@bethelsd.org',
+                    title: 'WL FRENCH',
+                    id: '87E25A49-8848-4168-B443-268B35535C85',
+                },
+                {
+                    name: {
+                        first: 'Kenneth',
+                        last: 'Iverson',
+                        middle: 'B',
+                    },
+                    email: 'KIVERSON@BETHELSD.ORG',
+                    title: 'RESOURCE ROOM',
+                    id: 'F0887088-6E68-4CB7-82A1-EFD647AA0DD4',
+                },
+                {
+                    name: {
+                        first: 'Jocelyn',
+                        last: 'Janshen',
+                        middle: 'A',
+                    },
+                    email: 'JJANSHEN@bethelsd.org',
+                    title: 'NURSE ADMINISTRATOR',
+                    id: '2727A0B8-CA71-42B9-943C-CFE77623EE7F',
+                },
+                {
+                    name: {
+                        first: 'Heather',
+                        last: 'Jin',
+                        middle: 'A',
+                    },
+                    email: 'HJIN@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: 'FA488816-194B-4EB1-8289-E644008DC7CB',
+                },
+                {
+                    name: {
+                        first: 'Anthony',
+                        last: 'Johnson',
+                        middle: 'I',
+                    },
+                    email: 'AJOHNSON@BETHELSD.ORG',
+                    title: 'CAMPUS SAFETY ASST',
+                    id: '0F1BCF7B-6D14-40B4-B533-84CE2DD1EC03',
+                },
+                {
+                    name: {
+                        first: 'Morgan',
+                        last: 'Jolly',
+                        middle: 'D',
+                    },
+                    email: 'MJOLLY@BETHELSD.ORG',
+                    title: 'VISUAL ART',
+                    id: 'D81A4ABA-8EAB-40D1-8DCA-AEA24D5DF935',
+                },
+                {
+                    name: {
+                        first: 'Marvia',
+                        last: 'Jones',
+                        middle: 'C',
+                    },
+                    email: 'MARJONES@bethelsd.org',
+                    title: 'PARA-MAINSTREAM SPED',
+                    id: 'BC69C4D1-66E8-4E6D-BBF7-AD9B8A56B325',
+                },
+                {
+                    name: {
+                        first: 'Stephanie',
+                        last: 'Jones',
+                        middle: 'J',
+                    },
+                    email: 'SJONES@bethelsd.org',
+                    title: 'PARA-CTE',
+                    id: 'AB712207-5B06-41E9-B3CE-34DF44161E8F',
+                },
+                {
+                    name: {
+                        first: 'Jordann',
+                        last: 'Kennedy-Lindsay',
+                        middle: 'A',
+                    },
+                    email: 'JKENNEDYLI@bethelsd.org',
+                    title: 'CTE METALS / JEWELRY DESIGN',
+                    id: '8D141673-B598-42A6-BD32-581179D11D6A',
+                },
+                {
+                    name: {
+                        first: 'Noreen',
+                        last: 'Kim',
+                        middle: 'M',
+                    },
+                    email: 'NKIM@BETHELSD.ORG',
+                    title: 'CN-KITCHEN SITE MANAGER',
+                    id: 'FF27FF34-8216-4FCA-AA67-661D3941B424',
+                },
+                {
+                    name: {
+                        first: 'Kevin',
+                        last: 'Kintz',
+                        middle: 'A',
+                    },
+                    email: 'KKINTZ@BETHELSD.ORG',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '6EDDF615-60D5-45AA-8B3F-A3D04DDF1533',
+                },
+                {
+                    name: {
+                        first: 'Cherrie',
+                        last: 'Knight',
+                        middle: 'L',
+                    },
+                    email: 'CKNIGHT@bethelsd.org',
+                    title: 'CTE AMER SIGN LANG',
+                    id: 'ED5B67E9-0DB6-4493-B5FF-D3D0AC2B4D0D',
+                },
+                {
+                    name: {
+                        first: 'Caleb',
+                        last: 'Knox',
+                        middle: 'M',
+                    },
+                    email: 'CAKNOX@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: 'EA675775-8E99-489C-94E4-86228C4F1892',
+                },
+                {
+                    name: {
+                        first: 'Nanette',
+                        last: 'Kubena',
+                        middle: 'M',
+                    },
+                    email: 'NKUBENA@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: '6A89F25C-C5A8-4072-91F5-FD51BCD064F0',
+                },
+                {
+                    name: {
+                        first: 'Daniel',
+                        last: 'Lantz',
+                        middle: 'R',
+                    },
+                    email: 'DLANTZ@BETHELSD.ORG',
+                    title: 'SCIENCE',
+                    id: '736302BF-89B1-4FC3-BC31-ED8CFA8D4E6C',
+                },
+                {
+                    name: {
+                        first: 'Ronda',
+                        last: 'Lefrancois',
+                        middle: 'N',
+                    },
+                    email: 'RLEFRANCOI@BETHELSD.ORG',
+                    title: 'CLK-HEALTH',
+                    id: '77C7B715-61CE-4C1D-970B-F8C5FF18F259',
+                },
+                {
+                    name: {
+                        first: 'Abigail',
+                        last: 'Levanel',
+                        middle: 'L',
+                    },
+                    email: 'ALEVANEL@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: 'F0F9ACAD-7B3B-49A8-9671-19B83D3BF4D8',
+                },
+                {
+                    name: {
+                        first: 'Matthew',
+                        last: 'Lininger',
+                        middle: 'A',
+                    },
+                    email: 'MLININGER@BETHELSD.ORG',
+                    title: 'CTE STEM',
+                    id: '53E2DE8D-5389-4B48-A8BD-54F91747D756',
+                },
+                {
+                    name: {
+                        first: 'Ryan',
+                        last: 'Loiselle',
+                        middle: 'A',
+                    },
+                    email: 'RLOISELLE@BETHELSD.ORG',
+                    title: 'CTE VIDEO PRODCTN/PHO',
+                    id: '8C2BA073-F252-4166-9AA0-8BAA32010154',
+                },
+                {
+                    name: {
+                        first: 'Sandra',
+                        last: 'Lordahl',
+                        middle: 'M',
+                    },
+                    email: 'SLORDAHL@BETHELSD.ORG',
+                    title: 'CTE CAREER & WORK BASED LRNG COORD',
+                    id: 'EBD98843-B76C-42A2-BBB7-3EE0D27F4C5B',
+                },
+                {
+                    name: {
+                        first: 'Kylee',
+                        last: 'Lowe',
+                    },
+                    email: 'KLOWE@bethelsd.org',
+                    title: 'STUDENT BEHAVIOR SUPPORT TECHNICIAN',
+                    id: '86F48CDF-E0B0-4E2C-815B-0E5FF4B52332',
+                },
+                {
+                    name: {
+                        first: 'Michael',
+                        last: 'Lowey',
+                        middle: 'A',
+                    },
+                    email: 'MALOWEY@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '4BF702DB-AC83-473A-B4FE-614D7833AB8A',
+                },
+                {
+                    name: {
+                        first: 'Tyson',
+                        last: 'Lowry',
+                        middle: 'R',
+                    },
+                    email: 'TLOWRY@bethelsd.org',
+                    title: 'ASSOC ADMIN',
+                    id: '12CFBCC9-8EEA-4808-A601-15A2FC14A00B',
+                },
+                {
+                    name: {
+                        first: 'Dana',
+                        last: 'Magee',
+                        middle: 'L',
+                    },
+                    email: 'DMAGEE@BETHELSD.ORG',
+                    title: 'CN-HELPER',
+                    id: '54BC6B48-CF19-4411-873E-EBAEF788A33F',
+                },
+                {
+                    name: {
+                        first: 'Karen',
+                        last: 'Mamaril',
+                        middle: 'R',
+                    },
+                    email: 'KMAMARIL@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '6F05A884-48DB-4779-BE31-FDB729D8BFCC',
+                },
+                {
+                    name: {
+                        first: 'Anthony',
+                        last: 'Martinez',
+                        middle: 'B',
+                    },
+                    email: 'ANMARTINE@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '8B993CA0-E6E8-4FAF-88B2-2482DE156766',
+                },
+                {
+                    name: {
+                        first: 'Tyler',
+                        last: 'Matthews',
+                        middle: 'M',
+                    },
+                    email: 'TMATTHEWS@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: '2ECF16B4-C9CA-41C1-ACE7-AAE3CA5855AE',
+                },
+                {
+                    name: {
+                        first: 'Clifford',
+                        last: 'Mccann',
+                        middle: 'L',
+                    },
+                    email: 'CMCCANN@BETHELSD.ORG',
+                    title: 'SOCIAL STUDIES',
+                    id: '09441DB3-3CF9-409B-A292-5592502AE241',
+                },
+                {
+                    name: {
+                        first: 'Kimberly',
+                        last: 'Mccann',
+                        middle: 'A',
+                    },
+                    email: 'KMCCANN@BETHELSD.ORG',
+                    title: 'COUNSELOR',
+                    id: '02EA44F7-43DF-43C8-ABF2-69095370480A',
+                },
+                {
+                    name: {
+                        first: 'Michael',
+                        last: 'Mcmullen',
+                        middle: 'L',
+                    },
+                    email: 'MMCMULLEN@bethelsd.org',
+                    title: 'RESOURCE ROOM',
+                    id: '79B5123B-82E3-4DF2-A20F-ABEDD6A0BDC4',
+                },
+                {
+                    name: {
+                        first: 'Kayla',
+                        last: 'Melson',
+                        middle: 'G',
+                    },
+                    email: 'KMELSON@bethelsd.org',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: '3984DFAE-6BA2-4293-BD5B-8224D290047E',
+                },
+                {
+                    name: {
+                        first: 'Cody',
+                        last: 'Metcalf',
+                        middle: 'D',
+                    },
+                    email: 'CMETCALF@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: 'ECDC12AB-DD97-485F-B856-473EBD0AC8A9',
+                },
+                {
+                    name: {
+                        first: 'Janet',
+                        last: 'Miller',
+                    },
+                    email: 'JAMILLER@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: '2A97C66B-DA43-4A15-AF73-D17FB971637C',
+                },
+                {
+                    name: {
+                        first: 'Philip',
+                        last: 'Misley',
+                        middle: 'J',
+                    },
+                    email: 'PMISLEY@BETHELSD.ORG',
+                    title: 'VISUAL ART',
+                    id: 'ED394502-C892-444F-988E-528DD1D4655A',
+                },
+                {
+                    name: {
+                        first: 'Michelle',
+                        last: 'Mooy',
+                        middle: 'L',
+                    },
+                    email: 'MMOOY@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'DF1797AE-7924-4B87-9269-9FDD533F38A9',
+                },
+                {
+                    name: {
+                        first: 'Tressa',
+                        last: 'Morford',
+                        middle: 'K',
+                    },
+                    email: 'TMORFORD@bethelsd.org',
+                    title: 'ENGLISH LANG LEARNERS',
+                    id: 'E7E3184B-A6CD-4DC5-8DCF-E7EED29B1043',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Morrison',
+                        middle: 'M',
+                    },
+                    email: 'JMORRISON@BETHELSD.ORG',
+                    title: 'CTE HEALTH CAREERS',
+                    id: '6C0E7AA5-FB41-46C7-A017-125B4590EF87',
+                },
+                {
+                    name: {
+                        first: 'Donna',
+                        last: 'Mounts',
+                        middle: 'M',
+                    },
+                    email: 'DMOUNTS@BETHELSD.ORG',
+                    title: 'CLK-SS PSYCH SUPPORT',
+                    id: '1D02B4F4-D504-4543-B063-B9D9A9E1C05B',
+                },
+                {
+                    name: {
+                        first: 'Heidi',
+                        last: 'Nader',
+                        middle: 'M',
+                    },
+                    email: 'HNADER@bethelsd.org',
+                    title: 'TERMINATED,SUBSTITUTE',
+                    id: 'CF1C1349-CA28-4C8C-8102-57325076862F',
+                },
+                {
+                    name: {
+                        first: 'Lance',
+                        last: 'Nelson',
+                        middle: 'E',
+                    },
+                    email: 'LANNELSON@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '66C3E5D6-5647-4139-9E80-9167D9B3D353',
+                },
+                {
+                    name: {
+                        first: 'Vera',
+                        last: 'Northington',
+                        middle: 'A',
+                    },
+                    email: 'VNORTHINGT@BETHELSD.ORG',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '7DAD4E68-6A68-4823-A933-C6864652D72F',
+                },
+                {
+                    name: {
+                        first: 'Denyse',
+                        last: 'Nugent',
+                        middle: 'A',
+                    },
+                    email: 'DNUGENT@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '4678F5AF-9549-4E2C-A435-ED836EAA9AD7',
+                },
+                {
+                    name: {
+                        first: 'Brendan',
+                        last: "O'donnell",
+                        middle: 'R',
+                    },
+                    email: 'BODONNELL@bethelsd.org',
+                    title: 'SCIENCE',
+                    id: 'D8215B42-7E71-4527-96BA-19B5CABA8C9B',
+                },
+                {
+                    name: {
+                        first: 'Test',
+                        last: 'Officeclerk',
+                    },
+                    email: 'noreply@bethelsd.org',
+                    title: '(2PT)',
+                    id: '416F3507-2ACC-4B26-8983-E98637C37D00',
+                },
+                {
+                    name: {
+                        first: 'James',
+                        last: 'Ohlinger',
+                        middle: 'R',
+                    },
+                    email: 'JOHLINGER@bethelsd.org',
+                    title: 'ASSOC ADMIN',
+                    id: '556E9392-526E-4D1A-BF50-0A60C8A8B682',
+                },
+                {
+                    name: {
+                        first: 'Carolyn',
+                        last: 'Olsen',
+                        middle: 'E',
+                    },
+                    email: 'COLSEN@BETHELSD.ORG',
+                    title: 'LIBRARY MEDIA - BASIC',
+                    id: '4FAEBA9F-C818-4B1D-B633-00F39B87ADC6',
+                },
+                {
+                    name: {
+                        first: 'Diane',
+                        last: 'Olson Howard',
+                        middle: 'L',
+                    },
+                    email: 'DOLSONHOWA@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '7DCB740F-9B00-48C8-80B8-2472CB44FB02',
+                },
+                {
+                    name: {
+                        first: 'Jessica',
+                        last: 'Parker',
+                        middle: 'A',
+                    },
+                    email: 'JPARKER@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: 'A84A6028-B7A1-4216-BA17-83FCC23E5CF4',
+                },
+                {
+                    name: {
+                        first: 'Terri',
+                        last: 'Parsons',
+                        middle: 'L',
+                    },
+                    email: 'TLPARSONS@BETHELSD.ORG',
+                    title: 'SPECIAL ED (COMM LIAISON)',
+                    id: '31A89CCE-50F7-48D8-8FF8-2ABB66DF7187',
+                },
+                {
+                    name: {
+                        first: 'Mariah',
+                        last: 'Partin',
+                        middle: 'F',
+                    },
+                    email: 'MPARTIN@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: 'A4546D1E-8F43-439F-BB41-B35B17CCC07C',
+                },
+                {
+                    name: {
+                        first: 'Rebecca',
+                        last: 'Pelandini',
+                        middle: 'M',
+                    },
+                    email: 'RPELANDINI@BETHELSD.ORG',
+                    title: 'MUSIC ORCHESTRA/STRINGS',
+                    id: '1197C2BF-DC5E-432A-97C9-AAD0F12D9577',
+                },
+                {
+                    name: {
+                        first: 'Kristina',
+                        last: 'Perrault',
+                        middle: 'N',
+                    },
+                    email: 'KPERRAULT@bethelsd.org',
+                    title: 'PARA-MAINSTREAM SPED',
+                    id: '6AF77169-D8B5-4CCD-8381-A8E3BF0000B6',
+                },
+                {
+                    name: {
+                        first: 'Gaylin',
+                        last: 'Peterson',
+                        middle: 'M',
+                    },
+                    email: 'GPETERSON@bethelsd.org',
+                    title: 'COUNSELOR',
+                    id: '6A22E3AA-7D3A-418B-BA91-7951A9FE498F',
+                },
+                {
+                    name: {
+                        first: 'Stephanie',
+                        last: 'Pike',
+                        middle: 'R',
+                    },
+                    email: 'SPIKE@BETHELSD.ORG',
+                    title: 'CTE BUSNSS / MARKTNG',
+                    id: 'FB630C19-B6B5-4206-BAAA-760A36CF2891',
+                },
+                {
+                    name: {
+                        first: 'Jeff',
+                        last: 'Poljak',
+                        middle: 'L',
+                    },
+                    email: 'JPOLJAK@BETHELSD.ORG',
+                    title: 'PSYCHOLOGIST',
+                    id: 'B75BE689-3365-49C4-BB7F-2892F8376E66',
+                },
+                {
+                    name: {
+                        first: 'Devon',
+                        last: 'Powers',
+                        middle: 'K',
+                    },
+                    email: 'DKPOWERS@BETHELSD.ORG',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '8450FEAB-A4BA-4486-858A-9BA35A4245D7',
+                },
+                {
+                    name: {
+                        first: 'Leslie',
+                        last: 'Price',
+                        middle: 'S',
+                    },
+                    email: 'LPRICE@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'FEBDC54D-8BF6-4385-8021-F36A9D582A62',
+                },
+                {
+                    name: {
+                        first: 'Britni',
+                        last: 'Racus',
+                        middle: 'E',
+                    },
+                    email: 'BRACUS@bethelsd.org',
+                    title: 'CTE SPORTS MEDICINE',
+                    id: '8EF962D6-ACFE-434F-BFCA-DB9B9D52D3AA',
+                },
+                {
+                    name: {
+                        first: 'Patricia',
+                        last: 'Rath',
+                        middle: 'E',
+                    },
+                    email: 'PRATH@bethelsd.org',
+                    title: 'SCIENCE',
+                    id: '87361F26-64B4-4245-BD95-A20E8495F86B',
+                },
+                {
+                    name: {
+                        first: 'Rebecca',
+                        last: 'Reisch',
+                        middle: 'D',
+                    },
+                    email: 'RREISCH@BETHELSD.ORG',
+                    title: 'WL SPANISH',
+                    id: '67BF212C-EB81-4FE3-AC0D-03AB4AD5F8F4',
+                },
+                {
+                    name: {
+                        first: 'Daniel',
+                        last: 'Rexus',
+                        middle: 'R',
+                    },
+                    email: 'DREXUS@BETHELSD.ORG',
+                    title: 'SCIENCE',
+                    id: 'EB696A7C-FD7F-4A05-B60C-217D04FDD7FF',
+                },
+                {
+                    name: {
+                        first: 'Kassandra',
+                        last: 'Reynolds',
+                        middle: 'L',
+                    },
+                    email: 'KREYNOLDS@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: 'D4063191-9E06-4E01-8E47-534836E85991',
+                },
+                {
+                    name: {
+                        first: 'Mahayla',
+                        last: 'Richardson',
+                        middle: 'R',
+                    },
+                    email: 'MRICHARDS@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '7EE633BC-7E98-4179-9D55-251850EA4586',
+                },
+                {
+                    name: {
+                        first: 'Thomas',
+                        last: 'Ridgway',
+                        middle: 'G',
+                    },
+                    email: 'TRIDGWAY@bethelsd.org',
+                    title: 'CTE AMER SIGN LANG',
+                    id: 'D6880979-2D55-48BB-AEC1-85AE6DA526FE',
+                },
+                {
+                    name: {
+                        first: 'Lindsay',
+                        last: 'Ries',
+                        middle: 'A',
+                    },
+                    email: 'LRIES@bethelsd.org',
+                    title: 'CLK-ATTENDANCE',
+                    id: 'F4C96C50-2CAC-4A9A-8180-C85F0DA90187',
+                },
+                {
+                    name: {
+                        first: 'Brian',
+                        last: 'Riggle',
+                    },
+                    email: 'BRIGGLE@bethelsd.org',
+                    title: 'JROTC INSTRUCTOR',
+                    id: 'D1A13D83-CBBF-4374-9D73-0470179DC7BF',
+                },
+                {
+                    name: {
+                        first: 'Deanna',
+                        last: 'Riley',
+                    },
+                    email: 'DRILEY@bethelsd.org',
+                    title: 'LPN BASIC EDUCATION',
+                    id: 'A4EADC09-21D5-4358-A96A-6DDC3CBF520A',
+                },
+                {
+                    name: {
+                        first: 'Dale',
+                        last: 'Riston',
+                        middle: 'M',
+                    },
+                    email: 'DRISTON@BETHELSD.ORG',
+                    title: 'TERMINATED,SUBSTITUTE',
+                    id: '8C43045F-6DBD-4813-83F4-929FB1D1A001',
+                },
+                {
+                    name: {
+                        first: 'Lori',
+                        last: 'Roberts',
+                        middle: 'C',
+                    },
+                    email: 'LCROBERTS@BETHELSD.ORG',
+                    title: 'HEALTH / FITNESS',
+                    id: '548EFBE2-9BCF-4B7E-8B11-BD7157BA220C',
+                },
+                {
+                    name: {
+                        first: 'Lori',
+                        last: 'Rochefort',
+                        middle: 'A',
+                    },
+                    email: 'LROCHEFORT@BETHELSD.ORG',
+                    title: 'CLK-ATTENDANCE',
+                    id: '0EF4B9C8-5526-493D-B40E-78593DD0D75C',
+                },
+                {
+                    name: {
+                        first: 'Christy',
+                        last: 'Rodriguez',
+                        middle: 'L',
+                    },
+                    email: 'CRODRIGUEZ@BETHELSD.ORG',
+                    title: 'PRINCIPAL',
+                    id: 'D1FAA3EB-2676-400F-991F-8ADFAB1C83B7',
+                },
+                {
+                    name: {
+                        first: 'Wendy',
+                        last: 'Rotter',
+                        middle: 'M',
+                    },
+                    email: 'WROTTER@bethelsd.org',
+                    title: 'CN-HELPER',
+                    id: '1ED32692-A164-4618-97FD-A208E32AEEF0',
+                },
+                {
+                    name: {
+                        first: 'Oksana',
+                        last: 'Rudenko',
+                        middle: 'S',
+                    },
+                    email: 'ORUDENKO@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: '371720D0-509F-4436-86AC-6632A0C4973C',
+                },
+                {
+                    name: {
+                        first: 'Michael',
+                        last: 'Sacks',
+                        middle: 'J',
+                    },
+                    email: 'MSACKS@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '230AACC0-BE2D-45D2-8A9C-7E99565CDAE8',
+                },
+                {
+                    name: {
+                        first: 'Teal',
+                        last: 'Saffle',
+                        middle: 'H',
+                    },
+                    email: 'TSAFFLE@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: 'AB98701E-A3DE-47A9-99DB-5AAC7397EB11',
+                },
+                {
+                    name: {
+                        first: 'Eddie',
+                        last: 'Salas',
+                    },
+                    email: 'ESALAS@bethelsd.org',
+                    title: 'CAMPUS SAFETY ASST',
+                    id: '76ED121D-FD05-493A-91C4-02EEFD1867E1',
+                },
+                {
+                    name: {
+                        first: 'Maria',
+                        last: 'Samonte',
+                        middle: 'R',
+                    },
+                    email: 'MSAMONTE@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'B48A8FDB-F4BB-4084-8DAC-94B328F5D075',
+                },
+                {
+                    name: {
+                        first: 'Allison',
+                        last: 'Sampson',
+                        middle: 'M',
+                    },
+                    email: 'ASAMPSON@BETHELSD.ORG',
+                    title: 'MATH/SCIENCE',
+                    id: 'B19AF45D-7C9B-4F77-A195-6F3C31FB705F',
+                },
+                {
+                    name: {
+                        first: 'Terry',
+                        last: 'Sanders Jr',
+                        middle: 'S',
+                    },
+                    email: 'TSANDERSJR@BETHELSD.ORG',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '3D4A22C9-EA8C-4213-8C6A-6815E6E65AE2',
+                },
+                {
+                    name: {
+                        first: 'Kyle',
+                        last: 'Sauer',
+                        middle: 'D',
+                    },
+                    email: 'KSAUER@bethelsd.org',
+                    title: 'MUSIC CHORAL',
+                    id: 'F5C93D23-A66E-4BBF-8D00-9863CE0822C0',
+                },
+                {
+                    name: {
+                        first: 'Amanda',
+                        last: 'Schad',
+                        middle: 'M',
+                    },
+                    email: 'ASCHAD@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'FD75ACC5-EA62-47B7-8374-A1F59B1B960D',
+                },
+                {
+                    name: {
+                        first: 'Nep',
+                        last: 'Scheirer',
+                        middle: 'K',
+                    },
+                    email: 'NSCHEIRER@bethelsd.org',
+                    title: 'SPECIAL ED (TRANS)',
+                    id: 'CA1A7913-C0A5-4C92-A491-3F9CE9242DD4',
+                },
+                {
+                    name: {
+                        first: 'Nathan',
+                        last: 'Schreiber',
+                        middle: 'A',
+                    },
+                    email: 'NSCHREIBER@BETHELSD.ORG',
+                    title: 'SCIENCE',
+                    id: '3E7413CA-5771-4987-9E1C-91F97715C589',
+                },
+                {
+                    name: {
+                        first: 'Katherine',
+                        last: 'Schultz-Wetherington',
+                        middle: 'A',
+                    },
+                    email: 'KSCHULTZ@BETHELSD.ORG',
+                    title: 'HUMANITIES',
+                    id: '05CB9140-0555-459A-8EF4-906E4CC765FA',
+                },
+                {
+                    name: {
+                        first: 'Kevin',
+                        last: 'Schwoch',
+                        middle: 'R',
+                    },
+                    email: 'KSCHWOCH@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: '554D6D51-BA62-414B-AE85-4359EECBEBAD',
+                },
+                {
+                    name: {
+                        first: 'Sonya',
+                        last: 'Scott',
+                        middle: 'M',
+                    },
+                    email: 'SOSCOTT@bethelsd.org',
+                    title: 'PARA-NONMAIN SPED WC',
+                    id: 'F05994CE-FD71-47D0-882F-EAB4D4F0F509',
+                },
+                {
+                    name: {
+                        first: 'Barbara',
+                        last: 'Sheline',
+                    },
+                    email: 'BSHELINE@BETHELSD.ORG',
+                    title: 'LPN SPED',
+                    id: 'B133B6B0-7949-41E7-9685-E54DC4322CFF',
+                },
+                {
+                    name: {
+                        first: 'Bonnie',
+                        last: 'Shelley',
+                        middle: 'R',
+                    },
+                    email: 'BSHELLEY@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '51D03379-BBB9-473D-ADC1-91176EA278D5',
+                },
+                {
+                    name: {
+                        first: 'Patricia',
+                        last: 'Sherve',
+                        middle: 'S',
+                    },
+                    email: 'PSHERVE@bethelsd.org',
+                    title: 'SPECIAL ED (TRANS)',
+                    id: '0A4174AB-D5C2-4BEE-BDD6-B6FBF2771777',
+                },
+                {
+                    name: {
+                        first: 'Shannon',
+                        last: 'Shinn',
+                        middle: 'L',
+                    },
+                    email: 'SSHINN@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'B5B90412-54A3-4AB4-A181-F5355C519F79',
+                },
+                {
+                    name: {
+                        first: 'Nelson',
+                        last: 'Shinnick',
+                        middle: 'N',
+                    },
+                    email: 'NSHINNICK@bethelsd.org',
+                    title: 'SPECIAL ED (ILC)',
+                    id: '5CBA1D97-AB6E-4FFD-B8AE-71D408088C02',
+                },
+                {
+                    name: {
+                        first: 'Andrew',
+                        last: 'Shoot',
+                        middle: 'L',
+                    },
+                    email: 'ASHOOT@BETHELSD.ORG',
+                    title: 'HEALTH / FITNESS',
+                    id: '31132696-3038-4611-9A5D-4F07D3D57F0A',
+                },
+                {
+                    name: {
+                        first: 'Trisha',
+                        last: 'Simatic',
+                    },
+                    email: 'TSIMATIC@bethelsd.org',
+                    title: 'PARA-NONMAIN SPED ILC',
+                    id: 'B1ECD5E9-8D4D-4611-A3F4-CDD79938E858',
+                },
+                {
+                    name: {
+                        first: 'Nancy',
+                        last: 'Simmons',
+                        middle: 'M',
+                    },
+                    email: 'NSIMMONS@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED EBD',
+                    id: '8F7B35B6-D2E9-4507-8D3A-CE119508E98A',
+                },
+                {
+                    name: {
+                        first: 'Heather',
+                        last: 'Sloan',
+                        middle: 'D',
+                    },
+                    email: 'HSLOAN@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'A932EFA7-4F25-41EF-A799-498C9C875127',
+                },
+                {
+                    name: {
+                        first: 'Paul',
+                        last: 'Smith',
+                        middle: 'J',
+                    },
+                    email: 'PSMITH@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'EDC2D54F-4F19-4E73-BB93-F2D581CDF959',
+                },
+                {
+                    name: {
+                        first: 'Janell',
+                        last: 'Snedigar',
+                        middle: 'A',
+                    },
+                    email: 'JSNEDIGAR@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: '3A021C70-1EBB-4EC3-A30F-1D3BCBC75B55',
+                },
+                {
+                    name: {
+                        first: 'Deborah',
+                        last: 'Snow',
+                        middle: 'A',
+                    },
+                    email: 'DSNOW@BETHELSD.ORG',
+                    title: 'SPECIAL ED (ILC)',
+                    id: 'E0322F38-B08D-4A24-8ECD-C5C51CBB91BF',
+                },
+                {
+                    name: {
+                        first: 'Alijah',
+                        last: 'Sokimi',
+                        middle: 'S',
+                    },
+                    email: 'ASOKIMI@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '2A2B543A-4CB9-4989-85E6-5548DB61F480',
+                },
+                {
+                    name: {
+                        first: 'Sabrina',
+                        last: 'Soriero',
+                        middle: 'L',
+                    },
+                    email: 'SSORIERO@bethelsd.org',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: 'BE947D94-A04C-425F-B91F-5AA4402F312F',
+                },
+                {
+                    name: {
+                        first: 'Gregory',
+                        last: 'Southworth',
+                        middle: 'W',
+                    },
+                    email: 'GSOUTHWORT@BETHELSD.ORG',
+                    title: 'HISTORY',
+                    id: 'CBDFA846-B3CB-45C5-BB36-C870B5AC4099',
+                },
+                {
+                    name: {
+                        first: 'Pamela',
+                        last: 'Stern',
+                        middle: 'S',
+                    },
+                    email: 'PSTERN@bethelsd.org',
+                    title: 'SPECIAL ED (EBD)',
+                    id: '8D601451-1F29-44C4-9F33-B40659143F33',
+                },
+                {
+                    name: {
+                        first: 'Christopher',
+                        last: 'Stickney',
+                        middle: 'L',
+                    },
+                    email: 'CSTICKNEY@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: 'A8AD9309-73C4-4388-B7AC-143365A4580C',
+                },
+                {
+                    name: {
+                        first: 'Robin',
+                        last: 'Stoyles',
+                        middle: 'W',
+                    },
+                    email: 'RSTOYLES@BETHELSD.ORG',
+                    title: 'CTE BIOMEDICAL SCIENCE',
+                    id: '9026DCA6-3E08-4857-8C46-808BA53CC2AC',
+                },
+                {
+                    name: {
+                        first: 'John',
+                        last: 'Stumpf',
+                        middle: 'R',
+                    },
+                    email: 'JSTUMPF@BETHELSD.ORG',
+                    title: 'CTE TECHNOLOGY',
+                    id: 'CDE89AD0-1D63-4DB7-8C89-A66F1C5C41E2',
+                },
+                {
+                    name: {
+                        first: 'Anna',
+                        last: 'Sturtevant',
+                    },
+                    email: 'ASTURTEVAN@BETHELSD.ORG',
+                    title: 'CN-HELPER',
+                    id: '86AC8725-F6AB-4843-8D59-71E490718881',
+                },
+                {
+                    name: {
+                        first: 'Michael',
+                        last: 'Talen',
+                        middle: 'H',
+                    },
+                    email: 'MTALEN@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: 'AD4CA338-FDFF-47E8-8378-306F91D7CC6C',
+                },
+                {
+                    name: {
+                        first: 'Claire',
+                        last: 'Taylor',
+                        middle: 'V',
+                    },
+                    email: 'CLTAYLOR@bethelsd.org',
+                    title: 'MATHEMATICS',
+                    id: 'D628E698-735A-4FA3-903F-CC04C4FF1487',
+                },
+                {
+                    name: {
+                        first: 'Lauren',
+                        last: 'Terzigni',
+                        middle: 'E',
+                    },
+                    email: 'LTERZIGNI@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: 'C58EB20D-5BD5-44F1-864A-AC4BA0F7EE2B',
+                },
+                {
+                    name: {
+                        first: 'Janie',
+                        last: 'Thiel',
+                        middle: 'L',
+                    },
+                    email: 'JLTHIEL@BETHELSD.ORG',
+                    title: 'PARA-NONMAIN SPED EBD',
+                    id: '01462BC2-2B01-47E9-AEBF-23AF3F47D1D1',
+                },
+                {
+                    name: {
+                        first: 'Dana',
+                        last: 'Thomas',
+                        middle: 'M',
+                    },
+                    email: 'DTHOMAS@BETHELSD.ORG',
+                    title: 'LAP',
+                    id: '2F8E35BC-EF62-47FB-8AB4-C31F13F9E34A',
+                },
+                {
+                    name: {
+                        first: 'Danielle',
+                        last: 'Thorn',
+                        middle: 'E',
+                    },
+                    email: 'DTHORN@bethelsd.org',
+                    title: 'CTE FAM/CONSUMER SCI',
+                    id: 'F315657A-F3F1-459E-ABE8-003D4D3ECF81',
+                },
+                {
+                    name: {
+                        first: 'Stephen',
+                        last: 'Tkach',
+                        middle: 'J',
+                    },
+                    email: 'STKACH@BETHELSD.ORG',
+                    title: 'JROTC-EXTENDED ACTIVITIES',
+                    id: '0D9677FA-FC67-46A0-8884-2F9A5DD1B78B',
+                },
+                {
+                    name: {
+                        first: 'Gloria',
+                        last: 'Utley',
+                    },
+                    email: 'GUTLEY@bethelsd.org',
+                    title: 'CONTRACT STAFF CERTIFICATED,SUBSTITUTE',
+                    id: '9B936254-5767-4C0F-8852-CBFADF9B5F7E',
+                },
+                {
+                    name: {
+                        first: 'Heather',
+                        last: 'Vallier',
+                        middle: 'M',
+                    },
+                    email: 'HVALLIER@BETHELSD.ORG',
+                    title: 'ENGLISH LANGUAGE ARTS',
+                    id: '10B967EC-7856-481F-A582-B084362DE8E0',
+                },
+                {
+                    name: {
+                        first: 'Victor',
+                        last: 'Villarreal',
+                        middle: 'D',
+                    },
+                    email: 'VVILLARREA@BETHELSD.ORG',
+                    title: 'PARA-ELL',
+                    id: '3C82CF8B-DBE7-45E0-BF36-31D7FCB804B0',
+                },
+                {
+                    name: {
+                        first: 'Jennifer',
+                        last: 'Waters',
+                        middle: 'M',
+                    },
+                    email: 'JWATERS@BETHELSD.ORG',
+                    title: 'REGISTRAR',
+                    id: '6797DCD0-7D92-49DF-8A1F-A88CF96CF74F',
+                },
+                {
+                    name: {
+                        first: 'Hayley',
+                        last: 'Watson',
+                        middle: 'J',
+                    },
+                    email: 'HWATSON@bethelsd.org',
+                    title: 'VISUAL ART',
+                    id: 'D7909253-BF85-4F26-91AF-4D19354B9CB4',
+                },
+                {
+                    name: {
+                        first: 'Scott',
+                        last: 'Welborn',
+                        middle: 'T',
+                    },
+                    email: 'SWELBORN@bethelsd.org',
+                    title: 'SOCIAL STUDIES',
+                    id: 'D0D2392F-7F50-4455-91D5-10100D8DE67D',
+                },
+                {
+                    name: {
+                        first: 'John',
+                        last: 'Wetherington',
+                        middle: 'M',
+                    },
+                    email: 'JWETHERING@BETHELSD.ORG',
+                    title: 'MUSIC BAND/INSTRUMENTAL',
+                    id: 'E597CBAA-D3C7-4C74-B0B3-9DAAAE85CCF2',
+                },
+                {
+                    name: {
+                        first: 'Michelle',
+                        last: 'Whisnant',
+                        middle: 'A',
+                    },
+                    email: 'MWHISNANT@bethelsd.org',
+                    title: 'CUSTODIAN',
+                    id: 'A724389F-016C-4EBD-A023-B62D5A56AA94',
+                },
+                {
+                    name: {
+                        first: 'Ryan',
+                        last: 'Whitehead',
+                        middle: 'D',
+                    },
+                    email: 'RWHITEHEAD@bethelsd.org',
+                    title: 'MUSIC BAND/INSTRUMENTAL',
+                    id: '961F3156-7FD9-40E9-A296-651C27259733',
+                },
+                {
+                    name: {
+                        first: 'Mary',
+                        last: 'Wicklander',
+                        middle: 'E',
+                    },
+                    email: 'MWICKLANDE@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: 'C2AFAF68-C7F1-4635-B9AD-6E77BF49FCDF',
+                },
+                {
+                    name: {
+                        first: 'Malissa',
+                        last: 'Wiggins',
+                        middle: 'J',
+                    },
+                    email: 'MWIGGINS@BETHELSD.ORG',
+                    title: 'COUNSELOR',
+                    id: 'D340A2CC-B19F-4689-A7A0-B74485EB8B80',
+                },
+                {
+                    name: {
+                        first: 'Brooklyn',
+                        last: 'Wilbur',
+                        middle: 'P',
+                    },
+                    email: 'BWILBUR@bethelsd.org',
+                    title: 'PARA-BASIC EDUCATION',
+                    id: '0704D44C-CADE-4EE4-B996-4C8D2B1F3391',
+                },
+                {
+                    name: {
+                        first: 'Anne',
+                        last: 'Wilson',
+                        middle: 'M',
+                    },
+                    email: 'AWILSON@BETHELSD.ORG',
+                    title: 'MATHEMATICS',
+                    id: '49512926-C5E3-42C7-90FA-AEE628D72717',
+                },
+                {
+                    name: {
+                        first: 'Dominique',
+                        last: 'Wilson',
+                        middle: 'A',
+                    },
+                    email: 'DWILSON@BETHELSD.ORG',
+                    title: 'CLK-OFFICE GUIDANCE',
+                    id: 'A5695EAE-8607-4F1D-AEED-7AF1EFA73EA7',
+                },
+                {
+                    name: {
+                        first: 'Zuleica',
+                        last: 'Wilson',
+                        middle: 'E',
+                    },
+                    email: 'ZWILSON@BETHELSD.ORG',
+                    title: 'CUSTODIAN',
+                    id: '396004E3-F3B8-46B3-9C36-FB8C82ECDDD3',
+                },
+                {
+                    name: {
+                        first: 'David',
+                        last: 'Winders',
+                        middle: 'C',
+                    },
+                    email: 'DWINDERS@BETHELSD.ORG',
+                    title: 'SUBSTITUTE',
+                    id: '1018B211-5326-4216-8458-50F086C233D6',
+                },
+                {
+                    name: {
+                        first: 'Laural',
+                        last: 'Wolff',
+                        middle: 'A',
+                    },
+                    email: 'LWOLFF@BETHELSD.ORG',
+                    title: 'COUNSELOR',
+                    id: '34EDFECC-DF44-4C76-B62F-1A2912C623F6',
+                },
+                {
+                    name: {
+                        first: 'Julana',
+                        last: 'Wood',
+                        middle: 'M',
+                    },
+                    email: 'JWOOD@BETHELSD.ORG',
+                    title: 'ED SPECIALIST',
+                    id: 'EBE2A4EF-690D-4A4D-B0FC-6DDD9941FF65',
+                },
+                {
+                    name: {
+                        first: 'Keith',
+                        last: 'Wren',
+                        middle: 'E',
+                    },
+                    email: 'KWREN@bethelsd.org',
+                    title: 'SUBSTITUTE',
+                    id: '369E22E3-265F-46FC-8E3D-B71A7B7EA6B4',
+                },
+                {
+                    name: {
+                        first: 'Jenina',
+                        last: 'Yahne',
+                        middle: 'M',
+                    },
+                    email: 'JYAHNE@bethelsd.org',
+                    title: 'PARA-MAINSTREAM SPED',
+                    id: '96A7F26E-E17E-4721-9F56-DFC4E13EA4C6',
+                },
+                {
+                    name: {
+                        first: 'Kim',
+                        last: 'Yant',
+                        middle: 'Y',
+                    },
+                    email: 'KYANT@BETHELSD.ORG',
+                    title: 'LPN SPED',
+                    id: 'FD4D5282-C675-4044-8EF4-462D553EA5FA',
+                },
+                {
+                    name: {
+                        first: 'Tracy',
+                        last: 'Young',
+                        middle: 'J',
+                    },
+                    email: 'TRYOUNG@bethelsd.org',
+                    title: 'CN-HELPER',
+                    id: 'C66778DC-61BD-451A-B269-4E39373EB943',
+                },
+                {
+                    name: {
+                        first: 'Oksana',
+                        last: 'Zinkov',
+                        middle: 'N',
+                    },
+                    email: 'OZINKOV@BETHELSD.ORG',
+                    title: 'TERMINATED,CUSTODIAN',
+                    id: '48CAA8D4-9E57-493B-8FFD-6315E26E6D7A',
+                },
+                {
+                    name: {
+                        first: 'Kathryn',
+                        last: 'Zornes',
+                        middle: 'L',
+                    },
+                    email: 'KZORNES@BETHELSD.ORG',
+                    title: 'PARA-MAINSTREAM SPED SUPPORT',
+                    id: 'F5A6F64D-C3D6-4F06-B4B2-DDA609D9ECD0',
+                },
+                {
+                    name: {
+                        first: 'Bhs',
+                        last: 'Zz Class Open',
+                    },
+                    email: '',
+                    title: 'Staff Year Record Needed',
+                    id: '28176AFC-63EF-41AC-887E-DA40A9A76450',
+                },
+                {
+                    name: {
+                        first: 'Bhs',
+                        last: 'Zz Class Open',
+                    },
+                    email: '',
+                    title: 'Staff Year Record Needed',
+                    id: 'B848ADE7-D30F-47F5-8505-157DA0AE71F2',
+                },
+            ],
         },
         {
             stvName: 'Second Test School',
@@ -40,7 +2461,8 @@
             hasAdvisory: false,
             numberOfPeriods: 3,
             studentVueAdvisoryPeriod: -1,
-            scheduleURL: '/config/schools/testschool.json5', // passed directly to fetch
+            scheduleURL: '/config/schools/testschool.json5',
+            staff: [],
         },
     ],
 }

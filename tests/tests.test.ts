@@ -32,6 +32,7 @@ beforeAll(async () => {
     let dt = await (await fetch(configURL)).text();
     let data = json5.parse(dt);
     let dataParsed = await MasterSettingsSchema.validate(data);
+    //@ts-ignore
     masterSettings.set(dataParsed);
     schoolName.set('Second Test School');
     manualTerms.set([

@@ -70,6 +70,18 @@ export type MasterSettingsSchool = {
     numberOfPeriods: number;
     hasAdvisory: boolean;
     scheduleURL: string;
+    staff: Staff[];
+};
+
+export type Staff = {
+    name: {
+        first: string;
+        last: string;
+        middle?: string;
+    };
+    email: string;
+    title: string;
+    id: string;
 };
 
 export type MasterSettingsTerms = {
@@ -101,6 +113,20 @@ export const MasterSettingsSchema = object({
                     .integer(),
                 hasAdvisory: boolean().required(),
                 scheduleURL: string().required(),
+                staff: array()
+                    .of(
+                        object({
+                            name: object({
+                                first: string().required(),
+                                last: string().required(),
+                                middle: string().optional(),
+                            }).required(),
+                            email: string().defined(),
+                            title: string().required(),
+                            id: string().required(),
+                        })
+                    )
+                    .required(),
             })
         )
         .required()

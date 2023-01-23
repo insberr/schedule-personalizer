@@ -348,8 +348,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message:
-                'Welcome Back, Its Trimester 2!\
+            message: 'Welcome Back, Its Trimester 2!\
 <br>Dont forget the map can be found in the "More" dropdown in the top left!',
             date: new Date('December 8, 2022'),
         },
@@ -482,6 +481,13 @@ export const scheduleEvents: ScheduleEvents = [
         info: {
             message: 'No School | PL Day #2',
             date: new Date('January 25, 2023'),
+        },
+    },
+    {
+        schedule: schedules.assemblyPM,
+        info: {
+            message: 'Winter Sports Assembly',
+            date: new Date('January 27, 2023'),
         },
     },
     {

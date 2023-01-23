@@ -5,6 +5,7 @@ import type { CL, MasterSettingsSchool, Term, Terms } from '$types';
 import { ClassIDS, emptyCL } from '$types';
 import { get } from 'svelte/store';
 import { masterSettings } from './store/masterSettings';
+import { titleCase } from 'title-case';
 
 const InfoToKeep = [
     'CounselorEmail',
@@ -265,15 +266,7 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
 export function toTitleCase(str: string | null | undefined): string {
     if (str === undefined || str === null) return '';
 
-    const lowercase = str.toLowerCase().split(' ');
-    if (lowercase.length < 1) return str;
-
-    return lowercase
-        .map(function (word) {
-            if (word === '') return word;
-            return word.replace(word[0], word[0].toUpperCase());
-        })
-        .join(' ');
+    return titleCase(str.toLowerCase());
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function redactStructure(obj: any): any {
@@ -326,10 +319,17 @@ export function courseTitleNameCase(str: string): string {
     // str = str.replace('ENG', 'ENGLISH');
 
     str = toTitleCase(str);
+    let toCapitalize = ['Ap', 'Ela', 'Us', 'Sa'].map(
+        (v) => new RegExp(`(^|\\s)${v}($|\\s)`)
+    );
 
+    for (const regex of toCapitalize) {
+        str = str.replace(regex, (match) => match.toUpperCase());
+    }
     // to do: make this actually do what its supposed to do
-    // str = str.replace('Ap', 'AP');
-    // str = str.replace('Ela ', 'ELA');
+    /*str = str.replace('Ap ', 'AP ');
+    str = str.replace('Ela ', 'ELA ');
+    str = str.replace('Us ', 'US ');*/
 
     return str;
 }

@@ -29,7 +29,7 @@ export function DeCOH(
     let collapsed = Collapse(event, date, sCFG, schCFG);
     console.log('Collapse', collapsed);
     // then, we override
-    let overriden = Overrides(collapsed);
+    let overriden = Overrides(collapsed, date);
     console.log('Override', overriden);
 
     // finally, we hydrate
@@ -81,7 +81,7 @@ function Collapse(
     return collapsed;
 }
 
-function Overrides(event: CollapsedEvent) {
+function Overrides(event: CollapsedEvent, date: Date) {
     let enabledOverrides = event.overrides.enabled.split(',');
     let settings = event.overrides.settings;
     let evt = structuredClone(event);
@@ -95,7 +95,7 @@ function Overrides(event: CollapsedEvent) {
                     settings[override]
                 );
                 evt = produce(evt, (d: CollapsedEvent) =>
-                    func(d, settings[override])
+                    func(d, settings[override], date)
                 );
                 console.log('->', evt);
             } catch (err) {

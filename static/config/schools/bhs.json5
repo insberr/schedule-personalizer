@@ -139,6 +139,7 @@
             enabled: 'lunch',
             settings: {
                 lunch: {
+                    classID: 4,
                     period: 3,
                     teachers: {},
                 },

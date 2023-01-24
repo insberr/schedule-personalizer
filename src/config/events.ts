@@ -486,7 +486,7 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: schedules.assemblyPM,
         info: {
-            message: 'Winter Sports Assembly',
+            message: 'Winter Sports Pep Assembly',
             date: new Date('January 27, 2023'),
         },
     },

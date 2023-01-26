@@ -16,7 +16,9 @@ export const hydrated = derived(
     }
 );
 
-displayDate.subscribe((d) => {
+function clampDate() {
+    let d = get(displayDate);
+    if (!get(schoolSettings)) return;
     let startDate = get(schoolSettings)
         .terms.map((r) => new Date(r.start))
         .sort((a, b) => (isAfter(a, b) ? 1 : isSameDay(a, b) ? 0 : -1))[0];
@@ -25,7 +27,13 @@ displayDate.subscribe((d) => {
         .sort((b, a) => (isAfter(a, b) ? 1 : isSameDay(a, b) ? 0 : -1))[0];
     if (isAfter(d, endDate)) displayDate.set(endDate);
     if (isAfter(startDate, d)) displayDate.set(startDate);
+}
+
+displayDate.subscribe((d) => {
+    clampDate();
 });
+
+schoolSettings.subscribe((d) => clampDate());
 
 //@ts-ignore
 window.DD = displayDate;

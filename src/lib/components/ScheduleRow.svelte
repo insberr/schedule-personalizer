@@ -34,7 +34,7 @@
 </script>
 
 <div
-    class={isOdd ? 'bg-base-200' : 'bg-base-300'}
+    class={(isOdd ? 'bg-base-200' : 'bg-base-300') + ' cursor-pointer'}
     on:click={() => {
         hide = !hide;
     }}

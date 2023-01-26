@@ -10,12 +10,13 @@ import {
     type Terms,
 } from '$types';
 import { get } from 'svelte/store';
-import { format, isWithinInterval } from 'date-fns';
+import { addDays, format, isWithinInterval } from 'date-fns';
 import merge from 'lodash.merge';
 import produce, { freeze } from 'immer';
 import { collapseMatcher } from '$lib/matcher';
 import { overrides } from './overrides';
 import { nameFromClass } from '$lib/names';
+import { currentTermStore } from '$lib/store/currentTerm';
 export function DeCOH(
     date: Date,
     sCFG: SchoolScheduleConfig,
@@ -114,11 +115,7 @@ function Hydrate(
     water: Terms,
     School: MasterSettingsSchool
 ): HydratedEvent {
-    let currentTerm = School.terms.findIndex((term) => {
-        let start = new Date(term.start);
-        let end = new Date(term.end);
-        return isWithinInterval(date, { start, end });
-    });
+    let currentTerm = get(currentTermStore);
     let classes = water[currentTerm].classes;
     let periods: DisplayCL[] = evt.schedule.periods.map((period) => {
         if (period.id == ClassIDS.Period || period.id == ClassIDS.Advisory) {
@@ -177,4 +174,33 @@ function Hydrate(
         schedule: periods,
     };
     return hydrated;
+}
+
+export function isSchoolDay(
+    date: Date,
+    sCFG: SchoolScheduleConfig,
+    schCFG: MasterSettingsSchool
+) {
+    let event = Determine(date, sCFG);
+    let collapsed = Collapse(event, date, sCFG, schCFG);
+    return collapsed.schedule.periods.find(
+        (i) => ![ClassIDS.Weekend, ClassIDS.NoSchool].includes(i.id)
+    ) != undefined
+        ? true
+        : false;
+}
+
+export function schoolDateCount(
+    startDate: Date,
+    endDate: Date,
+    sCFG: SchoolScheduleConfig,
+    schCFG: MasterSettingsSchool
+) {
+    let count = 0;
+    let current = startDate;
+    while (current <= endDate) {
+        if (isSchoolDay(current, sCFG, schCFG)) count++;
+        current = addDays(current, 1);
+    }
+    return count;
 }

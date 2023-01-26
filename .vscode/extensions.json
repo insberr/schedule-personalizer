@@ -4,7 +4,6 @@
         "svelte.svelte-vscode",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-        "mrmlnc.vscode-json5",
-        "orta.vscode-jest"
+        "mrmlnc.vscode-json5"
     ]
 }

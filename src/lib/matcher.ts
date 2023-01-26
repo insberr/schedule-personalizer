@@ -1,5 +1,7 @@
 import type { MasterSettingsSchool, Matcher, OptionalMatcher } from '$types';
 import { isWithinInterval, isSameDay, isAfter } from 'date-fns';
+import { get } from 'svelte/store';
+import { currentTermStore } from './store/currentTerm';
 export function collapseMatcher<T>(
     matcher: OptionalMatcher<T>,
     cfg: MasterSettingsSchool,
@@ -30,11 +32,7 @@ export function collapseMatcher<T>(
                         throw new Error('Invalid day of week');
                 }
             case 'TERM':
-                let currentTerm = cfg.terms.findIndex((term) => {
-                    let start = new Date(term.start);
-                    let end = new Date(term.end);
-                    return isWithinInterval(date, { start, end });
-                });
+                let currentTerm = get(currentTermStore);
                 if (currentTerm == undefined) {
                     currentTerm = isAfter(date, endDate)
                         ? cfg.terms.length - 1

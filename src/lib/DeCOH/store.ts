@@ -5,12 +5,14 @@ import { scheduleConfig, schoolSettings } from '$lib/store/masterSettings';
 import { DeCOH } from '$lib/DeCOH';
 import { isAfter, isSameDay } from 'date-fns';
 import { displayDate } from '$lib/store/displayDate';
+import { currentTermStore } from '$lib/store/currentTerm';
 
 export const hydrated = derived(
-    [displayDate, scheduleConfig, schoolSettings, schedule],
-    (vals) => {
-        if (vals.some((v) => v === undefined)) return undefined;
-        return DeCOH(...vals);
+    [displayDate, scheduleConfig, schoolSettings, schedule, currentTermStore],
+    ([one, two, three, four]) => {
+        if ([one, two, three, four].some((v) => v === undefined))
+            return undefined;
+        return DeCOH(one, two, three, four);
     }
 );
 

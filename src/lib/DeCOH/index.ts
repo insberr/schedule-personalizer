@@ -133,6 +133,7 @@ function Hydrate(
                     end: period.end,
                     classID: period.id,
                     period: period.num,
+                    extra: period.extra,
                     room: '',
                     teacher: {
                         name: '',
@@ -148,6 +149,7 @@ function Hydrate(
                 classID: period.id,
                 room: classFor.room,
                 teacher: classFor.teacher,
+                extra: period.extra,
                 name:
                     classFor.name.trim() == ''
                         ? 'Period ' + period.num.toString()
@@ -159,6 +161,7 @@ function Hydrate(
                 end: period.end,
                 classID: period.id,
                 period: period.num,
+                extra: period.extra,
                 room: '',
                 teacher: {
                     name: '',

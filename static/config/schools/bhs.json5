@@ -24,7 +24,7 @@
                 {
                     id: 4,
                     num: 3,
-                    start: '09:55',
+                    start: '9:55',
                     end: '11:40',
                 },
                 {
@@ -111,6 +111,65 @@
                 },
             ],
         },
+        Xiw8bn_YkKnG5JqF: {
+            name: 'Assembly PM',
+            periods: [
+                {
+                    id: 0,
+                    num: 1,
+                    start: '06:35',
+                    end: '07:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '07:35',
+                    end: '08:35',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '08:40',
+                    end: '09:35',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '09:35',
+                    end: '11:20',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '11:25',
+                    end: '12:15',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '12:20',
+                    end: '13:10',
+                },
+                {
+                    id: 6,
+                    num: 1,
+                    start: '13:10',
+                    end: '13:20',
+                },
+                {
+                    id: 5,
+                    num: 1,
+                    start: '13:20',
+                    end: '14:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '14:05',
+                    end: '14:10',
+                },
+            ],
+        },
     },
     events: {
         serifyKey: null,
@@ -120,6 +179,13 @@
                 '01-13-2023',
                 {
                     schedule: 'adv',
+                },
+            ],
+            [
+                '01-27-2023',
+                {
+                    schedule: 'Xiw8bn_YkKnG5JqF',
+                    message: 'PM Assembly, Something about winter sports, i really dont care.',
                 },
             ],
         ],

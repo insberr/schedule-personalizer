@@ -13,7 +13,7 @@
 >
     <ScheduleHeader />
     <!-- I've got a great idea on how to animate this-->
-    {#each hydrated.schedule as cls, i (cls.period + cls.name + cls.classID)}
+    {#each hydrated.schedule as cls, i (cls.period + cls.name + cls.classID + cls.extra)}
         <ScheduleRow {cls} displayDate={$displayDate} index={i} />
     {/each}
     <div class={hydrated.schedule.length % 2 ? 'bg-base-200' : 'bg-base-300'}>

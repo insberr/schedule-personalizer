@@ -174,6 +174,7 @@ export type Period = {
     num: number;
     start: string;
     end: string;
+    extra?: string;
 };
 export type OptionalMatcher<T> = T | Matcher<T>;
 
@@ -198,4 +199,5 @@ export type TermMatcher<T> = {
 export type DisplayCL = CL & {
     start: string;
     end: string;
+    extra?: string;
 };

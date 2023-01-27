@@ -22,6 +22,7 @@
     import { get } from 'svelte/store';
     import { schoolDateCount } from '$lib/DeCOH';
     import { currentTermStore } from '$lib/store/currentTerm';
+    import { tweened } from 'svelte/motion';
     let showMore = false;
     let SL: string = format($displayDate, 'MM-dd-yyyy');
     function updateSL() {
@@ -52,6 +53,14 @@
     );
     $: {
         displayDate.set(parse(SL, 'MM-dd-yyyy', new Date()));
+    }
+    let daysLeftTermProgress = tweened(0, { duration: 500 });
+    $: {
+        daysLeftTermProgress.set(daysInTerm - $daysLeftTerm);
+    }
+    let daysLeftYearProgress = tweened(0, { duration: 500 });
+    $: {
+        daysLeftYearProgress.set(daysInYear - $daysLeftYear);
     }
 </script>
 
@@ -96,7 +105,7 @@
                     <p>School days left in term: {$daysLeftTerm}</p>
                     <progress
                         class="progress progress-success"
-                        value={daysInTerm - $daysLeftTerm}
+                        value={$daysLeftTermProgress}
                         max={daysInTerm}
                     />
                 </div>
@@ -104,7 +113,7 @@
                     <p>School days left in year: {$daysLeftYear}</p>
                     <progress
                         class="progress progress-success"
-                        value={daysInYear - $daysLeftYear}
+                        value={$daysLeftYearProgress}
                         max={daysInYear}
                     />
                 </div>

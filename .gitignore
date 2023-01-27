@@ -17,3 +17,5 @@ vite.config.ts.timestamp-*
 !.yarn/versions
 dist
 coverage/
+
+*.ignore.*

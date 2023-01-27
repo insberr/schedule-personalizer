@@ -115,7 +115,12 @@ export function lunch_override(
         });
         lunch_start = lunch_end;
     }
-    let detected_lunch = 3; // lol
+    let detected_lunch = settings.teachers[lunchPeriod.teacher.id]; // lol
+    if (detected_lunch == undefined) {
+        console.warn('No lunch period detected for teacher');
+        evt.message += ` No Lunch Period Detected for ${teach.name.last}, ${teach.name.first}`;
+        return;
+    }
 
     lunch_periods[detected_lunch - 1].id = ClassIDS.Lunch;
 
@@ -134,7 +139,7 @@ export function lunch_override(
         1,
         ...lunch_periods
     );
-    evt.message += ' Lunch is forced to 3, gotta add the teacher lunch list';
+    //evt.message += ' Lunch is forced to 3, gotta add the teacher lunch list';
 }
 
 function find_staff_from_id(id: string) {

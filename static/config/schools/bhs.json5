@@ -208,9 +208,9 @@
                     classID: 4,
                     period: 3,
                     teachers: {
-                        '6DFFE869-54D1-4F06-AD75-67938B03D054': 1,
-                        '1FD1AA82-942A-40EE-95D4-F34305640AF6': 1,
-                        '5055B0DF-34AB-42AA-8AD4-07E7FB95293E': 1,
+                        '6DFFE869-54D1-4F06-AD75-67938B03D054': 1, // im so sorry about having to do ids,
+                        '1FD1AA82-942A-40EE-95D4-F34305640AF6': 1, // i might make a program that takes names in and creates lunch info.
+                        '5055B0DF-34AB-42AA-8AD4-07E7FB95293E': 1, // maybe.
                         '11FF7A1C-7D63-4644-BAAE-D59851A2DC6A': 1,
                         'E3741ADD-A38D-4CF3-8628-80E31B902401': 1,
                         '1C531504-DCF3-45C8-9C6A-D8871020CED1': 1,

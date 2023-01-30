@@ -2,6 +2,7 @@
     $schema: 'master.schema.json',
     studentVueUrl: 'wa-beth-psv.edupoint.com',
     schools: [
+        // why are thses config values not in their respective school config file???????????
         {
             stvName: 'Bethel High School',
             terms: [

@@ -4151,7 +4151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:>=6":
+"husky@npm:^8.0.0":
   version: 8.0.3
   resolution: "husky@npm:8.0.3"
   bin:
@@ -6548,7 +6548,7 @@ __metadata:
     autoprefixer: ^10.4.7
     daisyui: ^2.18.1
     date-fns: ^2.29.3
-    husky: ">=6"
+    husky: ^8.0.0
     immer: ^9.0.17
     jest: latest
     json5: ^2.2.3

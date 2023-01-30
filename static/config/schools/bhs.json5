@@ -172,6 +172,7 @@
         },
     },
     events: {
+        // I am not writing all these manually. make it so you can import calandar files in the editor.
         serifyKey: null,
         type: 'Map',
         value: [
@@ -208,6 +209,8 @@
                     classID: 4,
                     period: 3,
                     teachers: {
+                        // why cant you do
+                        // 'Name': 1,
                         '6DFFE869-54D1-4F06-AD75-67938B03D054': 1, // im so sorry about having to do ids,
                         '1FD1AA82-942A-40EE-95D4-F34305640AF6': 1, // i might make a program that takes names in and creates lunch info.
                         '5055B0DF-34AB-42AA-8AD4-07E7FB95293E': 1, // maybe.

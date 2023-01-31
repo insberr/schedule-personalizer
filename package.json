@@ -12,7 +12,8 @@
     "postinstall": "husky install",
     "test:watch": "jest --watch",
     "test": "jest",
-    "update-staff-list": "ts-node --project scripts/tsconfig.json --esm scripts/update-staff-list.ts"
+    "update-staff-list": "ts-node --project scripts/tsconfig.json --esm scripts/update-staff-list.ts",
+    "update-ical-events": "ts-node --project scripts/tsconfig.json --esm scripts/update-ical-events.ts"
   },
   "devDependencies": {
     "@sveltejs/kit": "^1.0.0",
@@ -26,6 +27,7 @@
     "jest": "latest",
     "lint-staged": ">=10",
     "node-fetch": "^3.3.0",
+    "node-ical": "^0.15.3",
     "postcss": "^8.4.14",
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.8.1",

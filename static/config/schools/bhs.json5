@@ -170,9 +170,113 @@
                 },
             ],
         },
+        noschool: {
+            name: 'No School',
+            periods: [
+                {
+                    id: 8,
+                    num: 1,
+                    start: '00:00',
+                    end: '23:59',
+                },
+            ],
+        },
+        earlydismissal: {
+            name: 'Early Dismissal',
+            periods: [
+                {
+                    id: 0,
+                    num: 4,
+                    start: '06:35',
+                    end: '07:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '07:35',
+                    end: '08:00',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '08:05',
+                    end: '08:30',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '08:35',
+                    end: '09:00',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '09:05',
+                    end: '09:30',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '09:35',
+                    end: '10:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '10:05',
+                    end: '10:10',
+                },
+            ],
+        },
+        onehourdelay: {
+            name: 'Late Arrival',
+            periods: [
+                {
+                    id: 0,
+                    num: 4,
+                    start: '08:15',
+                    end: '08:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '08:35',
+                    end: '09:25',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '09:30',
+                    end: '10:25',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '10:25',
+                    end: '12:10',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '12:15',
+                    end: '13:10',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '13:15',
+                    end: '14:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '14:05',
+                    end: '14:10',
+                },
+            ],
+        },
     },
     events: {
-        // I am not writing all these manually. make it so you can import calandar files in the editor.
         serifyKey: null,
         type: 'Map',
         value: [
@@ -187,6 +291,237 @@
                 {
                     schedule: 'Xiw8bn_YkKnG5JqF',
                     message: 'PM Assembly, Something about winter sports, i really dont care.',
+                },
+            ],
+            [
+                '01-02-2023',
+                {
+                    schedule: 'noschool',
+                    message: "New Year's Day - No School",
+                },
+            ],
+            [
+                '01-04-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '01-11-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '01-16-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Martin Luther King Jr. Day - No School',
+                },
+            ],
+            [
+                '01-18-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '01-25-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'PL Day #2 - No Students ',
+                },
+            ],
+            [
+                '02-08-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '02-15-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '02-20-2023',
+                {
+                    schedule: 'noschool',
+                    message: "President's Day - No School",
+                },
+            ],
+            [
+                '02-21-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Waiver Day #2 - No Students ',
+                },
+            ],
+            [
+                '03-01-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '03-08-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '03-23-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'End of 2nd Trimester & Elem-MS-HS Grade Prep - Early Dismissal (K-12)',
+                },
+            ],
+            [
+                '03-29-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                },
+            ],
+            [
+                '03-30-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                },
+            ],
+            [
+                '03-31-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                },
+            ],
+            [
+                '04-03-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Spring Break - No School',
+                },
+            ],
+            [
+                '04-04-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Spring Break - No School',
+                },
+            ],
+            [
+                '04-05-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Spring Break - No School',
+                },
+            ],
+            [
+                '04-06-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Spring Break - No School',
+                },
+            ],
+            [
+                '04-07-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Spring Break - No School',
+                },
+            ],
+            [
+                '04-12-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '04-19-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '04-26-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '05-03-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '05-10-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '05-17-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '05-26-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Snow Make-up Day (if required)',
+                },
+            ],
+            [
+                '05-29-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Memorial Day - No School ',
+                },
+            ],
+            [
+                '06-07-2023',
+                {
+                    schedule: 'onehourdelay',
+                    message: 'Late Arrival',
+                },
+            ],
+            [
+                '06-19-2023',
+                {
+                    schedule: 'noschool',
+                    message: 'Juneteenth - No School',
+                },
+            ],
+            [
+                '06-20-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'Elem-MS-HS Grade Prep - Early Dismissal (K-12)',
+                },
+            ],
+            [
+                '06-23-2023',
+                {
+                    schedule: 'earlydismissal',
+                    message: 'Last Day of School - Early Dismissal (K-12)',
                 },
             ],
         ],
@@ -209,11 +544,9 @@
                     classID: 4,
                     period: 3,
                     teachers: {
-                        // why cant you do
-                        // 'Name': 1,
-                        '6DFFE869-54D1-4F06-AD75-67938B03D054': 1, // im so sorry about having to do ids,
-                        '1FD1AA82-942A-40EE-95D4-F34305640AF6': 1, // i might make a program that takes names in and creates lunch info.
-                        '5055B0DF-34AB-42AA-8AD4-07E7FB95293E': 1, // maybe.
+                        '6DFFE869-54D1-4F06-AD75-67938B03D054': 1,
+                        '1FD1AA82-942A-40EE-95D4-F34305640AF6': 1,
+                        '5055B0DF-34AB-42AA-8AD4-07E7FB95293E': 1,
                         '11FF7A1C-7D63-4644-BAAE-D59851A2DC6A': 1,
                         'E3741ADD-A38D-4CF3-8628-80E31B902401': 1,
                         '1C531504-DCF3-45C8-9C6A-D8871020CED1': 1,

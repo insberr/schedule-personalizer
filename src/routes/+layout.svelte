@@ -1,7 +1,7 @@
 <script>
     import { Toaster } from 'svelte-french-toast';
     import '../app.postcss';
-    import '@fontsource/roboto';
+    //import '@fontsource/roboto';
     import { onMount } from 'svelte';
     //@ts-ignore
     import { pwaInfo } from 'virtual:pwa-info';

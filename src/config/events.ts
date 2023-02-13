@@ -505,9 +505,9 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
-        schedule: schedules.noSchool,
+        schedule: null,
         info: {
-            message: 'Snow Makeup Day or No School',
+            message: 'Snow Makeup Day',
             date: new Date('February 17, 2023'),
         },
     },

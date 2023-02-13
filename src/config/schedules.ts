@@ -1,6 +1,7 @@
 import { EventSchedule } from '../pages/schedule';
 import { CL, ClassIDS, getTimeW, Time } from '../types';
 import '../types/schedulesTypes';
+import { teachers } from './teachers';
 
 export type CLIdentifier = {
     classID: ClassIDS;
@@ -84,6 +85,7 @@ export type SchedulesType = {
         basedOnPeriod?: number | number[];
         basedOnPeriodID?: ClassIDS;
         numberOfLunches?: number;
+        useLunchConfigId?: string;
         lunches?: {
             [key: number]: Lunch;
         };
@@ -2193,6 +2195,446 @@ export const schedules: Schedules = {
                             classID: ClassIDS.Lunch,
                             startTime: getTimeW(11, 55),
                             endTime: getTimeW(12, 25),
+                        },
+                    ],
+                },
+            },
+        },
+    },
+
+    assemblyBHM: {
+        name: 'Black History Month Assembly',
+        classes: [
+            {
+                classID: ClassIDS.Arrival,
+                period: 0,
+                startTime: getTimeW(7, 5),
+                endTime: getTimeW(7, 30),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 1,
+                startTime: getTimeW(7, 35),
+                endTime: getTimeW(8, 30),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 2,
+                startTime: getTimeW(8, 35),
+                endTime: getTimeW(9, 25),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 3,
+                startTime: getTimeW(9, 30),
+                endTime: getTimeW(10, 20),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 4,
+                startTime: getTimeW(10, 25),
+                endTime: getTimeW(12, 5),
+            },
+            {
+                classID: ClassIDS.Period,
+                period: 5,
+                startTime: getTimeW(12, 10),
+                endTime: getTimeW(14, 5),
+            },
+            {
+                classID: ClassIDS.Dismissal,
+                period: 0,
+                startTime: getTimeW(14, 5),
+                endTime: getTimeW(14, 10),
+            },
+        ],
+        overides: [
+            {
+                name: 'assembly A',
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, _config, sch) => {
+                    const fithPeriod = sch.filter((e) => {
+                        return e.period === 5;
+                    });
+
+                    if (fithPeriod.length === 0) return false;
+
+                    if (fithPeriod[0].teacher.id === teachers.Angotti_Rachel_A.id) {
+                        // _event.info.message += ' (A)';
+                        return true;
+                    }
+
+                    switch (fithPeriod[0].teacher.id) {
+                        // East Bleachers
+                        case teachers.Angotti_Rachel_A.id:
+                            return true;
+                        case teachers.Barnette_Carlotta_A.id:
+                            return true;
+                        case teachers.Beatty_Matthew.id:
+                            return true;
+                        case teachers.Benson_Katherine_E.id:
+                            return true;
+                        case teachers.Blake_Ashley_L.id:
+                            return true;
+                        case teachers.Bland_James_W.id:
+                            return true;
+                        case teachers.Brendible_Jacklyn_V.id:
+                            return true;
+                        case teachers.Bridgman_Jonathan_I.id:
+                            return true;
+                        case teachers.Brokaw_David_C.id:
+                            return true;
+                        case teachers.Cain_Brandon_M.id:
+                            return true;
+                        case teachers.Calos_Brandon_N.id:
+                            return true;
+                        case teachers.Cambra_Christine_A.id:
+                            return true;
+                        case teachers.Carrell_Jason_D.id:
+                            return true;
+                        case teachers.Chege_Mary_W.id:
+                            return true;
+
+                        // West Bleachers
+                        case teachers.Doyle_Suzanne_M.id:
+                            return true;
+                        case teachers.Estrada_Jennifer_B.id:
+                            return true;
+                        case teachers.Fernandez_Zesty_A.id:
+                            return true;
+                        case teachers.Forse_Lita_L.id:
+                            return true;
+                        case teachers.Fowler_Krystall.id:
+                            return true;
+                        case teachers.Fowler_Raylene_K.id:
+                            return true;
+                        case teachers.Fowler_Ethan_T.id:
+                            return true;
+                        case teachers.Frady_Sadie_L.id:
+                            return true;
+                        case teachers.Gardner_Kenneth_A.id:
+                            return true;
+                        case teachers.Greenland_Roy_F.id:
+                            return true;
+                        case teachers.Grimaldi_Marseille.id:
+                            return true;
+                        case teachers.Hilsabeck_Erika_M.id:
+                            return true;
+                        case teachers.Iverson_Kenneth_B.id:
+                            return true;
+                        case teachers.Jin_Heather_A.id:
+                            return true;
+                        case teachers.Jolly_Morgan_D.id:
+                            return true;
+                        case '':
+                            // Must be manual data entry then
+                            return false;
+                        default: {
+                            console.log('Not assembly A. Teacher: ' + fithPeriod[0].teacher.id);
+                            return false;
+                        }
+                    }
+
+                    return false;
+                },
+                overides: [
+                    {
+                        forGrade: 'all',
+                        ignoreLunchConfig: false,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 5 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Custom,
+                                        customID: 10,
+                                        name: 'Go To Class For Attendance',
+                                        period: 0,
+                                        startTime: getTimeW(12, 10),
+                                        endTime: getTimeW(12, 15),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Custom, period: 0, customID: 10 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Passing,
+                                        period: 0,
+                                        startTime: getTimeW(12, 15),
+                                        endTime: getTimeW(12, 20),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Passing, period: 0 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Assembly,
+                                        period: 0,
+                                        name: 'Assembly A',
+                                        startTime: getTimeW(12, 20),
+                                        endTime: getTimeW(13, 5),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Assembly, period: 0 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 5,
+                                        startTime: getTimeW(13, 10),
+                                        endTime: getTimeW(14, 5),
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+            {
+                name: 'assembly B',
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                condition: (_event, _config, sch) => {
+                    const fithPeriod = sch.filter((e) => {
+                        return e.period === 5;
+                    });
+
+                    if (fithPeriod.length === 0) return false;
+
+                    if (fithPeriod[0].teacher.id === teachers.Angotti_Rachel_A.id) {
+                        // _event.info.message += ' (A)';
+                        return true;
+                    }
+
+                    switch (fithPeriod[0].teacher.id) {
+                        // East Bleachers
+                        case teachers.Knox_Caleb_M.id:
+                            return true;
+                        case teachers.Kubena_Nanette_M.id:
+                            return true;
+                        case teachers.Loiselle_Ryan_A.id:
+                            return true;
+                        case teachers.Matthews_Tyler_M.id:
+                            return true;
+                        case teachers.Mcmullen_Michael_L.id:
+                            return true;
+                        case teachers.Morrison_Jennifer_M.id:
+                            return true;
+                        case teachers.Partin_Mariah_F.id:
+                            return true;
+                        case teachers.Pelandini_Rebecca_M.id:
+                            return true;
+                        case teachers.Pike_Stephanie_R.id:
+                            return true;
+                        case teachers.Racus_Britni_E.id:
+                            return true;
+                        case teachers.Reisch_Rebecca_D.id:
+                            return true;
+                        case teachers.Rexus_Daniel_R.id:
+                            return true;
+                        case teachers.Ridgway_Thomas_G.id:
+                            return true;
+                        case teachers.Riggle_Brian.id:
+                            return true;
+                        case teachers.Tkach_Stephen_J.id:
+                            return true;
+                        case teachers.Roberts_Lori_C.id:
+                            return true;
+                        case teachers.Sacks_Michael_J.id:
+                            return true;
+
+                        // West Bleachers
+                        case teachers.Saffle_Teal_H.id:
+                            return true;
+                        case teachers.Schwoch_Kevin_R.id:
+                            return true;
+                        case teachers.Shelley_Bonnie_R.id:
+                            return true;
+                        case teachers.Shoot_Andrew_L.id:
+                            return true;
+                        case teachers.Soriero_Sabrina_L.id:
+                            return true;
+                        case teachers.Southworth_Gregory_W.id:
+                            return true;
+                        case teachers.Stickney_Christopher_L.id:
+                            return true;
+                        case teachers.Stumpf_John_R.id:
+                            return true;
+                        case teachers.Talen_Michael_H.id:
+                            return true;
+                        case teachers.Taylor_Claire_V.id:
+                            return true;
+                        // case teachers.Japanese.id: return true; What ???
+                        // case teachers.Science.id: return true; What ???
+                        case teachers.Mooy_Michelle_L.id:
+                            return true;
+                        case teachers.Thorn_Danielle_E.id:
+                            return true;
+                        case teachers.Watson_Hayley_J.id:
+                            return true;
+                        case teachers.Whitehead_Ryan_D.id:
+                            return true;
+                        case teachers.Wilson_Anne_M.id:
+                            return true;
+                        case teachers.Wilson_Dominique_A.id:
+                            return true;
+                        case teachers.Wilson_Zuleica_E.id:
+                            return true;
+
+                        case '':
+                            // Must be manual data entry then
+                            return false;
+                        default: {
+                            console.log('Not assembly B. Teacher: ' + fithPeriod[0].teacher.id);
+                            return false;
+                        }
+                    }
+
+                    return false;
+                },
+                overides: [
+                    {
+                        forGrade: 'all',
+                        ignoreLunchConfig: false,
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 5 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Period,
+                                        period: 5,
+                                        startTime: getTimeW(12, 10),
+                                        endTime: getTimeW(13, 10),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Period, period: 5 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Passing,
+                                        period: 0,
+                                        startTime: getTimeW(13, 10),
+                                        endTime: getTimeW(13, 15),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Passing, period: 0 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Assembly,
+                                        period: 0,
+                                        name: 'Assembly B',
+                                        startTime: getTimeW(13, 20),
+                                        endTime: getTimeW(14, 5),
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+            {
+                name: 'No teacher ID / Default',
+                condition: (_event, _config, sch) => {
+                    // const fithPeriod = sch.filter((e) => {
+                    //     return e.period === 5;
+                    // });
+
+                    // if (fithPeriod.length === 0) return true;
+                    // if (fithPeriod[0].teacher.id === '') return true;
+
+                    // if (Object.values(teachers).filter((e) => e.id === fithPeriod[0].teacher.id).length === 0) return true;
+
+                    // return false;
+                    return true;
+                },
+                overides: [
+                    {
+                        forGrade: 'all',
+                        overides: {
+                            replace: [
+                                {
+                                    base: { classID: ClassIDS.Period, period: 5 },
+                                    type: ReplaceType.Replace,
+                                    with: {
+                                        classID: ClassIDS.Custom,
+                                        customID: 11,
+                                        name: 'Assembly A or 5th Period',
+                                        period: 5,
+                                        startTime: getTimeW(12, 10),
+                                        endTime: getTimeW(13, 10),
+                                    },
+                                },
+                                {
+                                    base: { classID: ClassIDS.Custom, period: 5, customID: 11 },
+                                    type: ReplaceType.After,
+                                    with: {
+                                        classID: ClassIDS.Custom,
+                                        customID: 12,
+                                        name: 'Assembly B or 5th Period',
+                                        period: 5,
+                                        startTime: getTimeW(13, 10),
+                                        endTime: getTimeW(14, 5),
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+        ],
+        lunch: {
+            hasLunch: true,
+            basedOnPeriod: 4,
+            basedOnPeriodID: ClassIDS.Period,
+            useLunchConfigId: 'BHM',
+            numberOfLunches: 3,
+            lunches: {
+                1: {
+                    order: [
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(10, 20),
+                            endTime: getTimeW(10, 50),
+                        },
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 55),
+                            endTime: getTimeW(12, 5),
+                        },
+                    ],
+                },
+                2: {
+                    order: [
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 25),
+                            endTime: getTimeW(10, 55),
+                        },
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(10, 55),
+                            endTime: getTimeW(11, 25),
+                        },
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(11, 30),
+                            endTime: getTimeW(12, 5),
+                        },
+                    ],
+                },
+                3: {
+                    order: [
+                        {
+                            classID: ClassIDS.Period,
+                            startTime: getTimeW(10, 25),
+                            endTime: getTimeW(11, 35),
+                        },
+                        {
+                            classID: ClassIDS.Lunch,
+                            startTime: getTimeW(11, 35),
+                            endTime: getTimeW(12, 5),
                         },
                     ],
                 },

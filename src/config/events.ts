@@ -526,6 +526,13 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: schedules.assemblyBHM,
+        info: {
+            message: 'Black History Month Assembly',
+            date: new Date('February 28, 2023'),
+        },
+    },
+    {
         schedule: schedules.lateStart1Hour,
         info: {
             message: 'Late Start',

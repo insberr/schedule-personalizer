@@ -288,6 +288,7 @@ function lunchify(
         const temp_basedOnPeriodLunch = lunchesConfig.lunches[displayTerm.termIndex].filter((lunches) => {
             return (
                 lunches.basedOnPeriod === lunchValue.basedOnPeriod &&
+                (lunchValue.useLunchConfigId !== undefined ? lunches.id === lunchValue.useLunchConfigId : true) &&
                 (lunchValue.basedOnPeriodID !== undefined ? lunches.basedOnPeriodID === lunchValue.basedOnPeriodID : true)
             );
         });

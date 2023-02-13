@@ -10,6 +10,7 @@ export type LunchesBasedOnPeriod = {
     forOveride?: boolean;
     basedOnPeriod: number;
     basedOnPeriodID?: ClassIDS;
+    id?: string;
     lunches: Lunch[];
 };
 

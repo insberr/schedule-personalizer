@@ -33,9 +33,14 @@ export function overidesMergeDataWithSchedule(
     if (overidesForCondition === undefined) return null; // No matching overides for this user
     if (overidesForCondition.length === 0) return null; // No matching overides for this user
     if (overidesForCondition[0].overides.length === 0) return null; // No overides for condition specified
+
     // Check if there are any overides for the users grade level
-    const overideForGrade = overidesForCondition[0].overides.filter((o) => o.forGrade === gradeAsNumber)[0];
-    if (overideForGrade === undefined) return null; // No overide for this grade, use default schedule
+    let overideForGrade = overidesForCondition[0].overides.filter((o) => o.forGrade === gradeAsNumber)[0];
+    // Check if there are any overides for all grades
+    const overidesForAllGrades = overidesForCondition[0].overides.filter((o) => o.forGrade === 'all')[0];
+
+    if (overideForGrade === undefined && overidesForAllGrades == undefined) return null; // No overide for this grade or for all, use default schedule
+    overideForGrade = overideForGrade ?? overidesForAllGrades; // If no overide for grade, use overide for all grades
 
     // If no overides are given. That should mean theres some other config values that are used after the function
     if (overideForGrade.overides !== undefined) {
@@ -106,7 +111,7 @@ export function overidesMergeDataWithSchedule(
                 classID: period.classID,
                 customID: period.customID,
                 period: period.period,
-                name: period.classID === ClassIDS.Custom && period.name !== undefined ? period.name : '',
+                name: period.name !== undefined ? period.name : '',
                 room: '',
                 teacher: {
                     name: '',

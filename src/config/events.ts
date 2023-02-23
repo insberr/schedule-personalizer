@@ -525,6 +525,15 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('February 21, 2023'),
         },
     },
+    // Snow routes and 2 hour delay
+    {
+        schedule: schedules.lateStart2Hour,
+        info: {
+            message: '2 Hour Delay Due To Possible Icy Roads',
+            date: new Date('February 23, 2023'),
+        },
+    },
+
     {
         schedule: schedules.assemblyBHM,
         info: {

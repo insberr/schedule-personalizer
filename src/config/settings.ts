@@ -34,7 +34,15 @@ export const alertMessageSchedules: { contains: string; schedule: SchedulesType 
         schedule: schedules.lateStart2Hour,
     },
     {
+        contains: 'two hour delay',
+        schedule: schedules.lateStart2Hour,
+    },
+    {
         contains: '2-hour delay',
+        schedule: schedules.lateStart2Hour,
+    },
+    {
+        contains: '2 hour delay',
         schedule: schedules.lateStart2Hour,
     },
     {

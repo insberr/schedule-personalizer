@@ -2442,6 +2442,8 @@ export const schedules: Schedules = {
                             return true;
                         case teachers.Sacks_Michael_J.id:
                             return true;
+                        case teachers.Welborn_Scott_T.id:
+                            return true;
 
                         // West Bleachers
                         case teachers.Saffle_Teal_H.id:
@@ -2474,6 +2476,7 @@ export const schedules: Schedules = {
                             return true;
                         case teachers.Whitehead_Ryan_D.id:
                             return true;
+                        // Theres 3 Wilsons ...
                         case teachers.Wilson_Anne_M.id:
                             return true;
                         case teachers.Wilson_Dominique_A.id:

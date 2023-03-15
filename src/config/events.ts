@@ -562,16 +562,34 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('March 23, 2023'),
         },
     },
+
+    // Conference week
     {
+        // adv 1
         schedule: schedules.earlyDissmissal,
         info: {
             message: 'Early Dismissal | Conference Week',
-            date: {
-                start: new Date('March 29, 2023'),
-                end: new Date('March 31, 2023'),
-            },
+            date: new Date('March 29, 2023'),
         },
     },
+    {
+        // 2 3
+        schedule: schedules.earlyDissmissal,
+        info: {
+            message: 'Early Dismissal | Conference Week',
+            date: new Date('March 30, 2023'),
+        },
+    },
+    {
+        // 4 5
+        schedule: schedules.earlyDissmissal,
+        info: {
+            message: 'Early Dismissal | Conference Week',
+            date: new Date('March 31, 2023'),
+        },
+    },
+    
+    
     {
         schedule: schedules.noSchool,
         info: {

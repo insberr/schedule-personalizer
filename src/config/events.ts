@@ -566,7 +566,7 @@ export const scheduleEvents: ScheduleEvents = [
     // Conference week
     {
         // adv 1
-        schedule: schedules.earlyDissmissal,
+        schedule: schedules.earlyDiss_A_1,
         info: {
             message: 'Early Dismissal | Conference Week',
             date: new Date('March 29, 2023'),
@@ -574,7 +574,7 @@ export const scheduleEvents: ScheduleEvents = [
     },
     {
         // 2 3
-        schedule: schedules.earlyDissmissal,
+        schedule: schedules.earlyDiss_2_3,
         info: {
             message: 'Early Dismissal | Conference Week',
             date: new Date('March 30, 2023'),
@@ -582,7 +582,7 @@ export const scheduleEvents: ScheduleEvents = [
     },
     {
         // 4 5
-        schedule: schedules.earlyDissmissal,
+        schedule: schedules.earlyDiss_4_5,
         info: {
             message: 'Early Dismissal | Conference Week',
             date: new Date('March 31, 2023'),

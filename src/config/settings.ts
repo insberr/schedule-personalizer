@@ -99,10 +99,10 @@ export const termsDates: types.Terms = [
     {
         termIndex: 1,
         startDate: new Date('December 8, 2022'),
-        endDate: new Date('March 27, 2023'),
+        endDate: new Date('March 23, 2023'),
         classes: [],
     },
-    { termIndex: 2, startDate: new Date('March 28, 2023'), endDate: lastDayOfSchool, classes: [] },
+    { termIndex: 2, startDate: new Date('March 24, 2023'), endDate: lastDayOfSchool, classes: [] },
 ];
 
 const defaultColor: types.RGBA = {

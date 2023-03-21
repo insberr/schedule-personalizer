@@ -1,6 +1,4 @@
-export type Teacher = {
-    id: string;
-};
+export type Teacher = { id: string };
 
 /*
 // Moved to the bottom for reasons
@@ -9,6 +7,7 @@ export type Teachers = {
 },;
 */
 export const teachers = {
+    A_Kelly_M: { id: '1B8EA8F2-281A-495B-915E-6BF3F987F089' },
     Adams_Jennifer_N: { id: '8BB5913B-8501-4333-B5F3-3948508F47CA' },
     Ainslie_John_R: { id: '189C95B7-E411-4998-8B75-999707DBF85C' },
     Allen_David_M: { id: '1522F63C-385F-4A8F-B89D-3E6F46012FE3' },
@@ -17,6 +16,7 @@ export const teachers = {
     Apostolides_John_B: { id: '02E56D4C-FFAD-4A44-A7B9-9927CB1B2787' },
     Appel_Jennifer_L: { id: '34FBE2FB-F14B-4919-BEE2-E9C03D83EEED' },
     Arakaki_Mihwi: { id: 'ED0581C9-B561-46D9-B173-399DD5347A0D' },
+    Areglo_Mara_M: { id: '4BD82932-2A47-4372-92D8-22BF7EAF33C2' },
     Asamoah_Boateng_Jonas: { id: '97150CCD-1249-4129-962C-E8954C456C1E' },
     Asbridge_Dorothy_J: { id: '57BC10D0-755A-45C0-82A3-361B695E94F4' },
     Athow_Michael_J: { id: 'C9BE92E6-237B-448A-9917-5F32AF5AA51A' },
@@ -73,6 +73,7 @@ export const teachers = {
     Ehrlick_Sage: { id: '222DFA7B-DE1E-44E2-8DCD-E1F09F1A82CF' },
     Elliott_Patsy_L: { id: '2ACD2B43-231B-4B16-A419-E7DD8F84736A' },
     Estrada_Jennifer_B: { id: '5A278915-6DA9-45BF-967A-D3C6909CAE36' },
+    Farmer_Aimi: { id: '0C2E8C5C-4F82-4F30-B4B3-EF7745AB63C4' },
     Fernandez_Zesty_A: { id: '918E6D22-B9A4-433C-AABF-A9B89FF5B6EF' },
     Fia_Ruby_S: { id: 'FEC34F66-B080-4F34-B598-5AD62FA6528B' },
     Fjeld_Katrina_A: { id: '9E406B86-1EE1-4C29-A143-76EF8793B4C3' },
@@ -83,10 +84,12 @@ export const teachers = {
     Fowler_Krystall: { id: 'EF0E762D-7A7D-4BBD-864B-4C6D6743E9FF' },
     Fowler_Raylene_K: { id: 'E3741ADD-A38D-4CF3-8628-80E31B902401' },
     Fox_Dawn_W: { id: '468C1E0A-CFA7-4279-B69E-EE1DA7E010FD' },
+    Fradette_Ana_L: { id: '04AA2A74-C696-4658-8433-3523034B0927' },
     Fradette_Douglas_R: { id: '0D035657-7877-4DC8-AFDE-70DF39F8375E' },
     Frady_Sadie_L: { id: '1C531504-DCF3-45C8-9C6A-D8871020CED1' },
     Frederick_Hasani: { id: 'FA9DFAA2-9D5E-45B9-B6E5-88EBA6B1F1EF' },
     Frederick_Kristina_M: { id: '5FEDD292-E101-4C7E-B4AC-E4578C9F1C6D' },
+    Fritcher_Amanda_M: { id: '1BDA9250-82E9-4FFC-A823-B050D4ABC8F6' },
     Fryer_Hollis: { id: '3351A016-FA38-4E91-BB0B-493770810C13' },
     Gallagher_Markelle_E: { id: '54DCF62C-F808-4186-AD5B-32DCDADE4F6A' },
     Gardner_Kenneth_A: { id: '6A3A1070-A936-4DC5-9DB3-9D0DF300406C' },
@@ -97,6 +100,7 @@ export const teachers = {
     Grimaldi_Marseille: { id: 'D719CA06-D9DE-41CE-A720-E85875F2B2B5' },
     Haegele_Dennis_S: { id: '11F13E4A-D3C2-44C2-B85E-E42D044C4A7D' },
     Hamilton_Michelle_Y: { id: '5ED1F075-B1E6-4012-9F25-F9BD96DE3CB7' },
+    Hammond_Marseille: { id: 'D719CA06-D9DE-41CE-A720-E85875F2B2B5' },
     Harris_Brittney_V: { id: '2BF9E3C8-9635-4E8F-A670-9A607A90172E' },
     Hawes_Theresa_M: { id: 'C213A95E-A0AA-4068-8023-F4A6CFD379A7' },
     Hilsabeck_Erika_M: { id: '58FE4068-5B69-403B-9785-B26796E8958C' },
@@ -116,6 +120,7 @@ export const teachers = {
     Janshen_Jocelyn_A: { id: '2727A0B8-CA71-42B9-943C-CFE77623EE7F' },
     Jin_Heather_A: { id: 'FA488816-194B-4EB1-8289-E644008DC7CB' },
     Johnson_Anthony_I: { id: '0F1BCF7B-6D14-40B4-B533-84CE2DD1EC03' },
+    Johnson_Nicole_R: { id: '2CB942EC-C40C-4B83-862A-65F05E07B6F9' },
     Jolly_Morgan_D: { id: 'D81A4ABA-8EAB-40D1-8DCA-AEA24D5DF935' },
     Jones_Marvia_C: { id: 'BC69C4D1-66E8-4E6D-BBF7-AD9B8A56B325' },
     Jones_Stephanie_J: { id: 'AB712207-5B06-41E9-B3CE-34DF44161E8F' },
@@ -123,10 +128,12 @@ export const teachers = {
     Kim_Noreen_M: { id: 'FF27FF34-8216-4FCA-AA67-661D3941B424' },
     Kintz_Kevin_A: { id: '6EDDF615-60D5-45AA-8B3F-A3D04DDF1533' },
     Knight_Cherrie_L: { id: 'ED5B67E9-0DB6-4493-B5FF-D3D0AC2B4D0D' },
+    Knight_Debra_A: { id: '93940345-D9DF-4DA3-91B5-01CE27C10C25' },
     Knox_Caleb_M: { id: 'EA675775-8E99-489C-94E4-86228C4F1892' },
     Kubena_Nanette_M: { id: '6A89F25C-C5A8-4072-91F5-FD51BCD064F0' },
     Lantz_Daniel_R: { id: '736302BF-89B1-4FC3-BC31-ED8CFA8D4E6C' },
     Lefrancois_Ronda_N: { id: '77C7B715-61CE-4C1D-970B-F8C5FF18F259' },
+    Levanel_Abigail_L: { id: 'F0F9ACAD-7B3B-49A8-9671-19B83D3BF4D8' },
     Lininger_Matthew_A: { id: '53E2DE8D-5389-4B48-A8BD-54F91747D756' },
     Loiselle_Ryan_A: { id: '8C2BA073-F252-4166-9AA0-8BAA32010154' },
     Lordahl_Sandra_M: { id: 'EBD98843-B76C-42A2-BBB7-3EE0D27F4C5B' },
@@ -151,6 +158,7 @@ export const teachers = {
     Nader_Heidi_M: { id: 'CF1C1349-CA28-4C8C-8102-57325076862F' },
     Nelson_Lance_E: { id: '66C3E5D6-5647-4139-9E80-9167D9B3D353' },
     Northington_Vera_A: { id: '7DAD4E68-6A68-4823-A933-C6864652D72F' },
+    Nugent_Denyse_A: { id: '4678F5AF-9549-4E2C-A435-ED836EAA9AD7' },
     Odonnell_Brendan_R: { id: 'D8215B42-7E71-4527-96BA-19B5CABA8C9B' },
     Officeclerk_Test: { id: '416F3507-2ACC-4B26-8983-E98637C37D00' },
     Ohlinger_James_R: { id: '556E9392-526E-4D1A-BF50-0A60C8A8B682' },
@@ -232,12 +240,15 @@ export const teachers = {
     Wetherington_John_M: { id: 'E597CBAA-D3C7-4C74-B0B3-9DAAAE85CCF2' },
     Whisnant_Michelle_A: { id: 'A724389F-016C-4EBD-A023-B62D5A56AA94' },
     Whitehead_Ryan_D: { id: '961F3156-7FD9-40E9-A296-651C27259733' },
+    Wicklander_Mary_E: { id: 'C2AFAF68-C7F1-4635-B9AD-6E77BF49FCDF' },
     Wiggins_Malissa_J: { id: 'D340A2CC-B19F-4689-A7A0-B74485EB8B80' },
     Wilbur_Brooklyn_P: { id: '0704D44C-CADE-4EE4-B996-4C8D2B1F3391' },
     Wilson_Anne_M: { id: '49512926-C5E3-42C7-90FA-AEE628D72717' },
     Wilson_Dominique_A: { id: 'A5695EAE-8607-4F1D-AEED-7AF1EFA73EA7' },
     Wilson_Zuleica_E: { id: '396004E3-F3B8-46B3-9C36-FB8C82ECDDD3' },
     Winders_David_C: { id: '1018B211-5326-4216-8458-50F086C233D6' },
+    Wise_Sherry: { id: '58558876-8515-4C53-A9A0-E701A5162E06' },
+    Wistrand_Patricia_A: { id: '39B8EC2B-0024-4F9F-91FE-8A0A5F4D47C0' },
     Wolff_Laural_A: { id: '34EDFECC-DF44-4C76-B62F-1A2912C623F6' },
     Wood_Julana_M: { id: 'EBE2A4EF-690D-4A4D-B0FC-6DDD9941FF65' },
     Wren_Keith_E: { id: '369E22E3-265F-46FC-8E3D-B71A7B7EA6B4' },

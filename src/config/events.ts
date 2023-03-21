@@ -562,6 +562,13 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('March 23, 2023'),
         },
     },
+    {
+        schedule: null,
+        info: {
+            message: 'First Day of Trimester 3',
+            date: new Date('March 24, 2023'),
+        },
+    },
 
     // Conference week
     {
@@ -588,8 +595,7 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('March 31, 2023'),
         },
     },
-    
-    
+
     {
         schedule: schedules.noSchool,
         info: {

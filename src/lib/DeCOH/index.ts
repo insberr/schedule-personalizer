@@ -57,7 +57,9 @@ function Collapse(
 ): CollapsedEvent {
     let schedules = schConfig.schedules;
     let newEvent = produce(event, (evt) => {
-        evt.message = collapseMatcher(evt.message, schoolConfig, date);
+        evt.message =
+            collapseMatcher(evt.message, schoolConfig, date) +
+            (evt.message ? '<br>' : '');
         evt.overrides.enabled = collapseMatcher(
             evt.overrides.enabled,
             schoolConfig,

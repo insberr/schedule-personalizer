@@ -6,7 +6,7 @@
 
 <div
     class="flex flex-col justify-center justify-items-center items-center"
-    style="width:100vw; min-height: 100vh; margin-top: 1em"
+    style="width:100vw; margin-top: 5em"
 >
     <div class="w-fit h-fit">
         {#if $hydrated != undefined}

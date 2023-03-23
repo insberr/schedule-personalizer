@@ -46,11 +46,19 @@
         <div
             class="w-full h-fit grid max-md:grid-cols-2 gap-2 px-1 text-center grid-cols-4 grid-rows-1 place-content-center justify-around justify-items-center"
         >
-            <div>{format(startTime, 'h:mm')} - {format(endTime, 'h:mm')}</div>
-            <div>{cls.name}</div>
-            <div class="max-md:hidden">{cls.teacher.name}</div>
+            <div>
+                <strong>
+                    {format(startTime, 'h:mm')} - {format(endTime, 'h:mm')}
+                </strong>
+            </div>
+            <div>
+                <strong>{cls.name}</strong>
+            </div>
+            <div class="max-md:hidden">
+                <strong>{cls.teacher.name}</strong>
+            </div>
             <div class="max-md:hidden" class:hidden={cls.room == ''}>
-                R{cls.room}
+                <strong>{cls.room}</strong>
             </div>
         </div>
         <Fa icon={hide ? faPlus : faMinus} />
@@ -60,13 +68,24 @@
         <div transition:slide|local class="bottom flex flex-col">
             <div>Details about class, grades, and other stuff here</div>
             <div>
+                <strong> Current Grade A+ (todo) </strong>
+            </div>
+            <div>
+                <strong>
+                    <a href={'mailto:' + cls.teacher.email}>
+                        Email {cls.teacher.name}
+                    </a>
+                </strong>
+            </div>
+            <div class:hidden={cls.room == ''}>
+                <strong>Room {cls.room}</strong>
+            </div>
+            <div>
                 {#if isAfter(currentDate, endTime)}
                     Class Ended
                 {:else}
-                    {cls.name}
-                    {isNow ? 'ends' : 'begins'} in <Countdown
-                        destDate={isNow ? endTime : startTime}
-                    />
+                    <strong>{isNow ? 'Ending' : 'Beginning'} in</strong>
+                    <Countdown destDate={isNow ? endTime : startTime} />
                 {/if}
             </div>
             <div>

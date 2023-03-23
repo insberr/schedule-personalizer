@@ -275,6 +275,53 @@
                 },
             ],
         },
+        VRqewgKAJ7pcbdz0: {
+            name: 'Early Dismissal 1-5',
+            periods: [
+                {
+                    id: 0,
+                    num: 1,
+                    start: '07:05',
+                    end: '07:30',
+                },
+                {
+                    id: 4,
+                    num: 1,
+                    start: '07:35',
+                    end: '08:00',
+                },
+                {
+                    id: 4,
+                    num: 2,
+                    start: '08:05',
+                    end: '08:30',
+                },
+                {
+                    id: 4,
+                    num: 3,
+                    start: '08:35',
+                    end: '09:00',
+                },
+                {
+                    id: 4,
+                    num: 4,
+                    start: '09:05',
+                    end: '09:30',
+                },
+                {
+                    id: 4,
+                    num: 5,
+                    start: '09:35',
+                    end: '10:05',
+                },
+                {
+                    id: 7,
+                    num: 1,
+                    start: '10:05',
+                    end: '10:10',
+                },
+            ],
+        },
     },
     events: {
         serifyKey: null,
@@ -381,63 +428,69 @@
                 '03-23-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'End of 2nd Trimester & Elem-MS-HS Grade Prep - Early Dismissal (K-12)',
+                    message: 'Early Dismissal (K-12) | End of 2nd Trimester',
+                },
+            ],
+            [
+                '03-24-2023',
+                {
+                    message: 'First Dat of Trimester 3',
                 },
             ],
             [
                 '03-29-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                    message: 'Early Dismissal (6-12) | Secondary Conferences',
                 },
             ],
             [
                 '03-30-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                    message: 'Early Dismissal (6-12) | Secondary Conferences',
                 },
             ],
             [
                 '03-31-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'Secondary Conferences - Early Dismissal (6-12)',
+                    message: 'Early Dismissal (6-12) | Secondary Conferences',
                 },
             ],
             [
                 '04-03-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Spring Break - No School',
+                    message: 'No School | Spring Break',
                 },
             ],
             [
                 '04-04-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Spring Break - No School',
+                    message: 'No School | Spring Break',
                 },
             ],
             [
                 '04-05-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Spring Break - No School',
+                    message: 'No School | Spring Break',
                 },
             ],
             [
                 '04-06-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Spring Break - No School',
+                    message: 'No School | Spring Break',
                 },
             ],
             [
                 '04-07-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Spring Break - No School',
+                    message: 'No School | Spring Break',
                 },
             ],
             [
@@ -486,14 +539,14 @@
                 '05-26-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Snow Make-up Day (if required)',
+                    message: 'No School or Snow Make-up Day',
                 },
             ],
             [
                 '05-29-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Memorial Day - No School ',
+                    message: 'No School | Memorial Day',
                 },
             ],
             [
@@ -507,21 +560,21 @@
                 '06-19-2023',
                 {
                     schedule: 'noschool',
-                    message: 'Juneteenth - No School',
+                    message: 'No School | Juneteenth',
                 },
             ],
             [
                 '06-20-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'Elem-MS-HS Grade Prep - Early Dismissal (K-12)',
+                    message: 'Early Dismissal (K-12) | Elem-MS-HS Grade Prep',
                 },
             ],
             [
                 '06-23-2023',
                 {
                     schedule: 'earlydismissal',
-                    message: 'Last Day of School - Early Dismissal (K-12)',
+                    message: 'Early Dismissal (K-12) | Last Day of School',
                 },
             ],
         ],

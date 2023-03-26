@@ -73,9 +73,9 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
     // console.log('studentVueTerms.length: ', studentvueTerms.length);
     // console.log('studentVueTerms: ', JSON.stringify(studentvueTerms, null, 2));
 
-    const newTerms = settings.termsDates.map((t) => {
-        t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
-        return t;
+    const newTerms = settings.termsDates.map((term) => {
+        term.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+        return term;
     });
 
     const combinedStudentvue = newTerms.map((t, i) => {

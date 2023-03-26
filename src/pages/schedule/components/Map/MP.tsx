@@ -47,6 +47,7 @@ export function MP(props: Props) {
             {
                 room: Math.floor(Math.random() * 16777215).toString(16),
                 cords: [(mouse.elX / mouse.elW) * 100, (mouse.elY / mouse.elH) * 100],
+                level: 0,
             },
         ]);
     }

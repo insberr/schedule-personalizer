@@ -87,6 +87,7 @@ export const mapLocations: Locations = [
     { room: '221', cords: [88.75219683655537, 45.12187794179502], level: LocationLevel.Upstairs },
     { room: '222', cords: [88.84007029876977, 52.5567328299317], level: LocationLevel.Upstairs },
     { room: 'LG GYM', cords: [21.00175746924429, 74.47673603461054], level: LocationLevel.Downstairs },
+    { room: 'SM GYM', cords: [14.762741652021088, 77.68141486570393], level: LocationLevel.Downstairs },
     { room: '122B', cords: [35.23725834797891, 34.48234422256494], level: LocationLevel.Outside },
     { room: '120', cords: [48.50615114235501, 47.42924670018226], level: LocationLevel.Outside },
     { room: '111A', cords: [48.06678383128295, 37.43064874717087], level: LocationLevel.Downstairs },

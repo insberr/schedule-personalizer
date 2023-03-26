@@ -40,7 +40,7 @@ export function MP(props: Props) {
         if (process.env.NODE_ENV !== 'development') return;
         console.log("{ room: '', cords: [ " + (mouse.elX / mouse.elW) * 100 + ', ' + (mouse.elY / mouse.elH) * 100 + ' ] },');
         // REMOVE THIS SSSSSS FOR PRODUCTION
-        // navigator.clipboard.writeText("{ room: '', cords: [ " + ((mouse.elX/mouse.elW)*100) + ", " + ((mouse.elY/mouse.elH)*100) + " ] },")
+        // navigator.clipboard.writeText("{ room: '', cords: [ " + (mouse.elX / mouse.elW) * 100 + ', ' + (mouse.elY / mouse.elH) * 100 + ' ] },');
         // END REMOVE
         setcpins([
             ...cpins,

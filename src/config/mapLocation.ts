@@ -108,4 +108,5 @@ export const mapLocations: Locations = [
     { room: '102', cords: [46.1335676625659, 86.5263284395217], level: LocationLevel.Downstairs },
     { room: '103', cords: [41.03690685413005, 86.14176697979049], level: LocationLevel.Downstairs },
     { room: 'WGHT ROOM', cords: [36.81898066783831, 86.65451559276543], level: LocationLevel.Downstairs },
+    { room: 'COUNS', cords: [71.35325131810193, 69.7338113645923], level: LocationLevel.Downstairs },
 ];

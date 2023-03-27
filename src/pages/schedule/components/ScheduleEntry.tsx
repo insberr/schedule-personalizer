@@ -204,7 +204,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                     <div>
                         {isBefore(cdate, timeToDate(props.period.startTime, props.viewDate)) && (
                             <div className="innerbox">
-                                {props.period.name || formatClassPeriodName(props.period)} starts in
+                                Starting in
                                 <Timer hidden={!open} basedDate={props.viewDate} time={props.period.startTime} />
                             </div>
                         )}
@@ -213,7 +213,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                             end: timeToDate(props.period.endTime, props.viewDate),
                         }) && (
                             <div className="innerbox">
-                                {props.period.name || formatClassPeriodName(props.period)} ends in
+                                Ending in
                                 <Timer hidden={!open} basedDate={props.viewDate} time={props.period.endTime} />
                             </div>
                         )}

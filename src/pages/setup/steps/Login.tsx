@@ -103,8 +103,8 @@ export function Login(props: Props) {
         // Validate user credentials to make sure the login info is correct
         const validCreds = await api
             .validateCredentials(username, password)
-            .then((res) => {
-                if (res) {
+            .then((validateCredentialsResponse) => {
+                if (validateCredentialsResponse) {
                     api.getStudentInfo(username, password).then((res) => {
                         setValidUser({
                             isValid: true,
@@ -157,9 +157,9 @@ export function Login(props: Props) {
                 console.log('No schedule was set, so temporay data is being used');
 
                 // Set the schedule to temporary data
-                const newTerms = settings.termsDates.map((t) => {
-                    t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
-                    return t;
+                const newTerms = settings.termsDates.map((settingsTerm) => {
+                    settingsTerm.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+                    return settingsTerm;
                 });
 
                 props.setSchedule(newTerms);

@@ -78,13 +78,17 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
         return term;
     });
 
-    const combinedStudentvue = newTerms.map((t, i) => {
+    const combinedStudentvue = newTerms.map((term, i) => {
         // doing it this way means if there are more or less periods returned by studenvue then there might be problems displaying them (i think only if there are extra)
         if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[])?.length === undefined) {
             const errMsg = `studentvueTerms[${i}] is not an array: ${JSON.stringify(studentvueTerms[i])}`;
             Sentry.captureException(new Error(errMsg));
             console.log(errMsg);
             // studentvueTerms[i] = [studentvueTerms[i] as StudentVueAPIDataClassListsTermClass];
+        }
+
+        if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]) === undefined) {
+            console.log(`studentvueTerms[${i}] is undefined: ${JSON.stringify(studentvueTerms[i])}`);
         }
 
         if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass)?.Period !== undefined) {
@@ -94,55 +98,55 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
             Sentry.captureException(new Error(errMsg));
             console.log(errMsg);
 
-            const c = studentvueTerms[i] as StudentVueAPIDataClassListsTermClass;
-            t.classes = [
+            const studentVueClass = studentvueTerms[i] as StudentVueAPIDataClassListsTermClass;
+            term.classes = [
                 {
                     classID:
-                        parseInt(c.Period) === 0
+                        parseInt(studentVueClass.Period) === 0
                             ? ClassIDS.Zero
-                            : parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                            : parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod
                             ? ClassIDS.Advisory
                             : ClassIDS.Period,
-                    period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
-                    name: courseTitleNameCase(c.CourseTitle) || '',
-                    room: c.RoomName || '',
+                    period: parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(studentVueClass.Period),
+                    name: courseTitleNameCase(studentVueClass.CourseTitle) || '',
+                    room: studentVueClass.RoomName || '',
                     teacher: {
-                        name: toTitleCase(c.Teacher),
-                        email: c.TeacherEmail,
-                        id: c.TeacherStaffGU,
+                        name: toTitleCase(studentVueClass.Teacher),
+                        email: studentVueClass.TeacherEmail,
+                        id: studentVueClass.TeacherStaffGU,
                     },
                 },
             ];
-            return t;
+            return term;
         }
 
         if ((studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).length < 1) {
             const errMsg = `studentvueTerms[${i}] is empty. This should not happen: ${JSON.stringify(studentvueTerms[i])}`;
             Sentry.captureException(new Error(errMsg));
             console.log(errMsg);
-            return t;
+            return term;
         }
 
-        t.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((c) => {
+        term.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((studentVueClass) => {
             // console.log('studentVueTerms.map => (c): ', c)
             return {
                 classID:
-                    parseInt(c.Period) === 0
+                    parseInt(studentVueClass.Period) === 0
                         ? ClassIDS.Zero
-                        : parseInt(c.Period) === settings.studentVueAdvisoryPeriod
+                        : parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod
                         ? ClassIDS.Advisory
                         : ClassIDS.Period,
-                period: parseInt(c.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(c.Period),
-                name: courseTitleNameCase(c.CourseTitle) || '',
-                room: c.RoomName || '',
+                period: parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(studentVueClass.Period),
+                name: courseTitleNameCase(studentVueClass.CourseTitle) || '',
+                room: studentVueClass.RoomName || '',
                 teacher: {
-                    name: toTitleCase(c.Teacher),
-                    email: c.TeacherEmail,
-                    id: c.TeacherStaffGU,
+                    name: toTitleCase(studentVueClass.Teacher),
+                    email: studentVueClass.TeacherEmail,
+                    id: studentVueClass.TeacherStaffGU,
                 },
             };
         });
-        return t;
+        return term;
     });
 
     // Convert api data to terms data
@@ -152,20 +156,23 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 }
 
 export async function getAllSchedules(username: string, password: string): Promise<StudentVueAPIData> {
-    const schs = await Promise.all([
+    const studentVueSchedules = await Promise.all([
         StudentClassList(username, password, 0),
         StudentClassList(username, password, 1),
         StudentClassList(username, password, 2),
     ]);
-    if (!(isError(schs[0]) || isError(schs[1]) || isError(schs[2]))) {
-        const sch = schs.map((s) => s['StudentClassSchedule']['ClassLists']['ClassListing']);
+    if (!(isError(studentVueSchedules[0]) || isError(studentVueSchedules[1]) || isError(studentVueSchedules[2]))) {
+        const studentVueSchedulesMinimized = studentVueSchedules.map((s) => s['StudentClassSchedule']['ClassLists']['ClassListing']);
         // should probably do this
-        const newSch = sch.map((t) => (t?.length === undefined ? [t] : t));
-        const fullsch = schs[0];
+        const newSch = studentVueSchedulesMinimized.map((studentVueSchedule) => {
+            if (studentVueSchedule === undefined) console.log('studentVueSchedule is undefined: ', studentVueSchedule);
+            return studentVueSchedule?.length === undefined ? [studentVueSchedule] : studentVueSchedule;
+        });
+        const fullsch = studentVueSchedules[0];
         fullsch['StudentClassSchedule']['ClassLists'] = newSch;
         return { code: 'SUCCESS', content: fullsch['StudentClassSchedule'] };
     } else {
-        throw new Error(schs[0].RT_ERROR.ERROR_MESSAGE);
+        throw new Error(studentVueSchedules[0].RT_ERROR.ERROR_MESSAGE);
     }
 }
 

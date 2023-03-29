@@ -129,7 +129,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 
         term.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((studentVueClass) => {
             // console.log('studentVueTerms.map => (c): ', c)
-            if (studentVueClass === undefined) return generateASingleEmptyClass_CL();
+            // if (studentVueClass === undefined) return generateASingleEmptyClass_CL();
             return {
                 classID:
                     parseInt(studentVueClass.Period) === 0

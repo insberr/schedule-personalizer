@@ -29,9 +29,9 @@
 /*@media (max-width: 369px) {
     @include egg(magenta,yellow,"Your screen is too small to be supported, sorry!");
 }*/
-@media (width: 420px) and (height: 420px) {
-    @include egg(darkgreen, lightgreen, 'Smoke weed everyday');
-}
-@media (width: 666px) and (height: 666px) {
-    @include egg(darkred, red, '666');
-}
+// @media (width: 420px) and (height: 420px) {
+//     @include egg(darkgreen, lightgreen, 'Smoke weed everyday');
+// }
+// @media (width: 666px) and (height: 666px) {
+//     @include egg(darkred, red, '666');
+// }

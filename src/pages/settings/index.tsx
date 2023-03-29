@@ -764,7 +764,8 @@ export function SettingsPage() {
                                     cols={5}
                                     value={JSON.stringify(sch.terms)}
                                     onChange={(e) => {
-                                        dispatch(setTerms(JSON.parse(e.target.value)));
+                                        // the below line is commented out to keep people from messing with it
+                                        // dispatch(setTerms(JSON.parse(e.target.value)));
                                     }}
                                 />
                             </Form.Group>

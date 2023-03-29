@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import { today } from '../../../today';
 import { useNavigate } from '../../../router/hooks';
 import { Page } from '../../../storage/page';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 type Props = {
     sch: Class[];
@@ -51,7 +52,13 @@ export function SchHeader(props: Props) {
                 Goto Date
             </Popover.Header>
             <Popover.Body>
-                <Calendar value={props.displayDate} onChange={props.setDisplayDate}></Calendar>
+                <Calendar
+                    value={props.displayDate}
+                    onChange={(date: Value) => {
+                        if (date === null) return; // HOW
+                        props.setDisplayDate(date as Date);
+                    }}
+                ></Calendar>
             </Popover.Body>
         </Popover>
     );

@@ -183,6 +183,26 @@ export type ManualResult = {
     lunch: number;
 };
 
+export function generateASingleEmptyClass_CL(infoToAddIn?: {
+    classID?: ClassIDS;
+    period?: number;
+    name?: string;
+    teacher?: Teacher;
+    room?: string;
+}): CL {
+    return {
+        classID: infoToAddIn?.classID || ClassIDS.Period,
+        period: infoToAddIn?.period || 0,
+        name: infoToAddIn?.name || '',
+        teacher: infoToAddIn?.teacher || {
+            name: '',
+            email: '',
+            id: '',
+        },
+        room: infoToAddIn?.room || '',
+    };
+}
+
 export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
     const classes = [...Array(amt)].map((v, i) => {
         return {

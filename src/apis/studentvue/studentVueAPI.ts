@@ -1,4 +1,4 @@
-import { Terms, emptyCL, ClassIDS } from '../../types';
+import { Terms, emptyCL, ClassIDS, CL, generateASingleEmptyClass_CL } from '../../types';
 import * as settings from '../../config/settings';
 import { courseTitleNameCase, redactStudentInfo, toTitleCase } from '../../lib/lib';
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from './api';
@@ -129,6 +129,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 
         term.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((studentVueClass) => {
             // console.log('studentVueTerms.map => (c): ', c)
+            if (studentVueClass === undefined) return generateASingleEmptyClass_CL();
             return {
                 classID:
                     parseInt(studentVueClass.Period) === 0

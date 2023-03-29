@@ -46,12 +46,11 @@ function App() {
                     return undefined;
                 });
 
-            console.log('StudentVue Credentials Validation; Is Valid: ' + isValid);
             if (isValid === true || isValid === undefined) {
                 return;
             }
 
-            // Create an alert to tell the user that they need to login again
+            // Create an alert to tell the user that they need to login again ?
 
             dispatch(
                 setStudentVueData({

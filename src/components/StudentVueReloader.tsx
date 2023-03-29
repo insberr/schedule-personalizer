@@ -19,15 +19,23 @@ export default function StudentVueReloader() {
         }
     }
 
-    const { data: studentData, error: studentError } = useSWR(swrCreate('studentinfo'), getStudentInfo, {
-        revalidateOnFocus: false,
-        refreshInterval: studentvueRefreshInterval,
-    });
+    const { data: studentData, error: studentError } = useSWR(
+        swrCreate('studentinfo'),
+        ([username, password]) => getStudentInfo(username, password),
+        {
+            revalidateOnFocus: false,
+            refreshInterval: studentvueRefreshInterval,
+        }
+    );
 
-    const { data: scheduleData, error: scheduleError } = useSWR(swrCreate('schedule'), getAllSchedules, {
-        revalidateOnFocus: false,
-        refreshInterval: studentvueRefreshInterval,
-    });
+    const { data: scheduleData, error: scheduleError } = useSWR(
+        swrCreate('schedule'),
+        ([username, password]) => getAllSchedules(username, password),
+        {
+            revalidateOnFocus: false,
+            refreshInterval: studentvueRefreshInterval,
+        }
+    );
 
     useEffect(() => {
         if (scheduleData) {

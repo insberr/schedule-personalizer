@@ -132,6 +132,7 @@
         "redux-persist": "^6.0.0",
         "rrweb": "^2.0.0-alpha.4",
         "stringify-object": "^5.0.0",
+        "studentvue": "^2.0.2",
         "styled-components": "^5.3.9",
         "swr": "^2.1.1",
         "tinycolor2": "^1.6.0",
@@ -149,6 +150,7 @@
         "staticPath": "src/static"
     },
     "resolutions": {
-        "stringify-object@^4.0.1": "patch:stringify-object@npm%3A4.0.1#./.yarn/patches/stringify-object-npm-4.0.1-47b9ca5893.patch"
+        "stringify-object@^4.0.1": "patch:stringify-object@npm%3A4.0.1#./.yarn/patches/stringify-object-npm-4.0.1-47b9ca5893.patch",
+        "studentvue@^2.0.2": "patch:studentvue@npm%3A2.0.2#./.yarn/patches/studentvue-npm-2.0.2-e3e09d6b32.patch"
     }
 }

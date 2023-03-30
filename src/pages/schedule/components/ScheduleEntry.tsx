@@ -18,7 +18,6 @@ import { BsStars } from 'react-icons/bs';
 import { useSchedule } from '../../../storage/schedule';
 import { today } from '../../../today';
 import { FormattedGradebook, useGrades } from '../../../storage/studentVueGrades';
-import { Course, Gradebook } from 'studentvue';
 
 type ScheduleEntryProps = {
     sch: Class[];
@@ -264,16 +263,18 @@ function prepareStudentGradesForDisplay(grades: FormattedGradebook | null, perio
     const sectionForPeriod = sectionTerm[searchPeriod];
     if (sectionForPeriod === undefined) return '';
 
-    return (
-        'Grade: ' +
-        (sectionForPeriod?.string || 'Error') +
-        ' | ' +
-        sectionForPeriod?.title +
-        ' | per: ' +
-        period.period +
-        ' | stv:' +
-        period.studentVuePeriod
-    );
+    // return (
+    //     'Grade: ' +
+    //     (sectionForPeriod?.string || 'Error') +
+    //     ' | ' +
+    //     sectionForPeriod?.title +
+    //     ' | per: ' +
+    //     period.period +
+    //     ' | stv:' +
+    //     period.studentVuePeriod
+    // );
+
+    return `Grade: ${sectionForPeriod.string} ${sectionForPeriod.raw}%`;
 }
 
 export default ScheduleEntry;

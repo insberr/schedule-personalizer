@@ -3,7 +3,6 @@ import { deserify } from '@karmaniverous/serify-deserify';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { Gradebook } from 'studentvue';
 
 export type FormattedGradebook = {
     terms: {

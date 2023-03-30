@@ -144,6 +144,7 @@ export function SettingsPage() {
         return {
             classID: classID,
             period: classID === ClassIDS.Period ? 1 : 0,
+            studentVuePeriod: null,
             name: name || ClassIDS[classID],
             room: '100',
             teacher: {

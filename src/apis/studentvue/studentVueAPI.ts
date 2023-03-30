@@ -1,8 +1,19 @@
-import { Terms, emptyCL, ClassIDS, CL, generateASingleEmptyClass_CL } from '../../types';
+import { Terms, emptyCL, ClassIDS, generateASingleEmptyClass_CL } from '../../types';
 import * as settings from '../../config/settings';
 import { courseTitleNameCase, redactStudentInfo, toTitleCase } from '../../lib/lib';
 import { StudentInfo, StudentClassList, validate, isError, StudentSchoolInfo } from './api';
 import * as Sentry from '@sentry/react';
+
+import StudentVue from 'studentvue';
+import { Client, Gradebook } from 'studentvue';
+import { FormattedGradebook } from '../../storage/studentVueGrades';
+
+export async function createStudentVueClient(username: string, password: string): Promise<Client> {
+    return await StudentVue.login(settings.studentvueAPIEndpoint, {
+        username: username,
+        password: password,
+    });
+}
 
 export async function validateCredentials(username: string, password: string): Promise<boolean> {
     return await validate(username, password); // mm
@@ -108,6 +119,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                             ? ClassIDS.Advisory
                             : ClassIDS.Period,
                     period: parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(studentVueClass.Period),
+                    studentVuePeriod: studentVueClass.Period,
                     name: courseTitleNameCase(studentVueClass.CourseTitle) || '',
                     room: studentVueClass.RoomName || '',
                     teacher: {
@@ -129,7 +141,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
 
         term.classes = (studentvueTerms[i] as StudentVueAPIDataClassListsTermClass[]).map((studentVueClass) => {
             // console.log('studentVueTerms.map => (c): ', c)
-            // if (studentVueClass === undefined) return generateASingleEmptyClass_CL();
+            if (studentVueClass === undefined) return generateASingleEmptyClass_CL();
             return {
                 classID:
                     parseInt(studentVueClass.Period) === 0
@@ -138,6 +150,7 @@ export function convertStudentvueDataToTerms(data: StudentVueAPIData): Terms {
                         ? ClassIDS.Advisory
                         : ClassIDS.Period,
                 period: parseInt(studentVueClass.Period) === settings.studentVueAdvisoryPeriod ? 0 : parseInt(studentVueClass.Period),
+                studentVuePeriod: studentVueClass.Period,
                 name: courseTitleNameCase(studentVueClass.CourseTitle) || '',
                 room: studentVueClass.RoomName || '',
                 teacher: {
@@ -194,6 +207,47 @@ export async function getSchoolInfo(username: string, password: string): Promise
     } else {
         throw new Error(info.RT_ERROR.ERROR_MESSAGE);
     }
+}
+
+export function formatStudentVueGradebookToStorage(gradebook: Gradebook[]): FormattedGradebook {
+    const formattedGradebook: FormattedGradebook = {
+        terms: {
+            0: {
+                0: {
+                    title: '_temp',
+                    string: 'A',
+                    raw: 100,
+                },
+            },
+        },
+    };
+
+    for (const term of gradebook) {
+        formattedGradebook.terms = { ...formattedGradebook.terms, [term.reportingPeriod.current.index]: {} };
+        for (const course of term.courses) {
+            const courseMarks = course.marks;
+            if (courseMarks.length === 0) {
+                console.log('Course marks length is 0 for period', course.period, courseMarks);
+                formattedGradebook.terms[term.reportingPeriod.current.index][course.period] = { title: 'error', string: '', raw: 0 };
+                continue;
+            }
+            formattedGradebook.terms[term.reportingPeriod.current.index][course.period] = { title: course.title, ...courseMarks[0].calculatedScore };
+        }
+    }
+
+    return formattedGradebook;
+}
+
+export async function getAllGradesFromGradeBook(client: Client): Promise<Gradebook[]> {
+    const grades = [await client.gradebook(0), await client.gradebook(1), await client.gradebook(2)];
+    return grades;
+}
+
+export async function getAllGradesFromGradeBook_Legacy(username: string, password: string, info?: string): Promise<Gradebook[]> {
+    if (info) console.log(info);
+    const client = await createStudentVueClient(username, password);
+    const grades = [await client.gradebook(1), await client.gradebook(3), await client.gradebook(5)];
+    return grades;
 }
 
 /*

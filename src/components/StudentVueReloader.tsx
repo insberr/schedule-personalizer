@@ -2,10 +2,17 @@ import useSWR from 'swr';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setSch, enableSTV, setInfo, disableSTV } from '../storage/studentvueData';
-import { getAllSchedules, convertStudentvueDataToTerms, getStudentInfo } from '../apis/studentvue/studentVueAPI';
+import {
+    getAllSchedules,
+    convertStudentvueDataToTerms,
+    getStudentInfo,
+    getAllGradesFromGradeBook_Legacy,
+    formatStudentVueGradebookToStorage,
+} from '../apis/studentvue/studentVueAPI';
 import { setGotSchedules, useStudentvue } from '../storage/studentvue';
 import { setTerms } from '../storage/schedule';
 import { studentvueRefreshInterval } from '../config/settings';
+import { setGrades } from '../storage/studentVueGrades';
 
 export default function StudentVueReloader() {
     const dispatch = useDispatch();
@@ -37,6 +44,15 @@ export default function StudentVueReloader() {
         }
     );
 
+    const { data: gradesData, error: gradesError } = useSWR(
+        swrCreate('grades'),
+        ([username, password, info]) => getAllGradesFromGradeBook_Legacy(username, password, 'API call from studentvue reloader | ' + info),
+        {
+            revalidateOnFocus: false,
+            refreshInterval: studentvueRefreshInterval,
+        }
+    );
+
     useEffect(() => {
         if (scheduleData) {
             dispatch(setSch(scheduleData));
@@ -61,13 +77,24 @@ export default function StudentVueReloader() {
     }, [studentData, studentError, dispatch]);
 
     useEffect(() => {
-        if (studentData === undefined && scheduleData === undefined) return console.log('Studentvue Refresh: Student And Schedule Data Undefined');
+        if (gradesData !== undefined) {
+            dispatch(setGrades(formatStudentVueGradebookToStorage(gradesData)));
+        }
+        if (gradesError) {
+            // do nothing i guess
+        }
+    }, [gradesData, gradesError, dispatch]);
+
+    useEffect(() => {
+        if (studentData === undefined && scheduleData === undefined && gradesData === undefined)
+            return console.log('Studentvue Refresh: Student, Schedule, And Grades Data Are Undefined');
         console.log('Studentvue Refresh: Student Data', studentData);
         console.log('Studentvue Refresh: Schedule Data', scheduleData);
-    }, [studentData, scheduleData]);
+        console.log('Studentvue Refresh: Grades Data', gradesData);
+    }, [studentData, scheduleData, gradesData]);
 
-    if (studentError || scheduleError) {
-        console.error(studentError, scheduleError);
+    if (studentError || scheduleError || gradesError) {
+        console.error(studentError, scheduleError, gradesError);
         return <></>;
     }
 

@@ -5,6 +5,7 @@ import miscReducer, { reset as resetMisc } from './misc';
 import stvReducer, { reset as resetStv } from './studentvueData';
 import customReducer, { reset as resetCustom } from './customizations';
 import pageReducer, { reset as resetPage } from './page';
+import gradesReducer, { reset as resetGrades } from './studentVueGrades';
 import { createReduxMiddleware } from '@karmaniverous/serify-deserify';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, createMigrate } from 'redux-persist';
@@ -249,6 +250,7 @@ const persistedReducer = persistReducer(
         stv: stvReducer,
         customization: customReducer,
         router: pageReducer,
+        studentVueGrades: gradesReducer,
     })
 );
 
@@ -273,6 +275,7 @@ export const resetStorage = () => {
         store.dispatch(resetStv());
         store.dispatch(resetCustom());
         store.dispatch(resetPage());
+        store.dispatch(resetGrades());
     });
 };
 

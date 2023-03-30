@@ -50,8 +50,6 @@ function App() {
                 return;
             }
 
-            // Create an alert to tell the user that they need to login again ?
-
             dispatch(
                 setStudentVueData({
                     password: stv.password,
@@ -70,7 +68,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (stv.isLoggedIn) {
+        if (stv.isLoggedIn || stv.username !== '') {
             Sentry.setUser({ id: stv.username });
         } else {
             Sentry.setUser(null);

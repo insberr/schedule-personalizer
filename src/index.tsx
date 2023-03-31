@@ -15,6 +15,11 @@ import { Root } from 'react-dom/client';
 import { update } from './updatey';
 //mport { RiRobotFill } from "react-icons/ri";
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const tracesSampleRate = process.env.NODE_ENV == 'production' ? 0.2 : 1.0;
 
 function startLoad() {

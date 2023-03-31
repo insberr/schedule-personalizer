@@ -4,7 +4,7 @@
 // see the sass section in each bootstrap module
 
 // some stuff from another site
-@import 'roboto.scss';
+// @import 'roboto.scss';
 
 @import 'npm:bootstrap/scss/bootstrap';
 
@@ -272,6 +272,10 @@ $tile-selected: shade-color($white, 10%);
 }
 
 .scheduleList {
-    width: 80vw;
+    width: 90vw;
     max-width: 900px;
+}
+
+.scheduleRowAlternate {
+    background-color: #7c7c7c;
 }

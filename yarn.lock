@@ -9338,7 +9338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"studentvue@npm:^2.0.2":
+"studentvue@npm:2.0.2":
   version: 2.0.2
   resolution: "studentvue@npm:2.0.2"
   dependencies:
@@ -9348,6 +9348,19 @@ __metadata:
     lodash: ^4.17.21
     tiny-async-pool: ^2.1.0
   checksum: b3f89c0451eaedd783bd0adf0b7655d0b972e25e7f47bda406883e924788420492aad3f54c1b3f55e3392f51aacd9253dc9a73a8fc472520460675cb14d22555
+  languageName: node
+  linkType: hard
+
+"studentvue@patch:studentvue@npm%3A2.0.2#./.yarn/patches/studentvue-npm-2.0.2-e3e09d6b32.patch::locator=schedule-personalizer%40workspace%3A.":
+  version: 2.0.2
+  resolution: "studentvue@patch:studentvue@npm%3A2.0.2#./.yarn/patches/studentvue-npm-2.0.2-e3e09d6b32.patch::version=2.0.2&hash=be934a&locator=schedule-personalizer%40workspace%3A."
+  dependencies:
+    axios: ^1.2.2
+    date-fns: ^2.28.0
+    fast-xml-parser: ^4.0.3
+    lodash: ^4.17.21
+    tiny-async-pool: ^2.1.0
+  checksum: 27daaffc29b7705f9881fcd169a1b3c6935834013e32c07888f452b939891dd35bfea7319d0f17e3dbc341f221f413ad80bae2fdb3c792628f246b217b25e0d9
   languageName: node
   linkType: hard
 

@@ -614,6 +614,13 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: schedules.assemblyPM,
+        info: {
+            message: 'Spring Sports Pep Assembly',
+            date: new Date('April 14, 2023'),
+        },
+    },
+    {
         schedule: schedules.lateStart1Hour,
         info: {
             message: 'Late Start',

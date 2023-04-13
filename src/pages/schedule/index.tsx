@@ -8,7 +8,7 @@ import { useSchedule, ScheduleStorage, setLunch } from '../../storage/schedule';
 import * as settingsConfig from '../../config/settings';
 import * as lunchesConfig from '../../config/lunches';
 import { useStudentvue, StorageDataStudentvue } from '../../storage/studentvue';
-import { isAfter, isBefore, isSameDay, parse, parseISO, parseJSON } from 'date-fns';
+import { isAfter, isBefore, isSameDay } from 'date-fns';
 // import { StudentVueReloader } from '../../components/StudentVueReloader';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Sentry from '@sentry/react';
@@ -379,6 +379,7 @@ function lunchify(
             startTime: p.startTime,
             endTime: p.endTime,
             period: lunchValue.basedOnPeriod,
+            studentVuePeriod: null,
             name: p.classID === ClassIDS.Lunch ? 'Lunch ' + userLunch : lunchPeriod.name,
             room: p.classID === ClassIDS.Lunch ? '' : lunchPeriod.room,
             teacher: p.classID === ClassIDS.Lunch ? { ...lunchPeriod.teacher, name: '' } : lunchPeriod.teacher,
@@ -651,6 +652,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
             scheduleForDisplay.push({
                 classID: period.classID,
                 period: period.period,
+                studentVuePeriod: null,
                 name: '',
                 room: '',
                 teacher: {
@@ -668,6 +670,7 @@ function mergeDataWithSchedule(sch: Terms, displayTerm: Term, displayDaySchedule
             const h: Class = {
                 classID: period.classID,
                 period: period.period,
+                studentVuePeriod: pd?.studentVuePeriod || null,
                 name: pd?.name || '',
                 room: pd?.room || '',
                 teacher: {

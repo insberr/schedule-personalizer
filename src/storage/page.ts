@@ -9,6 +9,7 @@ export enum Page {
     SCHOOL,
     BETA,
     LOGIN,
+    SCHEDULE2,
 }
 
 // to do: make this an object and not 2 functions;

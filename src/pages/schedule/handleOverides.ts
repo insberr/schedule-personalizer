@@ -89,6 +89,7 @@ export function overidesMergeDataWithSchedule(
                 classID: period.classID,
                 customID: period.customID,
                 period: period.period,
+                studentVuePeriod: null,
                 name: 'Lunch ' + overideForGrade?.forceLunch,
                 room: 'Cafeteria',
                 teacher: {
@@ -111,6 +112,7 @@ export function overidesMergeDataWithSchedule(
                 classID: period.classID,
                 customID: period.customID,
                 period: period.period,
+                studentVuePeriod: null,
                 name: period.name !== undefined ? period.name : '',
                 room: '',
                 teacher: {
@@ -131,6 +133,7 @@ export function overidesMergeDataWithSchedule(
                 classID: period.classID,
                 customID: period.customID,
                 period: period.period,
+                studentVuePeriod: pd?.studentVuePeriod || null,
                 name: pd?.name || '',
                 room: pd?.room || '',
                 teacher: {

@@ -100,6 +100,13 @@ export function SchHeader(props: Props) {
                         >
                             Student ID
                         </NavDropdown.Item>
+                        <NavDropdown.Item
+                            onClick={() => {
+                                navigate(Page.SCHEDULE2);
+                            }}
+                        >
+                            M-UI (Soon™️)
+                        </NavDropdown.Item>
                         {/* <NavDropdown.Item onClick={()=>{ navigate(Page.SCHOOL) }}>School Info</NavDropdown.Item> */}
                         <STVBoundery>
                             <NavDropdown.Item href={'mailto:' + stv.info?.content.CounselorEmail}>Email Counselor</NavDropdown.Item>

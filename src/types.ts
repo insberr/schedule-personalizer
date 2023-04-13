@@ -12,6 +12,7 @@ export type cambridgeMapping = {
 export type CL = {
     classID: ClassIDS;
     period: number;
+    studentVuePeriod: string | null;
     name: string;
     teacher: {
         name: string;
@@ -61,6 +62,7 @@ export type Class = {
     customID?: number;
     // number[] is because of my start at bnuilding multiLunches
     period: number | number[] | undefined;
+    studentVuePeriod: string | null;
     name: string;
     room: string | number;
     teacher: Teacher;
@@ -186,6 +188,7 @@ export type ManualResult = {
 export function generateASingleEmptyClass_CL(infoToAddIn?: {
     classID?: ClassIDS;
     period?: number;
+    studentVuePeriod?: string | null;
     name?: string;
     teacher?: Teacher;
     room?: string;
@@ -193,6 +196,7 @@ export function generateASingleEmptyClass_CL(infoToAddIn?: {
     return {
         classID: infoToAddIn?.classID || ClassIDS.Period,
         period: infoToAddIn?.period || 0,
+        studentVuePeriod: infoToAddIn?.studentVuePeriod || null,
         name: infoToAddIn?.name || '',
         teacher: infoToAddIn?.teacher || {
             name: '',
@@ -208,6 +212,7 @@ export function emptyCL(amt: number, hasAdvisory: boolean): CL[] {
         return {
             classID: ClassIDS.Period,
             period: i,
+            studentVuePeriod: null,
             name: '',
             teacher: {
                 name: '',

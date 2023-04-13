@@ -17,6 +17,8 @@ import tinyColor from 'tinycolor2';
 import { BsStars } from 'react-icons/bs';
 import { useSchedule } from '../../../storage/schedule';
 import { today } from '../../../today';
+import { FormattedGradebook, useGrades } from '../../../storage/studentVueGrades';
+
 type ScheduleEntryProps = {
     sch: Class[];
     key: string;
@@ -38,6 +40,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty);
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
     const customizations = useCustomizations();
+    const grades = useGrades();
 
     // TO DO: Make this update every second and then check its still the current class and the highlight it
     const currentClassDateAndTime = useMemo(() => {
@@ -139,6 +142,7 @@ function ScheduleEntry(props: ScheduleEntryProps) {
             clearInterval(dt);
         };
     }, []);
+
     const highlightStyle = useCss(highlightPeriodColor);
     const textStyle = useCss(textPeriodColor);
     /*if (presentationMode && !isSameDay(props.viewDate, currentClassDateAndTime) || !isCurrentClass(props.sch, props.period, currentClassDateAndTime)) {
@@ -242,10 +246,35 @@ function ScheduleEntry(props: ScheduleEntryProps) {
                                 </a>
                             </div>
                         )}
+
+                        <div className="innerbox">{prepareStudentGradesForDisplay(grades.grades, props.period)}</div>
                     </div>
                 </Collapse>
             </Row>
         </Container>
     );
 }
+
+function prepareStudentGradesForDisplay(grades: FormattedGradebook | null, period: Class): string {
+    if (grades === null) return 'Grade: Loading';
+    const searchPeriod: number = period?.studentVuePeriod ? parseInt(period.studentVuePeriod) : (period.period as number);
+    const sectionTerm = grades.terms[5 /* change this for current veiw termindex */];
+    if (sectionTerm === undefined) return ''; // THIS SHOULD BE AN ERROR BUT TEMPORARY
+    const sectionForPeriod = sectionTerm[searchPeriod];
+    if (sectionForPeriod === undefined) return '';
+
+    // return (
+    //     'Grade: ' +
+    //     (sectionForPeriod?.string || 'Error') +
+    //     ' | ' +
+    //     sectionForPeriod?.title +
+    //     ' | per: ' +
+    //     period.period +
+    //     ' | stv:' +
+    //     period.studentVuePeriod
+    // );
+
+    return `Grade: ${sectionForPeriod.string} ${sectionForPeriod.raw}%`;
+}
+
 export default ScheduleEntry;

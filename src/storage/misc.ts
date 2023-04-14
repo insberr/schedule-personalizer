@@ -1,9 +1,12 @@
-export type Misc = {
-    setupComplete: boolean;
-    rgbParty: boolean;
-    presentationMode: boolean;
-};
+import {persist} from "./persistSignal";
+import {signal} from "@preact/signals-react"
 
+export const setupComplete = persist<boolean>("setupComplete", false);
+export const rgbParty = signal<boolean>(false);
+export const presentationMode = persist<boolean>("presentationMode", false);
+
+
+/*
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
@@ -41,3 +44,5 @@ export function useMisc(): Misc {
 export const { setSetupComplete, reset, setRgbParty, setPresentationMode } = miscSlice.actions;
 
 export default miscSlice.reducer;
+*/
+

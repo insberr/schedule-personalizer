@@ -146,6 +146,7 @@
         "workbox-core": "^6.5.4",
         "workbox-precaching": "^6.5.4",
         "workbox-sw": "^6.5.4",
+        "wrangler": "^2.15.1",
         "xml-js": "^1.6.11"
     },
     "alias": {

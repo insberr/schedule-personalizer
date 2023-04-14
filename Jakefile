@@ -95,7 +95,7 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
-    installNeededLibForChrome('');
+    if (process.env.CF_PAGES === 1) installNeededLibForChrome('');
     const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',
         splashOnly: true,

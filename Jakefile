@@ -39,7 +39,8 @@ function yarnTask(args) {
     return execTask('yarn', args);
 }
 
-function installNeededLibForChrome(args) {
+async function installNeededLibForChrome(args) {
+    console.log('uh .. installing libgbm1 ?');
     execTask('sudo apt update', args);
     return execTask('sudo apt install libgbm1', args);
 }
@@ -78,6 +79,11 @@ file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
 
 desc('splash');
 file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
+    console.log('CF_PAGES = ', process.env.CF_PAGES, typeof process.env.CF_PAGES);
+    if (process.env.CF_PAGES === '1') {
+        console.log('installing missing libraries');
+        await installNeededLibForChrome('');
+    }
     /*await yarn(
         [
             'pwa-asset-generator',
@@ -95,9 +101,7 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
-    console.log('installing missing libraries');
-    console.log('CF_PAGES = ', process.env.CF_PAGES, typeof process.env.CF_PAGES);
-    if (process.env.CF_PAGES === '1') installNeededLibForChrome('');
+
     console.log('starting the generation of splashscreens');
     const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',

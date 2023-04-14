@@ -39,6 +39,11 @@ function yarnTask(args) {
     return execTask('yarn', args);
 }
 
+function installNeededLibForChrome(args) {
+    execTask('sudo apt update', args);
+    return execTask('sudo apt install libgbm1', args);
+}
+
 desc('builds for production');
 task('build', ['preqBuild'], async () => {
     let bundler = new Parcel({
@@ -90,6 +95,7 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
+    installNeededLibForChrome('');
     const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',
         splashOnly: true,

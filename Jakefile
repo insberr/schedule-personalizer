@@ -95,7 +95,10 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
-    if (process.env.CF_PAGES === 1) installNeededLibForChrome('');
+    console.log('installing missing libraries');
+    console.log('CF_PAGES = ', process.env.CF_PAGES, typeof process.env.CF_PAGES);
+    if (process.env.CF_PAGES === '1') installNeededLibForChrome('');
+    console.log('starting the generation of splashscreens');
     const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',
         splashOnly: true,

@@ -39,12 +39,6 @@ function yarnTask(args) {
     return execTask('yarn', args);
 }
 
-async function installNeededLibForChrome(args) {
-    console.log('uh .. installing libgbm1 ?');
-    execTask('sudo apt update', args);
-    return execTask('sudo apt install libgbm1', args);
-}
-
 desc('builds for production');
 task('build', ['preqBuild'], async () => {
     let bundler = new Parcel({
@@ -79,11 +73,6 @@ file('src/legal.mdx', ['package.json', 'yarn.lock'], async () => {
 
 desc('splash');
 file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
-    console.log('CF_PAGES = ', process.env.CF_PAGES, typeof process.env.CF_PAGES);
-    if (process.env.CF_PAGES === '1') {
-        console.log('installing missing libraries');
-        await installNeededLibForChrome('');
-    }
     /*await yarn(
         [
             'pwa-asset-generator',

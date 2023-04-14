@@ -45,3 +45,11 @@ export type StorageData = {
 
 
 // we dont actually need like, anything in this file.
+
+export function resetStorage() {
+    //TODO: reset storage, maybe clear localstorage then reload?
+    alert("TODO: resetStorage()")
+}
+
+
+// maybe put all of the stores on the window object? for debugging?

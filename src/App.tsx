@@ -79,7 +79,7 @@ function App() {
                 <CssBaseline />
                 <Route routes={[Page.SCHEDULE, Page.SCHEDULE2, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL, Page.BETA]}>
                     <Route routes={[Page.SCHEDULE]} hide={true}>
-                        <SchedulePage />
+                        <Schedule2 />
                     </Route>
                     <Route routes={[Page.SCHEDULE2]} hide={true}>
                         <Schedule2 />

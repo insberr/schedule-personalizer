@@ -279,3 +279,52 @@ $tile-selected: shade-color($white, 10%);
 .scheduleRowAlternate {
     background-color: #7c7c7c;
 }
+
+/* Material UI Update Styles */
+.ScheduleDisplay-List {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.WholeDisplaySchedule {
+    margin-top: 2rem;
+    margin-left: 10dvw;
+    margin-right: 10dvw;
+    border: silver solid 3px;
+    border-radius: 4px;
+}
+
+.TextCenter {
+    text-align: center;
+}
+
+.ScheduleCol {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.HideColOnSmallerSCreens.TeacherCol {
+    @media (max-width: 790px) {
+        display: none;
+    }
+}
+.HideColOnSmallerSCreens.RoomCol {
+    @media (max-width: 560px) {
+        display: none;
+    }
+}
+
+.ScheduleRow {
+}
+
+.ScheduleRowGrid {
+    justify-content: center;
+}
+
+// Schedule Controls Header
+.ScheduleControlsHeader {
+    height: 5dvh;
+    background-color: silver;
+}
+
+.ControlsCol {
+}

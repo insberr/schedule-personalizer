@@ -19,7 +19,7 @@ import { RootState } from '../../storage/store';
 import { today } from '../../today';
 import { useNavigate } from '../../router/hooks';
 import { Page } from '../../storage/page';
-import { overidesMergeDataWithSchedule } from './handleOverides';
+import { overidesMergeDataWithSchedule } from '../schedule2/handleOverides';
 import { Updatey } from '../../components/Updatey';
 
 import { messageScrape, ScrapeError, ScrapeResult } from '../../apis/schoolWebsiteAlertScraper/scrape';

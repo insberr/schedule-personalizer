@@ -8,7 +8,8 @@ export function overidesMergeDataWithSchedule(
     displayTermClasses: CL[],
     displayDaySchedule: SchedulesType,
     userGrade: string,
-    displayDayEvent: EventSchedule
+    displayDayEvent: EventSchedule,
+    displayDate: Date
 ): null | { newClasses: SCHCL[]; scheduleForDisplay: Class[]; overideForGrade: OverideForName } {
     // log to sentry user grade and schedule
 
@@ -23,7 +24,9 @@ export function overidesMergeDataWithSchedule(
     if (displayDaySchedule?.overides.length === 0) return null;
 
     // PROBably need a condition to detect which overide name to use
-    const overidesForCondition = displayDaySchedule.overides.filter((o) => o.condition(displayDayEvent, config, displayTermClasses));
+    const overidesForCondition = displayDaySchedule.overides.filter((o) =>
+        o.condition(displayDayEvent, config, displayTermClasses, displayDate, userGrade)
+    );
     if (overidesForCondition.length > 1) {
         console.log('Why are there multiple overides for the same condition?');
         // probably should error

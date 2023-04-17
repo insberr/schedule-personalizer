@@ -197,7 +197,8 @@ function doSchedule(
         displayTerm.classes,
         currentDisplayDayEvent.schedule,
         studentInfo.info?.content.Grade || 'manual',
-        currentDisplayDayEvent
+        currentDisplayDayEvent,
+        currentDisplayDate
     );
 
     let lunchifiedScheduleOveride: MergedSchedule = {

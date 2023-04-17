@@ -1,6 +1,7 @@
 import { EventSchedule } from '../pages/schedule';
 import { CL, ClassIDS, getTimeW, Time } from '../types';
 import '../types/schedulesTypes';
+import { examSchedule } from './schedules/examSchedule';
 import { teachers } from './teachers';
 
 export type CLIdentifier = {
@@ -69,7 +70,7 @@ export type OverideForName = {
 export type ScheduleOverride = {
     name: string;
     // PLS ADD TYPES LMAO
-    condition: (event: EventSchedule, config: Record<string, unknown>, termSchedule: CL[]) => boolean;
+    condition: (event: EventSchedule, config: Record<string, unknown>, termSchedule: CL[], displayDate: Date, userGrade: string) => boolean;
     overides: OverideForName[];
 };
 
@@ -2644,6 +2645,8 @@ export const schedules: Schedules = {
             },
         },
     },
+
+    examSchedule: examSchedule,
     /* =========== */
 
     weekend: {

@@ -348,7 +348,8 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
-            message: 'Welcome Back, Its Trimester 2!\
+            message:
+                'Welcome Back, Its Trimester 2!\
 <br>Dont forget the map can be found in the "More" dropdown in the top left!',
             date: new Date('December 8, 2022'),
         },
@@ -620,6 +621,52 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('April 14, 2023'),
         },
     },
+
+    /* Spring Testing */
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 17, 2023'),
+        },
+    },
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 18, 2023'),
+        },
+    },
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 20, 2023'),
+        },
+    },
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 24, 2023'),
+        },
+    },
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 25, 2023'),
+        },
+    },
+    {
+        schedule: schedules.examSchedule,
+        info: {
+            message: '',
+            date: new Date('April 27, 2023'),
+        },
+    },
+    /* End Spring Testing */
+
     {
         schedule: schedules.lateStart1Hour,
         info: {

@@ -290,7 +290,7 @@ $tile-selected: shade-color($white, 10%);
     margin-left: 10dvw;
     margin-right: 10dvw;
     border: silver solid 3px;
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
 .TextCenter {
@@ -314,6 +314,10 @@ $tile-selected: shade-color($white, 10%);
 }
 
 .ScheduleRow {
+}
+
+.scheduleCollapseWrapper:last-child {
+    border-radius: 10px;
 }
 
 .ScheduleRowGrid {

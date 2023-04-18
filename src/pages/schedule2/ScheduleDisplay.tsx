@@ -18,9 +18,9 @@ export default function ScheduleDisplay(props: {
             <Box className={'WholeDisplaySchedule'}>
                 <List className={'ScheduleDisplay-List'}>
                     <ScheduleControls DisplayDate={props.DisplayDate} setDisplayDate={props.SetDisplayDate} />
-                    <TransitionGroup>
+                    <TransitionGroup className={'ScheduleCollapseWrapper'}>
                         {props.SPClassesForDisplay.map((SPClass, index) => (
-                            <Collapse key={index}>
+                            <Collapse key={index} className={'ScheduleCollapse'}>
                                 <ScheduleRow data={SPClass} key={index} alt={index % 2 == 1} DisplayDate={props.DisplayDate} />
                             </Collapse>
                         ))}

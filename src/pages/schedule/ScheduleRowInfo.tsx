@@ -24,19 +24,17 @@ export default function ScheduleRowInfo(props: { DisplayDate: Date; SPDisplayCla
             </div>
             <div>
                 <strong>
-                    {StudentGrades.grades?.terms[5][periodforindexing].string} | {StudentGrades.grades?.terms[5][periodforindexing].raw}
+                    {StudentGrades.grades?.terms[5][periodforindexing].string} | {StudentGrades.grades?.terms[5][periodforindexing].raw}%
                 </strong>
             </div>
             <div>
                 <strong>
-                    <a href={'mailto:' + 'teacher email'}>Email teacher name</a>
+                    <a href={'mailto:' + props.SPDisplayClass.teacher.email}>Email {props.SPDisplayClass.teacher.name}</a>
                 </strong>
             </div>
             <div>
                 <strong>{props.SPDisplayClass.room}</strong>
             </div>
-
-            <div>{isNow ? <div>progress bar{/*<DateBar startDate={startTime} destDate={endTime} /> */}</div> : ''}</div>
         </div>
     );
 }

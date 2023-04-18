@@ -90,6 +90,8 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         ],
         'src'
     ),*/
+
+    console.log('starting the generation of splashscreens');
     const d = await pwaAssetGenerator.generateImages('./src/icons/icon.svg', './src/splashscreens', {
         background: '#272727',
         splashOnly: true,

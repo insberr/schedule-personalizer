@@ -11,7 +11,7 @@ import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from '../../types
 import Center from '../../components/Center';
 import { Col, Container, Form, ListGroup, Row, Stack, Tab, Tabs, Accordion } from 'react-bootstrap';
 import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from '../../storage/customizations';
-import ScheduleEntry from '../schedule/components/ScheduleEntry';
+import ScheduleEntry from '../schedule_old/components/ScheduleEntry';
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
 import { update } from '../../updatey';

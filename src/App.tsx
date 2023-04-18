@@ -17,7 +17,7 @@ import { useSTV } from './storage/studentvueData';
 import { Page } from './storage/page';
 import { Route } from './router/Route';
 
-import SchedulePage from './pages/schedule';
+import SchedulePage from './pages/schedule_old';
 import { SettingsPage } from './pages/settings';
 import { Manual } from './pages/setup/steps/Manual';
 import { StudentID } from './pages/studentID';
@@ -25,7 +25,7 @@ import { SchoolInfo } from './pages/schoolInfo';
 import { BetaMap } from './pages/beta';
 import Login from './pages/login/Login';
 
-import Schedule2 from './pages/schedule2';
+import Schedule from './pages/schedule';
 import { PaletteMode } from '@mui/material';
 
 const SetupPage = React.lazy(() => import('./pages/setup'));
@@ -79,10 +79,7 @@ function App() {
                 <CssBaseline />
                 <Route routes={[Page.SCHEDULE, Page.SCHEDULE2, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL, Page.BETA]}>
                     <Route routes={[Page.SCHEDULE]} hide={true}>
-                        <Schedule2 />
-                    </Route>
-                    <Route routes={[Page.SCHEDULE2]} hide={true}>
-                        <Schedule2 />
+                        <Schedule />
                     </Route>
                     <Route routes={[Page.SETTINGS]} hide={false}>
                         <SettingsPage />

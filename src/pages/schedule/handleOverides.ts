@@ -1,7 +1,7 @@
 import { ReplaceType, SchedulesType, SCHCL, OverideForName } from '../../config/schedules';
 import * as config from '../../config/settings';
 import { CL, Class, ClassIDS } from '../../types';
-import { EventSchedule } from '../schedule/index';
+import { EventSchedule } from '../schedule_old/index';
 
 // Should only return null if there is no overide for the display day schedule or user grade
 export function overidesMergeDataWithSchedule(
@@ -152,3 +152,4 @@ export function overidesMergeDataWithSchedule(
 
     return { newClasses, scheduleForDisplay, overideForGrade };
 }
+

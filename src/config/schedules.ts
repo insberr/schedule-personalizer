@@ -1,4 +1,4 @@
-import { EventSchedule } from '../pages/schedule';
+import { EventSchedule } from '../pages/schedule_old';
 import { CL, ClassIDS, getTimeW, Time } from '../types';
 import '../types/schedulesTypes';
 import { teachers } from './teachers';

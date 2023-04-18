@@ -1,3 +1,6 @@
+import { signal } from '@preact/signals-react';
+import { setupComplete } from './misc';
+
 export enum Page {
     SCHEDULE,
     SETTINGS,
@@ -69,6 +72,5 @@ export function page2url(p: Page): string {
 export type PageStorage = {
     currentPage: Page;
 };
-import {signal} from "@preact/signals-react"
-import { setupComplete } from "./misc";
-export const currentPage = signal<Page>(setupComplete.peek() ? Page.SCHEDULE : Page.SETUP) // yay!
+
+export const currentPage = signal<Page>(setupComplete.peek() ? Page.SCHEDULE : Page.SETUP); // yay!

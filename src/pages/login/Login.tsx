@@ -11,14 +11,13 @@ import { FadeIn } from '../setup/components/FadeIn';
 
 import * as api from '../../apis/studentvue/studentVueAPI';
 import * as settings from '../../config/settings';
-import { useDispatch } from 'react-redux';
-import { setStudentVueData, setGotSchedules } from '../../storage/studentvue';
+
+import { studentVueCredentials, isStudentVue } from '../../storage/studentvue';
 import { useDebounce } from 'react-use';
 import { Container, Row, Stack } from 'react-bootstrap';
 
-import { useNavigate } from '../../router/hooks';
-import { Page } from '../../storage/page';
-import { setTerms } from '../../storage/schedule';
+import { Page, currentPage } from '../../storage/page';
+import { scheduleTerms } from '../../storage/schedule';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -33,8 +32,6 @@ export default function Login() {
         school: string;
     }>({ isValid: true, loading: true, name: '', school: '' });
     const id = useId();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     function doError(err: string) {
         setError(err);
@@ -89,16 +86,17 @@ export default function Login() {
         hideError();
 
         // Set username and password to local storage so we can use them later
-        dispatch(
-            setStudentVueData({
-                password: password,
-                username: username,
-                stayLoggedIn: false,
-                isLoggedIn: false,
-                gotSchedules: false,
-                lastRefresh: 0,
-            })
-        );
+        studentVueCredentials.value = { username, password };
+        // dispatch(
+        //     setStudentVueData({
+        //         password: password,
+        //         username: username,
+        //         stayLoggedIn: false,
+        //         isLoggedIn: false,
+        //         gotSchedules: false,
+        //         lastRefresh: 0,
+        //     })
+        // );
 
         // Validate user credentials to make sure the login info is correct
         const validCreds = await api
@@ -131,29 +129,33 @@ export default function Login() {
         }
 
         // Set isLogged in and stayLoggedIn to true
-        dispatch(
-            setStudentVueData({
-                password: password,
-                username: username,
-                stayLoggedIn: true,
-                isLoggedIn: true,
-                gotSchedules: false,
-                lastRefresh: 0,
-            })
-        );
+        isStudentVue.value = true;
+        // dispatch(
+        //     setStudentVueData({
+        //         password: password,
+        //         username: username,
+        //         stayLoggedIn: true,
+        //         isLoggedIn: true,
+        //         gotSchedules: false,
+        //         lastRefresh: 0,
+        //     })
+        // );
 
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
         await api
             .getAllSchedules(username, password)
             .then((res) => {
-                dispatch(setGotSchedules(true));
-                dispatch(setTerms(api.convertStudentvueDataToTerms(res)));
+                // dispatch(setGotSchedules(true));
+                isStudentVue.value = true;
+                // dispatch(setTerms(api.convertStudentvueDataToTerms(res)));
+                scheduleTerms.value = api.convertStudentvueDataToTerms(res);
                 // props.setSchedule(api.convertStudentvueDataToTerms(res));
             })
             .catch((err) => {
                 console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
-                dispatch(setGotSchedules(false));
+                // dispatch(setGotSchedules(false));
+                isStudentVue.value = false;
 
                 console.log('No schedule was set, so temporay data is being used');
 
@@ -163,12 +165,14 @@ export default function Login() {
                     return t;
                 });
 
-                dispatch(setTerms(newTerms));
+                // dispatch(setTerms(newTerms));
+                scheduleTerms.value = newTerms;
                 // props.setSchedule(newTerms);
             });
 
         setLoading(false);
-        navigate(Page.SCHEDULE);
+        // navigate(Page.SCHEDULE);
+        currentPage.value = Page.SCHEDULE;
         // props.setStage(69);
     }
 
@@ -251,7 +255,8 @@ export default function Login() {
                             className="mt-5 underline"
                             onClick={() => {
                                 // props.setStage(-1);
-                                navigate(Page.SETTINGS);
+                                // navigate(Page.SETTINGS);
+                                currentPage.value = Page.SETTINGS;
                             }}
                             variant="btn-crimson"
                             size="sm"

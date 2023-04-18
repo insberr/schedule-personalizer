@@ -10,27 +10,21 @@ import * as api from './apis/studentvue/studentVueAPI';
 
 import LoadSpinner from './components/LoadSpinner';
 
-import { useDispatch } from 'react-redux';
-import { setStudentVueData, useStudentvue } from './storage/studentvue';
-import { useSTV } from './storage/studentvueData';
-
 import { Page } from './storage/page';
 import { Route } from './router/Route';
 
-import SchedulePage from './pages/schedule_old';
 import { SettingsPage } from './pages/settings';
 import { Manual } from './pages/setup/steps/Manual';
 import { StudentID } from './pages/studentID';
 import { SchoolInfo } from './pages/schoolInfo';
-import { BetaMap } from './pages/beta';
 import Login from './pages/login/Login';
 
 import Schedule from './pages/schedule';
 import { PaletteMode } from '@mui/material';
+import { isStudentVue, studentVueCredentials } from './storage/studentvue';
 
 const SetupPage = React.lazy(() => import('./pages/setup'));
 const EditorPage = React.lazy(() => import('./pages/editor'));
-const PathOfPain = React.lazy(() => import('./pages/pathofpain'));
 
 const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -64,9 +58,9 @@ function App() {
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(prefersDarkMode ? 'dark' : 'light')), [prefersDarkMode]);
 
-    const stv = useStudentvue();
+    const stv = studentVueCredentials.value;
     useEffect(() => {
-        if (stv.isLoggedIn || stv.username !== '') {
+        if (isStudentVue.value || stv.username !== '') {
             Sentry.setUser({ id: stv.username });
         } else {
             Sentry.setUser(null);
@@ -78,7 +72,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Route routes={[Page.SCHEDULE, Page.SCHEDULE2, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL, Page.BETA]}>
-                    <Route routes={[Page.SCHEDULE]} hide={true}>
+                    <Route routes={[Page.SCHEDULE, Page.SCHEDULE2]} hide={true}>
                         <Schedule />
                     </Route>
                     <Route routes={[Page.SETTINGS]} hide={false}>
@@ -100,9 +94,6 @@ function App() {
                     </Route>
                     <Route routes={[Page.SCHOOL]} hide={false}>
                         <SchoolInfo />
-                    </Route>
-                    <Route routes={[Page.BETA]} hide={false}>
-                        <BetaMap />
                     </Route>
                 </Route>
                 <Route routes={[Page.SETUP]}>

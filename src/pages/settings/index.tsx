@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
-import { persistConfig, resetStorage, store } from '../../storage/store';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../storage/store';
-import { setRgbParty, setPresentationMode } from '../../storage/misc';
+import { resetStorage } from '../../storage/store';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { RootState } from '../../storage/store';
+import { rgbParty, presentationMode } from '../../storage/misc';
 import { useKeyboardShortcut } from '../../hooks';
 import { setStudentVueData, useStudentvue } from '../../storage/studentvue';
 import { useState, useEffect } from 'react';
@@ -20,9 +20,9 @@ import { today } from '../../today';
 import * as settings from '../../config/settings';
 import * as Sentry from '@sentry/react';
 import { setTerms, useSchedule } from '../../storage/schedule';
-import { useNavigate } from '../../router/hooks';
+// import { useNavigate } from '../../router/hooks';
 import { SettingsHeader } from './SettingsHeader';
-import { Page } from '../../storage/page';
+import { Page, currentPage } from '../../storage/page';
 import React from 'react';
 import { ScrapeError, ScrapeResult, messageScrape } from '../../apis/schoolWebsiteAlertScraper/scrape';
 //mport { envelopeItemTypeToDataCategory } from "@sentry/utils";
@@ -38,7 +38,7 @@ export function SettingsPage() {
     const stv = useStudentvue();
     const customizations = useCustomizations();
     const sch = useSchedule();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete);
 
     const [schoolAlert, setSchoolAlert] = useState<ScrapeError | ScrapeResult>({ error: 'api not called yet' });
@@ -60,9 +60,10 @@ export function SettingsPage() {
     // setup guard
     useEffect(() => {
         if (!isSetupComplete) {
-            navigate(Page.SETUP);
+            // navigate(Page.SETUP);
+            currentPage.value = Page.SETUP;
         }
-    }, [isSetupComplete, navigate]);
+    }, [isSetupComplete]);
 
     const doRGBParty = useSelector((state: RootState) => state.misc.rgbParty);
     const presentationMode = useSelector((state: RootState) => state.misc.presentationMode);
@@ -72,7 +73,8 @@ export function SettingsPage() {
     const [editManually, setEditManually] = useState(false);
 
     useKeyboardShortcut('shift + r + g + b', () => {
-        dispatch(setRgbParty(!doRGBParty));
+        // dispatch(setRgbParty(!doRGBParty));
+        rgbParty.value = !doRGBParty;
     });
 
     const [colorPickerValues, setColorPickerValues] = useState<Colors>({
@@ -171,9 +173,10 @@ export function SettingsPage() {
                             <Stack gap={4}>
                                 <Form.Switch
                                     label={'Presentation Mode'}
-                                    checked={presentationMode}
+                                    checked={presentationMode.value}
                                     onChange={() => {
-                                        dispatch(setPresentationMode(!presentationMode));
+                                        // dispatch(setPresentationMode(!presentationMode));
+                                        presentationMode.value = !presentationMode.value;
                                     }}
                                 />
                                 <div></div>
@@ -198,7 +201,8 @@ export function SettingsPage() {
                                 <Button
                                     className={stv.isLoggedIn ? 'hidden' : ''}
                                     onClick={() => {
-                                        navigate(Page.EDITMANUALLY); /*setEditManually(true)*/
+                                        // navigate(Page.EDITMANUALLY); /*setEditManually(true)*/
+                                        currentPage.value = Page.EDITMANUALLY;
                                     }}
                                 >
                                     Edit Schedule
@@ -207,7 +211,8 @@ export function SettingsPage() {
                                     className={stv.isLoggedIn ? 'hidden' : ''}
                                     onClick={() => {
                                         console.log('login page moment?');
-                                        navigate(Page.LOGIN);
+                                        // navigate(Page.LOGIN);
+                                        currentPage.value = Page.LOGIN;
                                     }}
                                 >
                                     Login
@@ -233,7 +238,8 @@ export function SettingsPage() {
                                 <Button
                                     variant="danger"
                                     onClick={() => {
-                                        navigate(Page.SCHEDULE);
+                                        // navigate(Page.SCHEDULE);
+                                        currentPage.value = Page.SCHEDULE;
                                         resetStorage();
                                         location.reload();
                                     }}
@@ -244,7 +250,8 @@ export function SettingsPage() {
                                     onClick={() => {
                                         dispatch(resetColors());
                                         setTimeout(() => {
-                                            navigate(Page.SCHEDULE);
+                                            // navigate(Page.SCHEDULE);
+                                            currentPage.value = Page.SCHEDULE;
                                         }, 100);
                                     }}
                                 >
@@ -747,7 +754,7 @@ export function SettingsPage() {
                     <Tab eventKey="devs" title="Devs">
                         <h2>Dev And Debug</h2>
                         <div>
-                            <Button href="#" onClick={() => navigate(Page.EDITOR)}>
+                            <Button href="#" onClick={() => (currentPage.value = Page.EDITOR)}>
                                 Event Editor (Devs only)
                             </Button>
                             <Button
@@ -792,13 +799,13 @@ export function SettingsPage() {
                                 JSON: {JSON.stringify(schoolAlert)}
                             </pre>
                             <pre id="data" className="paper">
-                                Redux Storeage Version: {persistConfig.version}
+                                Redux Storeage Version: {null /*persistConfig.version*/}
                                 {'\n'}
                                 Build Version: {identifyCommit() || 'Unknown'} on branch {identifyBranch() || 'Unknown'}
                                 {'\n'}
                                 Mode: {process.env.NODE_ENV}
                                 {'\n'}
-                                {JSON.stringify(store.getState(), null, 1)}
+                                {/*JSON.stringify(store.getState(), null, 1)*/ null}
                             </pre>
                         </div>
                     </Tab>

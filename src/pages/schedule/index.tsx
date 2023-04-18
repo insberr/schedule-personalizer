@@ -1,27 +1,24 @@
 import { useMemo, useState } from 'react';
 import { Class, Term } from '../../types';
 import ScheduleDisplay from './ScheduleDisplay';
-import { useSchedule } from '../../storage/schedule';
+import { displaySchedule, scheduleTerms } from '../../storage/schedule';
 import { ScheduleEvent } from '../../config/events';
 import { schedules } from '../../config/schedules';
-import { Updatey } from '../../components/Updatey';
-import StudentVueReloader from '../../components/StudentVueReloader';
+
 export default function Schedule2() {
     const [DisplayDate, SetDisplaydate] = useState(new Date());
 
-    const SPClasses = useSchedule();
+    const SPClasses = scheduleTerms.value;
     const EventMessages_TEMP = useMemo(() => {
         return DisplayDate.getDay() === 6 || DisplayDate.getDay() === 0 ? ['Its The Weekend'] : [];
     }, [DisplayDate]);
     return (
         <>
-            <Updatey />
-            <StudentVueReloader />
             <ScheduleDisplay
                 DisplayDate={DisplayDate}
                 SetDisplayDate={SetDisplaydate}
                 DisplayEventMessages={EventMessages_TEMP}
-                SPClassesForDisplay={TEMP_CreateDisplaySchedule(SPClasses.terms[2], {
+                SPClassesForDisplay={TEMP_CreateDisplaySchedule(SPClasses[2], {
                     schedule: DisplayDate.getDay() === 6 || DisplayDate.getDay() === 0 ? schedules.weekend : schedules.advisory, // temporary lol
                     info: { date: new Date(), message: 'Test' },
                 })}
@@ -56,3 +53,4 @@ function TEMP_CreateDisplaySchedule(displayTerm: Term, displayDaySchedule: Sched
     }
     return scheduleForDisplay;
 }
+

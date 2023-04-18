@@ -11,8 +11,8 @@ import { FadeIn } from '../components/FadeIn';
 
 import * as api from '../../../apis/studentvue/studentVueAPI';
 import * as settings from '../../../config/settings';
-import { useDispatch } from 'react-redux';
-import { setStudentVueData, setGotSchedules } from '../../../storage/studentvue';
+
+import { studentVueCredentials, isStudentVue } from '../../../storage/studentvue';
 import { useDebounce } from 'react-use';
 import { Container, Row, Stack } from 'react-bootstrap';
 
@@ -34,7 +34,6 @@ export function Login(props: Props) {
         school: string;
     }>({ isValid: true, loading: true, name: '', school: '' });
     const id = useId();
-    const dispatch = useDispatch();
 
     function doError(err: string) {
         setError(err);
@@ -89,16 +88,17 @@ export function Login(props: Props) {
         hideError();
 
         // Set username and password to local storage so we can use them later
-        dispatch(
-            setStudentVueData({
-                password: password,
-                username: username,
-                stayLoggedIn: false,
-                isLoggedIn: false,
-                gotSchedules: false,
-                lastRefresh: 0,
-            })
-        );
+        studentVueCredentials.value = { username, password };
+        // dispatch(
+        //     setStudentVueData({
+        //         password: password,
+        //         username: username,
+        //         stayLoggedIn: false,
+        //         isLoggedIn: false,
+        //         gotSchedules: false,
+        //         lastRefresh: 0,
+        //     })
+        // );
 
         // Validate user credentials to make sure the login info is correct
         const validCreds = await api
@@ -131,28 +131,31 @@ export function Login(props: Props) {
         }
 
         // Set isLogged in and stayLoggedIn to true
-        dispatch(
-            setStudentVueData({
-                password: password,
-                username: username,
-                stayLoggedIn: true,
-                isLoggedIn: true,
-                gotSchedules: false,
-                lastRefresh: 0,
-            })
-        );
+        isStudentVue.value = true;
+        // dispatch(
+        //     setStudentVueData({
+        //         password: password,
+        //         username: username,
+        //         stayLoggedIn: true,
+        //         isLoggedIn: true,
+        //         gotSchedules: false,
+        //         lastRefresh: 0,
+        //     })
+        // );
 
         // Get student Schedule (if it fails continue to the schedule and notify the user that
         //   there was a problem fetching the schedule from studentvue and to wait for it to work)
         await api
             .getAllSchedules(username, password)
             .then((res) => {
-                dispatch(setGotSchedules(true));
+                // dispatch(setGotSchedules(true));
+                // ! Add set got schedules
                 props.setSchedule(api.convertStudentvueDataToTerms(res));
             })
             .catch((err) => {
                 console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
-                dispatch(setGotSchedules(false));
+                // dispatch(setGotSchedules(false));
+                // ! Add set got schedules
 
                 console.log('No schedule was set, so temporay data is being used');
 

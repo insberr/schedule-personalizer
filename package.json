@@ -115,6 +115,7 @@
         "date-fns": "^2.29.3",
         "get-own-enumerable-property-symbols": "^3.0.2",
         "html-to-image": "^1.11.11",
+        "immer": "^10.0.1",
         "is-obj": "^3.0.0",
         "is-regexp": "^3.1.0",
         "keyboardjs": "^2.7.0",

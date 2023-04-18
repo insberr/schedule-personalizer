@@ -6,10 +6,7 @@ import * as settings from '../../../config/settings';
 import { CL, emptyCL } from '../../../types';
 
 // Redux And Navigation
-import { useDispatch } from 'react-redux';
-import { setLunch, useSchedule, setTerms } from '../../../storage/schedule';
-
-import { useNavigate } from '../../../router/hooks';
+import { lunch, displaySchedule, scheduleTerms } from '../../../storage/schedule';
 
 // Components
 import Center from '../../../components/Center';
@@ -20,7 +17,7 @@ import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import { Page } from '../../../storage/page';
+import { Page, currentPage } from '../../../storage/page';
 
 type Props = {
     setStage: (stage: number) => void;

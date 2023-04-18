@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { Terms } from '../../types';
 
 // Redux
-import { useDispatch } from 'react-redux';
-import { setSetupComplete, useMisc } from '../../storage/misc';
+import { setupComplete } from '../../storage/misc';
 
 // Components
 import { IntroPonent } from './components/Introponent';
@@ -16,9 +15,8 @@ import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
-import { useNavigate } from '../../router/hooks';
-import { setTerms, useSchedule } from '../../storage/schedule';
-import { Page } from '../../storage/page';
+import { scheduleTerms /* setSchedule */ } from '../../storage/schedule';
+import { Page, currentPage } from '../../storage/page';
 import LoadSpinner from '../../components/LoadSpinner';
 
 export enum SetupStages {
@@ -31,26 +29,28 @@ export enum SetupStages {
 }
 
 function SetupPage() {
-    const sch = useSchedule();
+    const sch = scheduleTerms.value;
     const [stage, setStage] = useState(0);
     const [schedule, setLocalSchedule] = useState<Terms>(sch.terms);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     // This prevents the user from entering the setup page if they have already completed setup
     // They schould really learn how to go to the settings page and click the reset button smh
-    const misc = useMisc();
-    if (misc.setupComplete) {
-        navigate(Page.SCHEDULE);
+
+    if (setupComplete.value) {
+        // navigate(Page.SCHEDULE);
+        currentPage.value = Page.SCHEDULE;
     }
 
     useEffect(() => {
         if (stage != 69) {
             return;
         }
-        dispatch(setSetupComplete(true));
-        dispatch(setTerms(schedule));
-        navigate(Page.SCHEDULE);
+        // dispatch(setSetupComplete(true));
+        setupComplete.value = true;
+        // dispatch(setTerms(schedule));
+        scheduleTerms.value = schedule;
+        // navigate(Page.SCHEDULE);
+        currentPage.value = Page.SCHEDULE;
     });
 
     // TO DO: maybe use enum for stages valuse??

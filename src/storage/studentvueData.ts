@@ -1,53 +1,37 @@
-import { RootState } from './store';
-import { deserify } from '@karmaniverous/serify-deserify';
-import { StudentVueAPIData as schTypes, StudentVueAPIDataUserDate as infoTypes } from '../apis/studentvue/studentVueAPI';
+import { effect, computed } from '@preact/signals-react';
+import { StudentVueAPIData } from '../apis/studentvue/studentVueAPI';
+import { persist } from './persistSignal';
+import { isStudentVue, studentVueCredentials } from './studentvue';
+import * as settings from '../config/settings';
 
-export type StvDataStorage = {
-    info: infoTypes | null; // i beg of you, create types for these, i beg
-    sch: schTypes | null;
-    isVue: boolean;
+export type studentVueStudentDataType = {
+    name: string;
+    grade: number;
+    school: string;
 };
+export const studentVueScheduleData = persist<null | StudentVueAPIData>('schedule_data', null);
+export const studentVueStudentData = persist<null | studentVueStudentDataType>('student_data', null);
 
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
+let stvInterval: NodeJS.Timer | null = null;
 
-const initialState: StvDataStorage = {
-    info: null,
-    sch: null,
-    isVue: false,
-};
-
-export const stvSlice = createSlice({
-    name: 'stv',
-    initialState,
-    reducers: {
-        setInfo(state, action: PayloadAction<infoTypes>) {
-            state['info'] = action.payload;
-        },
-        setInfoGrade(state, action: PayloadAction<string>) {
-            state['info'] ? (state['info'].content.Grade = action.payload) : null;
-        },
-        setSch(state, action: PayloadAction<schTypes>) {
-            state['sch'] = action.payload;
-        },
-        enableSTV(state) {
-            state['isVue'] = true;
-        },
-        disableSTV(state) {
-            state['isVue'] = false;
-        },
-        reset: () => {
-            return initialState;
-        },
-    },
-});
-
-export function useSTV(): StvDataStorage {
-    return deserify(useSelector((state: RootState) => state.stv));
+export function refreshStudentVueSchedule() {
+    // refresh schwedule
+    console.log('Pull user schedule and update it');
 }
 
-// Action creators are generated for each case reducer function
-export const { reset, setInfo, setSch, enableSTV, disableSTV } = stvSlice.actions;
+effect(() => {
+    if (stvInterval != null) clearInterval(stvInterval);
+    if (studentVueCredentials.value.username == null || studentVueCredentials.value.password == null) {
+        isStudentVue.value = false;
+        return;
+    }
+    if (!isStudentVue.value) return;
+    refreshStudentVueSchedule();
+    stvInterval = setInterval(() => {
+        refreshStudentVueSchedule();
+    }, settings.studentvueRefreshInterval);
+});
 
-export default stvSlice.reducer;
+export const studentVueSchedule = computed(() => {
+    // convert studentVueScheduleData -> the same type as a manual schedule
+});

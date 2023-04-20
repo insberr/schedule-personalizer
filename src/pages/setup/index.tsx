@@ -29,9 +29,8 @@ export enum SetupStages {
 }
 
 function SetupPage() {
-    const sch = scheduleTerms.value;
     const [stage, setStage] = useState(0);
-    const [schedule, setLocalSchedule] = useState<Terms>(sch.terms);
+    const [schedule, setLocalSchedule] = useState<Terms>(scheduleTerms.value);
 
     // This prevents the user from entering the setup page if they have already completed setup
     // They schould really learn how to go to the settings page and click the reset button smh

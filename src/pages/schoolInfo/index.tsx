@@ -1,21 +1,19 @@
 import { Button } from 'react-bootstrap';
-import { useNavigate } from '../../router/hooks';
-import { Page } from '../../storage/page';
-import { useSTV } from '../../storage/studentvueData';
+import { Page, currentPage } from '../../storage/page';
+import { studentVueStudentData } from '../../storage/studentvueData';
 
 export function SchoolInfo() {
-    const navigate = useNavigate();
-    const stv = useSTV();
-
+    const stv = studentVueStudentData.value;
     return (
         <>
             <div>Working Progress</div>
             <div>
-                You Go To <strong>{stv.info?.content?.CurrentSchool}</strong>
+                You Go To <strong>{stv.school}</strong>
             </div>
             <Button
                 onClick={() => {
-                    navigate(Page.SCHEDULE);
+                    // navigate(Page.SCHEDULE);
+                    currentPage.value = Page.SCHEDULE;
                 }}
             >
                 Back to schedule

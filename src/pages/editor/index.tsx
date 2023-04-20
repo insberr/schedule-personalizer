@@ -10,16 +10,15 @@ import stringifyObject from 'stringify-object';
 import { format } from 'date-fns';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { today } from '../../today';
-import { useNavigate } from '../../router/hooks';
+
 import './editor.scss';
-import { Page } from '../../storage/page';
+import { currentPage, Page } from '../../storage/page';
 export default function EditorApp() {
     // const [events, setEvents] = useState<ScheduleEvents>(scheduleEvents)
     const [date, setDate] = useState<Date | DateRange>(today());
     const [schedule, setSchedule] = useState<SchedulesType | null>(schedules.normal);
     const [message, setMessage] = useState<string>('');
     // const [time, setTime] = useState<Date | string>(today())
-    const navigate = useNavigate();
     const [resultEvent, setResultEvent] = useState<ScheduleEvent>({
         schedule: schedule,
         info: {
@@ -214,7 +213,7 @@ export default function EditorApp() {
                             {stringifyThings(newEvents)}
                         </pre>
                     </Col>
-                    <Button href="#" onClick={() => navigate(Page.SCHEDULE)}>
+                    <Button href="#" onClick={() => (currentPage.value = Page.SCHEDULE)}>
                         Back to schedule
                     </Button>
                 </Row>

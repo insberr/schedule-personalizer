@@ -1,10 +1,13 @@
+import { effect } from '@preact/signals-react';
+import { StudentVueAPIData } from '../apis/studentvue/studentVueAPI';
+import { persist } from './persistSignal';
+import { isStudentVue, studentVueCredentials } from './studentvue';
+
 import type { Customizations, ClassIDS, RGBA, Colors } from '../types';
 import { defaultCustomizations as initialState } from '../config/settings';
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { RootState } from './store';
 
+export const customizationCustomizations = persist<Customizations>('customizationShowInfoOnSchedule', initialState);
+/*
 export const customizationSlice = createSlice({
     name: 'customization',
     initialState,
@@ -57,3 +60,4 @@ export const {
 } = customizationSlice.actions;
 
 export default customizationSlice.reducer;
+*/

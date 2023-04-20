@@ -3,11 +3,6 @@ import App from './App';
 import { identifyCommit } from './lib/lib';
 import { Err } from './components/ErrBoundery';
 import * as Sentry from '@sentry/react';
-import { store, persistor, resetStorage } from './storage/store';
-import './router/events';
-import { PersistGate } from 'redux-persist/integration/react';
-import LoadSpinner from './components/LoadSpinner';
-import { Provider } from 'react-redux';
 import { BrowserTracing } from '@sentry/tracing';
 import SentryRRWeb from '@sentry/rrweb';
 import { Button } from 'react-bootstrap';
@@ -19,6 +14,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { resetStorage } from './storage/store';
 
 const tracesSampleRate = process.env.NODE_ENV == 'production' ? 0.2 : 1.0;
 
@@ -85,7 +81,7 @@ function startLoad() {
                               <br />
                               <Button
                                   onClick={() => {
-                                      resetStorage();
+                                      resetStorage(); // fully reseting storage -> clear localhost 
                                       location.reload();
                                   }}
                               >
@@ -102,11 +98,7 @@ function startLoad() {
             root.render(
                 <Err>
                     <React.StrictMode>
-                        <Provider store={store}>
-                            <PersistGate loading={<LoadSpinner />} persistor={persistor}>
                                 <Withsentry />
-                            </PersistGate>
-                        </Provider>
                     </React.StrictMode>
                 </Err>
             );

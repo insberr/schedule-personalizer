@@ -1,11 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { VscSettingsGear } from 'react-icons/vsc';
-import { useNavigate } from '../../router/hooks';
-import { Page } from '../../storage/page';
+import { Page, currentPage } from '../../storage/page';
 
 export function SettingsHeader() {
-    const navigate = useNavigate();
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
@@ -13,7 +11,8 @@ export function SettingsHeader() {
                 <Navbar.Collapse className="justify-content-end">
                     <a
                         onClick={() => {
-                            navigate(Page.SCHEDULE);
+                            // navigate(Page.SCHEDULE);
+                            currentPage.value = Page.SCHEDULE;
                         }}
                     >
                         <VscSettingsGear className={'white-icon spin'} />

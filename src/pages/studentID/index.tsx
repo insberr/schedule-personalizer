@@ -1,11 +1,9 @@
 import { Button } from 'react-bootstrap';
-import { useNavigate } from '../../router/hooks';
-import { Page } from '../../storage/page';
-import { useStudentvue } from '../../storage/studentvue';
+import { Page, currentPage } from '../../storage/page';
+import { studentVueCredentials } from '../../storage/studentvue';
 
 export function StudentID() {
-    const navigate = useNavigate();
-    const stv = useStudentvue();
+    const stv = studentVueCredentials.value;
 
     return (
         <>
@@ -14,7 +12,8 @@ export function StudentID() {
             <div>Make a barcode thingy</div>
             <Button
                 onClick={() => {
-                    navigate(Page.SCHEDULE);
+                    // navigate(Page.SCHEDULE);
+                    currentPage.value = Page.SCHEDULE;
                 }}
             >
                 Back to schedule

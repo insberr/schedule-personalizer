@@ -4,13 +4,13 @@ import { resetStorage } from '../../storage/store';
 // import { RootState } from '../../storage/store';
 import { rgbParty, presentationMode } from '../../storage/misc';
 import { useKeyboardShortcut } from '../../hooks';
-import { setStudentVueData, useStudentvue } from '../../storage/studentvue';
+import { isStudentVue, studentVueCredentials } from '../../storage/studentvue';
 import { useState, useEffect } from 'react';
 
 import { ClassIDS, getTimeW, dateToTime, RGBA, Colors, Class } from '../../types';
 import Center from '../../components/Center';
 import { Col, Container, Form, ListGroup, Row, Stack, Tab, Tabs, Accordion } from 'react-bootstrap';
-import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from '../../storage/customizations';
+// import { setCurrentClassColor, setScheduleColor, useCustomizations, resetColors, setAllColors, setTutorial } from '../../storage/customizations';
 import ScheduleEntry from '../schedule_old/components/ScheduleEntry';
 import tinyColor from 'tinycolor2';
 import { debounce } from 'lodash';
@@ -19,7 +19,7 @@ import { identifyBranch, identifyCommit } from '../../lib/lib';
 import { today } from '../../today';
 import * as settings from '../../config/settings';
 import * as Sentry from '@sentry/react';
-import { setTerms, useSchedule } from '../../storage/schedule';
+import { scheduleTerms, displaySchedule } from '../../storage/schedule';
 // import { useNavigate } from '../../router/hooks';
 import { SettingsHeader } from './SettingsHeader';
 import { Page, currentPage } from '../../storage/page';
@@ -34,12 +34,8 @@ const Legal = () => (
 );
 
 export function SettingsPage() {
-    const dispatch = useDispatch();
-    const stv = useStudentvue();
-    const customizations = useCustomizations();
-    const sch = useSchedule();
-    // const navigate = useNavigate();
-    const isSetupComplete = useSelector((state: RootState) => state.misc.setupComplete);
+    const stv = studentVueCredentials.value;
+    const sch = displaySchedule.value;
 
     const [schoolAlert, setSchoolAlert] = useState<ScrapeError | ScrapeResult>({ error: 'api not called yet' });
     useEffect(() => {
@@ -199,7 +195,7 @@ export function SettingsPage() {
                                 </Button>
                                 <div></div>
                                 <Button
-                                    className={stv.isLoggedIn ? 'hidden' : ''}
+                                    className={isStudentVue.value ? 'hidden' : ''}
                                     onClick={() => {
                                         // navigate(Page.EDITMANUALLY); /*setEditManually(true)*/
                                         currentPage.value = Page.EDITMANUALLY;
@@ -208,7 +204,7 @@ export function SettingsPage() {
                                     Edit Schedule
                                 </Button>
                                 <Button
-                                    className={stv.isLoggedIn ? 'hidden' : ''}
+                                    className={isStudentVue.value ? 'hidden' : ''}
                                     onClick={() => {
                                         console.log('login page moment?');
                                         // navigate(Page.LOGIN);
@@ -218,7 +214,7 @@ export function SettingsPage() {
                                     Login
                                 </Button>
                                 <Button
-                                    className={stv.isLoggedIn ? '' : 'hidden'}
+                                    className={isStudentVue.value ? '' : 'hidden'}
                                     onClick={() => {
                                         console.log('User logged out of studentvue.');
                                         dispatch(

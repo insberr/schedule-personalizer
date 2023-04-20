@@ -4,6 +4,8 @@ import ScheduleDisplay from './ScheduleDisplay';
 import { displaySchedule, scheduleTerms } from '../../storage/schedule';
 import { ScheduleEvent } from '../../config/events';
 import { schedules } from '../../config/schedules';
+import { VscSettingsGear } from 'react-icons/vsc';
+import { Page, currentPage } from '../../storage/page';
 
 export default function Schedule2() {
     const [DisplayDate, SetDisplaydate] = useState(new Date());
@@ -14,6 +16,13 @@ export default function Schedule2() {
     }, [DisplayDate]);
     return (
         <>
+            <a
+                onClick={() => {
+                    currentPage.value = Page.SETTINGS;
+                }}
+            >
+                <VscSettingsGear className={'white-icon'} />
+            </a>
             <ScheduleDisplay
                 DisplayDate={DisplayDate}
                 SetDisplayDate={SetDisplaydate}

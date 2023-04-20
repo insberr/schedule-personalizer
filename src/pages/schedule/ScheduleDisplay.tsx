@@ -1,4 +1,4 @@
-import { Box, Collapse, List } from '@mui/material';
+import { Box, Button, Collapse, List } from '@mui/material';
 // import { Skeleton } from '@mui/material';
 import ScheduleRow from './ScheduleRow';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
@@ -29,6 +29,22 @@ export default function ScheduleDisplay(props: {
                     {props.DisplayEventMessages.length !== 0 && <EventMessagesRow messages={props.DisplayEventMessages} alt={false} />}
                 </List>
             </Box>
+            <Button
+                onClick={() => {
+                    window.Notification.requestPermission().then((result) => {
+                        console.log(result);
+                        if (result === 'granted') {
+                            navigator.serviceWorker.getRegistration().then((reg) => {
+                                alert(reg);
+                                reg?.showNotification('Hello world!');
+                            });
+                        }
+                    });
+                }}
+            >
+                test notif
+            </Button>
         </>
     );
 }
+

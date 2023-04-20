@@ -81,7 +81,7 @@ function startLoad() {
                               <br />
                               <Button
                                   onClick={() => {
-                                      resetStorage(); // fully reseting storage -> clear localhost 
+                                      resetStorage(); // fully reseting storage -> clear localhost
                                       location.reload();
                                   }}
                               >
@@ -98,7 +98,7 @@ function startLoad() {
             root.render(
                 <Err>
                     <React.StrictMode>
-                                <Withsentry />
+                        <Withsentry />
                     </React.StrictMode>
                 </Err>
             );

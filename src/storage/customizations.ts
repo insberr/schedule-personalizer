@@ -1,12 +1,18 @@
 import { effect } from '@preact/signals-react';
 import { StudentVueAPIData } from '../apis/studentvue/studentVueAPI';
 import { persist } from './persistSignal';
+import { deepUpdate } from './helper';
 import { isStudentVue, studentVueCredentials } from './studentvue';
 
 import type { Customizations, ClassIDS, RGBA, Colors } from '../types';
 import { defaultCustomizations as initialState } from '../config/settings';
 
-export const customizationCustomizations = persist<Customizations>('customizationShowInfoOnSchedule', initialState);
+export const customizationCustomizations = persist<Customizations>('customizations', initialState);
+export function setScheduleClassIDColor(classID: ClassIDS, color: RGBA) {
+    deepUpdate(customizationCustomizations, (state) => {
+        state.theme.colors.schedule[classID] = color;
+    });
+}
 /*
 export const customizationSlice = createSlice({
     name: 'customization',

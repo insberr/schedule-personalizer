@@ -1,8 +1,9 @@
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
+import { displayDate } from '../../storage/schedule';
 
-export default function ScheduleControls(props: { DisplayDate: Date; setDisplayDate: (date: Date) => void }) {
+export default function ScheduleControls() {
     return (
         <div className={'ScheduleControlsHeader'}>
             <Grid2 container spacing={0} className={'ScheduleRowGrid'}>
@@ -10,24 +11,24 @@ export default function ScheduleControls(props: { DisplayDate: Date; setDisplayD
                     <IconButton
                         color="secondary"
                         onClick={() => {
-                            const newDate = new Date(props.DisplayDate);
+                            const newDate = new Date(displayDate.value);
                             newDate.setDate(newDate.getDate() - 1);
-                            props.setDisplayDate(newDate);
+                            displayDate.value = newDate;
                         }}
                     >
                         <ArrowBack />
                     </IconButton>
                 </Grid2>
                 <Grid2 xs className={'ControlsCol TextCenter'}>
-                    {props.DisplayDate.toLocaleDateString()}
+                    {displayDate.value.toLocaleDateString()}
                 </Grid2>
                 <Grid2 xs className={'ControlsCol TextCenter'}>
                     <IconButton
                         color="secondary"
                         onClick={() => {
-                            const newDate = new Date(props.DisplayDate);
+                            const newDate = new Date(displayDate.value);
                             newDate.setDate(newDate.getDate() + 1);
-                            props.setDisplayDate(newDate);
+                            displayDate.value = newDate;
                         }}
                     >
                         <ArrowForward />
@@ -37,3 +38,4 @@ export default function ScheduleControls(props: { DisplayDate: Date; setDisplayD
         </div>
     );
 }
+

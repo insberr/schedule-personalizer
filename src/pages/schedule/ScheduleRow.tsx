@@ -4,14 +4,15 @@ import { useState } from 'react';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { Class, Time, timeToDate } from '../../types';
 import ScheduleRowInfo from './ScheduleRowInfo';
+import { displayDate } from '../../storage/schedule';
 
 export function formatTimeTypeToString(time: Time): string {
     return format(timeToDate(time), 'HH:mm');
 }
-export default function ScheduleRow(props: { DisplayDate: Date; alt: boolean; data: Class }) {
+export default function ScheduleRow(props: { alt: boolean; data: Class }) {
     const [hide, setHide] = useState(true);
-    const startTime = timeToDate(props.data.startTime, props.DisplayDate);
-    const endTime = timeToDate(props.data.endTime, props.DisplayDate);
+    const startTime = timeToDate(props.data.startTime, displayDate.value);
+    const endTime = timeToDate(props.data.endTime, displayDate.value);
 
     return (
         <div className={(props.alt ? 'scheduleRowAlternate' : '') + ' ScheduleRow'}>
@@ -52,8 +53,9 @@ export default function ScheduleRow(props: { DisplayDate: Date; alt: boolean; da
                     setHide(!hide);
                 }}
             >
-                <ScheduleRowInfo DisplayDate={props.DisplayDate} SPDisplayClass={props.data} alt={props.alt} />
+                <ScheduleRowInfo SPDisplayClass={props.data} alt={props.alt} />
             </Collapse>
         </div>
     );
 }
+

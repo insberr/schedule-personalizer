@@ -15,7 +15,7 @@ import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
-import { scheduleTerms /* setSchedule */ } from '../../storage/schedule';
+import { scheduleDataTerms } from '../../storage/schedule';
 import { Page, currentPage } from '../../storage/page';
 import LoadSpinner from '../../components/LoadSpinner';
 
@@ -30,7 +30,7 @@ export enum SetupStages {
 
 function SetupPage() {
     const [stage, setStage] = useState(0);
-    const [schedule, setLocalSchedule] = useState<Terms>(scheduleTerms.value);
+    const [schedule, setLocalSchedule] = useState<Terms>(scheduleDataTerms.value);
 
     // This prevents the user from entering the setup page if they have already completed setup
     // They schould really learn how to go to the settings page and click the reset button smh
@@ -47,7 +47,7 @@ function SetupPage() {
         // dispatch(setSetupComplete(true));
         setupComplete.value = true;
         // dispatch(setTerms(schedule));
-        scheduleTerms.value = schedule;
+        scheduleDataTerms.value = schedule;
         // navigate(Page.SCHEDULE);
         currentPage.value = Page.SCHEDULE;
     });

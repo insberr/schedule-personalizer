@@ -1,19 +1,20 @@
 import { isAfter } from 'date-fns';
 import { Class, timeToDate } from '../../types';
 import { LinearProgress } from '@mui/material';
-import { useGrades } from '../../storage/studentVueGrades';
+import { studentVueGrades } from '../../storage/studentvue';
+import { displayDate } from '../../storage/schedule';
 
-export default function ScheduleRowInfo(props: { DisplayDate: Date; SPDisplayClass: Class; alt: boolean }) {
-    const StudentGrades = useGrades();
-    const ClassStartTime = timeToDate(props.SPDisplayClass.startTime, props.DisplayDate);
-    const ClassEndTime = timeToDate(props.SPDisplayClass.endTime, props.DisplayDate);
-    const isNow = isAfter(props.DisplayDate, ClassStartTime) && isAfter(ClassEndTime, props.DisplayDate);
+export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boolean }) {
+    const StudentGrades = studentVueGrades.value;
+    const ClassStartTime = timeToDate(props.SPDisplayClass.startTime, displayDate.value);
+    const ClassEndTime = timeToDate(props.SPDisplayClass.endTime, displayDate.value);
+    const isNow = isAfter(displayDate.value, ClassStartTime) && isAfter(ClassEndTime, displayDate.value);
     const periodforindexing = props.SPDisplayClass.studentVuePeriod === null ? 0 : parseInt(props.SPDisplayClass.studentVuePeriod); // temp please
     return (
         <div className={'TextCenter'}>
             <LinearProgress variant="determinate" value={10} />
             <div>
-                {isAfter(props.DisplayDate, ClassEndTime) ? (
+                {isAfter(displayDate.value, ClassEndTime) ? (
                     <strong>Class Ended</strong>
                 ) : (
                     <div>
@@ -38,3 +39,4 @@ export default function ScheduleRowInfo(props: { DisplayDate: Date; SPDisplayCla
         </div>
     );
 }
+

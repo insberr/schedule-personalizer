@@ -30,7 +30,6 @@ export enum SetupStages {
 
 function SetupPage() {
     const [stage, setStage] = useState(0);
-    const [schedule, setLocalSchedule] = useState<Terms>(scheduleDataTerms.value);
 
     // This prevents the user from entering the setup page if they have already completed setup
     // They schould really learn how to go to the settings page and click the reset button smh
@@ -47,7 +46,7 @@ function SetupPage() {
         // dispatch(setSetupComplete(true));
         setupComplete.value = true;
         // dispatch(setTerms(schedule));
-        scheduleDataTerms.value = schedule;
+        // scheduleDataTerms.value = schedule;
         // navigate(Page.SCHEDULE);
         currentPage.value = Page.SCHEDULE;
     });
@@ -76,7 +75,7 @@ function SetupPage() {
             thing = <LoadSpinner />;
             break;
         case 420:
-            thing = <Login setSchedule={setLocalSchedule} setStage={setStage} />;
+            thing = <Login setStage={setStage} />;
             break;
         default:
             thing = (

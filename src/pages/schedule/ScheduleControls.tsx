@@ -11,9 +11,7 @@ export default function ScheduleControls() {
                     <IconButton
                         color="secondary"
                         onClick={() => {
-                            const newDate = new Date(displayDate.value);
-                            newDate.setDate(newDate.getDate() - 1);
-                            displayDate.value = newDate;
+                            displayDate.value.setDate(displayDate.value.getDate() - 1);
                         }}
                     >
                         <ArrowBack />
@@ -26,9 +24,7 @@ export default function ScheduleControls() {
                     <IconButton
                         color="secondary"
                         onClick={() => {
-                            const newDate = new Date(displayDate.value);
-                            newDate.setDate(newDate.getDate() + 1);
-                            displayDate.value = newDate;
+                            displayDate.value.setDate(displayDate.value.getDate() + 1);
                         }}
                     >
                         <ArrowForward />

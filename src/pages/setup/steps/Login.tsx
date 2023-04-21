@@ -15,10 +15,10 @@ import * as settings from '../../../config/settings';
 import { studentVueCredentials, isStudentVue } from '../../../storage/studentvue';
 import { useDebounce } from 'react-use';
 import { Container, Row, Stack } from 'react-bootstrap';
+import { scheduleDataTerms } from '../../../storage/schedule';
 
 type Props = {
     setStage: (stage: number) => void;
-    setSchedule: (schedule: Terms) => void;
 };
 
 export function Login(props: Props) {
@@ -150,7 +150,7 @@ export function Login(props: Props) {
             .then((res) => {
                 // dispatch(setGotSchedules(true));
                 // ! Add set got schedules
-                props.setSchedule(api.convertStudentvueDataToTerms(res));
+                scheduleDataTerms.value = api.convertStudentvueDataToTerms(res);
             })
             .catch((err) => {
                 console.log('Get Student Schedule Error In pages/setup/steps/Login.tsx: ' + err);
@@ -165,7 +165,7 @@ export function Login(props: Props) {
                     return settingsTerm;
                 });
 
-                props.setSchedule(newTerms);
+                scheduleDataTerms.value = newTerms;
             });
 
         setLoading(false);

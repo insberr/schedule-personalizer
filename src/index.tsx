@@ -60,7 +60,8 @@ function startLoad() {
                       fallback: (
                           <h3 className="text-center full-center">
                               {' '}
-                              Something went wrong, Please try again later. <br /> If you are a developer, check the console for more details <br />
+                              Something went terribly wrong, Please try again later. <br /> If you are a developer, check the console for more details{' '}
+                              <br />
                               <Button
                                   onClick={() => {
                                       Sentry.showReportDialog({

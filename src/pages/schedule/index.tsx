@@ -1,17 +1,11 @@
-import { useMemo, useState } from 'react';
-import { Class, Term } from '../../types';
 import ScheduleDisplay from './ScheduleDisplay';
-import { displayDate, computedScheduleForDisplay } from '../../storage/schedule';
-import { ScheduleEvent } from '../../config/events';
-import { schedules } from '../../config/schedules';
+import { computedScheduleForDisplay } from '../../storage/schedule';
 import { VscSettingsGear } from 'react-icons/vsc';
 import { Page, currentPage } from '../../storage/page';
-import { Button } from '@mui/material';
+import { Button } from 'react-bootstrap';
 
 export default function Schedule2() {
-    const EventMessages_TEMP = useMemo(() => {
-        return displayDate.value.getDay() === 6 || displayDate.value.getDay() === 0 ? ['Its The Weekend'] : [];
-    }, []);
+    const EventMessages_TEMP = ['test'];
     return (
         <>
             <a
@@ -21,14 +15,13 @@ export default function Schedule2() {
             >
                 <VscSettingsGear className={'white-icon'} />
             </a>
-            <ScheduleDisplay DisplayEventMessages={EventMessages_TEMP} SPClassesForDisplay={computedScheduleForDisplay.value} />
             <Button
                 onClick={() => {
+                    console.log('test');
                     window.Notification.requestPermission().then((result) => {
                         console.log(result);
                         if (result === 'granted') {
                             navigator.serviceWorker.getRegistration().then((reg) => {
-                                alert(reg);
                                 reg?.showNotification('Hello world!');
                             });
                         }
@@ -37,6 +30,8 @@ export default function Schedule2() {
             >
                 test notif
             </Button>
+
+            <ScheduleDisplay DisplayEventMessages={EventMessages_TEMP} SPClassesForDisplay={computedScheduleForDisplay.value} />
         </>
     );
 }

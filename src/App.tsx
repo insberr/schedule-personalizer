@@ -58,21 +58,20 @@ function App() {
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(prefersDarkMode ? 'dark' : 'light')), [prefersDarkMode]);
 
-    const stv = studentVueCredentials.value;
     useEffect(() => {
-        if (isStudentVue.value || stv.username !== '') {
-            Sentry.setUser({ id: stv.username });
+        if (isStudentVue.value || studentVueCredentials.value.username !== '') {
+            Sentry.setUser({ id: studentVueCredentials.value.username });
         } else {
             Sentry.setUser(null);
         }
-    }, [stv]);
+    }, []);
 
     return (
         <React.Suspense fallback={<LoadSpinner />}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Route routes={[Page.SCHEDULE, Page.SCHEDULE2, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL, Page.BETA]}>
-                    <Route routes={[Page.SCHEDULE, Page.SCHEDULE2]} hide={true}>
+                <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL]}>
+                    <Route routes={[Page.SCHEDULE]} hide={true}>
                         <Schedule />
                     </Route>
                     <Route routes={[Page.SETTINGS]} hide={false}>

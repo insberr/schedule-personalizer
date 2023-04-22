@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page } from './storage/page';
+import { Page, currentPage } from './storage/page';
 import { Route } from './router/Route';
 
 // import { SettingsPage } from './pages/settings';
@@ -10,6 +10,7 @@ import { Route } from './router/Route';
 
 import Schedule from './pages/schedule';
 import { Button, Skeleton } from '@mui/material';
+import { setupComplete } from './storage/misc';
 
 // const SetupPage = React.lazy(() => import('./pages/setup'));
 // const EditorPage = React.lazy(() => import('./pages/editor'));
@@ -37,6 +38,20 @@ export default function App() {
                     >
                         Test Notification
                     </Button>
+                    <Button
+                        onClick={() => {
+                            currentPage.value = Page.SCHEDULE;
+                        }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            currentPage.value = Page.SETUP;
+                        }}
+                    >
+                        Setup
+                    </Button>
                 </Route>
                 <Route routes={[Page.EDITMANUALLY]} hide={false}>
                     {/* <Manual
@@ -56,7 +71,17 @@ export default function App() {
                     {/* <SchoolInfo /> */}
                 </Route>
             </Route>
-            <Route routes={[Page.SETUP]}>{/* <SetupPage /> */}</Route>
+            <Route routes={[Page.SETUP]}>
+                {/* <SetupPage /> */}
+                <Button
+                    onClick={() => {
+                        setupComplete.value = true;
+                        currentPage.value = Page.SCHEDULE;
+                    }}
+                >
+                    To Schedule
+                </Button>
+            </Route>
             <Route routes={[Page.EDITOR]}>{/* <EditorPage /> */}</Route>
         </React.Suspense>
     );

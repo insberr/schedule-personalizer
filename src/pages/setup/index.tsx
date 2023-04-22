@@ -17,7 +17,7 @@ import { Login } from './steps/Login';
 import { Manual } from './steps/Manual';
 import { scheduleDataTerms } from '../../storage/schedule';
 import { Page, currentPage } from '../../storage/page';
-import LoadSpinner from '../../components/LoadSpinner';
+import { Skeleton } from '@mui/material';
 
 export enum SetupStages {
     AddToHomeScreen,
@@ -52,7 +52,7 @@ function SetupPage() {
     });
 
     // TO DO: maybe use enum for stages valuse??
-    let thing = <LoadSpinner />;
+    let thing = <Skeleton variant="rectangular" width={210} height={118} />; //
     switch (stage) {
         case -1: {
             // fork you no importing manually
@@ -72,7 +72,7 @@ function SetupPage() {
             break;
         }
         case 69: // The schedule will only be set in this state
-            thing = <LoadSpinner />;
+            thing = <Skeleton variant="rectangular" width={210} height={118} />;
             break;
         case 420:
             thing = <Login setStage={setStage} />;

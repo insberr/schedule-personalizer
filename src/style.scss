@@ -6,16 +6,14 @@
 // some stuff from another site
 // @import 'roboto.scss';
 
-@import 'npm:bootstrap/scss/bootstrap';
+// .white-icon {
+//     fill: white !important;
+//     stroke: white !important;
+// }
 
-.white-icon {
-    fill: white !important;
-    stroke: white !important;
-}
-
-.whiteass {
-    color: white; // why?
-}
+// .whiteass {
+//     color: white; // why?
+// }
 
 .spin {
     animation-name: spin;
@@ -37,71 +35,71 @@
     }
 }
 
-.paper {
-    @extend .p-3;
-    @extend .rounded;
-    background-color: $shade-bg;
-    border: 1px solid tint-color($shade-bg, $paper-border-tint);
-    /*
-    @
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2.1px);
-    border: 1px solid rgba(255, 255, 255, 0.36);
-    */
-}
-.paperer {
-    @extend .paper;
-    background-color: $shader-bg;
-    //background: rgba(255, 255, 255, 0.15);
-    border-color: tint-color($shader-bg, $paper-border-tint);
-}
+// .paper {
+//     @extend .p-3;
+//     @extend .rounded;
+//     background-color: $shade-bg;
+//     border: 1px solid tint-color($shade-bg, $paper-border-tint);
+//     /*
+//     @
+//     background: rgba(255, 255, 255, 0.25);
+//     border-radius: 16px;
+//     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//     backdrop-filter: blur(2.1px);
+//     border: 1px solid rgba(255, 255, 255, 0.36);
+//     */
+// }
+// .paperer {
+//     @extend .paper;
+//     background-color: $shader-bg;
+//     //background: rgba(255, 255, 255, 0.15);
+//     border-color: tint-color($shader-bg, $paper-border-tint);
+// }
 
-$date-bg: #dc143c;
-$row-border: 0.2rem;
+// $date-bg: #dc143c;
+// $row-border: 0.2rem;
 
-.date {
-    padding: 0.2rem;
-    background-color: $date-bg;
-    border-top: $row-border solid $date-bg;
-    border-radius: $border-radius-table $border-radius-table 0 0;
-    color: white;
-}
+// .date {
+//     padding: 0.2rem;
+//     background-color: $date-bg;
+//     border-top: $row-border solid $date-bg;
+//     border-radius: $border-radius-table $border-radius-table 0 0;
+//     color: white;
+// }
 
-.full-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.full-center-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    //transform: translate(-50%, -50%);
-}
+// .full-center {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+// }
+// .full-center-spinner {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     //transform: translate(-50%, -50%);
+// }
 
-.uncenter-floating-label label {
-    width: initial;
-}
+// .uncenter-floating-label label {
+//     width: initial;
+// }
 
-.lighter-tool-tip {
-    .tooltip-arrow:before {
-        border-bottom-color: rgb(114, 114, 114);
-    }
-    .tooltip-inner {
-        background-color: rgb(114, 114, 114);
-    }
-}
+// .lighter-tool-tip {
+//     .tooltip-arrow:before {
+//         border-bottom-color: rgb(114, 114, 114);
+//     }
+//     .tooltip-inner {
+//         background-color: rgb(114, 114, 114);
+//     }
+// }
 //other styles go here
 
 /*.row {
     margin-right: calc(.5 * var(--bs-gutter-x) )!important;
 }*/
-.background-clear {
-    background-color: rgba($color: #000000, $alpha: 0);
-}
+// .background-clear {
+//     background-color: rgba($color: #000000, $alpha: 0);
+// }
 
 html,
 body {
@@ -113,85 +111,85 @@ body {
     display: none !important;
 }
 
-.collapse.show > div:last-child {
-    border-bottom-color: #dc143c;
-    border-bottom-width: 0.1rem;
-    border-bottom-style: solid;
-}
+// .collapse.show > div:last-child {
+//     border-bottom-color: #dc143c;
+//     border-bottom-width: 0.1rem;
+//     border-bottom-style: solid;
+// }
 
-.bold {
-    font-weight: 100;
-}
+// .bold {
+//     font-weight: 100;
+// }
 
-.collapse > div > a {
-    color: #dc143c;
-}
-.collapsing > div > a {
-    color: #dc143c;
-}
+// .collapse > div > a {
+//     color: #dc143c;
+// }
+// .collapsing > div > a {
+//     color: #dc143c;
+// }
 
-a {
-    color: #dc535c;
-}
+// a {
+//     color: #dc535c;
+// }
 
-.btn-crimson {
-    background-color: #dc143c;
-    color: white;
-}
+// .btn-crimson {
+//     background-color: #dc143c;
+//     color: white;
+// }
 
-.crimson-btn-link {
-    color: #dc143c;
-}
+// .crimson-btn-link {
+//     color: #dc143c;
+// }
 
-.underline {
-    text-decoration: underline;
-}
+// .underline {
+//     text-decoration: underline;
+// }
 
-.crimsonTabs > li.nav-item > button.nav-link {
-    color: white;
-}
-.crimsonTabs > li.nav-item > button.nav-link.active {
-    color: #dc143c;
-}
+// .crimsonTabs > li.nav-item > button.nav-link {
+//     color: white;
+// }
+// .crimsonTabs > li.nav-item > button.nav-link.active {
+//     color: #dc143c;
+// }
 
-$tile-selected: shade-color($white, 10%);
-@import 'npm:react-calendar/dist/Calendar.css';
+// $tile-selected: shade-color($white, 10%);
+// @import 'npm:react-calendar/dist/Calendar.css';
 
-.react-calendar {
-    font-family: $font-family-sans-serif;
-    background-color: $shade-bg;
-    color: $body-color;
-}
-.react-calendar__navigation__label__labelText {
-    color: inherit;
-}
-.react-calendar__tile--now {
-    background-color: $primary;
-}
-.react-calendar__tile,
-.react-calendar__navigation__arrow,
-.react-calendar__navigation__label {
-    color: $body-color;
-    &:hover {
-        background-color: $tile-selected !important;
-        color: black;
-    }
-    &:focus {
-        background-color: shade-color($tile-selected, 10%) !important;
-        color: black;
-    }
-}
-.react-calendar__month-view__days__day {
-    color: $body-color;
-}
-.react-calendar__month-view__days__day--weekend {
-    color: $danger;
-}
-.react-calendar__month-view__days__day--neighboringMonth {
-    color: $primary;
-}
+// .react-calendar {
+//     font-family: $font-family-sans-serif;
+//     background-color: $shade-bg;
+//     color: $body-color;
+// }
+// .react-calendar__navigation__label__labelText {
+//     color: inherit;
+// }
+// .react-calendar__tile--now {
+//     background-color: $primary;
+// }
+// .react-calendar__tile,
+// .react-calendar__navigation__arrow,
+// .react-calendar__navigation__label {
+//     color: $body-color;
+//     &:hover {
+//         background-color: $tile-selected !important;
+//         color: black;
+//     }
+//     &:focus {
+//         background-color: shade-color($tile-selected, 10%) !important;
+//         color: black;
+//     }
+// }
+// .react-calendar__month-view__days__day {
+//     color: $body-color;
+// }
+// .react-calendar__month-view__days__day--weekend {
+//     color: $danger;
+// }
+// .react-calendar__month-view__days__day--neighboringMonth {
+//     color: $primary;
+// }
 
-@import './components/Calendar/Calendar.scss';
+// @import './components/Calendar/Calendar.scss';
 
 /*.date {
     border-left: $row-border solid $border-color;
@@ -206,81 +204,80 @@ $tile-selected: shade-color($white, 10%);
 }
 */
 
-.classRow {
-    padding: 1rem;
-}
+// .classRow {
+//     padding: 1rem;
+// }
 
-.classTypeIcon {
-    max-width: 10px;
-    position: absolute;
-    padding-left: 0;
-}
+// .classTypeIcon {
+//     max-width: 10px;
+//     position: absolute;
+//     padding-left: 0;
+// }
 
-.crow {
-    &:nth-child(n) {
-        border-left: $row-border solid $date-bg;
-        border-right: $row-border solid $date-bg;
-        //border-bottom: $row-border solid $date-bg;
-    }
-    &:last-child {
-        border-radius: 0 0 10px 10px;
-        border-bottom: $row-border solid $date-bg;
-        .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-    }
-}
+// .crow {
+//     &:nth-child(n) {
+//         border-left: $row-border solid $date-bg;
+//         border-right: $row-border solid $date-bg;
+//         //border-bottom: $row-border solid $date-bg;
+//     }
+//     &:last-child {
+//         border-radius: 0 0 10px 10px;
+//         border-bottom: $row-border solid $date-bg;
+//         .schedule-entry-container .classInfoCollapse .collapse.show .innerbox {
+//             &:last-child {
+//                 border-bottom: none;
+//             }
+//         }
+//     }
+// }
 
-.crow {
-    &:last-child {
-        .schedule-entry-container {
-            border-bottom-right-radius: $border-radius-table - 2px;
-            border-bottom-left-radius: $border-radius-table - 2px;
-        }
-    }
-}
+// .crow {
+//     &:last-child {
+//         .schedule-entry-container {
+//             border-bottom-right-radius: $border-radius-table - 2px;
+//             border-bottom-left-radius: $border-radius-table - 2px;
+//         }
+//     }
+// }
 
-.innerbox {
-    padding: 0.3em;
-    //border-top: $row-border solid $date-bg;
-}
+// .innerbox {
+//     padding: 0.3em;
+//     //border-top: $row-border solid $date-bg;
+// }
 
-.map .modal-content {
-    background: none !important;
-}
+// .map .modal-content {
+//     background: none !important;
+// }
 
-.map.modal-body {
-    padding: 0 !important;
-    background: rgba(139, 139, 139, 0.566) !important;
-    box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1) !important;
-    backdrop-filter: blur(8px) !important;
-    border-bottom-left-radius: 16px !important;
-    border-bottom-right-radius: 16px !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-}
-.map.modal-header {
-    background-color: rgb(49, 49, 49) !important;
-    border-bottom: none !important;
-}
+// .map.modal-body {
+//     padding: 0 !important;
+//     background: rgba(139, 139, 139, 0.566) !important;
+//     box-shadow: 0 4px 30px rgb(0, 0, 0, 0.1) !important;
+//     backdrop-filter: blur(8px) !important;
+//     border-bottom-left-radius: 16px !important;
+//     border-bottom-right-radius: 16px !important;
+//     -webkit-backdrop-filter: blur(8px) !important;
+// }
+// .map.modal-header {
+//     background-color: rgb(49, 49, 49) !important;
+//     border-bottom: none !important;
+// }
 
 @import './eggs.scss';
 
-.highlightClassEntryRed {
-    background-color: #ff00007c !important;
-}
+// .highlightClassEntryRed {
+//     background-color: #ff00007c !important;
+// }
 
-.scheduleList {
-    width: 90vw;
-    max-width: 900px;
-}
+// .scheduleList {
+//     width: 90vw;
+//     max-width: 900px;
+// }
 
+/* Material UI Update Styles */
 .scheduleRowAlternate {
     background-color: #7c7c7c;
 }
-
-/* Material UI Update Styles */
 .ScheduleDisplay-List {
     padding-top: 0 !important;
     padding-bottom: 0 !important;

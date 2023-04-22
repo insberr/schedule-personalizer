@@ -7,7 +7,6 @@ export type RouteProps = {
 };
 
 export function Route(props: RouteProps) {
-    
     if (props.routes.includes(currentPage.value)) {
         return <span>{props.children}</span>;
     } else {

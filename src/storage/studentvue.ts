@@ -1,5 +1,6 @@
-import { signal } from '@preact/signals-react';
+import { effect } from '@preact/signals-react';
 import { persist } from './persistSignal';
+import * as Sentry from '@sentry/react';
 
 // perhaps find redux data first?
 const initialCredentialsState = {
@@ -31,4 +32,12 @@ export type StudentVueGradesStorage = {
 
 export const studentVueGrades = persist<StudentVueGradesStorage>('studentVueGrades', {
     grades: null,
+});
+
+effect(() => {
+    if (isStudentVue.value || studentVueCredentials.value.username !== '') {
+        Sentry.setUser({ id: studentVueCredentials.value.username });
+    } else {
+        Sentry.setUser(null);
+    }
 });

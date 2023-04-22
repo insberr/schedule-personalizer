@@ -25,6 +25,15 @@ const getDesignTokens = (mode: PaletteMode) => ({
                   },
               }),
     },
+    components: {
+        // Name of the component ⚛️
+        MuiButtonBase: {
+            defaultProps: {
+                // The props to apply
+                disableRipple: false, // No more ripple, on the whole application 💣!
+            },
+        },
+    },
 });
 
 export default function ThemeWrapper(props: { children: React.ReactNode }) {

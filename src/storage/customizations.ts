@@ -1,4 +1,3 @@
-import { effect } from '@preact/signals-react';
 import { StudentVueAPIData } from '../apis/studentvue/studentVueAPI';
 import { persist } from './persistSignal';
 import { deepUpdate } from './helper';

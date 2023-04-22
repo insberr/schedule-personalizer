@@ -30,11 +30,9 @@ export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boo
             </div>
             <div>
                 <strong>
-                    <a href={'mailto:' + props.SPDisplayClass.teacher.email}>Email {props.SPDisplayClass.teacher.name}</a>
+                    <a href={'mailto:' + props.SPDisplayClass.teacher.email}>Email {props.SPDisplayClass.teacher.name}</a> In Room{' '}
+                    {props.SPDisplayClass.room}
                 </strong>
-            </div>
-            <div>
-                <strong>{props.SPDisplayClass.room}</strong>
             </div>
         </div>
     );

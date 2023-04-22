@@ -9,7 +9,7 @@ import { Route } from './router/Route';
 // import Login from './pages/login/Login';
 
 import Schedule from './pages/schedule';
-import { Skeleton } from '@mui/material';
+import { Button, Skeleton } from '@mui/material';
 
 // const SetupPage = React.lazy(() => import('./pages/setup'));
 // const EditorPage = React.lazy(() => import('./pages/editor'));
@@ -23,6 +23,20 @@ export default function App() {
                 </Route>
                 <Route routes={[Page.SETTINGS]} hide={false}>
                     {/* <SettingsPage /> */}
+                    <Button
+                        onClick={() => {
+                            window.Notification.requestPermission().then((result) => {
+                                if (result === 'granted') {
+                                    navigator.serviceWorker.getRegistration().then((reg) => {
+                                        reg?.showNotification('Hello world!');
+                                    });
+                                    new Notification('Hello world!');
+                                }
+                            });
+                        }}
+                    >
+                        Test Notification
+                    </Button>
                 </Route>
                 <Route routes={[Page.EDITMANUALLY]} hide={false}>
                     {/* <Manual

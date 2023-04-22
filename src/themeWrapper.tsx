@@ -26,11 +26,9 @@ const getDesignTokens = (mode: PaletteMode) => ({
               }),
     },
     components: {
-        // Name of the component ⚛️
         MuiButtonBase: {
             defaultProps: {
-                // The props to apply
-                disableRipple: false, // No more ripple, on the whole application 💣!
+                disableRipple: true, // No more ripple, react and the signals dont like it
             },
         },
     },

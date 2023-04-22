@@ -22,6 +22,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { resetStorage } from './storage/store';
 import LoadSpinner from './components/LoadSpinner';
+import ThemeWrapper from './themeWrapper';
 
 const tracesSampleRate = process.env.NODE_ENV == 'production' ? 0.2 : 1.0;
 
@@ -107,35 +108,6 @@ function StartLoad() {
     );
 }
 
-const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-        mode,
-        ...(mode === 'light'
-            ? {
-                  primary: {
-                      main: '#505050',
-                  },
-                  secondary: {
-                      main: '#dc143c',
-                  },
-              }
-            : {
-                  // palette values for dark mode
-                  primary: {
-                      main: '#dc143c',
-                  },
-                  secondary: {
-                      main: '#dc143c',
-                  },
-                  background: {
-                      default: '#1a1a1a',
-                  },
-              }),
-    },
-});
-
-const theme = createTheme(getDesignTokens('dark'));
-
 const app = document.getElementById('app');
 if (!app) {
     console.error('What the fuck? theres no app element? wtf?');
@@ -144,22 +116,20 @@ if (!app) {
 const root = createRoot(app);
 if (process.env.NODE_ENV === 'production') {
     root.render(
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <ThemeWrapper>
             <Suspense fallback={<LoadSpinner />}>
                 <StartLoad />
             </Suspense>
-        </ThemeProvider>
+        </ThemeWrapper>
     );
 } else {
     eruda(() => {
         root.render(
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
+            <ThemeWrapper>
                 <Suspense fallback={<LoadSpinner />}>
                     <StartLoad />
                 </Suspense>
-            </ThemeProvider>
+            </ThemeWrapper>
         );
     });
 }

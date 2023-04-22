@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
 import * as Sentry from '@sentry/react';
-
-import * as api from './apis/studentvue/studentVueAPI';
 
 import { Page } from './storage/page';
 import { Route } from './router/Route';
@@ -18,44 +12,13 @@ import { SchoolInfo } from './pages/schoolInfo';
 import Login from './pages/login/Login';
 
 import Schedule from './pages/schedule';
-import { PaletteMode, Skeleton } from '@mui/material';
 import { isStudentVue, studentVueCredentials } from './storage/studentvue';
+import { Skeleton } from '@mui/material';
 
 const SetupPage = React.lazy(() => import('./pages/setup'));
 const EditorPage = React.lazy(() => import('./pages/editor'));
 
-const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-        mode,
-        ...(mode === 'light'
-            ? {
-                  primary: {
-                      main: '#505050',
-                  },
-                  secondary: {
-                      main: '#dc143c',
-                  },
-              }
-            : {
-                  // palette values for dark mode
-                  primary: {
-                      main: '#dc143c',
-                  },
-                  secondary: {
-                      main: '#dc143c',
-                  },
-                  background: {
-                      default: '#1a1a1a',
-                  },
-              }),
-    },
-});
-
 function App() {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-    const theme = React.useMemo(() => createTheme(getDesignTokens(prefersDarkMode ? 'dark' : 'light')), [prefersDarkMode]);
-
     useEffect(() => {
         if (isStudentVue.value || studentVueCredentials.value.username !== '') {
             Sentry.setUser({ id: studentVueCredentials.value.username });

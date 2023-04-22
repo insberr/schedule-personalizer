@@ -9,8 +9,7 @@ import { Route } from './router/Route';
 // import Login from './pages/login/Login';
 
 import Schedule from './pages/schedule';
-import { isStudentVue, studentVueCredentials } from './storage/studentvue';
-import { Button, Skeleton } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 // const SetupPage = React.lazy(() => import('./pages/setup'));
 // const EditorPage = React.lazy(() => import('./pages/editor'));

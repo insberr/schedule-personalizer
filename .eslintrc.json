@@ -5,7 +5,7 @@
     },
     "settings": {
         "react": {
-            "version": "18.1"
+            "version": "18.2"
         }
     },
     "ignorePatterns": ["**/*.js", "dist/*", "Jakefile"],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, currentPage } from './storage/page';
+import { Page } from './storage/page';
 import { Route } from './router/Route';
 
 // import { SettingsPage } from './pages/settings';
@@ -10,7 +10,7 @@ import { Route } from './router/Route';
 
 import Schedule from './pages/schedule';
 import { Button, Skeleton } from '@mui/material';
-import { setupComplete } from './storage/misc';
+// import { setupComplete } from './storage/misc';
 
 // const SetupPage = React.lazy(() => import('./pages/setup'));
 // const EditorPage = React.lazy(() => import('./pages/editor'));
@@ -38,7 +38,7 @@ export default function App() {
                     >
                         Test Notification
                     </Button>
-                    <Button
+                    {/* <Button
                         onClick={() => {
                             currentPage.value = Page.SCHEDULE;
                         }}
@@ -51,7 +51,7 @@ export default function App() {
                         }}
                     >
                         Setup
-                    </Button>
+                    </Button> */}
                 </Route>
                 <Route routes={[Page.EDITMANUALLY]} hide={false}>
                     {/* <Manual
@@ -73,14 +73,14 @@ export default function App() {
             </Route>
             <Route routes={[Page.SETUP]}>
                 {/* <SetupPage /> */}
-                <Button
+                {/* <Button
                     onClick={() => {
                         setupComplete.value = true;
                         currentPage.value = Page.SCHEDULE;
                     }}
                 >
                     To Schedule
-                </Button>
+                </Button> */}
             </Route>
             <Route routes={[Page.EDITOR]}>{/* <EditorPage /> */}</Route>
         </React.Suspense>

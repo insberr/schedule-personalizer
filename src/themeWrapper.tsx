@@ -45,4 +45,3 @@ export default function ThemeWrapper(props: { children: React.ReactNode }) {
         </ThemeProvider>
     );
 }
-

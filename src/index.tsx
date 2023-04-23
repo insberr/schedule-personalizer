@@ -1,17 +1,17 @@
-import eruda from './eruda';
-
-import { Button, CssBaseline, PaletteMode, ThemeProvider, createTheme } from '@mui/material';
-import { createRoot } from 'react-dom/client';
 import React, { StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import eruda from './eruda';
+import { Button } from '@mui/material';
 
 import { Err } from './components/ErrBoundery';
-const App = React.lazy(() => import('./App'));
+import App from './App';
+// const App = React.lazy(() => import('./App'));
 
 import { identifyCommit } from './lib/lib';
 
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-import SentryRRWeb from '@sentry/rrweb';
 
 // import { update } from './updatey';
 //mport { RiRobotFill } from "react-icons/ri";
@@ -25,37 +25,31 @@ import LoadSpinner from './components/LoadSpinner';
 import ThemeWrapper from './themeWrapper';
 
 const tracesSampleRate = process.env.NODE_ENV == 'production' ? 0.2 : 1.0;
+console.log('Schedule personalizer v5 (' + identifyCommit() + ')');
+
+if (navigator.serviceWorker) {
+    if (process.env.NODE_ENV == 'production' || new URLSearchParams(window.location.search).get('sw') == 'yup') {
+        navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url), { type: 'module' });
+    }
+}
+
+Sentry.init({
+    dsn: 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608',
+
+    integrations: [
+        new BrowserTracing({
+            tracingOrigins: ['localhost', 'schedule.insberr.com', 'insberr.github.io', 'schedule.insberr.live'],
+        }),
+    ],
+    normalizeDepth: 10,
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate,
+    environment: process.env.NODE_ENV,
+    release: identifyCommit() || 'dev',
+});
 
 function StartLoad() {
-    if (navigator.serviceWorker) {
-        if (process.env.NODE_ENV == 'production' || new URLSearchParams(window.location.search).get('sw') == 'yup') {
-            navigator.serviceWorker.register(new URL('./sw.ts', import.meta.url), { type: 'module' });
-        }
-    }
-
-    Sentry.init({
-        dsn: 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608',
-
-        integrations: [
-            new BrowserTracing({
-                tracingOrigins: ['localhost', 'schedule.insberr.com', 'insberr.github.io', 'schedule.insberr.live'],
-            }),
-            new SentryRRWeb({}),
-        ],
-        normalizeDepth: 10,
-        // We recommend adjusting this value in production, or using tracesSampler
-        // for finer control
-        tracesSampleRate,
-        environment: process.env.NODE_ENV,
-        release: identifyCommit() || 'dev',
-    });
-
-    console.log('Schedule personalizer v5 (' + identifyCommit() + ')');
-
-    // if (window.rroot) {
-    //     window.rroot.unmount();
-    // }
-
     const Withsentry =
         process.env.NODE_ENV == 'production'
             ? Sentry.withErrorBoundary(App, {
@@ -95,15 +89,10 @@ function StartLoad() {
               })
             : App;
 
-    // const loadingthing = document.getElementById('loading');
-    // if (loadingthing) loadingthing.remove();
-
     // window.rroot = root;
     return (
         <Err>
-            <StrictMode>
-                <Withsentry />
-            </StrictMode>
+            <Withsentry />
         </Err>
     );
 }
@@ -116,29 +105,24 @@ if (!app) {
 const root = createRoot(app);
 if (process.env.NODE_ENV === 'production') {
     root.render(
-        <ThemeWrapper>
-            <Suspense fallback={<LoadSpinner />}>
-                <StartLoad />
-            </Suspense>
-        </ThemeWrapper>
-    );
-} else {
-    eruda(() => {
-        root.render(
+        <StrictMode>
             <ThemeWrapper>
                 <Suspense fallback={<LoadSpinner />}>
                     <StartLoad />
                 </Suspense>
             </ThemeWrapper>
+        </StrictMode>
+    );
+} else {
+    eruda(() => {
+        root.render(
+            <StrictMode>
+                <ThemeWrapper>
+                    <Suspense fallback={<LoadSpinner />}>
+                        <StartLoad />
+                    </Suspense>
+                </ThemeWrapper>
+            </StrictMode>
         );
     });
 }
-
-// declare global {
-//     interface Window {
-//         rroot: Root | undefined;
-//         fupdate: () => void;
-//     }
-// }
-
-// window.fupdate = update;

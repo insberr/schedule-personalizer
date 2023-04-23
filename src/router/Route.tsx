@@ -1,4 +1,4 @@
-import { currentPage, Page } from '../storage/page';
+import { Page } from '../storage/page';
 
 export type RouteProps = {
     routes: Page[];
@@ -7,7 +7,8 @@ export type RouteProps = {
 };
 
 export function Route(props: RouteProps) {
-    if (props.routes.includes(currentPage.value)) {
+    const pageValue = Page.SCHEDULE;
+    if (props.routes.includes(pageValue)) {
         return <span>{props.children}</span>;
     } else {
         if (props.hide) {

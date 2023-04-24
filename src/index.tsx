@@ -11,7 +11,7 @@ import App from './App';
 import { identifyCommit } from './lib/lib';
 
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
+// import { BrowserTracing } from '@sentry/tracing';
 
 // import { update } from './updatey';
 //mport { RiRobotFill } from "react-icons/ri";
@@ -37,7 +37,7 @@ Sentry.init({
     dsn: 'https://a5ab5a1946bd4e31a06ca456fc5b30fc@o1233680.ingest.sentry.io/6382608',
 
     integrations: [
-        new BrowserTracing({
+        new Sentry.BrowserTracing({
             tracingOrigins: ['localhost', 'schedule.insberr.com', 'insberr.github.io', 'schedule.insberr.live'],
         }),
     ],

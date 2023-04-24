@@ -1,4 +1,4 @@
-import { effect } from '@preact/signals-react';
+import { effect } from '@preact/signals';
 import { persist } from './persistSignal';
 import * as Sentry from '@sentry/react';
 

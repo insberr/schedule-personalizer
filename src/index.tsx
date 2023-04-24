@@ -1,12 +1,12 @@
-import React, { StrictMode, Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
-
+import { Suspense, lazy } from 'preact/compat';
+// import { createRoot } from 'react-dom/client';
+import { h, render } from 'preact';
 import eruda from './eruda';
 import { Button } from '@mui/material';
 
 import { Err } from './components/ErrBoundery';
-import App from './App';
-// const App = React.lazy(() => import('./App'));
+// import App from './App';
+const App = lazy(() => import('./App'));
 
 import { identifyCommit } from './lib/lib';
 
@@ -102,27 +102,29 @@ if (!app) {
     console.error('What the fuck? theres no app element? wtf?');
     throw new Error('God is dead and we have killed him');
 }
-const root = createRoot(app);
+// const root = createRoot(app);
 if (process.env.NODE_ENV === 'production') {
-    root.render(
-        <StrictMode>
+    /*root.*/ render(
+        // <StrictMode>
+        <ThemeWrapper>
+            <Suspense fallback={<LoadSpinner />}>
+                <StartLoad />
+            </Suspense>
+        </ThemeWrapper>,
+        // </StrictMode>,
+        app
+    );
+} else {
+    eruda(() => {
+        /*root.*/ render(
+            // <StrictMode>
             <ThemeWrapper>
                 <Suspense fallback={<LoadSpinner />}>
                     <StartLoad />
                 </Suspense>
-            </ThemeWrapper>
-        </StrictMode>
-    );
-} else {
-    eruda(() => {
-        root.render(
-            <StrictMode>
-                <ThemeWrapper>
-                    <Suspense fallback={<LoadSpinner />}>
-                        <StartLoad />
-                    </Suspense>
-                </ThemeWrapper>
-            </StrictMode>
+            </ThemeWrapper>,
+            // </StrictMode>,
+            app
         );
     });
 }

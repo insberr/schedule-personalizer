@@ -1,5 +1,5 @@
 import { persist } from './persistSignal';
-import { signal } from '@preact/signals-react';
+import { signal } from '@preact/signals';
 import { isStudentVue, studentVueCredentials, studentVueGotSchedules } from './studentvue';
 import { customizationCustomizations } from './customizations';
 import { scheduleDataTerms } from './schedule';

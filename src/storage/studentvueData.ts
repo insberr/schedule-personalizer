@@ -1,4 +1,4 @@
-import { effect, computed } from '@preact/signals-react';
+import { effect, computed } from '@preact/signals';
 import { StudentVueAPIData } from '../apis/studentvue/studentVueAPI';
 import { persist } from './persistSignal';
 import { isStudentVue, studentVueCredentials } from './studentvue';

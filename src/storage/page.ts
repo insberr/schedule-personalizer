@@ -1,4 +1,4 @@
-import { signal } from '@preact/signals-react';
+import { signal } from '@preact/signals';
 import { setupComplete } from './misc';
 
 export enum Page {

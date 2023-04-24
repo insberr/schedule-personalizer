@@ -9,16 +9,15 @@ export default function Schedule2() {
     const EventMessages_TEMP = ['test'];
     return (
         <>
-            {/* <a
+            <a
                 onClick={() => {
                     currentPage.value = Page.SETTINGS;
                 }}
             >
                 <VscSettingsGear />
             </a>
-            <ScheduleDisplay DisplayEventMessages={EventMessages_TEMP} /> */}
+            <ScheduleDisplay DisplayEventMessages={EventMessages_TEMP} />
             <Button
-                disableRipple={false}
                 onClick={() => {
                     setCount(count + 1);
                 }}
@@ -28,3 +27,4 @@ export default function Schedule2() {
         </>
     );
 }
+

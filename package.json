@@ -22,9 +22,7 @@
         "@types/lodash": "^4.14.194",
         "@types/node": "^18.15.13",
         "@types/prettier": "^2.7.2",
-        "@types/react": "^18.0.38",
         "@types/react-calendar": "^3.9.0",
-        "@types/react-dom": "^18.0.11",
         "@types/rimraf": "^4.0.5",
         "@types/serviceworker": "^0.0.67",
         "@types/sharp": "^0.31.1",
@@ -99,7 +97,8 @@
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.12.1",
         "@parcel/service-worker": "^2.8.3",
-        "@preact/signals-react": "^1.3.1",
+        "@preact/compat": "^17.1.2",
+        "@preact/signals": "^1.1.3",
         "@react-spring/web": "^9.7.2",
         "@sentry/browser": "^7.49.0",
         "@sentry/react": "^7.49.0",
@@ -117,13 +116,11 @@
         "lodash": "^4.17.21",
         "octokit": "^2.0.14",
         "pepjs": "^0.5.3",
+        "preact": "^10.13.2",
         "prettier": "^2.8.7",
         "pwa-asset-generator": "^6.2.1",
-        "react": "^18.2.0",
         "react-calendar": "^4.2.1",
-        "react-dom": "^18.2.0",
         "react-icons": "^4.8.0",
-        "react-is": "^18.2.0",
         "react-use": "^17.4.0",
         "stringify-object": "^5.0.0",
         "studentvue": "^2.0.2",
@@ -137,7 +134,11 @@
         "xml-js": "^1.6.11"
     },
     "alias": {
-        "process": false
+        "process": false,
+        "react": "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+        "react/jsx-runtime": "preact/jsx-runtime"
     },
     "staticFiles": {
         "staticPath": "src/static"

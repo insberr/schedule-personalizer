@@ -2404,22 +2404,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@preact/signals-core@npm:^1.3.0":
+"@preact/compat@npm:^17.1.2":
+  version: 17.1.2
+  resolution: "@preact/compat@npm:17.1.2"
+  peerDependencies:
+    preact: "*"
+  checksum: 512b0f149fc11e36c5980c4173c696d17b2b4e78f500ca44fde9c688a1d58b835b70c91161d6d5d903e5d46b4649fc73b28151f43d7cdf91ec2825b24e8cdf7b
+  languageName: node
+  linkType: hard
+
+"@preact/signals-core@npm:^1.2.3":
   version: 1.3.0
   resolution: "@preact/signals-core@npm:1.3.0"
   checksum: d3346ffdc78435719e25cf4dd27eb451d9e3a2b27a22330cc9e7b5d71845d4e0c667afade068ac54048ecfd42155ecedd0044928d1dc69968f360f670cfa55d6
   languageName: node
   linkType: hard
 
-"@preact/signals-react@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "@preact/signals-react@npm:1.3.1"
+"@preact/signals@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@preact/signals@npm:1.1.3"
   dependencies:
-    "@preact/signals-core": ^1.3.0
-    use-sync-external-store: ^1.2.0
+    "@preact/signals-core": ^1.2.3
   peerDependencies:
-    react: ^16.14.0 || 17.x || 18.x
-  checksum: 929bad8161d5f202c613f2db60bb3776028cb704434255f3936183a0ef83fe7f8841488899f8f018caa67e1c6f99a18daa7892dbbc72b159e022f9fd1e013d38
+    preact: 10.x
+  checksum: 11b7d018c3aa5ffd4a23b41e0d2f0858eb61418abad6786b3f8e272e3eb4888d433240fa6b0b770fdaba817739bb8167366d22b085ad808427d5a473bd6cf4ff
   languageName: node
   linkType: hard
 
@@ -2824,15 +2832,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.11":
-  version: 18.0.11
-  resolution: "@types/react-dom@npm:18.0.11"
-  dependencies:
-    "@types/react": "*"
-  checksum: 579691e4d5ec09688087568037c35edf8cfb1ab3e07f6c60029280733ee7b5c06d66df6fcc90786702c93ac8cb13bc7ff16c79ddfc75d082938fbaa36e1cdbf4
-  languageName: node
-  linkType: hard
-
 "@types/react-is@npm:^16.7.1 || ^17.0.0":
   version: 17.0.3
   resolution: "@types/react-is@npm:17.0.3"
@@ -2851,7 +2850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.38":
+"@types/react@npm:*":
   version: 18.0.38
   resolution: "@types/react@npm:18.0.38"
   dependencies:
@@ -6943,7 +6942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -8326,6 +8325,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact@npm:^10.13.2":
+  version: 10.13.2
+  resolution: "preact@npm:10.13.2"
+  checksum: 3bc98aa09bcd297eb59abd7e4f3a4d499b8e345bd68b922f7678ef105ba4721dc9b9940b221e6e3443f957d51402fe407bb96ccaa0a4b65d6808ca8a3be76bfa
+  languageName: node
+  linkType: hard
+
 "prebuild-install@npm:^7.1.1":
   version: 7.1.1
   resolution: "prebuild-install@npm:7.1.1"
@@ -8550,18 +8556,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    scheduler: ^0.23.0
-  peerDependencies:
-    react: ^18.2.0
-  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
-  languageName: node
-  linkType: hard
-
 "react-error-overlay@npm:6.0.9":
   version: 6.0.9
   resolution: "react-error-overlay@npm:6.0.9"
@@ -8646,15 +8640,6 @@ __metadata:
     react: ^16.8.0  || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
   checksum: 0889da919b49a186de375ec15d2778b954ae981c523acd17dd496e4a4da7b6190efe7993491e1b85fdd6de3e745d08a4eaba4caa35408d570b5f1de550f35d11
-  languageName: node
-  linkType: hard
-
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
   languageName: node
   linkType: hard
 
@@ -9022,7 +9007,8 @@ __metadata:
     "@parcel/transformer-mdx": ^2.8.3
     "@parcel/transformer-sass": ^2.8.3
     "@parcel/transformer-webmanifest": ^2.8.3
-    "@preact/signals-react": ^1.3.1
+    "@preact/compat": ^17.1.2
+    "@preact/signals": ^1.1.3
     "@react-spring/web": ^9.7.2
     "@sentry/browser": ^7.49.0
     "@sentry/react": ^7.49.0
@@ -9033,9 +9019,7 @@ __metadata:
     "@types/lodash": ^4.14.194
     "@types/node": ^18.15.13
     "@types/prettier": ^2.7.2
-    "@types/react": ^18.0.38
     "@types/react-calendar": ^3.9.0
-    "@types/react-dom": ^18.0.11
     "@types/rimraf": ^4.0.5
     "@types/serviceworker": ^0.0.67
     "@types/sharp": ^0.31.1
@@ -9068,13 +9052,11 @@ __metadata:
     parcel-reporter-clean-dist: ^1.0.4
     parcel-reporter-static-files-copy: ^1.5.0
     pepjs: ^0.5.3
+    preact: ^10.13.2
     prettier: ^2.8.7
     pwa-asset-generator: ^6.2.1
-    react: ^18.2.0
     react-calendar: ^4.2.1
-    react-dom: ^18.2.0
     react-icons: ^4.8.0
-    react-is: ^18.2.0
     react-use: ^17.4.0
     rimraf: ^4.4.1
     sharp: ^0.31.1
@@ -9095,15 +9077,6 @@ __metadata:
     xml-js: ^1.6.11
   languageName: unknown
   linkType: soft
-
-"scheduler@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "scheduler@npm:0.23.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
-  languageName: node
-  linkType: hard
 
 "screenfull@npm:^5.1.0":
   version: 5.2.0

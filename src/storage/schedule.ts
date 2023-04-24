@@ -1,4 +1,4 @@
-import { computed, signal } from '@preact/signals-react';
+import { computed, signal } from '@preact/signals';
 import { Class, Term, Terms } from '../types';
 import * as settings from '../config/settings';
 import { CL } from '../types';

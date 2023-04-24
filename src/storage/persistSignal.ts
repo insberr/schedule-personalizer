@@ -1,4 +1,4 @@
-import { signal, Signal, effect } from "@preact/signals-react";
+import { signal, Signal, effect } from '@preact/signals';
 import { serify, deserify } from '@karmaniverous/serify-deserify';
 // idk if this works
 export function persist<T>(key: string, defaul: T): Signal<T> {
@@ -10,8 +10,8 @@ export function persist<T>(key: string, defaul: T): Signal<T> {
 
     effect(() => {
         localStorage.setItem(key, JSON.stringify(serify(internal.value)));
-    })
+    });
 
-    return internal
+    return internal;
 }
 

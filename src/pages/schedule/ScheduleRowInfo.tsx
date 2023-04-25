@@ -13,6 +13,7 @@ export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boo
     return (
         <div className={'TextCenter'}>
             <LinearProgress variant="determinate" value={10} />
+            <div>Duration: 0 minutes</div>
             <div>
                 {isAfter(displayDate.value, ClassEndTime) ? (
                     <strong>Class Ended</strong>

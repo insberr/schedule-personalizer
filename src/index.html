@@ -28,20 +28,6 @@
     </head>
     <body>
         <div id="app"></div>
-        <script>
-            // This is if the app never loads ...
-            // maybe instead try to fetch the correct script file
-            setTimeout(() => {
-                if (document.getElementById('app').innerHTML === '') {
-                    caches.keys().then((names) => {
-                        for (let name of names) {
-                            caches.delete(name);
-                        }
-                        location.reload();
-                    });
-                }
-            }, 5000);
-        </script>
         <script type="module" src="index.tsx"></script>
     </body>
 </html>

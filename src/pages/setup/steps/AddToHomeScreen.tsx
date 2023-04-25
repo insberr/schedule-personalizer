@@ -1,6 +1,7 @@
 // Prompt the user to add to home screen if not already a PWA
-import Button from 'react-bootstrap/Button';
+import { Button } from '@mui/material';
 import Center from '../../../components/Center';
+import { SetupSteps } from '..';
 
 const iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 
@@ -17,9 +18,10 @@ export function AddToHomeScreen(props: { setStage: (s: number) => void }) {
             </div>
             <br />
             <Button
-                variant="crimson"
+                variant="outlined"
+                color="primary"
                 onClick={() => {
-                    props.setStage(420);
+                    props.setStage(SetupSteps.Features);
                 }}
             >
                 Skip

@@ -15,6 +15,18 @@
 //     color: white; // why?
 // }
 
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
 .spin {
     animation-name: spin;
     animation-duration: 1000ms;

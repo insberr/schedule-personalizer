@@ -1,11 +1,8 @@
 import ScheduleDisplay from './ScheduleDisplay';
 import { VscSettingsGear } from 'react-icons/vsc';
 import { Page, currentPage } from '../../storage/page';
-import { Button } from '@mui/material';
-import React from 'react';
 
-export default function Schedule2() {
-    const [count, setCount] = React.useState(0);
+export default function Schedule() {
     const EventMessages_TEMP = ['test'];
     return (
         <>
@@ -17,13 +14,6 @@ export default function Schedule2() {
                 <VscSettingsGear />
             </a>
             <ScheduleDisplay DisplayEventMessages={EventMessages_TEMP} />
-            <Button
-                onClick={() => {
-                    setCount(count + 1);
-                }}
-            >
-                {count}
-            </Button>
         </>
     );
 }

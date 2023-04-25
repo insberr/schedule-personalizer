@@ -5,18 +5,16 @@ import * as settings from '../../../config/settings';
 // Types
 import { CL, emptyCL } from '../../../types';
 
-// Redux And Navigation
-import { lunch, displaySchedule, scheduleTerms } from '../../../storage/schedule';
+import { scheduleDataTerms, computedScheduleForDisplay } from '../../../storage/schedule';
 
 // Components
 import Center from '../../../components/Center';
 import { LunchPicker } from '../components/LunchPicker';
 import { ManualClassEntry } from '../components/ManualClassEntry';
 
-import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
+// import { Col, Container, FloatingLabel, Row } from 'react-bootstrap';
+// import Form from 'react-bootstrap/Form';
+import { Button, Alert } from '@mui/material';
 import { Page, currentPage } from '../../../storage/page';
 
 type Props = {
@@ -27,7 +25,6 @@ type Props = {
 };
 
 export function Manual(props: Props) {
-    const navigate = useNavigate();
     const classAmount = settings.numberOfPeriods;
     const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);

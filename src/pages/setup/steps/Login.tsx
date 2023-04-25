@@ -1,8 +1,9 @@
-import { useEffect, useId, useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
-import Spinner from 'react-bootstrap/Spinner';
+import { useEffect, useId, useState } from 'preact/hooks';
+
+import { Button, Alert, Stack, TextField } from '@mui/material';
+// import Alert from 'react-bootstrap/Alert';
+// import Spinner from 'react-bootstrap/Spinner';
+// import Form from 'react-bootstrap/Form';
 
 import Center from '../../../components/Center';
 
@@ -14,12 +15,22 @@ import * as settings from '../../../config/settings';
 
 import { studentVueCredentials, isStudentVue } from '../../../storage/studentvue';
 import { useDebounce } from 'react-use';
-import { Container, Row, Stack } from 'react-bootstrap';
+// import { Container, Row, Stack } from 'react-bootstrap';
 import { scheduleDataTerms } from '../../../storage/schedule';
+import { ComponentChildren } from 'preact';
+import { SetupSteps } from '..';
 
 type Props = {
     setStage: (stage: number) => void;
 };
+
+// TEMPORARY
+const Row = (props: { children: ComponentChildren }) => <div className="row">{props.children}</div>;
+const Spinner = (props: { as: string; animation: string; size: string }) => <div className="spinner">spinner {props.as}</div>;
+const Container = (props: { children: ComponentChildren; className: string }) => <div className="container">{props.children}</div>;
+const Form = (props: { children: ComponentChildren; className: string; onSubmit: (event: any) => void }) => (
+    <div className="form">{props.children}</div>
+);
 
 export function Login(props: Props) {
     const [username, setUsername] = useState('');
@@ -169,7 +180,7 @@ export function Login(props: Props) {
             });
 
         setLoading(false);
-        props.setStage(69);
+        props.setStage(SetupSteps.Schedule);
     }
 
     return (
@@ -178,7 +189,8 @@ export function Login(props: Props) {
                 <h1 className="mt-5">Login with StudentVue</h1>
 
                 <Alert
-                    variant="danger"
+                    variant="outlined"
+                    color="error"
                     dismissible
                     onClose={() => {
                         hideError();
@@ -199,39 +211,42 @@ export function Login(props: Props) {
                             }}
                         >
                             <Stack gap={3}>
-                                <Form.FloatingLabel controlId={id + 'username'} label="Username" className="uncenter-floating-label">
-                                    <Form.Control
-                                        required
-                                        placeholder="Username"
-                                        disabled={loading}
-                                        onChange={(e) => {
-                                            setValidUser({ ...validUser, loading: true });
-                                            setUsername(e.currentTarget.value);
-                                        }}
-                                        value={username}
-                                    />
-                                </Form.FloatingLabel>
-
-                                <Form.FloatingLabel controlId={id + 'password'} label="Password" className="uncenter-floating-label">
-                                    <Form.Control
-                                        required
-                                        placeholder="Password"
-                                        disabled={loading}
-                                        type="password"
-                                        onChange={(e) => {
-                                            setValidUser({ ...validUser, loading: true });
-                                            setPassword(e.currentTarget.value);
-                                        }}
-                                        value={password}
-                                    />
-                                </Form.FloatingLabel>
+                                <TextField
+                                    id={id + 'username'}
+                                    label="Username"
+                                    variant="outlined"
+                                    required
+                                    disabled={loading}
+                                    placeholder="Enter Username"
+                                    onChange={(usernameTextFieldOnChangeEvent) => {
+                                        setValidUser({ ...validUser, loading: true });
+                                        setUsername(usernameTextFieldOnChangeEvent.currentTarget.value);
+                                    }}
+                                    value={username}
+                                />
+                                <TextField
+                                    id={id + 'password'}
+                                    label="Password"
+                                    variant="outlined"
+                                    required
+                                    disabled={loading}
+                                    placeholder="Enter Password"
+                                    onChange={(passwordTextFieldOnChangeEvent) => {
+                                        setValidUser({ ...validUser, loading: true });
+                                        setPassword(passwordTextFieldOnChangeEvent.currentTarget.value);
+                                    }}
+                                    value={password}
+                                />
                             </Stack>
                             {/* TO DO: Add signup for alert emails check box */}
                             <Button
                                 className="mt-3"
-                                variant="crimson"
+                                variant="outlined"
+                                color="primary"
                                 disabled={loading || !['', settings.forSchoolName].includes(validUser.school)}
-                                type="submit"
+                                onClick={() => {
+                                    Submit();
+                                }}
                             >
                                 {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Login'}
                             </Button>
@@ -250,10 +265,9 @@ export function Login(props: Props) {
                         <Button
                             className="mt-5 underline"
                             onClick={() => {
-                                props.setStage(-1);
+                                props.setStage(SetupSteps.Manual);
                             }}
-                            variant="btn-link"
-                            size="sm"
+                            variant="text"
                         >
                             Enter data manually (Recommended For Teachers)
                         </Button>

@@ -1,4 +1,4 @@
-// import React from 'react';
+import { lazy } from 'preact/compat';
 import { Page, currentPage } from './storage/page';
 import { Route } from './router/Route';
 import { Suspense } from 'preact/compat';
@@ -9,21 +9,26 @@ import { Suspense } from 'preact/compat';
 // import { SchoolInfo } from './pages/schoolInfo';
 // import Login from './pages/login/Login';
 
-import Schedule from './pages/schedule';
-import { Button, Skeleton } from '@mui/material';
+// import Schedule from './pages/schedule';
+import { Button } from '@mui/material';
 import { setupComplete } from './storage/misc';
+import LoadSpinner from './components/LoadSpinner';
 
-// const SetupPage = React.lazy(() => import('./pages/setup'));
+import Schedule from './pages/schedule';
+import SetupPage from './pages/setup';
+// const SetupPage = lazy(() => import('./pages/setup'));
 // const EditorPage = React.lazy(() => import('./pages/editor'));
 
 export default function App() {
     return (
-        <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+        <>
             <Route routes={[Page.SCHEDULE, Page.SETTINGS, Page.EDITMANUALLY, Page.LOGIN, Page.STUDENTID, Page.SCHOOL]}>
                 <Route routes={[Page.SCHEDULE]} hide={true}>
-                    <Schedule />
+                    <Suspense fallback={<LoadSpinner />}>
+                        <Schedule />
+                    </Suspense>
                 </Route>
-                <Route routes={[Page.SETTINGS]} hide={false}>
+                <Route routes={[Page.SETTINGS]} hide={true}>
                     {/* <SettingsPage /> */}
                     <Button
                         onClick={() => {
@@ -48,6 +53,7 @@ export default function App() {
                     </Button>
                     <Button
                         onClick={() => {
+                            setupComplete.value = false;
                             currentPage.value = Page.SETUP;
                         }}
                     >
@@ -80,7 +86,7 @@ export default function App() {
                 </Route>
             </Route>
             <Route routes={[Page.SETUP]}>
-                {/* <SetupPage /> */}
+                <SetupPage />
                 <Button
                     onClick={() => {
                         setupComplete.value = true;
@@ -91,6 +97,6 @@ export default function App() {
                 </Button>
             </Route>
             <Route routes={[Page.EDITOR]}>{/* <EditorPage /> */}</Route>
-        </Suspense>
+        </>
     );
 }

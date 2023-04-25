@@ -1,10 +1,11 @@
-import React from 'react';
+import { ComponentChildren, Ref } from 'preact';
+import { CSSProperties } from 'preact/compat';
 
 type CenterProps = {
-    children: React.ReactNode;
+    children: ComponentChildren;
     className?: string;
-    style?: React.CSSProperties;
-    ref?: React.Ref<HTMLDivElement>;
+    style?: CSSProperties;
+    ref?: Ref<HTMLDivElement>;
     noDFlex?: boolean;
     noVW?: boolean;
 };

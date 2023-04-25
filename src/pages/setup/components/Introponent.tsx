@@ -1,9 +1,9 @@
+import { Typography } from '@mui/material';
 import { useSpring, animated, AnimationResult, SpringValue } from '@react-spring/web';
-import { useState } from 'react';
+import { useState } from 'preact/hooks';
 
 type Props = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    children?: any;
+    children?: JSX.Element | JSX.Element[];
 };
 
 export function IntroPonent(props: Props) {
@@ -61,21 +61,21 @@ export function IntroPonent(props: Props) {
         },
     });
     if (!stage1Complete) {
-        // Maybe add 'By insberr And wackery' text too?
-
         return (
             <>
-                <div>
-                    <animated.h1 className="text-center" style={animWelcome as never}>
-                        Welcome
-                    </animated.h1>
-                    <animated.h6 className="text-muted" style={animWelcome2 as never}>
-                        Schedule Peronalizer v5
-                    </animated.h6>
-                </div>
+                <Typography variant="h2" gutterBottom className="text-center">
+                    <animated.span style={animWelcome as never}>
+                        <strong>Welcome</strong>
+                    </animated.span>
+                </Typography>
+                <Typography display="block" variant="overline" className="text-center">
+                    <animated.span className="text-muted" style={animWelcome2 as never}>
+                        <strong>Schedule Peronalizer v6</strong>
+                    </animated.span>
+                </Typography>
             </>
         );
     } else {
-        return props.children;
+        return <>{props.children}</>;
     }
 }

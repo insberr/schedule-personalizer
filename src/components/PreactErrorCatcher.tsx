@@ -41,7 +41,7 @@ export default class PreactErrorCatcher extends Component<props, state> {
         // You can also log the error to an error reporting service
         // console.error(error, errorInfo);
         // sentry should also go here. How Do You Do This?
-
+        Sentry.captureException(_q);
         this.setState({ hasError: true });
     }
 
@@ -88,17 +88,6 @@ export default class PreactErrorCatcher extends Component<props, state> {
             );
         }
 
-        return (
-            <>
-                <Button
-                    onClick={() => {
-                        this.setState({ hasError: true });
-                    }}
-                >
-                    View crash page
-                </Button>
-                {props.children}
-            </>
-        );
+        return props.children;
     }
 }

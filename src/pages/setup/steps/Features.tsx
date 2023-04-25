@@ -1,6 +1,10 @@
 import { useSpringRef, useSpring, config, useChain, useTransition, animated } from '@react-spring/web';
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState } from 'preact/hooks';
+import { Button } from '@mui/material';
+import { SetupSteps } from '..';
+
+// TODO We should make this page display for existing users on major updates, or make a seperate page for that
+// ? Just an idea, would require some implementation thinking.
 
 // THIS SHOULD BE FOR RETURNING USERS
 // WE SHOULD MAKE A NEW PAGE FOR NEW USERS THATS MORE LIKE A TUTORIAL/DESCRIPTION
@@ -10,12 +14,12 @@ type Props = {
 };
 
 const whatsnew = [
-    'Completely redesigned the UI',
-    'The map shows you where your classes are!',
-    'Login with StudentVue to have all your classes automatically added.',
-    'Auto schedules for events like 2 hour delays (coming soon)',
-    'You can now screenshot the schedule on site!',
-    "Added theme customization, That's right, you can customize the colors of the schedule and more!",
+    'Completely redesigned the UI - Again',
+    'Updated Map with pathfinding!',
+    'Push notifications! (On IOS, your device must be on IOS 16.4.1 or higher)',
+    'More customization options!',
+    'Smooth new animations',
+    'Progress bars - Dont worry they can be disabled in settings',
 ];
 
 // ANIMATE THIS
@@ -31,7 +35,7 @@ export function Features(props: Props) {
         onRest: () => {
             if (disappear) {
                 setTimeout(() => {
-                    props.setStage(420);
+                    props.setStage(SetupSteps.Login);
                 }, 300);
             }
         },
@@ -71,7 +75,8 @@ export function Features(props: Props) {
                 <br />
                 <animated.span style={button}>
                     <Button
-                        variant="crimson"
+                        variant="outlined"
+                        color="primary"
                         disabled={disappear}
                         onClick={() => {
                             setDisappear(true);

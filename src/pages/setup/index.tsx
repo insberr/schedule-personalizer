@@ -1,91 +1,78 @@
-import { useEffect, useState } from 'react';
-
+import { useState, useEffect } from 'preact/hooks';
 // Types
 import { Terms } from '../../types';
 
-// Redux
+// Signals - Storage
 import { setupComplete } from '../../storage/misc';
+import { scheduleDataTerms } from '../../storage/schedule';
+import { Page, currentPage } from '../../storage/page';
 
 // Components
 import { IntroPonent } from './components/Introponent';
-import Button from 'react-bootstrap/Button';
+import { Button, Skeleton } from '@mui/material';
 
 // Steps
 import { AddToHomeScreen } from './steps/AddToHomeScreen';
 import { Features } from './steps/Features';
 import { Login } from './steps/Login';
-import { Manual } from './steps/Manual';
-import { scheduleDataTerms } from '../../storage/schedule';
-import { Page, currentPage } from '../../storage/page';
-import { Skeleton } from '@mui/material';
+// import { Manual } from './steps/Manual';
 
-export enum SetupStages {
+export enum SetupSteps {
+    Welcome,
     AddToHomeScreen,
+    EnableNotifications,
     Features,
     Login,
     Manual,
     Schedule,
-    Edit,
 }
 
 function SetupPage() {
-    const [stage, setStage] = useState(0);
-
-    // This prevents the user from entering the setup page if they have already completed setup
-    // They schould really learn how to go to the settings page and click the reset button smh
+    const [setupStep, setSetupStep] = useState<SetupSteps>(SetupSteps.AddToHomeScreen);
 
     if (setupComplete.value) {
-        // navigate(Page.SCHEDULE);
         currentPage.value = Page.SCHEDULE;
     }
 
-    useEffect(() => {
-        if (stage != 69) {
-            return;
-        }
-        // dispatch(setSetupComplete(true));
-        setupComplete.value = true;
-        // dispatch(setTerms(schedule));
-        // scheduleDataTerms.value = schedule;
-        // navigate(Page.SCHEDULE);
-        currentPage.value = Page.SCHEDULE;
-    });
-
-    // TO DO: maybe use enum for stages valuse??
-    let thing = <Skeleton variant="rectangular" width={210} height={118} />; //
-    switch (stage) {
-        case -1: {
-            // fork you no importing manually
-            thing = <Manual setStage={setStage} />;
+    let thing = <Skeleton variant="rectangular" width={210} height={118} />;
+    switch (setupStep) {
+        case SetupSteps.Welcome: {
+            thing = <div>How did this happen ...</div>;
             break;
         }
-        case 0: {
+        case SetupSteps.Manual: {
+            thing = <div>Comming Soon</div>; // <Manual setStage={setSetupStep} />;
+            break;
+        }
+        case SetupSteps.AddToHomeScreen: {
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                setStage(420);
+                setSetupStep(SetupSteps.Login);
             } else {
-                thing = <AddToHomeScreen setStage={setStage}></AddToHomeScreen>;
+                thing = <AddToHomeScreen setStage={setSetupStep}></AddToHomeScreen>;
             }
             break;
         }
-        case 1: {
-            thing = <Features setStage={setStage} />;
+        case SetupSteps.Features: {
+            thing = <Features setStage={setSetupStep} />;
             break;
         }
-        case 69: // The schedule will only be set in this state
-            thing = <Skeleton variant="rectangular" width={210} height={118} />;
+        case SetupSteps.Schedule: // The schedule will only be set in this state
+            setupComplete.value = true;
+            currentPage.value = Page.SCHEDULE;
             break;
-        case 420:
-            thing = <Login setStage={setStage} />;
+        case SetupSteps.Login:
+            thing = <Login setStage={setSetupStep} />;
             break;
         default:
             thing = (
                 <div>
                     Unknown Setup Page! How did we get here?{' '}
                     <Button
+                        variant="outlined"
+                        color="primary"
                         onClick={() => {
-                            setStage(0);
+                            setSetupStep(SetupSteps.Welcome);
                         }}
-                        variant="primary"
                     >
                         Back To Beginning
                     </Button>

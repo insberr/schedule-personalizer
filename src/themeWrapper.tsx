@@ -1,4 +1,5 @@
 import { CssBaseline, PaletteMode, ThemeProvider, createTheme, useMediaQuery } from '@mui/material';
+import { ComponentChildren } from 'preact';
 
 const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -34,7 +35,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     // },
 });
 
-export default function ThemeWrapper(props: { children: React.ReactNode }) {
+export default function ThemeWrapper(props: { children: ComponentChildren }) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = createTheme(getDesignTokens(prefersDarkMode ? 'dark' : 'light'));
 

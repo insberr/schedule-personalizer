@@ -53,6 +53,13 @@ export default function App() {
                     >
                         Setup
                     </Button>
+                    <Button
+                        onClick={() => {
+                            throw new Error('Test crash');
+                        }}
+                    >
+                        Test crash screen
+                    </Button>
                 </Route>
                 <Route routes={[Page.EDITMANUALLY]} hide={false}>
                     {/* <Manual

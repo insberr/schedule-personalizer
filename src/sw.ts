@@ -12,6 +12,7 @@ self.addEventListener('install', () => {
     self.skipWaiting().then(clientsClaim);
     console.log('oh shit guess who it fuckin is, its the gamer service worker here with offline support. (' + version + ')');
 });
+
 self.addEventListener('activate', () => {
     caches.keys().then((cacheNames) => {
         cacheNames.forEach((cacheName) => {
@@ -21,6 +22,10 @@ self.addEventListener('activate', () => {
             }
         });
     });
+});
+
+self.addEventListener('push', async () => {
+    // send notification
 });
 
 const toNetwork = ['document', 'manifest'];

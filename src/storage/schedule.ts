@@ -5,9 +5,10 @@ import { CL } from '../types';
 import { setupComplete } from './misc';
 import { ScheduleEvent } from '../config/events';
 import { schedules } from '../config/schedules';
+import { persist } from './persistSignal';
 
 export const displayDate = signal<Date>(new Date());
-export const scheduleDataTerms = signal<Terms>(settings.termsDates);
+export const scheduleDataTerms = persist<Terms>('scheduleDataTerms', settings.termsDates);
 export const computedScheduleForDisplay = computed(() => {
     // this function will take the schedule (studentvue or manual) and create the displayDate's schedule
 

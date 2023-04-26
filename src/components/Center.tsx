@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { ComponentChildren, Ref } from 'preact';
 import { CSSProperties } from 'preact/compat';
 
@@ -5,7 +6,7 @@ type CenterProps = {
     children: ComponentChildren;
     className?: string;
     style?: CSSProperties;
-    ref?: Ref<HTMLDivElement>;
+    ref?: Ref<unknown>;
     noDFlex?: boolean;
     noVW?: boolean;
 };
@@ -26,18 +27,18 @@ function Center(props: CenterProps) {
     </div>
     )*/
     return (
-        <div
-            ref={props.ref}
-            className={
-                'text-center justify-content-center  ' +
-                (props.noVW ? '' : ' vw-100 ') +
-                (props.noDFlex ? '' : ' d-flex ') +
-                (props.className ? props.className : '')
-            }
+        <Box
+            sx={{
+                display: props.noDFlex ? '' : 'flex',
+                viewWidth: props.noVW ? '' : '100vw',
+                justifyContent: 'center',
+                textAlign: 'center',
+            }}
+            className={props.className ? props.className : ''}
             style={props.style}
         >
-            <div className="w-auto">{props.children}</div>
-        </div>
+            <div>{props.children}</div>
+        </Box>
     );
 }
 

@@ -51,8 +51,6 @@ export function IntroPonent(props: Props) {
         },
         onChange: {
             special: (result: AnimationResult<SpringValue<number>>) => {
-                //console.log(result);
-                //@ts-expect-error typescript moment
                 const r: number = result;
                 if (r == 1) {
                     setStage1Complete(true);
@@ -68,7 +66,7 @@ export function IntroPonent(props: Props) {
                         <strong>Welcome</strong>
                     </animated.span>
                 </Typography>
-                <Typography display="block" variant="overline" className="text-center">
+                <Typography display="block" variant="overline" className="text-center" color="primary" noWrap={true}>
                     <animated.span className="text-muted" style={animWelcome2 as never}>
                         <strong>Schedule Peronalizer v6</strong>
                     </animated.span>

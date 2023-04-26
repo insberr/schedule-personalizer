@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'preact/hooks';
 
-import { Button, Alert, Stack, TextField } from '@mui/material';
+import { Button, Alert, Stack, TextField, FormGroup, Box, Paper, Typography, AlertTitle, Collapse, CircularProgress } from '@mui/material';
 // import Alert from 'react-bootstrap/Alert';
 // import Spinner from 'react-bootstrap/Spinner';
 // import Form from 'react-bootstrap/Form';
@@ -19,6 +19,7 @@ import { useDebounce } from 'react-use';
 import { scheduleDataTerms } from '../../../storage/schedule';
 import { ComponentChildren } from 'preact';
 import { SetupSteps } from '..';
+import BoldHTag from '../../../components/BoldHTag';
 
 type Props = {
     setStage: (stage: number) => void;
@@ -186,93 +187,135 @@ export function Login(props: Props) {
     return (
         <FadeIn>
             <Center>
-                <h1 className="mt-5">Login with StudentVue</h1>
+                <BoldHTag varient="h5" gutterBottom sx={{ marginTop: 5 }}>
+                    Login with StudentVue
+                </BoldHTag>
 
-                <Alert
-                    variant="outlined"
-                    color="error"
-                    dismissible
-                    onClose={() => {
-                        hideError();
+                {/* validUser.isValid && validUser.loading === false */}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                        '& > :not(style)': {
+                            m: 1,
+                            padding: '20px',
+                            width: 'fit-content',
+                            height: 'fit-content',
+                        },
                     }}
-                    show={errorshow}
                 >
-                    {error}
-                </Alert>
-
-                <Container className="mt-5">
-                    <Row>
-                        <Form
-                            className="paper"
-                            onSubmit={(evt) => {
-                                evt.preventDefault();
-                                evt.stopPropagation();
-                                Submit();
+                    <Paper
+                        elevation={10}
+                        background={{ color: '#222222' }}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        <TextField
+                            error={username !== '' && password !== '' ? !validUser.isValid && validUser.loading === false : false}
+                            helperText={
+                                username !== '' && password !== '' ? (!validUser.isValid && validUser.loading === false ? 'Invalid' : '') : ''
+                            }
+                            margin="normal"
+                            id={id + 'username'}
+                            label="Username"
+                            variant="standard"
+                            type="username"
+                            required
+                            focused
+                            disabled={loading}
+                            placeholder="Enter Username"
+                            onChange={(usernameTextFieldOnChangeEvent) => {
+                                setValidUser({ ...validUser, loading: true });
+                                setUsername(usernameTextFieldOnChangeEvent.currentTarget.value);
                             }}
-                        >
-                            <Stack gap={3}>
-                                <TextField
-                                    id={id + 'username'}
-                                    label="Username"
-                                    variant="outlined"
-                                    required
-                                    disabled={loading}
-                                    placeholder="Enter Username"
-                                    onChange={(usernameTextFieldOnChangeEvent) => {
-                                        setValidUser({ ...validUser, loading: true });
-                                        setUsername(usernameTextFieldOnChangeEvent.currentTarget.value);
-                                    }}
-                                    value={username}
-                                />
-                                <TextField
-                                    id={id + 'password'}
-                                    label="Password"
-                                    variant="outlined"
-                                    required
-                                    disabled={loading}
-                                    placeholder="Enter Password"
-                                    onChange={(passwordTextFieldOnChangeEvent) => {
-                                        setValidUser({ ...validUser, loading: true });
-                                        setPassword(passwordTextFieldOnChangeEvent.currentTarget.value);
-                                    }}
-                                    value={password}
-                                />
-                            </Stack>
-                            {/* TO DO: Add signup for alert emails check box */}
+                            value={username}
+                        />
+                        <TextField
+                            error={username !== '' && password !== '' ? !validUser.isValid && validUser.loading === false : false}
+                            helperText={
+                                username !== '' && password !== '' ? (!validUser.isValid && validUser.loading === false ? 'Invalid' : '') : ''
+                            }
+                            color={
+                                username !== '' && password !== ''
+                                    ? !validUser.isValid && validUser.loading === false
+                                        ? 'primary'
+                                        : 'success'
+                                    : 'primary'
+                            }
+                            focused
+                            margin="normal"
+                            id={id + 'password'}
+                            label="Password"
+                            variant="standard"
+                            type="password"
+                            required
+                            disabled={loading}
+                            placeholder="Enter Password"
+                            onChange={(passwordTextFieldOnChangeEvent) => {
+                                setValidUser({ ...validUser, loading: true });
+                                setPassword(passwordTextFieldOnChangeEvent.currentTarget.value);
+                            }}
+                            value={password}
+                        />
+                        <Box sx={{ position: 'relative' }}>
                             <Button
                                 className="mt-3"
-                                variant="outlined"
+                                variant="contained"
                                 color="primary"
                                 disabled={loading || !['', settings.forSchoolName].includes(validUser.school)}
                                 onClick={() => {
                                     Submit();
                                 }}
                             >
-                                {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Login'}
+                                Login
                             </Button>
-                            <div className="mt-3">
-                                {username === '' || password === ''
-                                    ? 'Please enter your username and password'
-                                    : validUser.loading
-                                    ? 'Loading...'
-                                    : validUser.isValid && validUser.loading === false
-                                    ? validUser.name + ' At ' + validUser.school
-                                    : 'Invalid Credentails'}
-                            </div>
-                        </Form>
-                    </Row>
-                    <Row>
-                        <Button
-                            className="mt-5 underline"
-                            onClick={() => {
-                                props.setStage(SetupSteps.Manual);
-                            }}
-                            variant="text"
-                        >
-                            Enter data manually (Recommended For Teachers)
-                        </Button>
-                    </Row>
-                </Container>
+                            {loading && (
+                                <CircularProgress
+                                    size={25}
+                                    color="success"
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        marginTop: '-12px',
+                                        marginLeft: '-12px',
+                                    }}
+                                />
+                            )}
+                        </Box>
+                    </Paper>
+                </Box>
+                <Collapse in={errorshow}>
+                    <Alert
+                        severity="error"
+                        variant="outlined"
+                        onClose={() => {
+                            hideError();
+                        }}
+                    >
+                        <AlertTitle>StudentVue Error</AlertTitle>
+                        {error}
+                    </Alert>
+                </Collapse>
+                <Collapse in={username !== '' && password !== '' ? validUser.isValid && loading === false : false}>
+                    <Alert severity="success">
+                        Welcome {validUser.name} At {validUser.school}
+                    </Alert>
+                </Collapse>
+                {/* TO DO: Add signup for alert emails check box */}
+                <Button
+                    className="mt-5 underline"
+                    onClick={() => {
+                        props.setStage(SetupSteps.Manual);
+                    }}
+                    variant="text"
+                >
+                    Enter data manually (Recommended For Teachers)
+                </Button>
             </Center>
         </FadeIn>
     );

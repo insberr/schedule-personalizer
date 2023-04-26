@@ -4,7 +4,6 @@ import { Terms } from '../../types';
 
 // Signals - Storage
 import { setupComplete } from '../../storage/misc';
-import { scheduleDataTerms } from '../../storage/schedule';
 import { Page, currentPage } from '../../storage/page';
 
 // Components
@@ -46,7 +45,7 @@ function SetupPage() {
         }
         case SetupSteps.AddToHomeScreen: {
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                setSetupStep(SetupSteps.Login);
+                setSetupStep(SetupSteps.Features);
             } else {
                 thing = <AddToHomeScreen setStage={setSetupStep}></AddToHomeScreen>;
             }
@@ -56,7 +55,7 @@ function SetupPage() {
             thing = <Features setStage={setSetupStep} />;
             break;
         }
-        case SetupSteps.Schedule: // The schedule will only be set in this state
+        case SetupSteps.Schedule:
             setupComplete.value = true;
             currentPage.value = Page.SCHEDULE;
             break;
@@ -74,7 +73,7 @@ function SetupPage() {
                             setSetupStep(SetupSteps.Welcome);
                         }}
                     >
-                        Back To Beginning
+                        Back To Welcome Page
                     </Button>
                 </div>
             );

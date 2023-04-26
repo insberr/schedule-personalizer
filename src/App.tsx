@@ -87,14 +87,6 @@ export default function App() {
             </Route>
             <Route routes={[Page.SETUP]}>
                 <SetupPage />
-                <Button
-                    onClick={() => {
-                        setupComplete.value = true;
-                        currentPage.value = Page.SCHEDULE;
-                    }}
-                >
-                    To Schedule
-                </Button>
             </Route>
             <Route routes={[Page.EDITOR]}>{/* <EditorPage /> */}</Route>
         </>

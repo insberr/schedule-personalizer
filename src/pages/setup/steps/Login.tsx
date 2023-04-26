@@ -17,21 +17,12 @@ import { studentVueCredentials, isStudentVue } from '../../../storage/studentvue
 import { useDebounce } from 'react-use';
 // import { Container, Row, Stack } from 'react-bootstrap';
 import { scheduleDataTerms } from '../../../storage/schedule';
-import { ComponentChildren } from 'preact';
 import { SetupSteps } from '..';
 import BoldHTag from '../../../components/BoldHTag';
 
 type Props = {
     setStage: (stage: number) => void;
 };
-
-// TEMPORARY
-const Row = (props: { children: ComponentChildren }) => <div className="row">{props.children}</div>;
-const Spinner = (props: { as: string; animation: string; size: string }) => <div className="spinner">spinner {props.as}</div>;
-const Container = (props: { children: ComponentChildren; className: string }) => <div className="container">{props.children}</div>;
-const Form = (props: { children: ComponentChildren; className: string; onSubmit: (event: any) => void }) => (
-    <div className="form">{props.children}</div>
-);
 
 export function Login(props: Props) {
     const [username, setUsername] = useState('');
@@ -190,9 +181,8 @@ export function Login(props: Props) {
                 <BoldHTag varient="h5" gutterBottom sx={{ marginTop: 5 }}>
                     Login with StudentVue
                 </BoldHTag>
-
-                {/* validUser.isValid && validUser.loading === false */}
                 <Box
+                    className="LoginBox"
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -200,12 +190,11 @@ export function Login(props: Props) {
                         '& > :not(style)': {
                             m: 1,
                             padding: '20px',
-                            width: 'fit-content',
-                            height: 'fit-content',
                         },
                     }}
                 >
                     <Paper
+                        className="LoginBox"
                         elevation={10}
                         background={{ color: '#222222' }}
                         sx={{
@@ -222,7 +211,7 @@ export function Login(props: Props) {
                             margin="normal"
                             id={id + 'username'}
                             label="Username"
-                            variant="standard"
+                            variant="filled"
                             type="username"
                             required
                             focused
@@ -250,7 +239,7 @@ export function Login(props: Props) {
                             margin="normal"
                             id={id + 'password'}
                             label="Password"
-                            variant="standard"
+                            variant="filled"
                             type="password"
                             required
                             disabled={loading}

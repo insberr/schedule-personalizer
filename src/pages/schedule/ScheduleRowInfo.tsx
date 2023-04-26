@@ -38,4 +38,3 @@ export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boo
         </div>
     );
 }
-

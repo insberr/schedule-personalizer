@@ -46,4 +46,3 @@ export default function ThemeWrapper(props: { children: ComponentChildren }) {
         </ThemeProvider>
     );
 }
-

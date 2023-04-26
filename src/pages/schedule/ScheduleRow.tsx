@@ -58,4 +58,3 @@ export default function ScheduleRow(props: { alt: boolean; data: Class }) {
         </div>
     );
 }
-

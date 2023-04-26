@@ -14,4 +14,3 @@ export function persist<T>(key: string, defaul: T): Signal<T> {
 
     return internal;
 }
-

@@ -152,4 +152,3 @@ export function overidesMergeDataWithSchedule(
 
     return { newClasses, scheduleForDisplay, overideForGrade };
 }
-

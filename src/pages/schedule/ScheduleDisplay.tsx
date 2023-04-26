@@ -25,4 +25,3 @@ export default function ScheduleDisplay(props: { DisplayEventMessages: string[] 
         </>
     );
 }
-

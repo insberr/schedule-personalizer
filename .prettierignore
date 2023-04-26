@@ -139,3 +139,6 @@ benchmarks/
 visdist
 
 .yarn
+.vscode
+.husky
+src/splashscreens/

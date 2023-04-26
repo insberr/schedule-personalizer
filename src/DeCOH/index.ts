@@ -155,4 +155,3 @@ export function schoolDateCount(startDate: Date, endDate: Date, sCFG: SchoolSche
     }
     return count;
 }
-

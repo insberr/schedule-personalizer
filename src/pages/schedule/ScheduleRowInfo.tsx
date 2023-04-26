@@ -3,6 +3,7 @@ import { Class, timeToDate } from '../../types';
 import { LinearProgress } from '@mui/material';
 import { studentVueGrades } from '../../storage/studentvue';
 import { displayDate } from '../../storage/schedule';
+import Countdown from './Countdown';
 
 export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boolean }) {
     const StudentGrades = studentVueGrades.value;
@@ -20,7 +21,7 @@ export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boo
                 ) : (
                     <div>
                         <strong>{isNow ? 'Ending' : 'Beginning'} in</strong>
-                        {/* <Countdown destDate={isNow ? endTime : startTime} /> */}
+                        <Countdown destDate={isNow ? props.SPDisplayClass.endTime : props.SPDisplayClass.startTime} />
                     </div>
                 )}
             </div>
@@ -38,3 +39,4 @@ export default function ScheduleRowInfo(props: { SPDisplayClass: Class; alt: boo
         </div>
     );
 }
+

@@ -5149,6 +5149,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fclone@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "fclone@npm:1.0.11"
+  checksum: 016eb1eac443b0c896adf938f6b300bfc86365444f5160ccf3d68a598d1372d00ca96ab8e116185dc9f316cec83de5f2df157fe7fe365a57bcba1ccc17491f61
+  languageName: node
+  linkType: hard
+
 "fd-slicer@npm:~1.1.0":
   version: 1.1.0
   resolution: "fd-slicer@npm:1.1.0"
@@ -8288,7 +8295,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml-parser@npm:^0.10.1":
+"posthtml-expressions@npm:^1.7.1":
+  version: 1.11.0
+  resolution: "posthtml-expressions@npm:1.11.0"
+  dependencies:
+    fclone: ^1.0.11
+    posthtml-match-helper: ^1.0.1
+    posthtml-parser: ^0.10.0
+    posthtml-render: ^3.0.0
+  checksum: c57e95dc6dfe116d9554b1fd3acf974182c5ede8b538db1b0beba41e4dd83f23ed9eb63dc081ecbb2be026c19d8eddf36091c1672fd8ca8c4e60a6223cab3432
+  languageName: node
+  linkType: hard
+
+"posthtml-include@npm:^1.7.4":
+  version: 1.7.4
+  resolution: "posthtml-include@npm:1.7.4"
+  dependencies:
+    posthtml: ^0.16.6
+    posthtml-expressions: ^1.7.1
+    posthtml-parser: ^0.11.0
+  checksum: c7126f494789cb5cd497a7e1c14b5d91d05900f7aebe2467afed5512903316ca1867a91de8bf7f4aaf10fec552ac744fd36fb5b384e62e1bed869885543c2b63
+  languageName: node
+  linkType: hard
+
+"posthtml-match-helper@npm:^1.0.1":
+  version: 1.0.3
+  resolution: "posthtml-match-helper@npm:1.0.3"
+  peerDependencies:
+    posthtml: ">=0.5.0"
+  checksum: 8d0d0dbe4ca24a27bb3a142830e740109a2f2478ff70edfb7f90bb5f80c2e8586c9bec1a8c576381836393facfd983f61290ad31c6a91842617fc6ae9392ccba
+  languageName: node
+  linkType: hard
+
+"posthtml-parser@npm:^0.10.0, posthtml-parser@npm:^0.10.1":
   version: 0.10.2
   resolution: "posthtml-parser@npm:0.10.2"
   dependencies:
@@ -8315,7 +8354,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthtml@npm:^0.16.4, posthtml@npm:^0.16.5":
+"posthtml@npm:^0.16.4, posthtml@npm:^0.16.5, posthtml@npm:^0.16.6":
   version: 0.16.6
   resolution: "posthtml@npm:0.16.6"
   dependencies:
@@ -9052,6 +9091,7 @@ __metadata:
     parcel-reporter-clean-dist: ^1.0.4
     parcel-reporter-static-files-copy: ^1.5.0
     pepjs: ^0.5.3
+    posthtml-include: ^1.7.4
     preact: ^10.13.2
     prettier: ^2.8.7
     pwa-asset-generator: ^6.2.1

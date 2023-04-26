@@ -46,6 +46,7 @@ task('build', ['preqBuild'], async () => {
         entries: ['./src/index.html'],
         env: {
             NODE_ENV: 'production',
+            BUNDLE_BUDDY: 'true',
         },
         additionalReporters: [
             {
@@ -96,6 +97,7 @@ file('src/splashscreens/splash.html', ['src/icons/icon.svg'], async () => {
         background: '#272727',
         splashOnly: true,
         /*index: 'src/index.html',*/
+        pathOverride: './splashscreens',
         type: 'png',
         padding: 'calc(50vh - 20%) calc(50vw - 40%)',
     });

@@ -8,6 +8,8 @@ export const setupComplete = persist<boolean>('setupComplete', false);
 export const rgbParty = signal<boolean>(false);
 export const presentationMode = persist<boolean>('presentationMode', false);
 
+export const schedulePersonalizerVersion = persist<string>('schedulePersonalizerVersion', '6.0');
+
 // Find redux storage and save customizations, studentvue credentials, and manual schedule/terms
 // const reduxStorage = JSON.parse(localStorage.getItem('persist:v5ReduxData') || '{}');
 // console.log(reduxStorage);

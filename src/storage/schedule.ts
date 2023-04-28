@@ -8,6 +8,7 @@ import { schedules } from '../config/schedules';
 import { persist } from './persistSignal';
 
 export const displayDate = signal<Date>(new Date());
+window.developer = { displayDate: displayDate };
 export const userLunch = persist<number>('userLunch', 1);
 export const scheduleDataTerms = persist<Terms>('scheduleDataTerms', settings.termsDates);
 export const computedScheduleForDisplay = computed(() => {

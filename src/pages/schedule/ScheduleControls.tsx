@@ -9,6 +9,7 @@ export default function ScheduleControls() {
             <Grid2 container spacing={0} className={'ScheduleRowGrid'}>
                 <Grid2 xs className={'ControlsCol TextCenter'}>
                     <IconButton
+                        size="small"
                         color="secondary"
                         onClick={() => {
                             const newDate = new Date(displayDate.value);
@@ -24,6 +25,7 @@ export default function ScheduleControls() {
                 </Grid2>
                 <Grid2 xs className={'ControlsCol TextCenter'}>
                     <IconButton
+                        size="small"
                         color="secondary"
                         onClick={() => {
                             const newDate = new Date(displayDate.value);
@@ -38,3 +40,4 @@ export default function ScheduleControls() {
         </div>
     );
 }
+

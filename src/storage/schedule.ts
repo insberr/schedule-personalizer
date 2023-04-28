@@ -8,6 +8,7 @@ import { schedules } from '../config/schedules';
 import { persist } from './persistSignal';
 
 export const displayDate = signal<Date>(new Date());
+export const userLunch = persist<number>('userLunch', 1);
 export const scheduleDataTerms = persist<Terms>('scheduleDataTerms', settings.termsDates);
 export const computedScheduleForDisplay = computed(() => {
     // this function will take the schedule (studentvue or manual) and create the displayDate's schedule

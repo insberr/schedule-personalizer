@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'preact/hooks';
 
 import * as settings from '../../../config/settings';
 
 // Types
 import { CL, emptyCL } from '../../../types';
 
-import { scheduleDataTerms, computedScheduleForDisplay } from '../../../storage/schedule';
+import { scheduleDataTerms, computedScheduleForDisplay, userLunch } from '../../../storage/schedule';
 
 // Components
 import Center from '../../../components/Center';
@@ -16,9 +16,9 @@ import { ManualClassEntry } from '../components/ManualClassEntry';
 // import Form from 'react-bootstrap/Form';
 import { Button, Alert } from '@mui/material';
 import { Page, currentPage } from '../../../storage/page';
+import { SetupSteps, setupStep } from '..';
 
 type Props = {
-    setStage: (stage: number) => void;
     // setSchedule: (schedule: Terms) => void;
     // setIsEdit?: (isEdit: boolean) => void;
     isEdit?: boolean;
@@ -26,44 +26,41 @@ type Props = {
 
 export function Manual(props: Props) {
     const classAmount = settings.numberOfPeriods;
-    const sch = useSchedule();
     const [term, setTerm] = useState<number>(0);
     // const [terms, setTermsD] = useState<Terms>(() => sch.terms.length > 0 ? sch.terms : settings.termsDates)
-    const [l, sl] = useState(sch.lunch || 1);
-
-    const dispatch = useDispatch();
+    const [l, sl] = useState(userLunch.value || 1);
 
     const isValid = true;
     useEffect(() => {
         console.log('lunch ' + l);
-        dispatch(setLunch(l));
+        userLunch.value = l;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [l]);
 
-    if (sch.terms.length === 0) {
+    if (scheduleDataTerms.value.length === 0) {
         console.log('this shouldnt run,, ever. EVER. IF IT RUNS YOU WILL BE FIRED');
-        settings.termsDates.map((t) => {
-            t.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
-            return t;
+        settings.termsDates.map((term) => {
+            term.classes = emptyCL(settings.numberOfPeriods, settings.hasAdvisory);
+            return term;
         });
     }
 
     function setClass(classNum: number, clas: CL) {
-        const newTerms = [...sch.terms];
+        const newTerms = [...scheduleDataTerms.peek()];
         newTerms[term].classes[classNum] = clas;
 
         // setTermsD(newTerms);
-        dispatch(setTerms(newTerms));
+        scheduleDataTerms.value = newTerms;
     }
 
     return (
         <Center className="text-center">
             <h1 className="mt-5">Setup</h1>
             <Button
-                variant="crimson"
+                variant="contained"
                 className={props.isEdit ? 'hidden' : 'mt-5'}
                 onClick={() => {
-                    props.setStage(420);
+                    setupStep.value = SetupSteps.Login;
                 }}
             >
                 Back To Login
@@ -80,7 +77,7 @@ export function Manual(props: Props) {
                                 }}
                                 aria-label="Term Select"
                             >
-                                {sch.terms.map((t, i) => {
+                                {scheduleDataTerms.value.map((t, i) => {
                                     return (
                                         <option key={'term' + i} value={t.termIndex}>
                                             Term {t.termIndex + 1}
@@ -95,7 +92,7 @@ export function Manual(props: Props) {
                     {[...Array(classAmount)].map((_, i) => {
                         return (
                             <ManualClassEntry
-                                value={sch.terms[term].classes[i]}
+                                value={scheduleDataTerms.value[term].classes[i]}
                                 change={(c: CL) => {
                                     setClass(i, c);
                                 }}
@@ -115,7 +112,7 @@ export function Manual(props: Props) {
                         <Button
                             variant="crimson"
                             onClick={() => {
-                                props.isEdit ? navigate(Page.SETTINGS) : props.setStage(69);
+                                props.isEdit ? (currentPage.value = Page.SETTINGS) : (setupStep.value = SetupSteps.Schedule);
                             }}
                             disabled={!isValid}
                         >

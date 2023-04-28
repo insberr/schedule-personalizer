@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
-import Form from 'react-bootstrap/Form';
+import { Fragment } from 'preact';
 import { ordinal_suffix_of } from '../../../lib/lib';
+import { Checkbox } from '@mui/material';
 type Props = {
     lunchamt: number;
     setl: (lunch: number) => void;
@@ -13,7 +13,7 @@ export function LunchPicker(props: Props) {
             {[...Array(props.lunchamt)].map((_, ln) => {
                 return (
                     <Fragment key={'lunch' + ln}>
-                        <Form.Check
+                        <Checkbox
                             className="d-inline-block mb-1"
                             onChange={() => {
                                 props.setl(ln + 1);

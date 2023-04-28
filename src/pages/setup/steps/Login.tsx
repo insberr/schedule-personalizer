@@ -1,13 +1,10 @@
 import { useEffect, useId, useState } from 'preact/hooks';
 
-import { Button, Alert, Stack, TextField, FormGroup, Box, Paper, Typography, AlertTitle, Collapse, CircularProgress } from '@mui/material';
-// import Alert from 'react-bootstrap/Alert';
-// import Spinner from 'react-bootstrap/Spinner';
-// import Form from 'react-bootstrap/Form';
+import { Button, Alert, TextField, Box, Paper, AlertTitle, Collapse, CircularProgress } from '@mui/material';
 
 import Center from '../../../components/Center';
 
-import { Terms, emptyCL } from '../../../types';
+import { emptyCL } from '../../../types';
 import { FadeIn } from '../components/FadeIn';
 
 import * as api from '../../../apis/studentvue/studentVueAPI';
@@ -17,14 +14,10 @@ import { studentVueCredentials, isStudentVue } from '../../../storage/studentvue
 import { useDebounce } from 'react-use';
 // import { Container, Row, Stack } from 'react-bootstrap';
 import { scheduleDataTerms } from '../../../storage/schedule';
-import { SetupSteps } from '..';
+import { SetupSteps, setupStep } from '..';
 import BoldHTag from '../../../components/BoldHTag';
 
-type Props = {
-    setStage: (stage: number) => void;
-};
-
-export function Login(props: Props) {
+export function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string>('');
@@ -172,7 +165,7 @@ export function Login(props: Props) {
             });
 
         setLoading(false);
-        props.setStage(SetupSteps.Schedule);
+        setupStep.value = SetupSteps.Schedule;
     }
 
     return (
@@ -299,7 +292,7 @@ export function Login(props: Props) {
                 <Button
                     className="mt-5 underline"
                     onClick={() => {
-                        props.setStage(SetupSteps.Manual);
+                        setupStep.value = SetupSteps.Manual;
                     }}
                     variant="text"
                 >

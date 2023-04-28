@@ -1,11 +1,11 @@
 // Prompt the user to add to home screen if not already a PWA
 import { Button } from '@mui/material';
 import Center from '../../../components/Center';
-import { SetupSteps } from '..';
+import { SetupSteps, setupStep } from '..';
 
 const iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 
-export function AddToHomeScreen(props: { setStage: (s: number) => void }) {
+export function AddToHomeScreen() {
     return (
         <Center className="text-center full-center">
             <h1 className="mt-5">Add Site To Home Screen</h1>
@@ -21,7 +21,7 @@ export function AddToHomeScreen(props: { setStage: (s: number) => void }) {
                 variant="outlined"
                 color="primary"
                 onClick={() => {
-                    props.setStage(SetupSteps.Features);
+                    setupStep.value = SetupSteps.Customize;
                 }}
             >
                 Skip

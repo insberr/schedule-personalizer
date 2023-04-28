@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
+import { signal } from '@preact/signals';
 // Types
 import { Terms } from '../../types';
 
@@ -12,10 +13,10 @@ import { Button, Skeleton } from '@mui/material';
 
 // Steps
 import { AddToHomeScreen } from './steps/AddToHomeScreen';
-import { Features } from './steps/Features';
+// import { Features } from './steps/Features';
 import { Login } from './steps/Login';
-// import { Manual } from './steps/Manual';
-
+import CustomizeStep from './steps/CustomizeStep';
+import { Manual } from './steps/Manual';
 export enum SetupSteps {
     Welcome,
     AddToHomeScreen,
@@ -24,35 +25,36 @@ export enum SetupSteps {
     Login,
     Manual,
     Schedule,
+    Customize,
 }
 
-function SetupPage() {
-    const [setupStep, setSetupStep] = useState<SetupSteps>(SetupSteps.AddToHomeScreen);
+export const setupStep = signal<SetupSteps>(SetupSteps.AddToHomeScreen);
 
+function SetupPage() {
     if (setupComplete.value) {
         currentPage.value = Page.SCHEDULE;
     }
 
     let thing = <Skeleton variant="rectangular" width={210} height={118} />;
-    switch (setupStep) {
+    switch (setupStep.value) {
         case SetupSteps.Welcome: {
             thing = <div>How did this happen ...</div>;
             break;
         }
         case SetupSteps.Manual: {
-            thing = <div>Comming Soon</div>; // <Manual setStage={setSetupStep} />;
+            thing = <Manual />;
             break;
         }
         case SetupSteps.AddToHomeScreen: {
             if (window.matchMedia('(display-mode: standalone)').matches) {
-                setSetupStep(SetupSteps.Features);
+                setupStep.value = SetupSteps.Features;
             } else {
-                thing = <AddToHomeScreen setStage={setSetupStep}></AddToHomeScreen>;
+                thing = <AddToHomeScreen></AddToHomeScreen>;
             }
             break;
         }
-        case SetupSteps.Features: {
-            thing = <Features setStage={setSetupStep} />;
+        case SetupSteps.Customize: {
+            thing = <CustomizeStep />;
             break;
         }
         case SetupSteps.Schedule:
@@ -60,7 +62,7 @@ function SetupPage() {
             currentPage.value = Page.SCHEDULE;
             break;
         case SetupSteps.Login:
-            thing = <Login setStage={setSetupStep} />;
+            thing = <Login />;
             break;
         default:
             thing = (
@@ -70,7 +72,7 @@ function SetupPage() {
                         variant="outlined"
                         color="primary"
                         onClick={() => {
-                            setSetupStep(SetupSteps.Welcome);
+                            setupStep.value = SetupSteps.AddToHomeScreen;
                         }}
                     >
                         Back To Welcome Page

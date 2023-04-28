@@ -1,7 +1,7 @@
 import { Component, ComponentChildren, ErrorInfo } from 'preact';
 import * as Sentry from '@sentry/react';
 import { identifyCommit } from '../lib/lib';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { resetStorage } from '../storage/store';
 
 type props = { children: ComponentChildren };
@@ -48,9 +48,9 @@ export default class PreactErrorCatcher extends Component<props, state> {
     render(props: props, state: state) {
         if (state.hasError) {
             return (
-                <>
+                <Box>
                     <h2 className="text-center full-center">
-                        Hmmm... Something went wrong, Try refreshing. If the error continues, please let us know by clicking the &sq;Send Feedback&sq;
+                        Hmmm... Something went wrong, Try refreshing. If the error continues, please let us know by clicking the {'"Send Feedback"'}{' '}
                         Button
                     </h2>
                     <h4 className="text-center full-center">If you are a developer, check the console for more details</h4>
@@ -84,7 +84,7 @@ export default class PreactErrorCatcher extends Component<props, state> {
                             Reset
                         </Button>
                     </div>
-                </>
+                </Box>
             );
         }
 

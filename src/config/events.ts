@@ -703,17 +703,41 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
+        schedule: null,
+        info: {
+            message: '<i>Reminder: Senior Portfolio Due</i>',
+            date: new Date('May 23, 2023'),
+        },
+    },
+    {
+        schedule: schedules.assemblyPM,
+        info: {
+            message: 'Decision Day Assembly',
+            date: new Date('May 25, 2023'),
+        },
+    },
+    {
         schedule: schedules.noSchool,
         info: {
-            message: 'Snow Makeup Day or No School',
+            message: '<del>Snow Make Up Day or</del> No School',
             date: new Date('May 26, 2023'),
         },
     },
     {
         schedule: schedules.noSchool,
         info: {
-            message: 'No School  Memorial Day',
+            message: 'No School | Memorial Day',
             date: new Date('May 29, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: '<i>Reminder For Seniors: Prom Tickets On Sale Until June 9th Lunchtime</i>',
+            date: {
+                start: new Date('May 30, 2023'),
+                end: new Date('June 8, 2023'),
+            },
         },
     },
     {
@@ -723,6 +747,44 @@ export const scheduleEvents: ScheduleEvents = [
             date: new Date('June 7, 2023'),
         },
     },
+
+    {
+        schedule: null,
+        info: {
+            message: '<i>Reminder For Seniors: Last Day To Get Prom Tickets!!!</i>',
+            date: new Date('June 9, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: '<i>Event: Senior Prom</i>',
+            date: new Date('June 10, 2023'),
+        },
+    },
+
+    {
+        schedule: schedules.assemblyPM,
+        info: {
+            message: 'Awards Assembly / Senior Countdown',
+            date: new Date('June 15, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: 'Last Day Of Classes For Seniors',
+            date: new Date('June 15, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: '<i>Senior Breakdast & Required Graduation Rehearsal</i>',
+            date: new Date('June 16, 2023'),
+        },
+    },
+
     {
         schedule: schedules.noSchool,
         info: {
@@ -734,6 +796,13 @@ export const scheduleEvents: ScheduleEvents = [
         schedule: schedules.earlyDissmissal,
         info: {
             message: 'Early Dismissal (K-12) | Grade Prep',
+            date: new Date('June 20, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
+            message: '<i>Graduation 🎉</i>',
             date: new Date('June 20, 2023'),
         },
     },

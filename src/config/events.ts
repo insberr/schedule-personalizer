@@ -705,6 +705,13 @@ export const scheduleEvents: ScheduleEvents = [
     {
         schedule: null,
         info: {
+            message: '<strong>Extended Advisory & Career Fair - Schedule Unknown</strong>',
+            date: new Date('May 23, 2023'),
+        },
+    },
+    {
+        schedule: null,
+        info: {
             message: '<i>Reminder: Senior Portfolio Due</i>',
             date: new Date('May 23, 2023'),
         },

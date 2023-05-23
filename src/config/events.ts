@@ -703,9 +703,9 @@ export const scheduleEvents: ScheduleEvents = [
         },
     },
     {
-        schedule: null,
+        schedule: schedules.onehourAdvisory,
         info: {
-            message: '<strong>Extended Advisory & Career Fair - Schedule Unknown</strong>',
+            message: '<strong>Extended Advisory For Some Reason</strong>',
             date: new Date('May 23, 2023'),
         },
     },

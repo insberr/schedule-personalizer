@@ -771,7 +771,7 @@ export const scheduleEvents: ScheduleEvents = [
     },
 
     {
-        schedule: schedules.assemblyPM,
+        schedule: schedules.assemblySeniorAwardsCountdown,
         info: {
             message: 'Awards Assembly / Senior Countdown',
             date: new Date('June 15, 2023'),

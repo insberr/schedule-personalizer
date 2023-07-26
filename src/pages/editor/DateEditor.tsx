@@ -1,7 +1,7 @@
 import { isSameDay } from 'date-fns';
 import Calendar from 'react-calendar';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
-import { DateRange } from '../../config/events/addonEvents';
+import { DateRange } from '../../config/events';
 
 type Props = {
     setDate: (date: Date | DateRange) => void;

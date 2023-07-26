@@ -32,6 +32,8 @@ export const iCalEvents = Object.values(iCalEventsParsed)
         const newiCalEvent: addonEvents.ScheduleEvent = {
             schedule: evtSch,
             info: {
+                // TODO Broken
+                // ! Broken!!!
                 date: { start: new Date(event.start), end: new Date(event.end) }, // todo - { start, end }
                 message: evtMsg,
             },

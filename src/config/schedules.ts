@@ -1,8 +1,9 @@
 import { EventSchedule } from '../pages/schedule';
-import { CL, ClassIDS, getTimeW, Time } from '../types';
+import { CL, ClassIDS, getTimeW, getTimeW_Input12Hour, Time } from '../types';
 import '../types/schedulesTypes';
 import { examSchedule } from './schedules/examSchedule';
 import { teachers } from './teachers';
+import * as config from './settings';
 
 export type CLIdentifier = {
     classID: ClassIDS;
@@ -143,7 +144,8 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Period,
                 period: 1,
-                startTime: getTimeW(7, 35),
+                startTime: config.schoolStartTime,
+                // classDuration: durationTime({ minutesLong: 55}), Temporary idea, might add to sp v10
                 endTime: getTimeW(8, 45),
             },
             {
@@ -173,7 +175,7 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Dismissal,
                 period: 0,
-                startTime: getTimeW(14, 5),
+                startTime: config.schoolEndTime,
                 endTime: getTimeW(14, 10),
             },
         ],

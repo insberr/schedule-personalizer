@@ -59,6 +59,12 @@ export const alertMessageSchedules: { contains: string; schedule: SchedulesType 
 // advisory should be included
 export const numberOfPeriods = 6;
 
+// School start and end times
+export const schoolStartTime = types.getTimeW_Input12Hour(7, 45);
+export const schoolStartTime_1HourLate = types.getTimeW_Input12Hour(8, 45);
+export const schoolEndTime = types.getTimeW_Input12Hour(2, 15);
+export const schoolEndTime_EarlyDismissal = types.getTimeW_Input12Hour(11, 15);
+
 // For adding cambridge support, thatll be fun
 export const cambridgePeriods = [11, 12, 13];
 
@@ -89,7 +95,7 @@ export const lastDayOfSchool = new Date('June 23, 2024 23:59');
 // Terms
 // This is also used to determine the number of terms in the school year
 // This valuse is REQUIRED else there will be an error
-// 
+//
 // `endDate` is by default set with an end time of 00:00 (12am)
 //   due to the way the code works, it is advised that you specify the time
 //   this would in most cases be 23:59 (11:59pm)

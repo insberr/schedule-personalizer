@@ -162,6 +162,14 @@ export function getTimeW(h: number, m: number, s = 0): Time {
     };
 }
 
+export function getTimeW_Input12Hour(h: number, m: number, isPM = false, s = 0): Time {
+    return {
+        hours: isPM && h < 12 ? h + 12 : h,
+        minutes: m,
+        seconds: s,
+    };
+}
+
 export type schObject = {
     [key: string]: CL;
 };

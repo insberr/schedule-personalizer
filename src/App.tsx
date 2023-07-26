@@ -9,6 +9,7 @@ import LoadSpinner from './components/LoadSpinner';
 import { useDispatch } from 'react-redux';
 import { setStudentVueData, useStudentvue } from './storage/studentvue';
 import { useSTV } from './storage/studentvueData';
+import { reset as resetSchedule } from './storage/schedule';
 
 import { Page } from './storage/page';
 import { Route } from './router/Route';
@@ -20,6 +21,7 @@ import { StudentID } from './pages/studentID';
 import { SchoolInfo } from './pages/schoolInfo';
 import { BetaMap } from './pages/beta';
 import Login from './pages/login/Login';
+import { schoolYear } from './config/settings';
 
 const SetupPage = React.lazy(() => import('./pages/setup'));
 const EditorPage = React.lazy(() => import('./pages/editor'));
@@ -76,6 +78,14 @@ function App() {
             Sentry.setUser(null);
         }
     }, [stv, stvInf]);
+
+    // navigator.clipboard.writeText(JSON.stringify(stvInf));
+    // localStorage.removeItem('schoolYear');
+
+    if (localStorage.getItem('schoolYear') !== schoolYear) {
+        dispatch(resetSchedule());
+        localStorage.setItem('schoolYear', schoolYear);
+    }
 
     return (
         <React.Suspense fallback={<LoadSpinner />}>

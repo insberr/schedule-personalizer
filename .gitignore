@@ -74,3 +74,5 @@ uh.json
 src/legal.mdx
 src/splashscreens
 .svelte-kit
+
+src/config/studentvueDataForReference.json

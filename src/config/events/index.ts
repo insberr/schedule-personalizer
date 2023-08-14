@@ -1,6 +1,8 @@
 // ? If you are adding a new event, please add it to the addonEvents.ts file.
 
-import * as ical from 'node-ical';
+// Import this beacsue importing node-ics directly causes build failure due to axios dependency
+// I am to lazy to figure out how to make it work with axios, so this is how we are doing it
+import ical from '../../../node_modules/node-ical/ical.js';
 import { schedules, SchedulesType } from '../schedules';
 import * as addonEvents from './addonEvents';
 
@@ -8,7 +10,7 @@ import * as addonEvents from './addonEvents';
 // @ts-ignore
 import * as cal from 'bundle-text:./SWCal.ics';
 
-const iCalEventsParsed = ical.sync.parseICS(cal);
+const iCalEventsParsed = ical.parseICS(cal);
 
 export const iCalEvents = Object.values(iCalEventsParsed)
     .map((event) => {

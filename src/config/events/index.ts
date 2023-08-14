@@ -2,7 +2,17 @@
 
 // Import this beacsue importing node-ics directly causes build failure due to axios dependency
 // I am to lazy to figure out how to make it work with axios, so this is how we are doing it
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import ical from '../../../node_modules/node-ical/ical.js';
+type ICalEvent = {
+    type: string;
+    summary: {
+        val: string;
+    };
+    start: Date;
+    end: Date;
+};
 import { schedules, SchedulesType } from '../schedules';
 import * as addonEvents from './addonEvents';
 
@@ -12,7 +22,7 @@ import * as cal from 'bundle-text:./SWCal.ics';
 
 const iCalEventsParsed = ical.parseICS(cal);
 
-export const iCalEvents = Object.values(iCalEventsParsed)
+export const iCalEvents = (Object.values(iCalEventsParsed) as ICalEvent[])
     .map((event) => {
         if (event.type !== 'VEVENT') return null;
 

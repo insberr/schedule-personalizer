@@ -344,7 +344,7 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Advisory,
                 period: 0,
-                startTime: getTimeW(7, 35),
+                startTime: configTimes.schoolStartTime,
                 endTime: getTimeW(8, 5),
             },
             {
@@ -380,8 +380,8 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Dismissal,
                 period: 0,
-                startTime: getTimeW(14, 5),
-                endTime: getTimeW(14, 10),
+                startTime: configTimes.schoolEndTime,
+                endTime: getTimeW(14, 20),
             },
         ],
         overides: [
@@ -581,8 +581,8 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Dismissal,
                 period: 0,
-                startTime: getTimeW(14, 5),
-                endTime: getTimeW(14, 10),
+                startTime: configTimes.schoolEndTime,
+                endTime: getTimeW(14, 20),
             },
         ],
         overides: [
@@ -780,8 +780,8 @@ export const schedules: Schedules = {
             {
                 classID: ClassIDS.Dismissal,
                 period: 0,
-                startTime: getTimeW(14, 5),
-                endTime: getTimeW(14, 10),
+                startTime: configTimes.schoolEndTime,
+                endTime: getTimeW(14, 20),
             },
         ],
         overides: [

@@ -17,7 +17,7 @@ export const iCalEvents = Object.values(iCalEventsParsed)
         const eventSummary = event.summary.val;
         // what schedule
         let evtSch: SchedulesType | null = null;
-        let evtMsg = eventSummary;
+        let evtMsg = eventSummary + '<br />No Schedule Found';
 
         if (eventSummary === 'Late Arrival') {
             evtSch = schedules.lateStart1Hour;
@@ -28,11 +28,17 @@ export const iCalEvents = Object.values(iCalEventsParsed)
             evtMsg = 'No School<br />' + eventSummary;
         }
 
-        console.log(event.start, event.end, eventSummary, evtSch);
+        // console.log(event.start, event.end, eventSummary, evtSch);
+        // subtract one day from the end date for actual end date
+        const newEndDate = new Date(event.end);
+        newEndDate.setDate(newEndDate.getDate() - 1);
+
+        const dateOrDateRange = event.start.toDateString() === newEndDate.toDateString() ? event.start : { start: event.start, end: newEndDate };
+
         const newiCalEvent: addonEvents.ScheduleEvent = {
             schedule: evtSch,
             info: {
-                date: { start: new Date(event.start), end: new Date(event.end) }, // todo - { start, end }
+                date: dateOrDateRange,
                 message: evtMsg,
             },
         };

@@ -76,3 +76,4 @@ src/splashscreens
 .svelte-kit
 
 src/config/studentvueDataForReference.json
+.DS_Store

@@ -22,6 +22,7 @@ import { SchoolInfo } from './pages/schoolInfo';
 import { BetaMap } from './pages/beta';
 import Login from './pages/login/Login';
 import { schoolYear } from './config/settings';
+import { getTeachers } from './apis/studentvue/misc';
 
 const SetupPage = React.lazy(() => import('./pages/setup'));
 const EditorPage = React.lazy(() => import('./pages/editor'));
@@ -34,6 +35,12 @@ function App() {
 
     useEffect(() => {
         async function isValid() {
+            // Get teachers for updating
+            // const teachers = await getTeachers(stv.username, stv.password).then((res) => {
+            //     return res;
+            // });
+            // console.log('teacgers', JSON.stringify(teachers));
+
             const isValid = await api
                 .validateCredentials(stv.username, stv.password)
                 .then((res: boolean) => {

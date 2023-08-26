@@ -32,7 +32,9 @@ export const iCalEvents = (Object.values(iCalEventsParsed) as ICalEvent[])
         let evtMsg = eventSummary + '<br />No Schedule Found';
 
         if (eventSummary === 'Late Arrival') {
-            evtSch = schedules.lateStart1Hour;
+            // Do nothing, since every monday is a late start
+            // evtSch = schedules.lateStart1Hour;
+            evtMsg = 'Late Arrival';
         }
 
         if (eventSummary.includes('No Students') || eventSummary.includes('No School') || eventSummary.includes('Non-student')) {
@@ -61,4 +63,3 @@ export const iCalEvents = (Object.values(iCalEventsParsed) as ICalEvent[])
 export const events = [...iCalEvents, ...addonEvents.scheduleEvents];
 
 export default events;
-

@@ -45,7 +45,7 @@ export const lunches: types.LunchesType = {
                         teachers.Cambra_Christine_A,
                         teachers.Carrell_Jason_D,
                         teachers.Gladfelter_Irl_A,
-                        teachers.Grimaldi_Marseille,
+                        // Removed teachers.Grimaldi_Marseille,
                         teachers.Iverson_Kenneth_B,
                         teachers.Morford_Tressa_K,
                         teachers.Racus_Britni_E,
@@ -95,13 +95,14 @@ export const lunches: types.LunchesType = {
             // cringe
             forOveride: true,
             basedOnPeriod: 0,
+            // When lunch is based on advisory for this term, why...
             basedOnPeriodID: ClassIDS.Advisory,
             lunches: [
                 {
                     lunch: 1,
                     teachers: [
                         teachers.Fowler_Ethan_T,
-                        teachers.Grimaldi_Marseille,
+                        // Removed teachers.Grimaldi_Marseille,
                         teachers.Hodges_Denise_L,
                         teachers.Beatty_Matthew,
                         teachers.Mcmullen_Michael_L,
@@ -176,7 +177,7 @@ export const lunches: types.LunchesType = {
                         teachers.Cambra_Christine_A,
                         teachers.Carrell_Jason_D,
                         teachers.Gladfelter_Irl_A,
-                        teachers.Grimaldi_Marseille,
+                        // Removed teachers.Grimaldi_Marseille,
                         teachers.Jolly_Morgan_D,
                         teachers.Metcalf_Cody_D,
                         // teachers.Iverson_Kenneth_B,
@@ -234,7 +235,7 @@ export const lunches: types.LunchesType = {
                 {
                     lunch: 1,
                     teachers: [
-                        teachers.Athow_Michael_J,
+                        // Removed teachers.Athow_Michael_J,
                         teachers.Brendible_Jacklyn_V,
                         teachers.Brokaw_David_C,
                         teachers.Estrada_Jennifer_B,
@@ -248,7 +249,7 @@ export const lunches: types.LunchesType = {
 
                         // Theres two
                         teachers.Olsen_Carolyn_E,
-                        teachers.Olson_Howard_Diane_L,
+                        // Removed teachers.Olson_Howard_Diane_L,
 
                         teachers.Parsons_Terri_L,
                         teachers.Partin_Mariah_F,
@@ -282,7 +283,7 @@ export const lunches: types.LunchesType = {
                         teachers.Fowler_Raylene_K,
 
                         teachers.Gladfelter_Irl_A,
-                        teachers.Grimaldi_Marseille,
+                        // Removed teachers.Grimaldi_Marseille,
                         teachers.Hilsabeck_Erika_M,
                         teachers.Iverson_Kenneth_B,
                         teachers.Jolly_Morgan_D,
@@ -330,7 +331,7 @@ export const lunches: types.LunchesType = {
                 {
                     lunch: 1,
                     teachers: [
-                        teachers.Athow_Michael_J,
+                        // Removed teachers.Athow_Michael_J,
                         teachers.Brendible_Jacklyn_V,
                         teachers.Brokaw_David_C,
                         teachers.Estrada_Jennifer_B,
@@ -344,7 +345,7 @@ export const lunches: types.LunchesType = {
 
                         // Theres two
                         teachers.Olsen_Carolyn_E,
-                        teachers.Olson_Howard_Diane_L,
+                        // Removed teachers.Olson_Howard_Diane_L,
 
                         teachers.Parsons_Terri_L,
                         teachers.Partin_Mariah_F,
@@ -377,7 +378,7 @@ export const lunches: types.LunchesType = {
                         teachers.Fowler_Raylene_K,
 
                         teachers.Gladfelter_Irl_A,
-                        teachers.Grimaldi_Marseille,
+                        // Removed teachers.Grimaldi_Marseille,
                         teachers.Hilsabeck_Erika_M,
                         teachers.Iverson_Kenneth_B,
                         teachers.Jolly_Morgan_D,
@@ -425,7 +426,7 @@ export const lunches: types.LunchesType = {
                     lunch: 1,
                     teachers: [
                         teachers.Adams_Jennifer_N,
-                        teachers.Athow_Michael_J,
+                        // Removed teachers.Athow_Michael_J,
                         teachers.Blake_Ashley_L,
                         teachers.Brendible_Jacklyn_V,
                         teachers.Brokaw_David_C,

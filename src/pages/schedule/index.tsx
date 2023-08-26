@@ -314,7 +314,7 @@ function lunchify(
         if (temp_basedOnPeriodLunch.length > 0) {
             const temp_possibleLunches = temp_basedOnPeriodLunch[0].lunches.filter((lnc) => {
                 return lnc.teachers
-                    .map((t) => t.id)
+                    .map((lunchTeachers) => lunchTeachers.id)
                     .includes(
                         displayTerm.classes.filter((cl) => {
                             return (

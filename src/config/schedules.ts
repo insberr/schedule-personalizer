@@ -2472,8 +2472,8 @@ export const schedules: Schedules = {
                             return true;
                         case teachers.Greenland_Roy_F.id:
                             return true;
-                        case teachers.Grimaldi_Marseille.id:
-                            return true;
+                        // case teachers.Grimaldi_Marseille.id:
+                            // return true;
                         case teachers.Hilsabeck_Erika_M.id:
                             return true;
                         case teachers.Iverson_Kenneth_B.id:

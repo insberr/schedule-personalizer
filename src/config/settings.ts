@@ -85,8 +85,8 @@ export const scheduleConfigs = {
     ],
 };
 
-export const schoolYear = '2023-2024';
-export const lastDayOfSchool = new Date('June 23, 2024 23:59');
+export const schoolYear = '2024-2025';
+export const lastDayOfSchool = new Date('June 23, 2069 23:59');
 // Terms
 // This is also used to determine the number of terms in the school year
 // This valuse is REQUIRED else there will be an error
@@ -98,17 +98,17 @@ export const lastDayOfSchool = new Date('June 23, 2024 23:59');
 export const termsDates: types.Terms = [
     {
         termIndex: 0,
-        startDate: new Date('August 30, 2023'),
-        endDate: new Date('December 6, 2023'),
+        startDate: new Date('August 30, 2024'),
+        endDate: new Date('December 6, 2024'),
         classes: [],
     },
     {
         termIndex: 1,
-        startDate: new Date('December 8, 2023'),
-        endDate: new Date('March 23, 2024'),
+        startDate: new Date('December 8, 2024'),
+        endDate: new Date('March 23, 2025'),
         classes: [],
     },
-    { termIndex: 2, startDate: new Date('March 24, 2024'), endDate: lastDayOfSchool, classes: [] },
+    { termIndex: 2, startDate: new Date('March 24, 2025'), endDate: lastDayOfSchool, classes: [] },
 ];
 
 const defaultColor: types.RGBA = {
